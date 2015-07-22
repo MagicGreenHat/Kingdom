@@ -1,0 +1,26 @@
+# Symfony directories
+bin/
+vendor/*
+app/bootstrap.php.cache
+app/cache/*
+app/logs/*
+web/bundles/*
+web/uploads/*
+app/phpunit.xml
+
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.yml
+
+# Composer
+composer.phar
+
+# PhpStorm
+.idea/
+
+# Node and Bower modules
+node_modules/
+bower_components/
+
+# JS and CSS compiled files
+web/assets/*
