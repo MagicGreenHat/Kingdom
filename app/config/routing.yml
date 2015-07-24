@@ -1,1 +1,6 @@
+rottenwood_kingdom:
+    resource: "@RottenwoodKingdomBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 
