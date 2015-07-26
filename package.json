@@ -6,10 +6,11 @@
   "dependencies": {
     "autobahn": "^0.9.6",
     "commander": "^2.8.1",
-    "wamp.rt": "^0.1.4",
+    "redis": "^0.12.1",
     "wamp.io": "^0.0.4",
-    "websocket.io": "^0.2.1",
-    "websocket": "^1.0.21"
+    "wamp.rt": "^0.1.4",
+    "websocket": "^1.0.21",
+    "websocket.io": "^0.2.1"
   },
   "devDependencies": {},
   "scripts": {
