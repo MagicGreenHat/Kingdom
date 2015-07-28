@@ -14,12 +14,6 @@ class DefaultController extends Controller {
      * @return Response
      */
     public function indexAction() {
-        $client = new WebsocketClient('ws://localhost:7777/');
-
-        while ($receivedData = $client->receive()) {
-            echo $receivedData;
-        };
-
         return $this->render('RottenwoodKingdomBundle:Default:index.html.twig');
     }
 }
