@@ -42,8 +42,10 @@ connection.onopen = function (session) {
 
                 //TODO: Запуск симфони-команды
                 if (command == 'north') {
+                    session.publish(localChannelName, ['Вы отправились на север']);
                     session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
                 } else if (command == 'south') {
+                    session.publish(localChannelName, ['Вы отправились на юг']);
                     session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
                 }
 

@@ -14,6 +14,10 @@ class DefaultController extends Controller {
      * @return Response
      */
     public function indexAction() {
-        return $this->render('RottenwoodKingdomBundle:Default:index.html.twig');
+        return $this->render('RottenwoodKingdomBundle:Default:index.html.twig',
+            [
+                'hash' => 'TestHashFromController',
+            ]
+        );
     }
 }
