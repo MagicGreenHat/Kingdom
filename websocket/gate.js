@@ -4,7 +4,7 @@
 
 COMMAND_CHANNEL_NAME = 'command';
 SYSTEM_CHANNEL_NAME = 'system';
-GATE_CHANNEL_NAME = 'system.register.hash';
+GATE_CHANNEL_NAME = 'gate';
 SYMFONY_CONSOLE_PATH = '../app/console';
 
 var autobahn = require('autobahn');
@@ -28,7 +28,34 @@ connection.onopen = function (session) {
     session.publish(SYSTEM_CHANNEL_NAME, ['Gate service is running ...']);
 
     session.register(GATE_CHANNEL_NAME, function (args) {
-        return args[0];
+        var data = args[0];
+
+        var localChannelName = 'character.' + data.session;
+
+        session.subscribe(localChannelName, function (args) {
+            var data = args[0];
+            var command = data.command;
+            var commandArguments = data.arguments;
+
+            if (command) {
+                console.log('[' + localChannelName + '] [команда]: ' + command);
+
+                //TODO: Запуск симфони-команды
+                if (command == 'north') {
+                    session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
+                } else if (command == 'south') {
+                    session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
+                }
+
+            } else {
+                console.log('[' + localChannelName + '] [чат]: ' + data);
+            }
+
+        });
+
+        session.publish(localChannelName, ['TEST']);
+
+        return data;
     });
 
 };
