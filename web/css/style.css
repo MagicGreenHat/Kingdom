@@ -4,6 +4,11 @@
     text-align: center;
 }
 
+.break-10 {
+    display: block;
+    margin-top: 10px;
+}
+
 /* Игровая карта */
 .map {
     margin-bottom: 30px;
@@ -17,11 +22,25 @@
 }
 
 /* Форма логина */
-.login-block {
-    margin: 100px auto;
+.login-block, .registration-block {
+    margin: 20px auto;
 }
 
-.login-block button {
-    padding: 5px 30px;
+.login-block button,
+.registration-block button {
+    width: 150px;
+    padding: 5px;
     margin-top: 10px;
+}
+
+/* Форма регистрации */
+
+.fos_user_registration_register label,
+.fos_user_registration_register input {
+    width: 180px;
+    display: inline-block;
+}
+
+#fos_user_registration_form div {
+    padding-bottom: 5px;
 }

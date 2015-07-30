@@ -11,8 +11,16 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
         <table class="login-block">
+            <tr class="center">
+                <td colspan="2">
+                    <h3>
+                        Государство
+                    </h3>
+                </td>
+            </tr>
             <tr>
                 <td>
+
                     <label for="username">{{ 'security.login.username'|trans }}</label>
                 </td>
                 <td>
@@ -36,6 +44,11 @@
             <tr class="center">
                 <td colspan="2">
                     <button>{{ 'security.login.submit'|trans }}</button>
+                </td>
+            </tr>
+            <tr class="center">
+                <td colspan="2">
+                    <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans }}</a>
                 </td>
             </tr>
         </table>
