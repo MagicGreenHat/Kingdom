@@ -1,3 +1,10 @@
+/* Общие классы */
+
+.center {
+    text-align: center;
+}
+
+/* Игровая карта */
 .map {
     margin-bottom: 30px;
 }
@@ -7,4 +14,14 @@
     background-color: #636363;
     width: 50px;
     height: 50px;
+}
+
+/* Форма логина */
+.login-block {
+    margin: 100px auto;
+}
+
+.login-block button {
+    padding: 5px 30px;
+    margin-top: 10px;
 }

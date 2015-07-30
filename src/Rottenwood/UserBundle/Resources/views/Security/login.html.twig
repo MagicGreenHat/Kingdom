@@ -10,24 +10,34 @@
     <form action="{{ path('fos_user_security_check') }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
-        <div class="login">
-            <label for="username">{{ 'security.login.username'|trans }}</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
-        </div>
-
-        <div class="password">
-            <label for="password">{{ 'security.login.password'|trans }}</label>
-            <input type="password" id="password" name="_password" required="required"/>
-        </div>
-
-        <div>
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-        </div>
-
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
+        <table class="login-block">
+            <tr>
+                <td>
+                    <label for="username">{{ 'security.login.username'|trans }}</label>
+                </td>
+                <td>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">{{ 'security.login.password'|trans }}</label>
+                </td>
+                <td>
+                    <input type="password" id="password" name="_password" required="required"/>
+                </td>
+            </tr>
+            <tr class="center">
+                <td colspan="2">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                </td>
+            </tr>
+            <tr class="center">
+                <td colspan="2">
+                    <button>{{ 'security.login.submit'|trans }}</button>
+                </td>
+            </tr>
+        </table>
     </form>
-
-
-
 {% endblock fos_user_content %}
