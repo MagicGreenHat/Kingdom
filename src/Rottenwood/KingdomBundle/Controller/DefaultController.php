@@ -14,7 +14,6 @@ class DefaultController extends Controller {
      * @return Response
      */
     public function indexAction() {
-
         if ($this->getUser()) {
         	return $this->redirectToRoute('game_page');
         } else {

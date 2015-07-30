@@ -21,7 +21,12 @@ security:
                 provider: fos_userbundle
                 csrf_provider: security.csrf.token_manager
             logout:       true
-            anonymous:    ~
+            anonymous:    true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 2592000
+                path:     /
+                domain:   ~
 
     access_control:
         - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
