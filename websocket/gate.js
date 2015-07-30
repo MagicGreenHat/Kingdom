@@ -30,7 +30,7 @@ connection.onopen = function (session) {
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
 
-        var localChannelName = 'character.' + data.session;
+        var localChannelName = 'character.' + data.hash;
 
         session.subscribe(localChannelName, function (args) {
             var data = args[0];

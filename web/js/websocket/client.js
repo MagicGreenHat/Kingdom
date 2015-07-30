@@ -16,7 +16,7 @@ $(function () {
 
                 // TODO: Отрисовка игрового интерфейса
 
-                var localChannelName = 'character.' + session.id;
+                var localChannelName = 'character.' + hash;
 
                 session.subscribe(localChannelName, function (args) {
                     var data = args[0];

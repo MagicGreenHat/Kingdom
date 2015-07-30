@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller {
@@ -26,9 +27,9 @@ class DefaultController extends Controller {
      * @Route("/game", name="game_page")
      * @return Response
      */
-    public function gamePageAction() {
+    public function gamePageAction(Request $request) {
         return $this->render('RottenwoodKingdomBundle:Default:game.html.twig',
-            ['hash' => 'TestHashFromController']
+            ['hash' => $request->getSession()->getId()]
         );
     }
 }
