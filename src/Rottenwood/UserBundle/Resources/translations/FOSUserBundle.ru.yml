@@ -77,8 +77,8 @@ resetting:
 
 # Global strings
 layout:
-    logout: Выход
-    login: Вход
+    logout: Выйти из игры
+    login: Логин
     register: Регистрация
     logged_in_as: Вы вошли как %username%
 

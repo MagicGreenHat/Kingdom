@@ -9,26 +9,27 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller {
 
     /**
+     * //TODO: Сделать главную страницу
      * @Route("/", name="index")
      * @return Response
      */
     public function indexAction() {
-        return $this->render('RottenwoodKingdomBundle:Default:index.html.twig',
-            [
-                'hash' => 'TestHashFromController',
-            ]
-        );
+
+        if ($this->getUser()) {
+        	return $this->redirectToRoute('game_page');
+        } else {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
     }
 
     /**
-     * @Route("/test")
+     * Основная страница игры
+     * @Route("/game", name="game_page")
      * @return Response
      */
-    public function testAction() {
-        return $this->render('RottenwoodKingdomBundle:Default:index.html.twig',
-            [
-                'hash' => 'TestHashFromController',
-            ]
+    public function gamePageAction() {
+        return $this->render('RottenwoodKingdomBundle:Default:game.html.twig',
+            ['hash' => 'TestHashFromController']
         );
     }
 }
