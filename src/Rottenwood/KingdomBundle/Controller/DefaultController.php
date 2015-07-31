@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller {
 
     /**
-     * //TODO: Сделать главную страницу
+     * //TODO[Rottenwood]: Сделать главную страницу
      * @Route("/", name="index")
      * @return Response
      */

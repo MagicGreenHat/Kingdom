@@ -14,7 +14,7 @@ $(function () {
             function (result) {
                 console.log('Result:', result);
 
-                // TODO: Отрисовка игрового интерфейса
+                // TODO[Rottenwood]: Отрисовка игрового интерфейса
 
                 var localChannelName = 'character.' + hash;
 
@@ -37,9 +37,9 @@ $(function () {
 
                 // Функции связанные с сессией
                 function callCammand(command, arguments) {
-                    //TODO: блокировка интерфейса отправки команд
+                    //TODO[Rottenwood]: блокировка интерфейса отправки команд
                     session.publish(localChannelName, [{command: command, arguments: arguments}]);
-                    //TODO: разблокировка интерфейса отправки команд
+                    //TODO[Rottenwood]: разблокировка интерфейса отправки команд
                 }
 
                 // Команды перемещения
@@ -64,7 +64,7 @@ $(function () {
 
     connection.open();
 
-    //TODO: Отрисовка элементов карты
+    //TODO[Rottenwood]: Отрисовка элементов карты
     function redrawMap(mapData) {
         if (mapData.a1 == 1) {
             $('.map-frame.map1').css('background-color', 'yellow');

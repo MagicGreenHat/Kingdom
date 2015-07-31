@@ -27,9 +27,9 @@ connection.onopen = function (session) {
 
     session.publish(SYSTEM_CHANNEL_NAME, ['Gate service is running ...']);
 
-    //TODO: Удаленная команда всем клиентам переподключиться, чтобы гейт подключился к локальным каналам
+    //TODO[Rottenwood]: Удаленная команда всем клиентам переподключиться, чтобы гейт подключился к локальным каналам
 
-    //TODO: Отключаться от каналов, когда из них выходят клиенты
+    //TODO[Rottenwood]: Отключаться от каналов, когда из них выходят клиенты
 
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
@@ -48,7 +48,7 @@ connection.onopen = function (session) {
                 if (command) {
                     console.log('[' + localChannelName + '] [команда]: ' + command);
 
-                    //TODO: Запуск симфони-команды
+                    //TODO[Rottenwood]: Запуск симфони-команды
                     if (command == 'north') {
                         session.publish(localChannelName, ['Вы отправились на север']);
                         session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
