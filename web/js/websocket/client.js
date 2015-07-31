@@ -28,11 +28,17 @@ $(function () {
                     if (data.map) {
                         redrawMap(data.map);
                     }
+
+                    // Отрисовка чата
+                    if (data.chat) {
+                        redrawChat(data.chat);
+                    }
                 });
 
-                function callCammand(command) {
+                // Функции связанные с сессией
+                function callCammand(command, arguments) {
                     //TODO: блокировка интерфейса отправки команд
-                    session.publish(localChannelName, [{command: command}]);
+                    session.publish(localChannelName, [{command: command, arguments: arguments}]);
                     //TODO: разблокировка интерфейса отправки команд
                 }
 
@@ -41,6 +47,17 @@ $(function () {
                     var direction = $(this).attr('class');
                     callCammand(direction);
                 });
+
+                // Поле для чата
+                $('#chat-box-input').keypress(function (event) {
+                    if (event.which == 13) {
+                        callCammand('chat', $(this).val());
+                        $(this).val('');
+                        return false;
+                    }
+                });
+
+
             }
         );
     };
@@ -56,5 +73,9 @@ $(function () {
         }
 
         console.log('Карта отрисована: ' + mapData.a1 + mapData.a2 + mapData.a3);
+    }
+
+    function redrawChat(phrase) {
+        $('.chat-box').append('<div>' + phrase + '</div>');
     }
 });

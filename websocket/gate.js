@@ -53,8 +53,11 @@ connection.onopen = function (session) {
                     } else if (command == 'south') {
                         session.publish(localChannelName, ['Вы отправились на юг']);
                         session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
+                    } else if (command == 'chat') {
+                        session.subscriptions.forEach(function(subscription) {
+                            session.publish(subscription[0].topic, [{chat: commandArguments}]);
+                        });
                     }
-
                 } else {
                     console.log('[' + localChannelName + '] [чат]: ' + data);
                 }
@@ -62,8 +65,6 @@ connection.onopen = function (session) {
             });
 
         }
-
-        session.publish(localChannelName, ['TEST']);
 
         return data;
     });
