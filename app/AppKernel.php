@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Rottenwood\KingdomBundle\RottenwoodKingdomBundle(),
             new Rottenwood\UserBundle\RottenwoodUserBundle(),
+            new Snc\RedisBundle\SncRedisBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

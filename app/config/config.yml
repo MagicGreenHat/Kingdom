@@ -83,3 +83,10 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Rottenwood\KingdomBundle\Entity\User
+
+snc_redis:
+    clients:
+        default:
+            type: phpredis # заменить на predis
+            alias: default
+            dsn: redis://localhost
