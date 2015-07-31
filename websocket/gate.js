@@ -29,6 +29,8 @@ connection.onopen = function (session) {
 
     //TODO: Удаленная команда всем клиентам переподключиться, чтобы гейт подключился к локальным каналам
 
+    //TODO: Отключаться от каналов, когда из них выходят клиенты
+
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
         var localChannelName = 'character.' + data.hash;
@@ -61,14 +63,11 @@ connection.onopen = function (session) {
                 } else {
                     console.log('[' + localChannelName + '] [чат]: ' + data);
                 }
-
             });
-
         }
 
         return data;
     });
-
 };
 
 connection.open();

@@ -16,6 +16,10 @@
         <a href="{{ path('fos_user_security_logout') }}">
             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
         </a>
+
+        <div>
+            Сейчас в игре: {{ onlinePlayersCount }} {{ 'users.online'|transchoice(onlinePlayersCount) }}.
+        </div>
     </div>
 
     <h2>Тестирование чата</h2>
