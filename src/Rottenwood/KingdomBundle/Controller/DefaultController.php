@@ -38,8 +38,15 @@ class DefaultController extends Controller {
         $redis = $this->container->get('snc_redis.default');
 
         $charactersHash = 'kingdom:characters:hash';
-        $redis->hset($charactersHash, $hash, $this->getUser()->getUsername());
         $userHash = $redis->hgetall($charactersHash);
+
+        $username = $this->getUser()->getUsername();
+
+        if ($oldHash = array_search($username, $userHash)) {
+            $redis->hdel($charactersHash, $oldHash);
+        }
+
+        $redis->hset($charactersHash, $hash, $username);
 
         return $this->render('RottenwoodKingdomBundle:Default:game.html.twig',
             [
