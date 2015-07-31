@@ -14,4 +14,6 @@ interface RedisClientInterface {
     public function hgetall($hash);
 
     public function hlen($hash);
+
+    public function hdel($hash, $key);
 }
