@@ -27,33 +27,41 @@ connection.onopen = function (session) {
 
     session.publish(SYSTEM_CHANNEL_NAME, ['Gate service is running ...']);
 
+    //TODO: Удаленная команда всем клиентам переподключиться, чтобы гейт подключился к локальным каналам
+
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
-
         var localChannelName = 'character.' + data.hash;
 
-        session.subscribe(localChannelName, function (args) {
-            var data = args[0];
-            var command = data.command;
-            var commandArguments = data.arguments;
+        var isLocalChannelSubscribed = session.subscriptions.some(function(subscription) {
+            return subscription[0].topic == localChannelName;
+        });
 
-            if (command) {
-                console.log('[' + localChannelName + '] [команда]: ' + command);
+        if (!isLocalChannelSubscribed) {
+            session.subscribe(localChannelName, function (args) {
+                var data = args[0];
+                var command = data.command;
+                var commandArguments = data.arguments;
 
-                //TODO: Запуск симфони-команды
-                if (command == 'north') {
-                    session.publish(localChannelName, ['Вы отправились на север']);
-                    session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
-                } else if (command == 'south') {
-                    session.publish(localChannelName, ['Вы отправились на юг']);
-                    session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
+                if (command) {
+                    console.log('[' + localChannelName + '] [команда]: ' + command);
+
+                    //TODO: Запуск симфони-команды
+                    if (command == 'north') {
+                        session.publish(localChannelName, ['Вы отправились на север']);
+                        session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
+                    } else if (command == 'south') {
+                        session.publish(localChannelName, ['Вы отправились на юг']);
+                        session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
+                    }
+
+                } else {
+                    console.log('[' + localChannelName + '] [чат]: ' + data);
                 }
 
-            } else {
-                console.log('[' + localChannelName + '] [чат]: ' + data);
-            }
+            });
 
-        });
+        }
 
         session.publish(localChannelName, ['TEST']);
 
