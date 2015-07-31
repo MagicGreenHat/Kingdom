@@ -75,7 +75,7 @@ $(function () {
         console.log('Карта отрисована: ' + mapData.a1 + mapData.a2 + mapData.a3);
     }
 
-    function redrawChat(phrase) {
-        $('.chat-box').append('<div>' + phrase + '</div>');
+    function redrawChat(chatData) {
+        $('.chat-box').append('<div>' + chatData.from + ': ' + chatData.phrase + '</div>');
     }
 });

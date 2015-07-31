@@ -9,6 +9,12 @@ SYMFONY_CONSOLE_PATH = '../app/console';
 
 var autobahn = require('autobahn');
 var exec = require('child_process').exec;
+var redis = require("redis").createClient();
+
+redis.on('error', function (err) {
+    console.log('[!] Redis error ' + err);
+});
+
 
 var connection = new autobahn.Connection({
     url: 'ws://localhost:7777/',
@@ -34,16 +40,17 @@ connection.onopen = function (session) {
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
         var localChannelName = 'character.' + data.hash;
+        var hash = data.hash;
 
-        var isLocalChannelSubscribed = session.subscriptions.some(function(subscription) {
+        var isLocalChannelSubscribed = session.subscriptions.some(function (subscription) {
             return subscription[0].topic == localChannelName;
         });
 
         if (!isLocalChannelSubscribed) {
             session.subscribe(localChannelName, function (args) {
-                var data = args[0];
-                var command = data.command;
-                var commandArguments = data.arguments;
+                var localResponse = args[0];
+                var command = localResponse.command;
+                var commandArguments = localResponse.arguments;
 
                 if (command) {
                     console.log('[' + localChannelName + '] [команда]: ' + command);
@@ -56,12 +63,17 @@ connection.onopen = function (session) {
                         session.publish(localChannelName, ['Вы отправились на юг']);
                         session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
                     } else if (command == 'chat') {
-                        session.subscriptions.forEach(function(subscription) {
-                            session.publish(subscription[0].topic, [{chat: commandArguments}]);
+                        redis.hget('kingdom:characters:hash', hash, function (err, characterName) {
+                            session.subscriptions.forEach(function (subscription) {
+                                session.publish(subscription[0].topic, [{
+                                    chat: {from: characterName, phrase: commandArguments}
+                                }]);
+                            });
                         });
+
                     }
                 } else {
-                    console.log('[' + localChannelName + '] [чат]: ' + data);
+                    console.log('[' + localChannelName + '] [чат]: ' + localResponse);
                 }
             });
         }
