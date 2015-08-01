@@ -15,7 +15,6 @@ redis.on('error', function (err) {
     console.log('[!] Redis error ' + err);
 });
 
-
 var connection = new autobahn.Connection({
     url: 'ws://localhost:7777/',
     realm: 'kingdom'
@@ -50,14 +49,14 @@ connection.onopen = function (session) {
                         var character = JSON.parse(characterDataJson);
 
                         if (command == 'chat') {
-                            session.subscriptions.forEach(function (subscription) {
+                            var chatData = {
+                                chat: {
+                                    from: character.name,
+                                    phrase: commandArguments
+                                }
+                            };
 
-                                var chatJson = JSON.stringify({
-                                    chat: {from: character.name, phrase: commandArguments}
-                                });
-
-                                session.publish(subscription[0].topic, [chatJson]);
-                            });
+                            sendToOnlinePlayers(chatData);
                         } else {
                             runConsoleCommand(character, command);
                         }
@@ -77,6 +76,15 @@ connection.onopen = function (session) {
                         }
 
                         session.publish(localChannelName, [stdout]);
+                    });
+                }
+
+                function sendToOnlinePlayers(message) {
+                    var messageJson = JSON.stringify(message);
+
+                    session.subscriptions.forEach(function (subscription) {
+
+                        session.publish(subscription[0].topic, [messageJson]);
                     });
                 }
             });
