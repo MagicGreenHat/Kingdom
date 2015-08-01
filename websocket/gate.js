@@ -50,33 +50,28 @@ connection.onopen = function (session) {
                     redis.hget('kingdom:characters:hash', hash, function (err, characterDataJson) {
                         var character = JSON.parse(characterDataJson);
 
-                        runConsoleCommand(character, command);
-
-                        if (command == 'north') {
-                            session.publish(localChannelName, ['Вы отправились на север']);
-                            session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
-                        } else if (command == 'south') {
-                            session.publish(localChannelName, ['Вы отправились на юг']);
-                            session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
-                        } else if (command == 'chat') {
+                        if (command == 'chat') {
                             session.subscriptions.forEach(function (subscription) {
-                                session.publish(subscription[0].topic, [{
+
+                                var chatJson = JSON.stringify({
                                     chat: {from: character.name, phrase: commandArguments}
-                                }]);
+                                });
+
+                                session.publish(subscription[0].topic, [chatJson]);
                             });
+                        } else {
+                            runConsoleCommand(character, command);
                         }
                     });
                 } else {
-                    console.log('[' + localChannelName + '] [чат]: ' + localResponse);
+                    console.log('[' + localChannelName + ']: ' + localResponse);
                 }
 
                 // Запуск консольной команды
                 function runConsoleCommand(character, command) {
                     var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command;
 
-
                     exec(cmd, function (error, stdout) {
-
                         //TODO[Rottenwood]: Обработка ошибок
                         if (error) {
                             console.log(error);

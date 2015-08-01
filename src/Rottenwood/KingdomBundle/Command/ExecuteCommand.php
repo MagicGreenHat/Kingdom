@@ -28,10 +28,21 @@ class ExecuteCommand extends ContainerAwareCommand {
         $userId = $input->getArgument('userId');
         $command = $input->getArgument('externalCommand');
 
-        $result = [
-            'userId' => $userId,
-            'command' => $command,
-        ];
+        $result = [];
+
+        if ($command == 'north') {
+            $result['mapData'] = [
+                'a1' => 1,
+                'a2' => 2,
+                'a3' => 3,
+            ];
+        } elseif ($command == 'south') {
+            $result['mapData'] = [
+                'a1' => 3,
+                'a2' => 2,
+                'a3' => 1,
+            ];
+        }
 
         $output->writeln(json_encode($result));
     }
