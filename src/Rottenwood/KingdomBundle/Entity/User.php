@@ -1,8 +1,5 @@
 <?php
-/**
- * Author: Rottenwood
- * Date Created: 29.07.15 17:05
- */
+
 namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

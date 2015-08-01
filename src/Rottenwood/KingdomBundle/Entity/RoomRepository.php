@@ -4,6 +4,6 @@ namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-class UserRepository extends EntityRepository {
+class RoomRepository extends EntityRepository {
 
 }
