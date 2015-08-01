@@ -11,7 +11,10 @@
 {% endblock javascripts %}
 
 {% block body %}
-    <div>
+
+    <div id="game-underlayer"></div>
+
+    <div id="game-content">
         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
         <a href="{{ path('fos_user_security_logout') }}">
             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -22,36 +25,33 @@
         </div>
     </div>
 
-    <h2>Тестирование чата</h2>
-    <div>
-        <div class="chat-box"></div>
-        <label for="chat-box-input">Чат:</label>
-        <input id="chat-box-input" type="text"/>
+    <div id="game-map">
+        <div class="map">
+            <div class="map-frame-line">
+                <div class="map-frame map1"></div>
+                <div class="map-frame map2"></div>
+                <div class="map-frame map3"></div>
+            </div>
+            <div class="map-frame-line">
+                <div class="map-frame map4"></div>
+                <div class="map-frame map5"></div>
+                <div class="map-frame map6"></div>
+            </div>
+            <div class="map-frame-line">
+                <div class="map-frame map7"></div>
+                <div class="map-frame map8"></div>
+                <div class="map-frame map9"></div>
+            </div>
+        </div>
+        <button class="north">Север</button>
+        <button class="south">Юг</button>
+        <button class="west">Запад</button>
+        <button class="east">Восток</button>
     </div>
 
-    <h2>Тестирование перемещения</h2>
+    <div id="game-chat"></div>
 
-    <div class="map">
-        <div class="map-frame-line">
-            <div class="map-frame map1"></div>
-            <div class="map-frame map2"></div>
-            <div class="map-frame map3"></div>
-        </div>
-        <div class="map-frame-line">
-            <div class="map-frame map4"></div>
-            <div class="map-frame map5"></div>
-            <div class="map-frame map6"></div>
-        </div>
-        <div class="map-frame-line">
-            <div class="map-frame map7"></div>
-            <div class="map-frame map8"></div>
-            <div class="map-frame map9"></div>
-        </div>
+    <div class="game-chat-input">
+        <input id="chat-input" type="text" title="chat-box">
     </div>
-
-    <button class="north">Север</button>
-    <button class="south">Юг</button>
-    <button class="west">Запад</button>
-    <button class="east">Восток</button>
-
 {% endblock body %}

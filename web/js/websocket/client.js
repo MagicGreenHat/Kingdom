@@ -47,7 +47,7 @@ $(function () {
                 });
 
                 // Поле для чата
-                $('#chat-box-input').keypress(function (event) {
+                $('#chat-input').keypress(function (event) {
                     if (event.which == 13) {
                         callCommand('chat', $(this).val());
                         $(this).val('');
@@ -72,6 +72,8 @@ $(function () {
     }
 
     function redrawChat(chatData) {
-        $('.chat-box').append('<div>' + chatData.from + ': ' + chatData.phrase + '</div>');
+        var $gameChat = $('#game-chat');
+        $gameChat.append('<div>' + chatData.from + ': ' + chatData.phrase + '</div>');
+        $gameChat.scrollTop($gameChat.prop("scrollHeight"));
     }
 });

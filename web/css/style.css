@@ -44,3 +44,73 @@
 #fos_user_registration_form div {
     padding-bottom: 5px;
 }
+
+/****** Игровые блоки ******/
+
+#game-underlayer {
+    position: absolute;
+    background-image: url('../img/woods-background.png');
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: solid 2px #3D3D3D;
+}
+
+/* Блок "Основной Контент" */
+#game-content {
+    position: absolute;
+    background-color: darkseagreen;
+    top: 0;
+    left: 0;
+    width: 68%;
+    height: 60%;
+    border: solid 2px #3D3D3D;
+}
+
+/* Блок "Карта" */
+#game-map {
+    position: absolute;
+    background-color: darkseagreen;
+    top: 0;
+    right: 0;
+    height: 50%;
+    width: 29%;
+    padding: 5px;
+    border: solid 2px #3D3D3D;
+}
+
+/* Блок "Чат" */
+#game-chat {
+    position: absolute;
+    background-color: darkseagreen;
+    bottom: 36px;
+    left: 0;
+    right: 0;
+    height: 22%;
+    padding: 5px;
+    border: solid 2px #3D3D3D;
+    overflow-y: auto;
+}
+
+div.game-chat-input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+div.game-chat-input input {
+    background: white url('../img/chat-icon.png') no-repeat;
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: solid 2px #3D3D3D;
+    -webkit-transition: border 0.3s;
+    -moz-transition: border 0.3s;
+    -o-transition: border 0.3s;
+    transition: border 0.3s;
+    outline: none;
+}
