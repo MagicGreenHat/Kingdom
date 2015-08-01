@@ -46,4 +46,19 @@ class ExecuteCommand extends ContainerAwareCommand {
 
         $output->writeln(json_encode($result));
     }
+
+    /**
+     * Запуск внешней команды
+     * @param string $userId     id игрока запросившего запуск команды
+     * @param string $command    название команды
+     * @param array  $attributes параметры команды
+     * @return string json
+     */
+    private function executeExternal($userId, $command, array $attributes) {
+
+        //TODO[Rottenwood]: Поиск класса нужной команды. Если команда не найдена - эксепшен.
+        $result = json_encode([]);
+
+        return $result;
+    }
 }
