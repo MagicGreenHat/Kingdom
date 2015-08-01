@@ -30,8 +30,7 @@ connection.onopen = function (session) {
 
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
-        var localChannelName = 'character.' + data.hash;
-        var hash = data.hash;
+        var localChannelName = 'character.' + data.sessionId;
 
         var isLocalChannelSubscribed = session.subscriptions.some(function (subscription) {
             return subscription[0].topic == localChannelName;
@@ -47,7 +46,7 @@ connection.onopen = function (session) {
                     console.log('[' + localChannelName + '] [команда]: ' + command);
 
                     // Получение данных о пользователе из redis
-                    redis.hget('kingdom:characters:hash', hash, function (err, characterDataJson) {
+                    redis.hget('kingdom:characters:hash', data.sessionId, function (err, characterDataJson) {
                         var character = JSON.parse(characterDataJson);
 
                         if (command == 'chat') {

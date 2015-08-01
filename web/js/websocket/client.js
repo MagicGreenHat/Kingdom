@@ -6,8 +6,7 @@ var connection = new autobahn.Connection({
 $(function () {
     connection.onopen = function (session) {
         var userData = {
-            session: session.id,
-            hash: hash
+            sessionId: sessionId
         };
 
         session.call('gate', [userData]).then(
@@ -16,7 +15,7 @@ $(function () {
 
                 // TODO[Rottenwood]: Отрисовка игрового интерфейса
 
-                var localChannelName = 'character.' + hash;
+                var localChannelName = 'character.' + sessionId;
 
                 session.subscribe(localChannelName, function (args) {
                     console.log(args[0]);
