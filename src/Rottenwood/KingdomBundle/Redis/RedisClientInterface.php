@@ -7,6 +7,8 @@ namespace Rottenwood\KingdomBundle\Redis;
 
 interface RedisClientInterface {
 
+    const CHARACTERS_HASH_NAME = 'kingdom:characters:hash';
+
     public function get($key);
 
     public function hset($hash, $key, $value);
@@ -16,4 +18,6 @@ interface RedisClientInterface {
     public function hlen($hash);
 
     public function hdel($hash, $key);
+
+    public function del($key);
 }
