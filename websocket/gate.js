@@ -22,15 +22,6 @@ var connection = new autobahn.Connection({
 });
 
 connection.onopen = function (session) {
-
-    //session.subscribe(COMMAND_CHANNEL_NAME, function onevent(args) {
-    //    var cmd = SYMFONY_CONSOLE_PATH + ' --command ' + args[0];
-    //
-    //    exec(cmd, function (error, stdout, stderr) {
-    //        session.publish(COMMAND_CHANNEL_NAME, [stdout]);
-    //    });
-    //});
-
     session.publish(SYSTEM_CHANNEL_NAME, ['Gate service is running ...']);
 
     //TODO[Rottenwood]: Удаленная команда всем клиентам переподключиться, чтобы гейт подключился к локальным каналам
@@ -55,29 +46,44 @@ connection.onopen = function (session) {
                 if (command) {
                     console.log('[' + localChannelName + '] [команда]: ' + command);
 
-                    //TODO[Rottenwood]: Запуск симфони-команды
-                    if (command == 'north') {
-                        session.publish(localChannelName, ['Вы отправились на север']);
-                        session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
-                    } else if (command == 'south') {
-                        session.publish(localChannelName, ['Вы отправились на юг']);
-                        session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
-                    } else if (command == 'chat') {
-                        redis.hget('kingdom:characters:hash', hash, function (err, characterDataJson) {
-                            var characterData = JSON.parse(characterDataJson),
-                                characterId = characterData.id,
-                                characterName = characterData.name;
+                    // Получение данных о пользователе из redis
+                    redis.hget('kingdom:characters:hash', hash, function (err, characterDataJson) {
+                        var character = JSON.parse(characterDataJson);
 
+                        runConsoleCommand(character, command);
+
+                        if (command == 'north') {
+                            session.publish(localChannelName, ['Вы отправились на север']);
+                            session.publish(localChannelName, [{map: {a1: 1, a2: 2, a3: 3}}]);
+                        } else if (command == 'south') {
+                            session.publish(localChannelName, ['Вы отправились на юг']);
+                            session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
+                        } else if (command == 'chat') {
                             session.subscriptions.forEach(function (subscription) {
                                 session.publish(subscription[0].topic, [{
-                                    chat: {from: characterName, phrase: commandArguments}
+                                    chat: {from: character.name, phrase: commandArguments}
                                 }]);
                             });
-                        });
-
-                    }
+                        }
+                    });
                 } else {
                     console.log('[' + localChannelName + '] [чат]: ' + localResponse);
+                }
+
+                // Запуск консольной команды
+                function runConsoleCommand(character, command) {
+                    var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command;
+
+
+                    exec(cmd, function (error, stdout) {
+
+                        //TODO[Rottenwood]: Обработка ошибок
+                        if (error) {
+                            console.log(error);
+                        }
+
+                        session.publish(localChannelName, [stdout]);
+                    });
                 }
             });
         }
