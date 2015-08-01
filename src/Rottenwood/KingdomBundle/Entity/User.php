@@ -18,4 +18,11 @@ class User extends BaseUser {
      */
     protected $id;
 
+    /**
+     * Комната в которой находится персонаж
+     * @ORM\ManyToOne(targetEntity="Room")
+     * @ORM\JoinColumn(name="room", referencedColumnName="id")
+     * @var Room
+     */
+    private $room;
 }
