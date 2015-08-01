@@ -5,7 +5,7 @@
 COMMAND_CHANNEL_NAME = 'command';
 SYSTEM_CHANNEL_NAME = 'system';
 GATE_CHANNEL_NAME = 'gate';
-SYMFONY_CONSOLE_PATH = '../app/console';
+SYMFONY_CONSOLE_ENTRY_POINT = '../app/console kingdom:execute';
 
 var autobahn = require('autobahn');
 var exec = require('child_process').exec;
@@ -63,7 +63,11 @@ connection.onopen = function (session) {
                         session.publish(localChannelName, ['Вы отправились на юг']);
                         session.publish(localChannelName, [{map: {a1: 3, a2: 2, a3: 1}}]);
                     } else if (command == 'chat') {
-                        redis.hget('kingdom:characters:hash', hash, function (err, characterName) {
+                        redis.hget('kingdom:characters:hash', hash, function (err, characterDataJson) {
+                            var characterData = JSON.parse(characterDataJson),
+                                characterId = characterData.id,
+                                characterName = characterData.name;
+
                             session.subscriptions.forEach(function (subscription) {
                                 session.publish(subscription[0].topic, [{
                                     chat: {from: characterName, phrase: commandArguments}
