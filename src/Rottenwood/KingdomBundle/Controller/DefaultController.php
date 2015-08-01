@@ -37,7 +37,7 @@ class DefaultController extends Controller {
         /** @var RedisClientInterface $redis */
         $redis = $this->container->get('snc_redis.default');
 
-        $userHash = $redis->hgetall(RedisClientInterface::CHARACTERS_HASH_NAME);
+        $charactersOnline = $redis->hgetall(RedisClientInterface::CHARACTERS_HASH_NAME);
 
         $user = $this->getUser();
         $userId = $user->getId();
@@ -48,16 +48,13 @@ class DefaultController extends Controller {
             'name' => $username,
         ];
 
-        if ($oldHash = array_search(json_encode($userData), $userHash)) {
-            $redis->hdel(RedisClientInterface::CHARACTERS_HASH_NAME, $oldHash);
+        if ($oldCharacterData = array_search(json_encode($userData), $charactersOnline)) {
+            $redis->hdel(RedisClientInterface::CHARACTERS_HASH_NAME, $oldCharacterData);
         }
 
         $redis->hset(RedisClientInterface::CHARACTERS_HASH_NAME,
             $sessionId,
-            json_encode([
-                'id'   => $userId,
-                'name' => $username,
-            ])
+            json_encode($userData)
         );
 
         return $this->render('RottenwoodKingdomBundle:Default:game.html.twig',
