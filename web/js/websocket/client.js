@@ -19,14 +19,13 @@ $(function () {
                 var localChannelName = 'character.' + hash;
 
                 session.subscribe(localChannelName, function (args) {
-                    var data = args[0];
+                    console.log(args[0]);
 
-                    console.log(data);
+                    var data = JSON.parse(args[0]);
 
-                    // Команды для выполнения на клиенте
                     // Отрисовка карты
-                    if (data.map) {
-                        redrawMap(data.map);
+                    if (data.mapData) {
+                        redrawMap(data.mapData);
                     }
 
                     // Отрисовка чата
@@ -35,29 +34,27 @@ $(function () {
                     }
                 });
 
-                // Функции связанные с сессией
-                function callCammand(command, arguments) {
+                // Отправка команды по локальному каналу
+                function callCommand(command, arguments) {
                     //TODO[Rottenwood]: блокировка интерфейса отправки команд
                     session.publish(localChannelName, [{command: command, arguments: arguments}]);
                     //TODO[Rottenwood]: разблокировка интерфейса отправки команд
                 }
 
-                // Команды перемещения
+                // Кнопки перемещения
                 $('button').on('click', function() {
                     var direction = $(this).attr('class');
-                    callCammand(direction);
+                    callCommand(direction);
                 });
 
                 // Поле для чата
                 $('#chat-box-input').keypress(function (event) {
                     if (event.which == 13) {
-                        callCammand('chat', $(this).val());
+                        callCommand('chat', $(this).val());
                         $(this).val('');
                         return false;
                     }
                 });
-
-
             }
         );
     };
