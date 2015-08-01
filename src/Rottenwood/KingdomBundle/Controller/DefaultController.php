@@ -40,15 +40,21 @@ class DefaultController extends Controller {
         $userHash = $redis->hgetall(RedisClientInterface::CHARACTERS_HASH_NAME);
 
         $user = $this->getUser();
+        $userId = $user->getId();
         $username = $user->getUsername();
 
-        if ($oldHash = array_search($username, $userHash)) {
+        $userData = [
+            'id' => $userId,
+            'name' => $username
+        ];
+
+        if ($oldHash = array_search(json_encode($userData), $userHash)) {
             $redis->hdel(RedisClientInterface::CHARACTERS_HASH_NAME, $oldHash);
         }
 
         $redis->hset(RedisClientInterface::CHARACTERS_HASH_NAME,
             $hash, json_encode([
-                'id'   => $user->getId(),
+                'id'   => $userId,
                 'name' => $username,
             ])
         );
