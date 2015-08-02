@@ -8,12 +8,12 @@ interface GameCommandInterface {
 
     /**
      * @param User  $user
-     * @param array $attributes
+     * @param string $parameters
      */
-    public function __construct(User $user, array $attributes);
+    public function __construct(User $user, $parameters);
 
     /**
-     * @return array
+     * @return string
      */
     public function execute();
 }
