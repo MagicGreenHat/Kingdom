@@ -65,7 +65,7 @@ connection.onopen = function (session) {
 
                     // Запуск консольной команды
                     function runConsoleCommand(character, command) {
-                        var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command;
+                        var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command + ' ' + commandArguments;
 
                         exec(cmd, function (error, stdout) {
                             //TODO[Rottenwood]: Обработка ошибок
