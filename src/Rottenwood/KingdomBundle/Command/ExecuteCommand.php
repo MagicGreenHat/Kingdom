@@ -37,25 +37,7 @@ class ExecuteCommand extends ContainerAwareCommand {
         $command = $input->getArgument('externalCommand');
         $parameters = $input->getArgument('parameters');
 
-        $result = [];
-
-        if ($command == 'north') {
-            $result['mapData'] = [
-                'a1' => 1,
-                'a2' => 2,
-                'a3' => 3,
-            ];
-        } elseif ($command == 'south') {
-            $result['mapData'] = [
-                'a1' => 3,
-                'a2' => 2,
-                'a3' => 1,
-            ];
-        } else {
-            $result = $this->executeExternal($userId, $command, $parameters);
-        }
-
-        $output->writeln(json_encode($result));
+        $output->writeln($this->executeExternal($userId, $command, $parameters));
     }
 
     /**

@@ -12,7 +12,7 @@ class AbstractGameCommand implements GameCommandInterface {
     /** @var string */
     protected $parameters;
     /** @var EntityManager */
-    private $entityManager;
+    protected $entityManager;
 
     /**
      * @param User          $user
