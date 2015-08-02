@@ -6,13 +6,11 @@ var connection = new autobahn.Connection({
 $(function () {
     connection.onopen = function (session) {
         var userData = {
-            sessionId: sessionId
+            sessionId: sessionId // sessionId передается из html-шаблона
         };
 
         session.call('gate', [userData]).then(
-            function (result) {
-                console.log('Result:', result);
-
+            function () {
                 // TODO[Rottenwood]: Отрисовка игрового интерфейса
 
                 var localChannelName = 'character.' + sessionId;

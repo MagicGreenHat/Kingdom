@@ -91,8 +91,6 @@ connection.onopen = function (session) {
             }
 
             sendToOnlinePlayers({info: {event: 'playerEnter', name: character.name}});
-
-            return data;
         });
     });
 };
