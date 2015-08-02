@@ -76,7 +76,7 @@ class ExecuteCommand extends ContainerAwareCommand {
             $user = $userRepository->findById($userId);
 
             /** @var GameCommandInterface $command */
-            $command = new $commandClass($user, $parameters);
+            $command = new $commandClass($user, $parameters, $entityManager);
         } else {
             throw new \Exception('Команда не найдена');
         }

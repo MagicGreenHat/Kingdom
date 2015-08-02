@@ -8,6 +8,6 @@ class Move extends AbstractGameCommand {
      * @return string
      */
     public function execute() {
-        return $this->parameters;
+        return '';
     }
 }
