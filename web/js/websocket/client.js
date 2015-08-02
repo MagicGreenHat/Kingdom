@@ -48,7 +48,7 @@ $(function () {
                 // Кнопки перемещения
                 $('button').on('click', function() {
                     var direction = $(this).attr('class');
-                    callCommand(direction);
+                    callCommand('move', direction);
                 });
 
                 // Поле для чата
