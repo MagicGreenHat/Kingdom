@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\RoomRepository;
+use Rottenwood\KingdomBundle\Entity\RoomType;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,11 +16,19 @@ class MapPurgeCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        $output->writeln('Удаление комнат ...');
+        $this->truncateEntity(Room::class);
+        $output->writeln('Комнаты удалены.');
+
+        $output->writeln('Удаление типов комнат ...');
+        $this->truncateEntity(RoomType::class);
+        $output->writeln('Типы комнаты удалены.');
+    }
+
+    private function truncateEntity($entityName) {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $output->writeln('Удаление комнат ...');
-
-        $entityMetadata = $em->getClassMetadata(Room::class);
+        $entityMetadata = $em->getClassMetadata($entityName);
         $tableName = $entityMetadata->getTableName();
         $connection = $em->getConnection();
         $connection->beginTransaction();
@@ -34,7 +43,5 @@ class MapPurgeCommand extends ContainerAwareCommand {
         }
 
         $connection->exec('ALTER TABLE ' . $tableName . ' AUTO_INCREMENT = 1;');
-
-        $output->writeln('Комнаты удалены.');
     }
 }
