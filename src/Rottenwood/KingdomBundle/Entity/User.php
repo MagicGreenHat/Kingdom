@@ -25,4 +25,18 @@ class User extends BaseUser {
      * @var Room
      */
     private $room;
+
+    /**
+     * @return Room
+     */
+    public function getRoom() {
+        return $this->room;
+    }
+
+    /**
+     * @param Room $room
+     */
+    public function setRoom($room) {
+        $this->room = $room;
+    }
 }
