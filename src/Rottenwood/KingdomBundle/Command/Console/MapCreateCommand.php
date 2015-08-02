@@ -28,9 +28,9 @@ class MapCreateCommand extends ContainerAwareCommand {
             $output->write('Создание новых типов комнат ... ');
 
             $types = [
-                new RoomType('Лес', ''),
-                new RoomType('Густой Лес', ''),
-                new RoomType('Дорога', ''),
+                new RoomType('Лес', 'forest'),
+                new RoomType('Река', 'river'),
+                new RoomType('Дорога', 'road'),
             ];
 
             foreach ($types as $type) {
