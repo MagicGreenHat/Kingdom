@@ -31,23 +31,22 @@ connection.onopen = function (session) {
         var data = args[0];
         var localChannelName = 'character.' + data.sessionId;
 
-        var isLocalChannelSubscribed = session.subscriptions.some(function (subscription) {
-            return subscription[0].topic == localChannelName;
-        });
+        // Получение данных о пользователе из redis
+        redis.hget('kingdom:characters:hash', data.sessionId, function (err, characterDataJson) {
+            var character = JSON.parse(characterDataJson);
 
-        if (!isLocalChannelSubscribed) {
-            session.subscribe(localChannelName, function (args) {
-                var localResponse = args[0];
-                var command = localResponse.command;
-                var commandArguments = localResponse.arguments;
+            var isLocalChannelSubscribed = session.subscriptions.some(function (subscription) {
+                return subscription[0].topic == localChannelName;
+            });
 
-                if (command) {
-                    console.log('[' + localChannelName + '] [команда]: ' + command);
+            if (!isLocalChannelSubscribed) {
+                session.subscribe(localChannelName, function (args) {
+                    var localResponse = args[0];
+                    var command = localResponse.command;
+                    var commandArguments = localResponse.arguments;
 
-                    // Получение данных о пользователе из redis
-                    redis.hget('kingdom:characters:hash', data.sessionId, function (err, characterDataJson) {
-                        var character = JSON.parse(characterDataJson);
-
+                    if (command) {
+                        console.log('[' + localChannelName + '] [команда]: ' + command);
                         if (command == 'chat') {
                             var chatData = {
                                 chat: {
@@ -60,24 +59,25 @@ connection.onopen = function (session) {
                         } else {
                             runConsoleCommand(character, command);
                         }
-                    });
-                } else {
-                    console.log('[' + localChannelName + ']: ' + localResponse);
-                }
+                    } else {
+                        console.log('[' + localChannelName + ']: ' + localResponse);
+                    }
 
-                // Запуск консольной команды
-                function runConsoleCommand(character, command) {
-                    var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command;
+                    // Запуск консольной команды
+                    function runConsoleCommand(character, command) {
+                        var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command;
 
-                    exec(cmd, function (error, stdout) {
-                        //TODO[Rottenwood]: Обработка ошибок
-                        if (error) {
-                            console.log(error);
-                        }
+                        exec(cmd, function (error, stdout) {
+                            //TODO[Rottenwood]: Обработка ошибок
+                            if (error) {
+                                console.log(error);
+                            }
 
-                        session.publish(localChannelName, [stdout]);
-                    });
-                }
+                            session.publish(localChannelName, [stdout]);
+                        });
+                    }
+
+                });
 
                 function sendToOnlinePlayers(message) {
                     var messageJson = JSON.stringify(message);
@@ -87,10 +87,13 @@ connection.onopen = function (session) {
                         session.publish(subscription[0].topic, [messageJson]);
                     });
                 }
-            });
-        }
 
-        return data;
+            }
+
+            sendToOnlinePlayers({info: {event: 'playerEnter', name: character.name}});
+
+            return data;
+        });
     });
 };
 

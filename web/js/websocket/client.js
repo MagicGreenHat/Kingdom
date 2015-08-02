@@ -29,7 +29,12 @@ $(function () {
 
                     // Отрисовка чата
                     if (data.chat) {
-                        redrawChat(data.chat);
+                        addChatPhrase(data.chat);
+                    }
+
+                    // Вывод информационного сообщения
+                    if (data.info) {
+                        addInfo(data.info);
                     }
                 });
 
@@ -60,6 +65,10 @@ $(function () {
 
     connection.open();
 
+    /////// Функции клиентского интерфейса ///////
+
+    var $gameChat = $('#game-chat');
+
     //TODO[Rottenwood]: Отрисовка элементов карты
     function redrawMap(mapData) {
         if (mapData.a1 == 1) {
@@ -71,9 +80,17 @@ $(function () {
         console.log('Карта отрисована: ' + mapData.a1 + mapData.a2 + mapData.a3);
     }
 
-    function redrawChat(chatData) {
-        var $gameChat = $('#game-chat');
-        $gameChat.append('<div>' + chatData.from + ': ' + chatData.phrase + '</div>');
+    function addChatPhrase(chatData) {
+        $gameChat.append('<div><strong>' + chatData.from + '</strong>: ' + chatData.phrase + '</div>');
+        $gameChat.scrollTop($gameChat.prop("scrollHeight"));
+    }
+
+    function addInfo(infoData) {
+        if (infoData.event = 'playerEnter') {
+            var html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
+        }
+
+        $gameChat.append(html);
         $gameChat.scrollTop($gameChat.prop("scrollHeight"));
     }
 });
