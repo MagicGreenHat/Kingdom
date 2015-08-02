@@ -7,7 +7,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Игровая локация
- * @ORM\Table(name="rooms")
+ * @ORM\Table(name="rooms", uniqueConstraints={@ORM\UniqueConstraint(name="index_unique_coordinates", columns={"x", "y", "z"})})
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\RoomRepository")
  * @UniqueEntity({"x", "y", "z"})
  */
