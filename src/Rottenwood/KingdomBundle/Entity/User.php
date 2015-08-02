@@ -21,7 +21,7 @@ class User extends BaseUser {
     /**
      * Комната в которой находится персонаж
      * @ORM\ManyToOne(targetEntity="Room")
-     * @ORM\JoinColumn(name="room", referencedColumnName="id")
+     * @ORM\JoinColumn(name="room", referencedColumnName="id", nullable=false)
      * @var Room
      */
     private $room;
