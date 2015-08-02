@@ -1,6 +1,6 @@
 <?php
 
-namespace Rottenwood\KingdomBundle\Command;
+namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

@@ -42,6 +42,8 @@ class ExecuteCommand extends ContainerAwareCommand {
                 'a2' => 2,
                 'a3' => 1,
             ];
+        } else {
+            $result = $this->executeExternal($userId, $command, []);
         }
 
         $output->writeln(json_encode($result));
@@ -53,10 +55,17 @@ class ExecuteCommand extends ContainerAwareCommand {
      * @param string $command    название команды
      * @param array  $attributes параметры команды
      * @return string json
+     * @throws \Exception
      */
     private function executeExternal($userId, $command, array $attributes) {
+        $commandClass = __NAMESPACE__ . '\\Game\\' . ucfirst($command);
 
-        //TODO[Rottenwood]: Поиск класса нужной команды. Если команда не найдена - эксепшен.
+        if (class_exists($commandClass)) {
+
+        } else {
+            throw new \Exception('Команда не найдена');
+        }
+
         $result = json_encode([]);
 
         return $result;
