@@ -27,6 +27,13 @@ class RoomType {
     private $name;
 
     /**
+     * Описание
+     * @var string
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * Имя изображения на карте
      * @var string
      * @ORM\Column(name="picture", type="string", length=255)
@@ -54,6 +61,13 @@ class RoomType {
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
     }
 
     /**

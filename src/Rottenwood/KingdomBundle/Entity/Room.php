@@ -24,7 +24,7 @@ class Room {
     /**
      * Название
      * @var string
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -39,7 +39,7 @@ class Room {
     /**
      * Описание
      * @var string
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -68,11 +68,13 @@ class Room {
      * @param int      $x
      * @param int      $y
      * @param RoomType $type
+     * @param int      $z
      */
-    public function __construct($x, $y, RoomType $type) {
+    public function __construct($x, $y, RoomType $type, $z = 0) {
         $this->x = $x;
         $this->y = $y;
         $this->type = $type;
+        $this->z = $z;
     }
 
     /**

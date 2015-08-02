@@ -16,11 +16,11 @@ class MapPurgeCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $output->writeln('Удаление комнат ...');
+        $output->write('Удаление комнат ... ');
         $this->truncateEntity(Room::class);
         $output->writeln('Комнаты удалены.');
 
-        $output->writeln('Удаление типов комнат ...');
+        $output->write('Удаление типов комнат ... ');
         $this->truncateEntity(RoomType::class);
         $output->writeln('Типы комнаты удалены.');
     }
