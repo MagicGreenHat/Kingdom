@@ -25,11 +25,17 @@ class ExecuteCommand extends ContainerAwareCommand {
             InputArgument::REQUIRED,
             'команда для выполнения'
         );
+
+        $this->addArgument('parameters',
+            InputArgument::OPTIONAL,
+            'аргументы команды'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $userId = $input->getArgument('userId');
         $command = $input->getArgument('externalCommand');
+        $parameters = $input->getArgument('parameters');
 
         $result = [];
 
@@ -46,7 +52,7 @@ class ExecuteCommand extends ContainerAwareCommand {
                 'a3' => 1,
             ];
         } else {
-            $result = $this->executeExternal($userId, $command, []);
+            $result = $this->executeExternal($userId, $command, $parameters);
         }
 
         $output->writeln(json_encode($result));
@@ -56,11 +62,11 @@ class ExecuteCommand extends ContainerAwareCommand {
      * Запуск внешней команды
      * @param string $userId      Id игрока запросившего запуск команды
      * @param string $commandName Название команды
-     * @param array  $attributes  Параметры команды
+     * @param array  $parameters  Параметры команды
      * @return string json
      * @throws \Exception
      */
-    private function executeExternal($userId, $commandName, array $attributes) {
+    private function executeExternal($userId, $commandName, $parameters) {
         $commandClass = __NAMESPACE__ . '\\Game\\' . ucfirst($commandName);
 
         if (class_exists($commandClass)) {
@@ -70,7 +76,7 @@ class ExecuteCommand extends ContainerAwareCommand {
             $user = $userRepository->findById($userId);
 
             /** @var GameCommandInterface $command */
-            $command = new $commandClass($user, $attributes);
+            $command = new $commandClass($user, $parameters);
         } else {
             throw new \Exception('Команда не найдена');
         }
