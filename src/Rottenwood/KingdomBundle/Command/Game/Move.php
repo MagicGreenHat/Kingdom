@@ -18,7 +18,7 @@ class Move extends AbstractGameCommand {
 
         //TODO[Rottenwood]: Исправить проверку, логировать ошибку если у пользователя нет комнаты
         if (!$currentRoom) {
-        	$currentRoom = $roomRepository->find(25);
+            $currentRoom = $roomRepository->find(25);
         }
 
         $x = $currentRoom->getX();
@@ -36,10 +36,8 @@ class Move extends AbstractGameCommand {
 
         $destinationRoom = $roomRepository->findOneByXandY($x, $y);
 
-        $result = [];
-
         if (!$destinationRoom) {
-            $result['error'] = 'В эту сторону не пройти';
+            $result = ['error' => 'В эту сторону не пройти'];
         } else {
             $roomType = $destinationRoom->getType();
             $result = [
@@ -47,9 +45,11 @@ class Move extends AbstractGameCommand {
                 'type'    => $roomType->getName(),
                 'picture' => $roomType->getPicture(),
             ];
+
+            $this->user->setRoom($destinationRoom);
+            $this->entityManager->flush($this->user);
         }
 
-        $this->user->setRoom($destinationRoom);
 
         return $result;
     }
