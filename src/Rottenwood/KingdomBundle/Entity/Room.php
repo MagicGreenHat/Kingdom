@@ -3,11 +3,13 @@
 namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Игровая локация
  * @ORM\Table(name="rooms")
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\RoomRepository")
+ * @UniqueEntity({"x", "y", "z"})
  */
 class Room {
 
@@ -77,7 +79,7 @@ class Room {
     }
 
     /**
-     * @return int
+     * @return RoomType
      */
     public function getType() {
         return $this->type;
