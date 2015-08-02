@@ -2,7 +2,18 @@
 
 namespace Rottenwood\KingdomBundle\Command\Game;
 
+use Rottenwood\KingdomBundle\Entity\User;
+
 interface GameCommandInterface {
 
-    public function execute($userId, $command, array $attributes);
+    /**
+     * @param User  $user
+     * @param array $attributes
+     */
+    public function __construct(User $user, array $attributes);
+
+    /**
+     * @return array
+     */
+    public function execute();
 }
