@@ -34,6 +34,15 @@ class RoomType {
     private $picture;
 
     /**
+     * @param string $name
+     * @param string $picture
+     */
+    public function __construct($name, $picture) {
+        $this->name = $name;
+        $this->picture = $picture;
+    }
+
+    /**
      * @return int
      */
     public function getId() {
