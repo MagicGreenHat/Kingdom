@@ -65,6 +65,23 @@ class Room {
     private $z;
 
     /**
+     * @param string   $name
+     * @param int      $x
+     * @param int      $y
+     * @param RoomType $type
+     * @param int      $z
+     * @param string   $description
+     */
+    public function __construct($name, $x, $y, RoomType $type = null, $z = 0, $description = '') {
+        $this->name = $name;
+        $this->x = $x;
+        $this->y = $y;
+        $this->z = $z;
+        $this->type = $type;
+        $this->description = $description;
+    }
+
+    /**
      * @return int
      */
     public function getId() {
