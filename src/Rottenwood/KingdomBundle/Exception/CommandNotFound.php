@@ -2,6 +2,6 @@
 
 namespace Rottenwood\KingdomBundle\Exception;
 
-class CommandParameterException extends \Exception {
+class CommandNotFound extends \Exception {
 
 }
