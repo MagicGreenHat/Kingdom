@@ -92,6 +92,67 @@
     border: none;
 }
 
+/* Кнопки перехода в соседние локации */
+.map .direction.arrow {
+    background: none;
+    height: 0;
+    border-style: solid;
+}
+
+.map .arrow {
+    cursor: pointer;
+}
+
+/* Север */
+.map .y2 .x2.arrow {
+    width: 0;
+    height: 10px;
+    border-width: 0 27px 44px 27px;
+    border-color: transparent transparent black transparent;
+}
+
+.map .y2 .x2.arrow:hover {
+    transition: border-bottom-color 0.5s ease-out;
+    border-bottom-color: #ffb300;
+}
+
+/* Восток */
+.map .y3 .x1.arrow {
+    width: 10px;
+    border-width: 27px 44px 27px 0;
+    border-color: transparent black transparent transparent;
+}
+
+.map .y3 .x1.arrow:hover {
+    transition: border-right-color 0.5s ease-out;
+    border-right-color: #ffb100;
+}
+
+/* Запад */
+.map .y3 .x3.arrow {
+    width: 10px;
+    border-width: 27px 0 27px 44px;
+    border-color: transparent transparent transparent black;
+}
+
+.map .y3 .x3.arrow:hover {
+    transition: border-left-color 0.5s ease-out;
+    border-left-color: #ffb100;
+}
+
+/* Юг */
+.map .y4 .x2.arrow {
+    width: 0;
+    height: 10px;
+    border-width: 44px 27px 0 27px;
+    border-color: black transparent transparent transparent;
+}
+
+.map .y4 .x2.arrow:hover {
+    transition: border-top-color 0.5s ease-out;
+    border-top-color: #ffb100;
+}
+
 /* Блок "Чат" */
 #game-chat {
     position: absolute;

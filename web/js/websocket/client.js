@@ -66,6 +66,7 @@ $(function () {
     /////// Функции клиентского интерфейса ///////
 
     var $gameChat = $('#game-chat');
+    var $gameMap = $('#game-map');
 
     //TODO[Rottenwood]: Отрисовка элементов карты
     function redrawMap(mapData) {
@@ -91,4 +92,10 @@ $(function () {
         $gameChat.append(html);
         $gameChat.scrollTop($gameChat.prop("scrollHeight"));
     }
+
+    /////// Вызов функций при загрузке страницы ///////
+
+    $gameMap.hover(function () {
+        $('.map .map-frame.direction').toggleClass('arrow');
+    });
 });
