@@ -1,0 +1,18 @@
+services:
+    kingdom.user_repository:
+        class: Rottenwood\KingdomBundle\Entity\UserRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\User"]
+
+    kingdom.room_repository:
+        class: Rottenwood\KingdomBundle\Entity\RoomRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\Room"]
+
+    kingdom.room_type_repository:
+        class: Rottenwood\KingdomBundle\Entity\RoomTypeRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\RoomType"]
