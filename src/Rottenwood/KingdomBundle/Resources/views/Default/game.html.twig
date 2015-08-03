@@ -14,7 +14,7 @@
 
     <div id="game-underlayer"></div>
 
-    <div id="game-content">
+    <div id="game-content" class="noselect">
         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
         <a href="{{ path('fos_user_security_logout') }}">
             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div id="game-map">
+    <div id="game-map" class="noselect">
         <div class="map">
             <div class="map-frame-line y1">
                 <div class="map-frame x0"></div>
