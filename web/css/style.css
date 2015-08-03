@@ -1,5 +1,4 @@
 /* Общие классы */
-
 .center {
     text-align: center;
 }
@@ -7,18 +6,6 @@
 .break-10 {
     display: block;
     margin-top: 10px;
-}
-
-/* Игровая карта */
-.map {
-    margin-bottom: 30px;
-}
-
-.map .map-frame {
-    display: inline-block;
-    background-color: #636363;
-    width: 50px;
-    height: 50px;
 }
 
 /* Форма логина */
@@ -34,7 +21,6 @@
 }
 
 /* Форма регистрации */
-
 .fos_user_registration_register label,
 .fos_user_registration_register input {
     width: 180px;
@@ -46,7 +32,6 @@
 }
 
 /****** Игровые блоки ******/
-
 #game-underlayer {
     position: absolute;
     background-image: url('../img/woods-background.png');
@@ -71,13 +56,24 @@
 /* Блок "Карта" */
 #game-map {
     position: absolute;
-    background-color: darkseagreen;
+    background-image: url('../img/textures/wood1.jpg');
     top: 0;
     right: 0;
-    height: 50%;
-    width: 29%;
     padding: 5px;
-    border: solid 2px #3D3D3D;
+    border: solid 2px black;
+}
+
+.map {
+    margin-bottom: -3px;
+}
+
+.map .map-frame {
+    display: inline-block;
+    /*background-color: #636363;*/
+    background-image: url('../img/locations/null.png');
+    border: solid black 2px;
+    width: 50px;
+    height: 50px;
 }
 
 /* Блок "Чат" */
