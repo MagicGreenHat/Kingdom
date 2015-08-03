@@ -2,20 +2,20 @@
 
 namespace Rottenwood\KingdomBundle\Command\Infrastructure;
 
-use Doctrine\ORM\EntityManager;
 use Rottenwood\KingdomBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 interface GameCommandInterface {
 
     /**
-     * @param User          $user
-     * @param string        $parameters
-     * @param EntityManager $entityManager
+     * @param User               $user
+     * @param string             $parameters
+     * @param ContainerInterface $container
      */
-    public function __construct(User $user, $parameters, $entityManager);
+    public function __construct(User $user, $parameters, ContainerInterface $container);
 
     /**
-     * @return string
+     * @return CommandResponse
      */
     public function execute();
 }

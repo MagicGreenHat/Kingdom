@@ -27,19 +27,12 @@ class CommandResponse {
     /**
      * @return array
      */
-    public function result() {
+    public function getData() {
         if ($this->mapData) {
             $this->data['mapData'] = $this->mapData;
         }
 
         return $this->errors ? ['errors' => $this->errors] : $this->data;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData() {
-        return $this->data;
     }
 
     /**

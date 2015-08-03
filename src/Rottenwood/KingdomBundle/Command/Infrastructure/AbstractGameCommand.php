@@ -2,8 +2,8 @@
 
 namespace Rottenwood\KingdomBundle\Command\Infrastructure;
 
-use Doctrine\ORM\EntityManager;
 use Rottenwood\KingdomBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class AbstractGameCommand implements GameCommandInterface {
 
@@ -11,28 +11,25 @@ class AbstractGameCommand implements GameCommandInterface {
     protected $user;
     /** @var string */
     protected $parameters;
-    /** @var EntityManager */
-    protected $entityManager;
-    /** @var CommandResponse */
-    protected $response;
+    /** @var ContainerInterface */
+    protected $container;
 
     /**
-     * @param User          $user
-     * @param string        $parameters
-     * @param EntityManager $entityManager
+     * @param User               $user
+     * @param string             $parameters
+     * @param ContainerInterface $container
      */
-    public function __construct(User $user, $parameters, $entityManager) {
+    public function __construct(User $user, $parameters, ContainerInterface $container) {
         $this->user = $user;
         $this->parameters = $parameters;
-        $this->entityManager = $entityManager;
-        $this->response = new CommandResponse();
+        $this->container = $container;
     }
 
     /**
      * Необходимо переназначать этот метод
-     * @return string
+     * @return CommandResponse
      */
     public function execute() {
-        return '';
+        return new CommandResponse();
     }
 }

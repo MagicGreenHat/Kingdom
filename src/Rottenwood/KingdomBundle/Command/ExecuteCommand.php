@@ -2,9 +2,10 @@
 
 namespace Rottenwood\KingdomBundle\Command;
 
+use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Command\Infrastructure\GameCommandInterface;
-use Rottenwood\KingdomBundle\Entity\User;
-use Rottenwood\KingdomBundle\Entity\UserRepository;
+use Rottenwood\KingdomBundle\Exception\CommandNotFound;
+use Rottenwood\KingdomBundle\Exception\InvalidCommandResponse;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,23 +47,29 @@ class ExecuteCommand extends ContainerAwareCommand {
      * @param string $commandName Название команды
      * @param string $parameters  Параметры команды
      * @return string json
-     * @throws \Exception
+     * @throws CommandNotFound
+     * @throws InvalidCommandResponse
      */
     private function executeExternal($userId, $commandName, $parameters) {
         $commandClass = __NAMESPACE__ . '\\Game\\' . ucfirst($commandName);
 
         if (class_exists($commandClass)) {
-            $entityManager = $this->getContainer()->get('doctrine.orm.entity_manager');
-            /** @var UserRepository $userRepository */
-            $userRepository = $entityManager->getRepository(User::class);
+            $container = $this->getContainer();
+            $userRepository = $container->get('kingdom.user_repository');
             $user = $userRepository->findById($userId);
 
             /** @var GameCommandInterface $command */
-            $command = new $commandClass($user, $parameters, $entityManager);
+            $command = new $commandClass($user, $parameters, $container);
         } else {
-            throw new \Exception('Команда не найдена');
+            throw new CommandNotFound('Команда не найдена');
         }
 
-        return json_encode($command->execute());
+        $result = $command->execute();
+
+        if (!$result instanceof CommandResponse) {
+        	throw new InvalidCommandResponse;
+        }
+
+        return json_encode($result->getData());
     }
 }
