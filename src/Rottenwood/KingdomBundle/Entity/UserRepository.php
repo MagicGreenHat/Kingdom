@@ -2,9 +2,9 @@
 
 namespace Rottenwood\KingdomBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\AbstractRepository;
 
-class UserRepository extends EntityRepository {
+class UserRepository extends AbstractRepository {
 
     public function findById($userId) {
         return $this->find($userId);

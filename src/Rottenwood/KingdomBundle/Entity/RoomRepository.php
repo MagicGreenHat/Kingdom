@@ -2,9 +2,9 @@
 
 namespace Rottenwood\KingdomBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\AbstractRepository;
 
-class RoomRepository extends EntityRepository {
+class RoomRepository extends AbstractRepository {
 
     /**
      * Поиск по координатам
