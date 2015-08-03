@@ -4,45 +4,49 @@ namespace Rottenwood\KingdomBundle\Command\Infrastructure;
 
 class CommandResponse {
 
-    private $result;
+    private $data;
     private $mapData;
     private $errors = [];
 
     /**
-     * @param array $result
+     * @param array $data
      * @param array $mapData
      */
-    public function __construct(array $result = [], array $mapData = []) {
-        $this->result = $result;
+    public function __construct(array $data = [], array $mapData = []) {
+        $this->data = $data;
         $this->mapData = $mapData;
     }
 
+    /**
+     * @param string $error
+     */
     public function addError($error) {
         $this->errors[] = $error;
-    }
-
-    public function result() {
-        $result = [];
-
-        $result['mapData'] = $this->mapData ?: null;
-        $result['result'] = $this->result ?: null;
-        $result['errors'] = $this->errors ?: null;
-
-        return array_filter($result);
     }
 
     /**
      * @return array
      */
-    public function getResult() {
-        return $this->result;
+    public function result() {
+        if ($this->mapData) {
+            $this->data['mapData'] = $this->mapData;
+        }
+
+        return $this->errors ? ['errors' => $this->errors] : $this->data;
     }
 
     /**
-     * @param array $result
+     * @return array
      */
-    public function setResult($result) {
-        $this->result = $result;
+    public function getData() {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function setData($data) {
+        $this->data = $data;
     }
 
     /**

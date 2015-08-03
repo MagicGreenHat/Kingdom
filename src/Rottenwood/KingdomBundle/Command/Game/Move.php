@@ -38,14 +38,12 @@ class Move extends AbstractGameCommand {
 
         $destinationRoom = $roomRepository->findOneByXandY($x, $y);
 
-        $result = new CommandResponse();
-
         if (!$destinationRoom) {
-            $result->addError('В эту сторону не пройти');
+            $this->response->addError('В эту сторону не пройти');
         } else {
             $roomType = $destinationRoom->getType();
 
-            $result->setResult([
+            $this->response->setData([
                 'name'    => $destinationRoom->getName(),
                 'type'    => $roomType->getName(),
                 'picture' => $roomType->getPicture(),
@@ -55,6 +53,6 @@ class Move extends AbstractGameCommand {
             $this->entityManager->flush($this->user);
         }
 
-        return $result->result();
+        return $this->response->result();
     }
 }

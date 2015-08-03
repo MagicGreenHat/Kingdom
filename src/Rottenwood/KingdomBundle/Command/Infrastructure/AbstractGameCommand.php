@@ -13,6 +13,8 @@ class AbstractGameCommand implements GameCommandInterface {
     protected $parameters;
     /** @var EntityManager */
     protected $entityManager;
+    /** @var CommandResponse */
+    protected $response;
 
     /**
      * @param User          $user
@@ -23,6 +25,7 @@ class AbstractGameCommand implements GameCommandInterface {
         $this->user = $user;
         $this->parameters = $parameters;
         $this->entityManager = $entityManager;
+        $this->response = new CommandResponse();
     }
 
     /**
