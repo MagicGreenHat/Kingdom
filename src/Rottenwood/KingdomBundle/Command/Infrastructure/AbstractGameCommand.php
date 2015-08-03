@@ -5,7 +5,7 @@ namespace Rottenwood\KingdomBundle\Command\Infrastructure;
 use Rottenwood\KingdomBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class AbstractGameCommand implements GameCommandInterface {
+abstract class AbstractGameCommand implements GameCommandInterface {
 
     /** @var User */
     protected $user;
@@ -23,13 +23,5 @@ class AbstractGameCommand implements GameCommandInterface {
         $this->user = $user;
         $this->parameters = $parameters;
         $this->container = $container;
-    }
-
-    /**
-     * Необходимо переназначать этот метод
-     * @return CommandResponse
-     */
-    public function execute() {
-        return new CommandResponse();
     }
 }
