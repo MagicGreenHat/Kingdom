@@ -3,6 +3,7 @@
 namespace Rottenwood\KingdomBundle\Command\Game;
 
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
+use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\RoomRepository;
 
@@ -15,12 +16,8 @@ class Move extends AbstractGameCommand {
         /** @var RoomRepository $roomRepository */
         $roomRepository = $this->entityManager->getRepository(Room::class);
 
-        $currentRoom = $this->user->getRoom();
-
-        //TODO[Rottenwood]: Исправить проверку, логировать ошибку если у пользователя нет комнаты
-        if (!$currentRoom) {
-            $currentRoom = $roomRepository->find(25);
-        }
+        //TODO[Rottenwood]: логировать ошибку если у пользователя нет комнаты
+        $currentRoom = $this->user->getRoom() ?: $roomRepository->find(1);
 
         $x = $currentRoom->getX();
         $y = $currentRoom->getY();
@@ -37,21 +34,23 @@ class Move extends AbstractGameCommand {
 
         $destinationRoom = $roomRepository->findOneByXandY($x, $y);
 
+        $result = new CommandResponse();
+
         if (!$destinationRoom) {
-            $result = ['error' => 'В эту сторону не пройти'];
+            $result->addError('В эту сторону не пройти');
         } else {
             $roomType = $destinationRoom->getType();
-            $result = [
+
+            $result->setResult([
                 'name'    => $destinationRoom->getName(),
                 'type'    => $roomType->getName(),
                 'picture' => $roomType->getPicture(),
-            ];
+            ]);
 
             $this->user->setRoom($destinationRoom);
             $this->entityManager->flush($this->user);
         }
 
-
-        return $result;
+        return $result->result();
     }
 }

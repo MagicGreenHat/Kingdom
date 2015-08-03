@@ -44,7 +44,7 @@ class ExecuteCommand extends ContainerAwareCommand {
      * Запуск внешней команды
      * @param string $userId      Id игрока запросившего запуск команды
      * @param string $commandName Название команды
-     * @param array  $parameters  Параметры команды
+     * @param string $parameters  Параметры команды
      * @return string json
      * @throws \Exception
      */
@@ -63,8 +63,6 @@ class ExecuteCommand extends ContainerAwareCommand {
             throw new \Exception('Команда не найдена');
         }
 
-        $result = json_encode($command->execute());
-
-        return $result;
+        return json_encode($command->execute());
     }
 }

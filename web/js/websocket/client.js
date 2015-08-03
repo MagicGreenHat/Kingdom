@@ -44,8 +44,8 @@ $(function () {
                 }
 
                 // Кнопки перемещения
-                $('button').on('click', function() {
-                    var direction = $(this).attr('class');
+                $('.map .direction').on('click', function() {
+                    var direction = $(this).data('direction');
                     callCommand('move', direction);
                 });
 
