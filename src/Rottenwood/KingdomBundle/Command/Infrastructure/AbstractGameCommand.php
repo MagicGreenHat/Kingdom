@@ -29,6 +29,7 @@ class AbstractGameCommand implements GameCommandInterface {
     }
 
     /**
+     * Необходимо переназначать этот метод
      * @return string
      */
     public function execute() {
