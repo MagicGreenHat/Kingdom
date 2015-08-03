@@ -1,6 +1,6 @@
 <?php
 
-namespace Rottenwood\KingdomBundle\Command\Game;
+namespace Rottenwood\KingdomBundle\Command\Infrastructure;
 
 use Doctrine\ORM\EntityManager;
 use Rottenwood\KingdomBundle\Entity\User;

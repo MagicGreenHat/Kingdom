@@ -2,7 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Command;
 
-use Rottenwood\KingdomBundle\Command\Game\GameCommandInterface;
+use Rottenwood\KingdomBundle\Command\Infrastructure\GameCommandInterface;
 use Rottenwood\KingdomBundle\Entity\User;
 use Rottenwood\KingdomBundle\Entity\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

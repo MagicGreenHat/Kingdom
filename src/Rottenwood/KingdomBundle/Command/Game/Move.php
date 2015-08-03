@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Command\Game;
 
+use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\RoomRepository;
 
