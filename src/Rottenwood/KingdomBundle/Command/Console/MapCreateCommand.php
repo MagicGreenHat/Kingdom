@@ -3,7 +3,6 @@
 namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Entity\Room;
-use Rottenwood\KingdomBundle\Entity\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\RoomType;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,11 +15,11 @@ class MapCreateCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        /** @var RoomRepository $roomRepository */
-        $roomRepository = $em->getRepository(Room::class);
+        $container = $this->getContainer();
 
-        $rooms = $roomRepository->findAll();
+        $repository = $container->get('kingdom.room_repository');
+
+        $rooms = $repository->findAll();
 
         if (count($rooms)) {
             $output->writeln(sprintf('Уже создано %d комнат. Удалите их командой kingdom:map:purge', count($rooms)));
@@ -34,7 +33,7 @@ class MapCreateCommand extends ContainerAwareCommand {
             ];
 
             foreach ($types as $type) {
-                $em->persist($type);
+                $repository->persist($type);
             }
 
             $output->write('Создание новых комнат ... ');
@@ -42,13 +41,13 @@ class MapCreateCommand extends ContainerAwareCommand {
             for ($y = -3; $y <= 3; $y++) {
                 for ($x = -3; $x <= 3; $x++) {
                     $room = new Room($x, $y, $types[array_rand($types)]);
-                    $em->persist($room);
+                    $repository->persist($room);
                 }
             }
 
-            $em->flush();
+            $repository->flush();
 
-            $output->writeln(sprintf('Создано %d новых комнат.', count($roomRepository->findAll())));
+            $output->writeln(sprintf('Создано %d новых комнат.', count($repository->findAll())));
         }
     }
 }

@@ -3,7 +3,6 @@
 namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Entity\Room;
-use Rottenwood\KingdomBundle\Entity\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\RoomType;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
