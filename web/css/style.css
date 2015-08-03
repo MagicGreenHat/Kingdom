@@ -44,7 +44,7 @@
 /****** Игровые блоки ******/
 #game-underlayer {
     position: absolute;
-    background-image: url('../img/woods-background.png');
+    background: url('../img/woods-background.png') right;
     top: 0;
     left: 0;
     right: 0;
@@ -84,6 +84,12 @@
     border: solid black 2px;
     width: 50px;
     height: 50px;
+}
+
+.map .map-frame.player {
+    padding: 2px;
+    background: none;
+    border: none;
 }
 
 /* Блок "Чат" */
