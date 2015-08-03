@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
 class AbstractRepository extends EntityRepository {
@@ -18,5 +19,12 @@ class AbstractRepository extends EntityRepository {
      */
     public function flush($entity = null) {
         $this->_em->flush($entity);
+    }
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager() {
+        return $this->_em;
     }
 }
