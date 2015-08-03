@@ -6,11 +6,13 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\RoomRepository;
+use Rottenwood\KingdomBundle\Exception\CommandParameterException;
 
 class Move extends AbstractGameCommand {
 
     /**
      * @return string
+     * @throws CommandParameterException
      */
     public function execute() {
         /** @var RoomRepository $roomRepository */
@@ -30,6 +32,8 @@ class Move extends AbstractGameCommand {
             $x++;
         } elseif ($this->parameters == 'west') {
             $x--;
+        } else {
+            throw new CommandParameterException;
         }
 
         $destinationRoom = $roomRepository->findOneByXandY($x, $y);
