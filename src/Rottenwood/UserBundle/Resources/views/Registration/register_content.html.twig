@@ -9,7 +9,13 @@
         </tr>
         <tr>
             <td>
-                {{ form_widget(form) }}
+                {{ form_start(form) }}
+
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
             </td>
         </tr>
         <tr class="center">
