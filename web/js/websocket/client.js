@@ -91,7 +91,7 @@ $(function () {
     }
 
     function addChatPhrase(chatData) {
-        $gameChat.append('<div><strong>' + chatData.from + '</strong>: ' + chatData.phrase + '</div>');
+        $gameChat.append('<div><strong>' + chatData.from + '</strong>: ' + chatData.phrase.replace(/<[^>]+>/gi, '') + '</div>');
         $gameChat.scrollTop($gameChat.prop("scrollHeight"));
     }
 
