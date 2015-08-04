@@ -1,2 +1,3 @@
 users:
     online: игрок|игрока|игроков
+hello_username: Здравствуйте, %username%!

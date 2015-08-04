@@ -11,8 +11,6 @@ $(function () {
 
         session.call('gate', [userData]).then(
             function () {
-                // TODO[Rottenwood]: Отрисовка игрового интерфейса
-
                 var localChannelName = 'character.' + sessionId;
 
                 session.subscribe(localChannelName, function (args) {
@@ -20,9 +18,13 @@ $(function () {
 
                     var data = JSON.parse(args[0]);
 
-                    //TODO[Rottenwood]: Обработка перехода
-                    if (data.picture) {
+                    // Обработка результатов запрошенных команд
+                    if (data.command == 'move') {
                         callCommand('composeMap');
+
+                        if (data.data) {
+                            redrawRoom(data.data);
+                        }
                     }
 
                     // Отрисовка карты
@@ -73,8 +75,9 @@ $(function () {
 
     /////// Функции клиентского интерфейса ///////
 
-    var $gameChat = $('#game-chat');
+    var $gameContent = $('#game-content');
     var $gameMap = $('#game-map');
+    var $gameChat = $('#game-chat');
 
     function redrawMap(mapData) {
         $('#game-map .map-frame img').attr('src', '../../img/locations/null.png');
@@ -108,7 +111,7 @@ $(function () {
     });
 
     $gameMap.on('mousemove', function () {
-        if(!$directionMapFrame.hasClass('arrow')){
+        if (!$directionMapFrame.hasClass('arrow')) {
             $directionMapFrame.addClass('arrow');
         }
     });

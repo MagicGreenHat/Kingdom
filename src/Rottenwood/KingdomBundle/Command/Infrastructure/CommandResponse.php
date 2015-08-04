@@ -7,14 +7,17 @@ class CommandResponse {
     private $data;
     private $mapData;
     private $errors = [];
+    private $command;
 
     /**
-     * @param array $data
-     * @param array $mapData
+     * @param string $command
+     * @param array  $data
+     * @param array  $mapData
      */
-    public function __construct(array $data = [], array $mapData = []) {
+    public function __construct($command, array $data = [], array $mapData = []) {
         $this->data = $data;
         $this->mapData = $mapData;
+        $this->command = $command;
     }
 
     /**
@@ -28,11 +31,12 @@ class CommandResponse {
      * @return array
      */
     public function getData() {
-        if ($this->mapData) {
-            $this->data['mapData'] = $this->mapData;
-        }
-
-        return $this->errors ? ['errors' => $this->errors] : $this->data;
+        return array_filter([
+            'command' => $this->command,
+            'data'    => $this->data,
+            'mapData' => $this->mapData,
+            'errors'  => $this->errors,
+        ]);
     }
 
     /**

@@ -45,7 +45,7 @@ class ComposeMap extends AbstractGameCommand {
             }
         }
 
-        return new CommandResponse([], $map);
+        return new CommandResponse('composeMap', [], $map);
     }
 
     /**

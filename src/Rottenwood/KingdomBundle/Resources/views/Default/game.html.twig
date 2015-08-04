@@ -18,15 +18,10 @@
     <div id="game-underlayer"></div>
 
     <div id="game-content" class="noselect">
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-        <a href="{{ path('fos_user_security_logout') }}">
-            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-        </a>
-
-        <div>
-            {# TODO[Rottenwood]: Сделать обновление динамическим #}
-            Сейчас в игре: {{ onlinePlayersCount }} {{ 'users.online'|transchoice(onlinePlayersCount) }}.
-        </div>
+        {# TODO[Rottenwood]: Ссылка выхода из игры #}
+        {#| <a href="{{ path('fos_user_security_logout') }}">#}
+            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+        {#</a>#}
     </div>
 
     <div id="game-map" class="noselect">
@@ -69,7 +64,13 @@
         </div>
     </div>
 
-    <div id="game-chat"></div>
+    <div id="game-chat">
+        <div>
+            {{ 'hello_username'|trans({'%username%': app.user.username}) }}
+            {# TODO[Rottenwood]: Сделать обновление динамическим #}
+            Сейчас в игре: {{ onlinePlayersCount }} {{ 'users.online'|transchoice(onlinePlayersCount) }}.
+        </div>
+    </div>
 
     <div class="game-chat-input">
         <input id="chat-input" type="text" title="chat-box">

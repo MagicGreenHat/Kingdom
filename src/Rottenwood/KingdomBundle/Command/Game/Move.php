@@ -4,7 +4,6 @@ namespace Rottenwood\KingdomBundle\Command\Game;
 
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
-use Rottenwood\KingdomBundle\Exception\CommandParameterException;
 use Rottenwood\KingdomBundle\Exception\InvalidCommandParameter;
 
 class Move extends AbstractGameCommand {
@@ -37,18 +36,17 @@ class Move extends AbstractGameCommand {
 
         $destinationRoom = $roomRepository->findOneByXandY($x, $y);
 
-        $result = new CommandResponse();
+        $result = new CommandResponse('move');
 
         if (!$destinationRoom) {
             $result->addError('В эту сторону не пройти');
         } else {
             $roomType = $destinationRoom->getType();
 
-            $result->setData([
-                'name'    => $destinationRoom->getName(),
-                'type'    => $roomType->getName(),
-                'picture' => $roomType->getPicture(),
-            ]);
+            $result->setData(array_filter([
+                'name'        => $destinationRoom->getName() ?: $roomType->getName(),
+                'description' => $destinationRoom->getDescription() ?: $roomType->getDescription(),
+            ]));
 
             $this->user->setRoom($destinationRoom);
             $em->flush($this->user);
