@@ -20,6 +20,7 @@ $(function () {
 
                     // Обработка результатов запрошенных команд
                     if (data.command == 'move') {
+                        //TODO[Rottenwood]: Добавить в composeMap вывод данных о центральной комнате
                         callCommand('composeMap');
 
                         if (data.data) {
@@ -100,6 +101,11 @@ $(function () {
 
         $gameChat.append(html);
         $gameChat.scrollTop($gameChat.prop("scrollHeight"));
+    }
+
+    function redrawRoom(roomData) {
+        $gameContent.find('.room-name').html(roomData.name);
+        $gameContent.find('.room-description').html(roomData.description);
     }
 
     /////// События ///////

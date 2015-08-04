@@ -64,6 +64,20 @@
     border: solid 2px #3D3D3D;
 }
 
+#game-content .room-name {
+    background-color: rgba(255, 255, 255, 0.24);
+    font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    padding: 10px;
+    height: 30px;
+}
+
+#game-content .room-description {
+    padding: 10px;
+    font-size: 18px;
+}
+
 /* Блок "Карта" */
 #game-map {
     position: absolute;
