@@ -9,6 +9,9 @@ $(function () {
             sessionId: sessionId // sessionId передается из html-шаблона
         };
 
+        // Регистрация удаленной процедуры для отслеживания дисконнекта
+        session.register('online.' + sessionId, function () {});
+
         session.call('gate', [userData]).then(
             function () {
                 var localChannelName = 'character.' + sessionId;
