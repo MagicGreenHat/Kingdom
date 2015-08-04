@@ -43,10 +43,12 @@ class Move extends AbstractGameCommand {
         } else {
             $roomType = $destinationRoom->getType();
 
-            $result->setData(array_filter([
+            $result->setData([
                 'name'        => $destinationRoom->getName() ?: $roomType->getName(),
                 'description' => $destinationRoom->getDescription() ?: $roomType->getDescription(),
-            ]));
+                'x'           => $x,
+                'y'           => $y,
+            ]);
 
             $this->user->setRoom($destinationRoom);
             $em->flush($this->user);
