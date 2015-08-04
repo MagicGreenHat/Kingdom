@@ -42,10 +42,12 @@ class RoomType {
 
     /**
      * @param string $name
+     * @param string $description
      * @param string $picture
      */
-    public function __construct($name, $picture) {
+    public function __construct($name, $description, $picture) {
         $this->name = $name;
+        $this->description = $description;
         $this->picture = $picture;
     }
 
