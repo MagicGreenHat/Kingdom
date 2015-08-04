@@ -26,15 +26,17 @@ class ComposeMap extends AbstractGameCommand {
 
         $map = [];
 
-        for (
-            $y = $currentY - $this->mapRadius, $relativeY = 1, $relativeX = 1;
+        for ($y = $currentY - $this->mapRadius, $relativeY = 1, $relativeX = 1;
             $y <= $currentY + $this->mapRadius;
-            $y++, $relativeY++, $relativeX = 1
-        ) {
-            for ($x = $currentX - $this->mapRadius; $x <= $currentX + $this->mapRadius; $x++, $relativeX++) {
-                // пропуск центра карты, комната где находится персонаж
+            $y++, $relativeY++, $relativeX = 1) {
+
+            for ($x = $currentX - $this->mapRadius;
+                $x <= $currentX + $this->mapRadius;
+                $x++, $relativeX++) {
+
+                // пропуск центра карты, комнаты где находится персонаж
                 if ($relativeY == 3 && $relativeX == 3) {
-                	continue;
+                    continue;
                 }
 
                 $room = $roomRepository->findOneByXandY($x, $y);
@@ -45,7 +47,12 @@ class ComposeMap extends AbstractGameCommand {
             }
         }
 
-        return new CommandResponse('composeMap', [], $map);
+        return new CommandResponse('composeMap', [
+            'name'        => $currentRoom->getName() ?: $currentRoom->getType()->getName(),
+            'description' => $currentRoom->getDescription() ?: $currentRoom->getType()->getDescription(),
+            'x'           => $currentX,
+            'y'           => $currentY,
+            ], $map);
     }
 
     /**
