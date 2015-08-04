@@ -55,6 +55,7 @@ connection.onopen = function (session) {
                                 }
                             };
 
+                            //TODO[Rottenwood]: Транслировать чат только в текущую комнату
                             sendToOnlinePlayers(chatData);
                         } else {
                             runConsoleCommand(character, command);
