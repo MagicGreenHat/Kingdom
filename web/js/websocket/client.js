@@ -20,6 +20,11 @@ $(function () {
 
                     var data = JSON.parse(args[0]);
 
+                    //TODO[Rottenwood]: Обработка перехода
+                    if (data.picture) {
+                        callCommand('composeMap');
+                    }
+
                     // Отрисовка карты
                     if (data.mapData) {
                         redrawMap(data.mapData);
@@ -44,7 +49,7 @@ $(function () {
                 }
 
                 // Кнопки перемещения
-                $('.map .direction').on('click', function() {
+                $('.map .direction').on('click', function () {
                     var direction = $(this).data('direction');
                     callCommand('move', direction);
                 });
@@ -68,15 +73,13 @@ $(function () {
     var $gameChat = $('#game-chat');
     var $gameMap = $('#game-map');
 
-    //TODO[Rottenwood]: Отрисовка элементов карты
     function redrawMap(mapData) {
-        if (mapData.a1 == 1) {
-            $('.map-frame.map1').css('background-color', 'yellow');
-        } else {
-            $('.map-frame.map1').css('background-color', 'red');
-        }
+        $gameMap.find('.map-frame').html('<img src="../../img/locations/null.png">');
 
-        console.log('Карта отрисована: ' + mapData.a1 + mapData.a2 + mapData.a3);
+        mapData.forEach(function (room, i) {
+            $('.map .y' + room.y + ' .x' + room.x)
+                .html('<img src="../../img/locations/' + room.pic + '.png">');
+        });
     }
 
     function addChatPhrase(chatData) {
@@ -94,8 +97,16 @@ $(function () {
     }
 
     /////// Вызов функций при загрузке страницы ///////
+    var $directionMapFrame = $('.map .map-frame.direction');
 
     $gameMap.hover(function () {
-        $('.map .map-frame.direction').toggleClass('arrow');
+        var $directionMapFrame = $('.map .map-frame.direction');
+        $directionMapFrame.toggleClass('arrow');
+    });
+
+    $gameMap.on('mousemove', function () {
+        if(!$directionMapFrame.hasClass('arrow')){
+            $directionMapFrame.addClass('arrow');
+        }
     });
 });

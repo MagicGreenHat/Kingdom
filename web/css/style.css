@@ -80,13 +80,15 @@
 
 .map .map-frame {
     display: inline-block;
-    background-image: url('../img/locations/null.png');
     border: solid black 2px;
     width: 50px;
     height: 50px;
 }
 
-.map .map-frame.player {
+.map .map-frame-player {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
     padding: 2px;
     background: none;
     border: none;
@@ -97,58 +99,59 @@
     background: none;
     height: 0;
     border-style: solid;
-}
-
-.map .arrow {
     cursor: pointer;
 }
 
+.map .direction.arrow img {
+    display: none;
+}
+
 /* Север */
-.map .y2 .x2.arrow {
+.map .north.arrow {
     width: 0;
     height: 10px;
-    border-width: 0 27px 44px 27px;
+    border-width: 0 27px 42px 27px;
     border-color: transparent transparent black transparent;
 }
 
-.map .y2 .x2.arrow:hover {
+.map .north.arrow:hover {
     transition: border-bottom-color 0.5s ease-out;
     border-bottom-color: whitesmoke;
 }
 
-/* Восток */
-.map .y3 .x1.arrow {
+/* Запад */
+.map .west.arrow {
     width: 10px;
-    border-width: 27px 44px 27px 0;
+    border-width: 25px 44px 25px 0;
     border-color: transparent black transparent transparent;
 }
 
-.map .y3 .x1.arrow:hover {
+.map .west.arrow:hover {
     transition: border-right-color 0.5s ease-out;
     border-right-color: whitesmoke;
 }
 
-/* Запад */
-.map .y3 .x3.arrow {
+/* Восток */
+.map .east.arrow {
     width: 10px;
-    border-width: 27px 0 27px 44px;
+    border-width: 25px 0 25px 44px;
     border-color: transparent transparent transparent black;
 }
 
-.map .y3 .x3.arrow:hover {
+.map .east.arrow:hover {
     transition: border-left-color 0.5s ease-out;
     border-left-color: whitesmoke;
 }
 
 /* Юг */
-.map .y4 .x2.arrow {
+.map .south.arrow {
     width: 0;
     height: 10px;
-    border-width: 44px 27px 0 27px;
+    border-width: 42px 27px 0 27px;
     border-color: black transparent transparent transparent;
 }
 
-.map .y4 .x2.arrow:hover {
+.map .south.arrow:hover {
     transition: border-top-color 0.5s ease-out;
     border-top-color: whitesmoke;
 }
