@@ -1,5 +1,9 @@
 {% extends '::base.html.twig' %}
 
+{% set emptyRoomImage %}
+    <img src="{{ asset('img/locations/null.png') }}">
+{% endset %}
+
 {% block javascripts %}
     <script type="text/javascript">
         var sessionId = '{{ sessionId }}';
@@ -11,7 +15,6 @@
 {% endblock javascripts %}
 
 {% block body %}
-
     <div id="game-underlayer"></div>
 
     <div id="game-content" class="noselect">
@@ -29,39 +32,39 @@
     <div id="game-map" class="noselect">
         <div class="map">
             <div class="map-frame-line y5">
-                <div class="map-frame x1"></div>
-                <div class="map-frame x2"></div>
-                <div class="map-frame x3"></div>
-                <div class="map-frame x4"></div>
-                <div class="map-frame x5"></div>
+                <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                <div class="map-frame x3">{{ emptyRoomImage }}</div>
+                <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                <div class="map-frame x5">{{ emptyRoomImage }}</div>
             </div>
             <div class="map-frame-line y4">
-                <div class="map-frame x1"></div>
-                <div class="map-frame x2"></div>
-                <div class="map-frame x3 direction north" data-direction="north"></div>
-                <div class="map-frame x4"></div>
-                <div class="map-frame x5"></div>
+                <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                <div class="map-frame x3 direction north" data-direction="north">{{ emptyRoomImage }}</div>
+                <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                <div class="map-frame x5">{{ emptyRoomImage }}</div>
             </div>
             <div class="map-frame-line y3">
-                <div class="map-frame x1"></div>
-                <div class="map-frame x2 direction west" data-direction="west"></div>
+                <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                <div class="map-frame x2 direction west" data-direction="west">{{ emptyRoomImage }}</div>
                 <div class="map-frame-player"><img src="{{ asset('img/locations/character-male.png') }}"></div>
-                <div class="map-frame x4 direction east" data-direction="east"></div>
-                <div class="map-frame x5"></div>
+                <div class="map-frame x4 direction east" data-direction="east">{{ emptyRoomImage }}</div>
+                <div class="map-frame x5">{{ emptyRoomImage }}</div>
             </div>
             <div class="map-frame-line y2">
-                <div class="map-frame x1"></div>
-                <div class="map-frame x2"></div>
-                <div class="map-frame x3 direction south" data-direction="south"></div>
-                <div class="map-frame x4"></div>
-                <div class="map-frame x5"></div>
+                <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                <div class="map-frame x3 direction south" data-direction="south">{{ emptyRoomImage }}</div>
+                <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                <div class="map-frame x5">{{ emptyRoomImage }}</div>
             </div>
             <div class="map-frame-line y1">
-                <div class="map-frame x1"></div>
-                <div class="map-frame x2"></div>
-                <div class="map-frame x3"></div>
-                <div class="map-frame x4"></div>
-                <div class="map-frame x5"></div>
+                <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                <div class="map-frame x3">{{ emptyRoomImage }}</div>
+                <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                <div class="map-frame x5">{{ emptyRoomImage }}</div>
             </div>
         </div>
     </div>

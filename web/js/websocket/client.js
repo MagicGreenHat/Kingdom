@@ -62,6 +62,9 @@ $(function () {
                         return false;
                     }
                 });
+
+                /////// Вызов команд при загрузке страницы ///////
+                callCommand('composeMap');
             }
         );
     };
@@ -74,7 +77,7 @@ $(function () {
     var $gameMap = $('#game-map');
 
     function redrawMap(mapData) {
-        $gameMap.find('.map-frame').html('<img src="../../img/locations/null.png">');
+        $('#game-map .map-frame img').attr('src', '../../img/locations/null.png');
 
         mapData.forEach(function (room, i) {
             $('.map .y' + room.y + ' .x' + room.x)
@@ -96,7 +99,7 @@ $(function () {
         $gameChat.scrollTop($gameChat.prop("scrollHeight"));
     }
 
-    /////// Вызов функций при загрузке страницы ///////
+    /////// События ///////
     var $directionMapFrame = $('.map .map-frame.direction');
 
     $gameMap.hover(function () {
