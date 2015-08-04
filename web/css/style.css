@@ -73,6 +73,12 @@
     height: 30px;
 }
 
+#game-content .room-name .coordinates {
+    color: #565656;
+    padding-left: 10px;
+    font-size: smaller;
+}
+
 #game-content .room-description {
     padding: 10px;
     font-size: 18px;

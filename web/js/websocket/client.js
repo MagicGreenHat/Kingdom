@@ -104,8 +104,11 @@ $(function () {
     }
 
     function redrawRoom(roomData) {
-        $gameContent.find('.room-name').html(roomData.name);
-        $gameContent.find('.room-description').html(roomData.description);
+        var $roomName = $gameContent.find('.room-name');
+        var $roomDescription = $gameContent.find('.room-description');
+
+        $roomName.html('').html(roomData.name + '<span class="coordinates">[' + roomData.x + '/' + roomData.y + ']</span>');
+        $roomDescription.html('').html(roomData.description);
     }
 
     /////// События ///////
