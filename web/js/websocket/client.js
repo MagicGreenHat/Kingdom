@@ -20,12 +20,13 @@ $(function () {
 
                     // Обработка результатов запрошенных команд
                     if (data.command == 'move') {
-                        //TODO[Rottenwood]: Добавить в composeMap вывод данных о центральной комнате
-                        callCommand('composeMap');
-
-                        if (data.data) {
-                            redrawRoom(data.data);
+                        if (!data.errors) {
+                            callCommand('composeMap');
                         }
+                    }
+
+                    if (data.command == 'composeMap') {
+                        redrawRoom(data.data);
                     }
 
                     // Отрисовка карты
