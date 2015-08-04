@@ -77,7 +77,6 @@ connection.onopen = function (session) {
                             session.publish(localChannelName, [stdout]);
                         });
                     }
-
                 });
 
                 function sendToOnlinePlayers(message) {
@@ -88,7 +87,6 @@ connection.onopen = function (session) {
                         session.publish(subscription[0].topic, [messageJson]);
                     });
                 }
-
             }
 
             sendToOnlinePlayers({info: {event: 'playerEnter', name: character.name}});

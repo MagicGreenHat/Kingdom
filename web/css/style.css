@@ -56,8 +56,8 @@
 #game-content {
     position: absolute;
     background-color: darkseagreen;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 10px;
     width: 68%;
     height: 60%;
     padding: 5px;
@@ -88,8 +88,8 @@
 #game-map {
     position: absolute;
     background-image: url('../img/textures/wood1.jpg');
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     padding: 5px;
     border: solid 2px black;
 }
@@ -179,7 +179,7 @@
 /* Блок "Чат" */
 #game-chat {
     position: absolute;
-    background-color: darkseagreen;
+    background-color: #ceface;
     bottom: 36px;
     left: 0;
     right: 0;
