@@ -79,9 +79,14 @@
     font-size: smaller;
 }
 
-#game-content .room-description {
+#game-content .room-description,
+#game-content .room-players {
     padding: 10px;
     font-size: 18px;
+}
+
+#game-content .room-players {
+    color: #5d3118;
 }
 
 /* Блок "Карта" */

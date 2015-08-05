@@ -33,7 +33,8 @@ class ShowPlayersInRoom extends AbstractGameCommand {
             },
             $this->container->get('kingdom.user_repository')->findOnlineByRoom(
                 $this->user->getRoom(),
-                $onlinePlayersIds
+                $onlinePlayersIds,
+                [$this->user->getId()]
             )
         );
 

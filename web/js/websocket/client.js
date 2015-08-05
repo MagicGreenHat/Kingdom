@@ -28,6 +28,9 @@ $(function () {
                         }
                     } else if (data.command == 'composeMap') {
                         redrawRoom(data.data);
+                        callCommand('showPlayersInRoom');
+                    } else if (data.command == 'showPlayersInRoom') {
+                        showPlayersInRoom(data.data);
                     }
 
                     // Отрисовка карты
@@ -118,9 +121,21 @@ $(function () {
     function redrawRoom(roomData) {
         var $roomName = $gameContent.find('.room-name');
         var $roomDescription = $gameContent.find('.room-description');
+        var $roomPlayers = $gameContent.find('.room-players');
 
+        $roomPlayers.html('');
         $roomName.html('').html(roomData.name + '<span class="coordinates">[' + roomData.x + '/' + roomData.y + ']</span>');
         $roomDescription.html('').html(roomData.description);
+    }
+
+    function showPlayersInRoom(players) {
+        var $roomPlayers = $gameContent.find('.room-players');
+
+        $roomPlayers.html('');
+
+        players.forEach(function(playerView) {
+            $roomPlayers.append('<div>' + playerView + '</div>');
+        });
     }
 
     /////// События ///////
