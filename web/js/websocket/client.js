@@ -112,7 +112,7 @@ $(function () {
     }
 
     function showOnline(playersOnlineCount) {
-        $('#game-chat .hello-username').append('Игроков онлайн: ' + playersOnlineCount);
+        $('#game-chat .hello-username .players-online').html('Игроков онлайн: ' + playersOnlineCount);
     }
 
     function redrawRoom(roomData) {
