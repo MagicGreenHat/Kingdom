@@ -9,7 +9,7 @@ SYMFONY_CONSOLE_ENTRY_POINT = '../app/console kingdom:execute';
 
 var autobahn = require('autobahn');
 var exec = require('child_process').exec;
-var redis = require("redis").createClient();
+var redis = require('redis').createClient();
 
 redis.on('error', function (err) {
     console.log('[!] Redis error ' + err);

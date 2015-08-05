@@ -5,14 +5,12 @@ var connection = new autobahn.Connection({
 
 $(function () {
     connection.onopen = function (session) {
-        var userData = { // параметры передаются из twig-шаблона
-            sessionId: sessionId,
-            userId: userId,
-            username: username
+        var userData = {
+            sessionId: sessionId // параметры передаются из twig-шаблона
         };
 
         // Регистрация удаленной процедуры для отслеживания дисконнекта
-        session.register('online.' + sessionId + '.' + userData.userId + '.' + userData.username, function () {});
+        session.register('online.' + sessionId, function () {});
 
         session.call('gate', [userData]).then(
             function () {

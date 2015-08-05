@@ -1,9 +1,10 @@
 //WAMPRT_TRACE = true; // Verbose output
 WEBSOCKET_PORT = 7777;
 REDIS_CHARACTERS_HASH = 'kingdom:characters:hash';
+REDIS_CHARACTERS_HASH_TEMPORARY = 'kingdom:characters:hash:temp';
 
 var Router = require('wamp.rt');
-var redis = require("redis").createClient();
+var redis = require('redis').createClient();
 
 redis.on('error', function (err) {
    console.log('[!] Redis error ' + err);
@@ -23,10 +24,13 @@ app.on('RPCRegistered', function (topicUri) {
 
     if (channel.lastIndexOf('online.', 0) === 0) {
         var clientData = channel.split(".");
-        var userDataJson = JSON.stringify({id: clientData[2], name: clientData[3]});
+        var sessionId = clientData[1];
 
-        // Добавление пользователя в хэш онлайн игроков в redis
-        redis.hset(REDIS_CHARACTERS_HASH, clientData[1], userDataJson);
+        //Запрос userId и username по id сессии из redis
+        redis.hget(REDIS_CHARACTERS_HASH_TEMPORARY, sessionId, function(err, characterDataJson) {
+            // Добавление пользователя в хэш онлайн игроков в redis
+            redis.hset(REDIS_CHARACTERS_HASH, sessionId, characterDataJson);
+        });
     }
 });
 
@@ -37,7 +41,7 @@ app.on('RPCUnregistered', function (topicUri) {
    if (channel.lastIndexOf('online.', 0) === 0) {
        var clientData = channel.split(".");
 
-       // удаление пользователя из хэша онлайн игроков в redis
+       // Удаление пользователя из хэша онлайн игроков в redis
        redis.hdel(REDIS_CHARACTERS_HASH, clientData[1]);
    }
 });

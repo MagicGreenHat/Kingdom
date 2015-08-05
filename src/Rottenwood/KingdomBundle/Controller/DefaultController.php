@@ -32,13 +32,25 @@ class DefaultController extends Controller {
      * @return Response
      */
     public function gamePageAction(Request $request) {
+        $sessionId = $request->getSession()->getId();
         $user = $this->getUser();
 
-        return $this->render('RottenwoodKingdomBundle:Default:game.html.twig',
-            [
-                'sessionId' => $request->getSession()->getId(),
-                'userId'    => $user->getId(),
-                'username'  => $user->getUsername(),
-            ]);
+        $userData = [
+            'id'   => $user->getId(),
+            'name' => $user->getUsername(),
+        ];
+
+        /** @var RedisClientInterface $redis */
+        $redis = $this->container->get('snc_redis.default');
+
+        $allSessions = $redis->hgetall(RedisClientInterface::CHARACTERS_HASH_TEMPORARY);
+
+        if ($oldCharacterData = array_search(json_encode($userData), $allSessions)) {
+            $redis->hdel(RedisClientInterface::CHARACTERS_HASH_TEMPORARY, $oldCharacterData);
+        }
+
+        $redis->hset(RedisClientInterface::CHARACTERS_HASH_TEMPORARY, $sessionId, json_encode($userData));
+
+        return $this->render('RottenwoodKingdomBundle:Default:game.html.twig', ['sessionId' => $sessionId]);
     }
 }
