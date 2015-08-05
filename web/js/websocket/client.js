@@ -5,12 +5,14 @@ var connection = new autobahn.Connection({
 
 $(function () {
     connection.onopen = function (session) {
-        var userData = {
-            sessionId: sessionId // sessionId передается из html-шаблона
+        var userData = { // параметры передаются из twig-шаблона
+            sessionId: sessionId,
+            userId: userId,
+            username: username
         };
 
         // Регистрация удаленной процедуры для отслеживания дисконнекта
-        session.register('online.' + sessionId, function () {});
+        session.register('online.' + sessionId + '.' + userData.userId + '.' + userData.username, function () {});
 
         session.call('gate', [userData]).then(
             function () {
@@ -26,9 +28,7 @@ $(function () {
                         if (!data.errors) {
                             callCommand('composeMap');
                         }
-                    }
-
-                    if (data.command == 'composeMap') {
+                    } else if (data.command == 'composeMap') {
                         redrawRoom(data.data);
                     }
 
@@ -45,6 +45,11 @@ $(function () {
                     // Вывод информационного сообщения
                     if (data.info) {
                         addInfo(data.info);
+                    }
+
+                    // Вывод количества игроков онлайн
+                    if (data.playersOnlineCount) {
+                        showOnline(data.playersOnlineCount);
                     }
                 });
 
@@ -72,6 +77,7 @@ $(function () {
 
                 /////// Вызов команд при загрузке страницы ///////
                 callCommand('composeMap');
+                callCommand('who');
             }
         );
     };
@@ -105,6 +111,10 @@ $(function () {
 
         $gameChat.append(html);
         $gameChat.scrollTop($gameChat.prop("scrollHeight"));
+    }
+
+    function showOnline(playersOnlineCount) {
+        $('#game-chat .hello-username').append('Игроков онлайн: ' + playersOnlineCount);
     }
 
     function redrawRoom(roomData) {

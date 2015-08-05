@@ -39,6 +39,12 @@ connection.onopen = function (session) {
                 return subscription[0].topic == localChannelName;
             });
 
+            //TODO[Rottenwood]: Обработка перезагрузки на стороне клиента
+            if (!character) {
+                session.publish(localChannelName, [{command: 'reloadPage'}]);
+                return;
+            }
+
             if (!isLocalChannelSubscribed) {
                 session.subscribe(localChannelName, function (args) {
                     var localResponse = args[0];
@@ -57,6 +63,8 @@ connection.onopen = function (session) {
 
                             //TODO[Rottenwood]: Транслировать чат только в текущую комнату
                             sendToOnlinePlayers(chatData);
+                        } else if (command == 'who') {
+                            getPlayersOnline();
                         } else {
                             runConsoleCommand(character, command);
                         }
@@ -64,7 +72,11 @@ connection.onopen = function (session) {
                         console.log('[' + localChannelName + ']: ' + localResponse);
                     }
 
-                    // Запуск консольной команды
+                    /**
+                     * Запуск консольной команды
+                     * @param character
+                     * @param command
+                     */
                     function runConsoleCommand(character, command) {
                         var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command + ' ' + commandArguments;
 
@@ -79,13 +91,28 @@ connection.onopen = function (session) {
                     }
                 });
 
+                /**
+                 * Отправка сообщения всем игрокам онлайн
+                 * @param message
+                 */
                 function sendToOnlinePlayers(message) {
                     var messageJson = JSON.stringify(message);
 
                     session.subscriptions.forEach(function (subscription) {
-
                         session.publish(subscription[0].topic, [messageJson]);
                     });
+                }
+
+                /**
+                 * Запрос пользователей находящихся онлайн
+                 */
+                function getPlayersOnline() {
+                    redis.hlen('kingdom:characters:hash', function (err, playersOnline) {
+                        var jsonResponse = JSON.stringify({playersOnlineCount: playersOnline});
+
+                        session.publish(localChannelName, [jsonResponse]);
+                    });
+
                 }
             }
 

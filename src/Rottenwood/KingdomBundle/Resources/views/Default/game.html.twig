@@ -7,6 +7,8 @@
 {% block javascripts %}
     <script type="text/javascript">
         var sessionId = '{{ sessionId }}';
+        var userId = '{{ userId }}';
+        var username = '{{ username }}';
     </script>
 
     <script type="text/javascript" src="{{ asset('js/autobahn.min.jgz') }}"></script>
@@ -67,10 +69,8 @@
     </div>
 
     <div id="game-chat">
-        <div>
+        <div class="hello-username">
             {{ 'hello_username'|trans({'%username%': app.user.username}) }}
-            {# TODO[Rottenwood]: Сделать обновление динамическим #}
-            Сейчас в игре: {{ onlinePlayersCount }} {{ 'users.online'|transchoice(onlinePlayersCount) }}.
         </div>
     </div>
 
