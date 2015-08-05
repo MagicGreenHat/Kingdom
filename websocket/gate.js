@@ -112,7 +112,6 @@ connection.onopen = function (session) {
 
                         session.publish(localChannelName, [jsonResponse]);
                     });
-
                 }
             }
 
