@@ -52,8 +52,8 @@ class DefaultController extends Controller {
         }
 
         $redis->hset(RedisClientInterface::CHARACTERS_HASH_TEMPORARY, $sessionId, json_encode($userData));
-
-        $redis->hset(RedisClientInterface::USERNAMES_ID_HASH, $userId, $username);
+        $redis->hset(RedisClientInterface::ID_USERNAME_HASH, $userId, $username);
+        $redis->hset(RedisClientInterface::ID_SESSION_HASH, $userId, $sessionId);
 
         return $this->render('RottenwoodKingdomBundle:Default:game.html.twig', ['sessionId' => $sessionId]);
     }
