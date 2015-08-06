@@ -67,6 +67,29 @@ connection.onopen = function (session) {
                             sendToOnlinePlayers(chatData);
                         } else if (command == 'who') {
                             getPlayersOnline();
+                        } else if (command == 'move') {
+                            runConsoleCommand(character, command, function (commandResponseJson) {
+                                var responseData = JSON.parse(commandResponseJson).data;
+
+                                if (responseData) {
+                                    if (responseData.hasOwnProperty('left')) {
+                                        responseData.left.forEach(function(channel) {
+                                            var message = responseData.name + ' ушел ' + responseData.directionTo;
+                                            publichToChannel(channel, {commandName: 'moveAnother', message: message});
+                                        });
+                                    }
+
+                                    if (responseData.hasOwnProperty('enter')) {
+                                        responseData.enter.forEach(function(channel) {
+                                            var message = responseData.name + ' пришел ' + responseData.directionFrom;
+
+                                            publichToChannel(channel, {commandName: 'moveAnother', message: message});
+                                        });
+                                    }
+
+                                    publishToLocalChannel(JSON.stringify({commandName: command}));
+                                }
+                            });
                         } else {
                             runConsoleCommand(character, command, publishToLocalChannel);
                         }
@@ -132,6 +155,15 @@ connection.onopen = function (session) {
                  */
                 function publishToLocalChannel(message) {
                     session.publish(localChannelName, [message]);
+                }
+
+                /**
+                 * Отправка сообщения в выбранный канал игрока
+                 * @param channel
+                 * @param message
+                 */
+                function publichToChannel(channel, message) {
+                    session.publish('character.' + channel, [JSON.stringify(message)]);
                 }
             }
 

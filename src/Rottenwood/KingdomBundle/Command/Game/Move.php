@@ -4,9 +4,12 @@ namespace Rottenwood\KingdomBundle\Command\Game;
 
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
+use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Exception\InvalidCommandParameter;
 
 class Move extends AbstractGameCommand {
+
+    const DEFAULT_ROOM = 1;
 
     /**
      * @return CommandResponse
@@ -17,19 +20,28 @@ class Move extends AbstractGameCommand {
         $em = $roomRepository->getEntityManager();
 
         //TODO[Rottenwood]: логировать ошибку если у пользователя нет комнаты
-        $currentRoom = $this->user->getRoom() ?: $roomRepository->find(1);
+        /** @var Room $currentRoom */
+        $currentRoom = $this->user->getRoom() ?: $roomRepository->find(self::DEFAULT_ROOM);
 
         $x = $currentRoom->getX();
         $y = $currentRoom->getY();
 
         if ($this->parameters == 'north') {
             $y++;
+            $directionTo = 'на север';
+            $directionFrom = 'с юга';
         } elseif ($this->parameters == 'south') {
             $y--;
+            $directionTo = 'на юг';
+            $directionFrom = 'с севера';
         } elseif ($this->parameters == 'east') {
             $x++;
+            $directionTo = 'на восток';
+            $directionFrom = 'с запада';
         } elseif ($this->parameters == 'west') {
             $x--;
+            $directionTo = 'на запад';
+            $directionFrom = 'с востока';
         } else {
             throw new InvalidCommandParameter;
         }
@@ -43,6 +55,25 @@ class Move extends AbstractGameCommand {
         } else {
             $this->user->setRoom($destinationRoom);
             $em->flush($this->user);
+
+            $userService = $this->container->get('kingdom.user_service');
+            $userId = $this->user->getId();
+
+            $resultData = [
+                'directionTo'   => $directionTo,
+                'directionFrom' => $directionFrom,
+                'name'          => $this->user->getUsername(),
+            ];
+
+            if ($usersInCurrentRoom = $userService->getOnlineUsersIdsInRoom($currentRoom, $userId)) {
+                $resultData['left'] = $userService->getSessionsByUserIds($usersInCurrentRoom);
+            }
+
+            if ($usersInDestinationRoom = $userService->getOnlineUsersIdsInRoom($destinationRoom, $userId)) {
+                $resultData['enter'] = $userService->getSessionsByUserIds($usersInDestinationRoom);
+            }
+
+            $result->setData($resultData);
         }
 
         return $result;

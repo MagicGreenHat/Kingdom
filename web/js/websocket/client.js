@@ -31,6 +31,8 @@ $(function () {
                         callCommand('showPlayersInRoom');
                     } else if (data.commandName == 'showPlayersInRoom') {
                         showPlayersInRoom(data.data);
+                    } else if (data.commandName == 'moveAnother') {
+                        addInfo(data.message);
                     }
 
                     // Отрисовка карты
@@ -106,12 +108,15 @@ $(function () {
     }
 
     function addInfo(infoData) {
-        if (infoData.event = 'playerEnter') {
-            var html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
+        var html;
+        if (infoData.event == 'playerEnter') {
+            html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
+        } else {
+            html = '<div>' + infoData + '.</div>';
         }
 
         $gameChat.append(html);
-        $gameChat.scrollTop($gameChat.prop("scrollHeight"));
+        $gameChat.scrollTop($gameChat.prop('scrollHeight'));
     }
 
     function showOnline(playersOnlineCount) {

@@ -40,15 +40,16 @@ class UserService {
 
     /**
      * Запрос ID всех онлайн игроков в комнате
-     * @param Room $room
+     * @param Room  $room
+     * @param array $excludePlayerIds
      * @return int[]
      */
-    public function getOnlineUsersIdsInRoom(Room $room) {
+    public function getOnlineUsersIdsInRoom(Room $room, $excludePlayerIds = []) {
         return array_map(
             function (User $user) {
                 return $user->getId();
             },
-            $this->getOnlineUsersInRoom($room)
+            $this->getOnlineUsersInRoom($room, $excludePlayerIds)
         );
     }
 
@@ -63,5 +64,13 @@ class UserService {
             },
             $this->redis->hgetall(RedisClientInterface::CHARACTERS_HASH_NAME)
         );
+    }
+
+    /**
+     * @param array $userIds
+     * @return array
+     */
+    public function getSessionsByUserIds(array $userIds) {
+        return array_values($this->redis->hmget(RedisClientInterface::ID_SESSION_HASH, $userIds));
     }
 }
