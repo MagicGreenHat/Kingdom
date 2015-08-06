@@ -1,23 +1,25 @@
 /**
- * Сервер для прослушки командного канала и запуска команд
+ * Сервер для запуска симфони команд
  */
 
 COMMAND_CHANNEL_NAME = 'command';
 SYSTEM_CHANNEL_NAME = 'system';
 GATE_CHANNEL_NAME = 'gate';
 SYMFONY_CONSOLE_ENTRY_POINT = '../app/console kingdom:execute';
+REDIS_CHARACTERS_HASH = 'kingdom:characters:hash';
+REDIS_USERNAMES_ID_HASH = 'kingdom:usernames';
 
 var autobahn = require('autobahn');
 var exec = require('child_process').exec;
 var redis = require('redis').createClient();
 
-redis.on('error', function (err) {
-    console.log('[!] Redis error ' + err);
-});
-
 var connection = new autobahn.Connection({
     url: 'ws://localhost:7777/',
     realm: 'kingdom'
+});
+
+redis.on('error', function (err) {
+    console.log('[!] Redis error ' + err);
 });
 
 connection.onopen = function (session) {
@@ -32,7 +34,7 @@ connection.onopen = function (session) {
         var localChannelName = 'character.' + data.sessionId;
 
         // Получение данных о пользователе из redis
-        redis.hget('kingdom:characters:hash', data.sessionId, function (err, characterDataJson) {
+        redis.hget(REDIS_CHARACTERS_HASH, data.sessionId, function (err, characterDataJson) {
             var character = JSON.parse(characterDataJson);
 
             var isLocalChannelSubscribed = session.subscriptions.some(function (subscription) {
@@ -107,10 +109,10 @@ connection.onopen = function (session) {
                 }
 
                 /**
-                 * Запрос пользователей находящихся онлайн
+                 * Запрос количества пользователей находящихся онлайн
                  */
                 function getPlayersOnline() {
-                    redis.hlen('kingdom:characters:hash', function (err, playersOnline) {
+                    redis.hlen(REDIS_CHARACTERS_HASH, function (err, playersOnline) {
                         var jsonResponse = JSON.stringify({playersOnlineCount: playersOnline});
 
                         session.publish(localChannelName, [jsonResponse]);

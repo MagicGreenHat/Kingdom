@@ -22,14 +22,14 @@ $(function () {
                     var data = JSON.parse(args[0]);
 
                     // Обработка результатов запрошенных команд
-                    if (data.command == 'move') {
+                    if (data.commandName == 'move') {
                         if (!data.errors) {
                             callCommand('composeMap');
                         }
-                    } else if (data.command == 'composeMap') {
+                    } else if (data.commandName == 'composeMap') {
                         redrawRoom(data.data);
                         callCommand('showPlayersInRoom');
-                    } else if (data.command == 'showPlayersInRoom') {
+                    } else if (data.commandName == 'showPlayersInRoom') {
                         showPlayersInRoom(data.data);
                     }
 
