@@ -9,6 +9,7 @@ interface RedisClientInterface {
 
     const CHARACTERS_HASH_TEMPORARY = 'kingdom:characters:hash:temp';
     const CHARACTERS_HASH_NAME = 'kingdom:characters:hash';
+    const USERNAMES_ID_HASH = 'kingdom:usernames';
 
     public function get($key);
 
