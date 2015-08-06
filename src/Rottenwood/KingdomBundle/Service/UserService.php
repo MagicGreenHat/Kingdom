@@ -39,6 +39,20 @@ class UserService {
     }
 
     /**
+     * Запрос ID всех онлайн игроков в комнате
+     * @param Room $room
+     * @return int[]
+     */
+    public function getOnlineUsersIdsInRoom(Room $room) {
+        return array_map(
+            function (User $user) {
+                return $user->getId();
+            },
+            $this->getOnlineUsersInRoom($room)
+        );
+    }
+
+    /**
      * Запрос id всех игроков онлайн из redis
      * @return int[]
      */
