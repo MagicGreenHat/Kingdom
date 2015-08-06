@@ -66,7 +66,7 @@ connection.onopen = function (session) {
                         } else if (command == 'who') {
                             getPlayersOnline();
                         } else {
-                            runConsoleCommand(character, command);
+                            runConsoleCommand(character, command, publishToLocalChannel);
                         }
                     } else {
                         console.log('[' + localChannelName + ']: ' + localResponse);
@@ -76,8 +76,9 @@ connection.onopen = function (session) {
                      * Запуск консольной команды
                      * @param character
                      * @param command
+                     * @param callback
                      */
-                    function runConsoleCommand(character, command) {
+                    function runConsoleCommand(character, command, callback) {
                         var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command + ' ' + commandArguments;
 
                         exec(cmd, function (error, stdout) {
@@ -86,7 +87,9 @@ connection.onopen = function (session) {
                                 console.log(error);
                             }
 
-                            session.publish(localChannelName, [stdout]);
+                            if (isFunction(callback)) {
+                                callback(stdout);
+                            }
                         });
                     }
                 });
@@ -112,6 +115,21 @@ connection.onopen = function (session) {
 
                         session.publish(localChannelName, [jsonResponse]);
                     });
+                }
+
+                /**
+                 * Проверка на тип: функция
+                 */
+                function isFunction(variable) {
+                    return variable && typeof(variable) === 'function';
+                }
+
+                /**
+                 * Отправка сообщения в локальный канал игрока
+                 * @param message
+                 */
+                function publishToLocalChannel(message) {
+                    session.publish(localChannelName, [message]);
                 }
             }
 

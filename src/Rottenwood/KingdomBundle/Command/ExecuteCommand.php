@@ -64,6 +64,7 @@ class ExecuteCommand extends ContainerAwareCommand {
             throw new CommandNotFound('Команда не найдена');
         }
 
+        //TODO[Rottenwood]: handle InvalidCommandParameter exception
         $result = $command->execute();
 
         if (!$result instanceof CommandResponse) {
