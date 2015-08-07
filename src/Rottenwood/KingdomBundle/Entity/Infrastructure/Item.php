@@ -11,6 +11,18 @@ use Rottenwood\KingdomBundle\Entity\User;
  */
 abstract class Item {
 
+    const USER_SLOT_HEAD = 'head';
+    const USER_SLOT_AMULET = 'amulet';
+    const USER_SLOT_BODY = 'body';
+    const USER_SLOT_CLOAK = 'cloak';
+    const USER_SLOT_WEAPON = 'weapon';
+    const USER_SLOT_LEFT_HAND = 'left_hand';
+    const USER_SLOT_GLOVES = 'gloves';
+    const USER_SLOT_RING_FIRST = 'ring_first';
+    const USER_SLOT_RING_SECOND = 'ring_second';
+    const USER_SLOT_LEGS = 'legs';
+    const USER_SLOT_BOOTS = 'boots';
+
     /**
      * @var integer
      * @ORM\Column(name="id", type="integer")
@@ -75,6 +87,13 @@ abstract class Item {
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
+
+    /**
+     * Слоты куда можно одеть предмет
+     * @var int[]
+     * @ORM\Column(name="slots", type="simple_array")
+     */
+    protected $slots;
 
     /**
      * Название изображения предмета
@@ -155,9 +174,53 @@ abstract class Item {
     }
 
     /**
+     * @return int[]
+     */
+    public function getSlots() {
+        return $this->slots;
+    }
+
+    /**
      * @return string
      */
     public function getPicture() {
         return $this->picture;
+    }
+
+    /**
+     * Подходит ли предмет в соответствующий слот
+     * @param int $slotName
+     * @return bool
+     */
+    public function fitsTo($slotName) {
+        return in_array($slotName, $this->slots);
+    }
+
+    /**
+     * Является ли предмет оружием
+     * @return bool
+     */
+    public function isWeapon() {
+        return $this->fitsTo(self::USER_SLOT_WEAPON);
+    }
+
+    /**
+     * Названия всех слотов
+     * @return string[]
+     */
+    public static function getAllSlotNames() {
+        return [
+            self::USER_SLOT_HEAD,
+            self::USER_SLOT_AMULET,
+            self::USER_SLOT_BODY,
+            self::USER_SLOT_CLOAK,
+            self::USER_SLOT_WEAPON,
+            self::USER_SLOT_LEFT_HAND,
+            self::USER_SLOT_GLOVES,
+            self::USER_SLOT_RING_FIRST,
+            self::USER_SLOT_RING_SECOND,
+            self::USER_SLOT_LEGS,
+            self::USER_SLOT_BOOTS,
+        ];
     }
 }
