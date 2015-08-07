@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
+ * Игровой персонаж
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\UserRepository")
  */
