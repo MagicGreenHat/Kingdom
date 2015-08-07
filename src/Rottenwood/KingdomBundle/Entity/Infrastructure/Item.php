@@ -3,7 +3,6 @@
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Doctrine\ORM\Mapping as ORM;
-use Rottenwood\KingdomBundle\Entity\User;
 
 /**
  * Игровой предмет
@@ -95,14 +94,6 @@ abstract class Item {
     protected $description;
 
     /**
-     * Персонаж у которого находится предмет
-     * @var User
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     */
-    protected $user;
-
-    /**
      * Слоты куда можно одеть предмет
      * @var int[]
      * @ORM\Column(name="slots", type="simple_array")
@@ -171,20 +162,6 @@ abstract class Item {
      */
     public function getDescription() {
         return $this->description;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser() {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user) {
-        $this->user = $user;
     }
 
     /**
