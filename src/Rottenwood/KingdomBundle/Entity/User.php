@@ -8,7 +8,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 /**
  * Игровой персонаж
  * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository")
  */
 class User extends BaseUser {
 

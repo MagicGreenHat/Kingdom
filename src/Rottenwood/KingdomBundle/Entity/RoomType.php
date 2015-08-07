@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Тип локации
  * @ORM\Table(name="room_types", uniqueConstraints={@ORM\UniqueConstraint(name="index_unique_name", columns={"name"})})
- * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\RoomTypeRepository")
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomTypeRepository")
  */
 class RoomType {
 

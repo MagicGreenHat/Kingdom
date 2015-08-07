@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Игровая локация
  * @ORM\Table(name="rooms", uniqueConstraints={@ORM\UniqueConstraint(name="index_unique_coordinates", columns={"x", "y", "z"})})
- * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\RoomRepository")
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository")
  */
 class Room {
 

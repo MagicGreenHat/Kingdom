@@ -1,8 +1,9 @@
 <?php
 
-namespace Rottenwood\KingdomBundle\Entity;
+namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
-use Rottenwood\KingdomBundle\Entity\Infrastructure\AbstractRepository;
+use Rottenwood\KingdomBundle\Entity\Room;
+use Rottenwood\KingdomBundle\Entity\User;
 
 class UserRepository extends AbstractRepository {
 
