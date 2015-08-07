@@ -1,4 +1,5 @@
-kingdom
-=======
+Государство
+===========
 
-A Symfony project created on July 21, 2015, 2:57 pm.
+Браузерная ролевая экономическая игра.
+Доска задач проекта: https://trello.com/b/dYc2L9lX/kingdom
