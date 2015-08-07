@@ -3,6 +3,7 @@
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Doctrine\ORM\Mapping as ORM;
+use Rottenwood\KingdomBundle\Entity\User;
 
 /**
  * Игровой предмет
