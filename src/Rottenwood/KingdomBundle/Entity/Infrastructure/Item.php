@@ -7,7 +7,21 @@ use Rottenwood\KingdomBundle\Entity\User;
 
 /**
  * Игровой предмет
- * @ORM\MappedSuperclass
+ * @ORM\Table(name="items")
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *      "armor" = "Rottenwood\KingdomBundle\Entity\Items\Armor",
+ *      "clothes" = "Rottenwood\KingdomBundle\Entity\Items\Clothes",
+ *      "food" = "Rottenwood\KingdomBundle\Entity\Items\Food",
+ *      "key" = "Rottenwood\KingdomBundle\Entity\Items\Key",
+ *      "resource" = "Rottenwood\KingdomBundle\Entity\Items\Resource",
+ *      "ring" = "Rottenwood\KingdomBundle\Entity\Items\Ring",
+ *      "scroll" = "Rottenwood\KingdomBundle\Entity\Items\Scroll",
+ *      "shield" = "Rottenwood\KingdomBundle\Entity\Items\Shield",
+ *      "weapon" = "Rottenwood\KingdomBundle\Entity\Items\Weapon",
+ * })
  */
 abstract class Item {
 
@@ -188,20 +202,20 @@ abstract class Item {
     }
 
     /**
+     * Является ли предмет оружием
+     * @return bool
+     */
+    public function isWeapon() {
+        return $this->fitsTo(self::USER_SLOT_WEAPON);
+    }
+
+    /**
      * Подходит ли предмет в соответствующий слот
      * @param int $slotName
      * @return bool
      */
     public function fitsTo($slotName) {
         return in_array($slotName, $this->slots);
-    }
-
-    /**
-     * Является ли предмет оружием
-     * @return bool
-     */
-    public function isWeapon() {
-        return $this->fitsTo(self::USER_SLOT_WEAPON);
     }
 
     /**
