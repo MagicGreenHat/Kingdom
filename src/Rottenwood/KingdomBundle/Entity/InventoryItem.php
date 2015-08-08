@@ -16,29 +16,35 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 class InventoryItem {
 
     /**
-     * Персонаж
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
+     */
+    private $id;
+
+    /**
+     * Персонаж
      * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      * @var User
      */
-    protected $user;
+    private $user;
 
     /**
      * Предмет
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false)
      * @var Item
      */
-    protected $item;
+    private $item;
 
     /**
      * Количество предметов
      * @var int
      * @ORM\Column(name="quantity", type="integer")
      */
-    protected $quantity;
+    private $quantity;
 
     /**
      * @param User $user
@@ -49,6 +55,13 @@ class InventoryItem {
         $this->user = $user;
         $this->item = $item;
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
     }
 
     /**
