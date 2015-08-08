@@ -2,14 +2,14 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
-use Rottenwood\KingdomBundle\Entity\Inventory;
+use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\User;
 
-class InventoryRepository extends AbstractRepository {
+class InventoryItemRepository extends AbstractRepository {
 
     /**
      * @param User $user
-     * @return Inventory
+     * @return InventoryItem
      */
     public function findByUser(User $user) {
         return $this->findBy(['user' => $user]);

@@ -11,9 +11,9 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
  *      name="users_items",
  *      uniqueConstraints={@ORM\UniqueConstraint(name="inventory_user_item", columns={"user_id", "item_id"})}
  * )
- * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryRepository")
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository")
  */
-class Inventory {
+class InventoryItem {
 
     /**
      * Персонаж
@@ -45,7 +45,7 @@ class Inventory {
      * @param Item $item
      * @param int  $quantity
      */
-    public function __construct(User $user, Item $item, $quantity) {
+    public function __construct(User $user, Item $item, $quantity = 1) {
         $this->user = $user;
         $this->item = $item;
         $this->quantity = $quantity;

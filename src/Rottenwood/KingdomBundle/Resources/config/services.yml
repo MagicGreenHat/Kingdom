@@ -23,11 +23,11 @@ services:
         factory_method: getRepository
         arguments: ["Rottenwood\KingdomBundle\Entity\Infrastructure\Item"]
 
-    kingdom.inventory_repository:
-        class: Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryRepository
+    kingdom.inventory_item_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository
         factory_service: "doctrine.orm.entity_manager"
         factory_method: getRepository
-        arguments: ["Rottenwood\KingdomBundle\Entity\Infrastructure\Inventory"]
+        arguments: ["Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItem"]
 
     kingdom.user_service:
         class: Rottenwood\KingdomBundle\Service\UserService
