@@ -4,7 +4,7 @@ namespace Rottenwood\KingdomBundle\Service;
 
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
-use Rottenwood\KingdomBundle\Entity\UserRepository;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Snc\RedisBundle\Client\Phpredis\Client;
 
