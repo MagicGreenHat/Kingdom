@@ -11,4 +11,11 @@ class ItemRepository extends AbstractRepository {
     public function findById($userId) {
         return $this->find($userId);
     }
+
+    /**
+     * @return Item[]
+     */
+    public function findAllItems() {
+        return $this->findAll();
+    }
 }

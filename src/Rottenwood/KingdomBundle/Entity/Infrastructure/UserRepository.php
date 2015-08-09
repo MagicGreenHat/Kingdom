@@ -34,4 +34,11 @@ class UserRepository extends AbstractRepository {
 
         return $builder->getQuery()->getResult();
     }
+
+    /**
+     * @return User[]
+     */
+    public function findAllUsers() {
+        return $this->findAll();
+    }
 }
