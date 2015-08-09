@@ -53,7 +53,6 @@ class Wear extends AbstractGameCommand {
         $result->setData(
             [
                 'itemName'       => $item->getName(),
-                'itemName4'      => $item->getName4(),
                 'description'    => $item->getDescription(),
                 'availableSlots' => $item->getSlots(),
                 'pic'            => $item->getPicture(),
