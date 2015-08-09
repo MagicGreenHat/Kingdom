@@ -14,7 +14,7 @@ var exec = require('child_process').exec;
 var redis = require('redis').createClient();
 
 var connection = new autobahn.Connection({
-    url: 'ws://localhost:7777/',
+    url: 'ws://localhost:7777',
     realm: 'kingdom'
 });
 
