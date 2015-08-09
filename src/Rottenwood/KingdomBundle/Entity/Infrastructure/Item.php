@@ -109,11 +109,23 @@ abstract class Item {
 
     /**
      * @param string $name
+     * @param string $name2
+     * @param string $name3
+     * @param string $name4
+     * @param string $name5
+     * @param string $name6
+     * @param string $description
      * @param int[] $slots
      * @param string $picture
      */
-    public function __construct($name, $picture, array $slots = []) {
+    public function __construct($name, $name2, $name3, $name4, $name5, $name6, $description, $picture, array $slots = []) {
         $this->name = $name;
+        $this->name2 = $name2;
+        $this->name3 = $name3;
+        $this->name4 = $name4;
+        $this->name5 = $name5;
+        $this->name6 = $name6;
+        $this->description = $description;
         $this->slots = $slots;
         $this->picture = $picture;
     }
