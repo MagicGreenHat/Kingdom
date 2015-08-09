@@ -304,7 +304,7 @@ class User extends BaseUser {
      * @return Item[]
      */
     public function getEquipment() {
-        return [
+        return array_filter([
             Item::USER_SLOT_HEAD =>  $this->getHeadSlot(),
             Item::USER_SLOT_AMULET => $this->getAmuletSlot(),
             Item::USER_SLOT_BODY => $this->getBodySlot(),
@@ -316,6 +316,6 @@ class User extends BaseUser {
             Item::USER_SLOT_RING_SECOND => $this->getRingSecondSlot(),
             Item::USER_SLOT_LEGS => $this->getLegsSlot(),
             Item::USER_SLOT_BOOTS => $this->getBootsSlot(),
-        ];
+        ]);
     }
 }
