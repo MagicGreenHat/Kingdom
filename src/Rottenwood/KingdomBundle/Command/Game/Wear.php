@@ -21,19 +21,45 @@ class Wear extends AbstractGameCommand {
         $itemId = $parameters[0];
         $slot = $parameters[1];
 
-        if ($slot == Item::USER_SLOT_HEAD) {
-        } elseif ($slot == Item::USER_SLOT_AMULET) {
-        } elseif ($slot == Item::USER_SLOT_BODY) {
-        } elseif ($slot == Item::USER_SLOT_CLOAK) {
-        } elseif ($slot == Item::USER_SLOT_WEAPON) {
-        } elseif ($slot == Item::USER_SLOT_LEFT_HAND) {
-        } elseif ($slot == Item::USER_SLOT_GLOVES) {
-        } elseif ($slot == Item::USER_SLOT_RING_FIRST) {
-        } elseif ($slot == Item::USER_SLOT_RING_SECOND) {
-        } elseif ($slot == Item::USER_SLOT_LEGS) {
-        } elseif ($slot == Item::USER_SLOT_BOOTS) {
+        $inventoryItemRepository = $this->container->get('kingdom.inventory_item_repository');
+        $item = $inventoryItemRepository->findOneByUserAndItemId($this->user, $itemId)->getItem();
 
+        if ($slot == Item::USER_SLOT_HEAD) {
+            $this->user->setHeadSlot($item);
+        } elseif ($slot == Item::USER_SLOT_AMULET) {
+            $this->user->setAmuletSlot($item);
+        } elseif ($slot == Item::USER_SLOT_BODY) {
+            $this->user->setBodySlot($item);
+        } elseif ($slot == Item::USER_SLOT_CLOAK) {
+            $this->user->setCloakSlot($item);
+        } elseif ($slot == Item::USER_SLOT_WEAPON) {
+            $this->user->setWeaponSlot($item);
+        } elseif ($slot == Item::USER_SLOT_LEFT_HAND) {
+            $this->user->setLeftHandSlot($item);
+        } elseif ($slot == Item::USER_SLOT_GLOVES) {
+            $this->user->setGlovesSlot($item);
+        } elseif ($slot == Item::USER_SLOT_RING_FIRST) {
+            $this->user->setRingFirstSlot($item);
+        } elseif ($slot == Item::USER_SLOT_RING_SECOND) {
+            $this->user->setRingSecondSlot($item);
+        } elseif ($slot == Item::USER_SLOT_LEGS) {
+            $this->user->setLegsSlot($item);
+        } elseif ($slot == Item::USER_SLOT_BOOTS) {
+            $this->user->setBootsSlot($item);
         };
+
+        $inventoryItemRepository->flush();
+
+        $result->setData(
+            [
+                'itemName'       => $item->getName(),
+                'itemName4'      => $item->getName4(),
+                'description'    => $item->getDescription(),
+                'availableSlots' => $item->getSlots(),
+                'pic'            => $item->getPicture(),
+                'slot'           => $slot,
+            ]
+        );
 
         return $result;
     }
