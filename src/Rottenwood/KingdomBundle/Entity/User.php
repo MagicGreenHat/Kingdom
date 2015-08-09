@@ -298,4 +298,24 @@ class User extends BaseUser {
     public function setBootsSlot($bootsSlot) {
         $this->bootsSlot = $bootsSlot;
     }
+
+    /**
+     * Одетые на персонаже вещи
+     * @return Item[]
+     */
+    public function getEquipment() {
+        return [
+            Item::USER_SLOT_HEAD =>  $this->getHeadSlot(),
+            Item::USER_SLOT_AMULET => $this->getAmuletSlot(),
+            Item::USER_SLOT_BODY => $this->getBodySlot(),
+            Item::USER_SLOT_CLOAK => $this->getCloakSlot(),
+            Item::USER_SLOT_WEAPON => $this->getWeaponSlot(),
+            Item::USER_SLOT_LEFT_HAND => $this->getLeftHandSlot(),
+            Item::USER_SLOT_GLOVES => $this->getGlovesSlot(),
+            Item::USER_SLOT_RING_FIRST => $this->getRingFirstSlot(),
+            Item::USER_SLOT_RING_SECOND => $this->getRingSecondSlot(),
+            Item::USER_SLOT_LEGS => $this->getLegsSlot(),
+            Item::USER_SLOT_BOOTS => $this->getBootsSlot(),
+        ];
+    }
 }
