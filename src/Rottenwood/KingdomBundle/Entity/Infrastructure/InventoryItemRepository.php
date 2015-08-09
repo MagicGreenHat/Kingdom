@@ -10,7 +10,7 @@ class InventoryItemRepository extends AbstractRepository {
     /**
      * Все предметы в инвентаре игрока
      * @param User $user
-     * @return InventoryItem
+     * @return InventoryItem[]
      */
     public function findByUser(User $user) {
         return $this->findBy(['user' => $user]);
