@@ -7,36 +7,36 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Тип локации
  * @ORM\Table(name="room_types", uniqueConstraints={@ORM\UniqueConstraint(name="index_unique_name", columns={"name"})})
- * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\RoomTypeRepository")
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomTypeRepository")
  */
 class RoomType {
 
     /**
-     * @var integer
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
      */
     private $id;
 
     /**
      * Название
-     * @var string
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @var string
      */
     private $name;
 
     /**
      * Описание
-     * @var string
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @var string
      */
     private $description;
 
     /**
      * Имя изображения на карте
-     * @var string
      * @ORM\Column(name="picture", type="string", length=255)
+     * @var string
      */
     private $picture;
 

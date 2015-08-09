@@ -14,7 +14,7 @@ var exec = require('child_process').exec;
 var redis = require('redis').createClient();
 
 var connection = new autobahn.Connection({
-    url: 'ws://localhost:7777/',
+    url: 'ws://localhost:7777',
     realm: 'kingdom'
 });
 
@@ -43,7 +43,7 @@ connection.onopen = function (session) {
 
             //TODO[Rottenwood]: Обработка перезагрузки на стороне клиента
             if (!character) {
-                session.publish(localChannelName, [{command: 'reloadPage'}]);
+                session.publish(localChannelName, [{commandName: 'reloadPage'}]);
                 return;
             }
 
@@ -54,7 +54,7 @@ connection.onopen = function (session) {
                     var commandArguments = localResponse.arguments;
 
                     if (command) {
-                        console.log('[' + localChannelName + '] [команда]: ' + command);
+                        console.log('[' + localChannelName + '] [команда]: ' + command + ' [параметры]: ' + commandArguments);
                         if (command == 'chat') {
                             var chatData = {
                                 chat: {

@@ -6,6 +6,9 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Entity\Room;
 
+/**
+ * Отрисовка карты
+ */
 class ComposeMap extends AbstractGameCommand {
 
     /**

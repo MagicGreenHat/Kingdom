@@ -1,5 +1,5 @@
 var connection = new autobahn.Connection({
-    url: 'ws://localhost:7777/',
+    url: 'ws://localhost:7777',
     realm: 'kingdom'
 });
 
@@ -21,6 +21,7 @@ $(function () {
 
                     var data = JSON.parse(args[0]);
 
+                    //TODO[Rottenwood]: Убрать блок обработки в новый файл (напр. commandHandler.js)
                     // Обработка результатов запрошенных команд
                     if (data.commandName == 'move') {
                         if (!data.errors) {
@@ -56,9 +57,16 @@ $(function () {
                     }
                 });
 
-                // Отправка команды по локальному каналу
+                /**
+                 * Отправка команды по локальному каналу
+                 * @param command
+                 * @param arguments строка, или несколько аргументов разделенных символом :
+                 */
                 function callCommand(command, arguments) {
                     //TODO[Rottenwood]: блокировка интерфейса отправки команд
+
+                    //TODO[Rottenwood]: if (typeof arguments == 'object') { // implode }
+
                     session.publish(localChannelName, [{command: command, arguments: arguments}]);
                     //TODO[Rottenwood]: разблокировка интерфейса отправки команд
                 }
@@ -96,7 +104,7 @@ $(function () {
     function redrawMap(mapData) {
         $('#game-map .map-frame img').attr('src', '../../img/locations/null.png');
 
-        mapData.forEach(function (room, i) {
+        mapData.forEach(function (room) {
             $('.map .y' + room.y + ' .x' + room.x)
                 .html('<img src="../../img/locations/' + room.pic + '.png">');
         });

@@ -1,8 +1,9 @@
 <?php
 
-namespace Rottenwood\KingdomBundle\Entity;
+namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
-use Rottenwood\KingdomBundle\Entity\Infrastructure\AbstractRepository;
+use Rottenwood\KingdomBundle\Entity\Room;
+use Rottenwood\KingdomBundle\Entity\User;
 
 class UserRepository extends AbstractRepository {
 
@@ -32,5 +33,20 @@ class UserRepository extends AbstractRepository {
         $builder->setParameters(['room' => $room]);
 
         return $builder->getQuery()->getResult();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findAllUsers() {
+        return $this->findAll();
+    }
+
+    /**
+     * @param string $username
+     * @return User
+     */
+    public function findByUsername($username) {
+        return $this->findOneBy(['username' => $username]);
     }
 }

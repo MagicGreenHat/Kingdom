@@ -22,6 +22,13 @@ class AbstractRepository extends EntityRepository {
     }
 
     /**
+     * @param object $entity
+     */
+    public function remove($entity) {
+        $this->_em->remove($entity);
+    }
+
+    /**
      * @return EntityManager
      */
     public function getEntityManager() {

@@ -3,28 +3,26 @@
 namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Игровая локация
- * @ORM\Table(name="rooms", uniqueConstraints={@ORM\UniqueConstraint(name="index_unique_coordinates", columns={"x", "y", "z"})})
- * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\RoomRepository")
- * @UniqueEntity({"x", "y", "z"})
+ * @ORM\Table(name="rooms", uniqueConstraints={@ORM\UniqueConstraint(name="room_coordinates", columns={"x", "y", "z"})})
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository")
  */
 class Room {
 
     /**
-     * @var integer
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
      */
     private $id;
 
     /**
      * Название
+     * @ORM\Column(name="name", type="string", length=255)
      * @var string
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -38,29 +36,29 @@ class Room {
 
     /**
      * Описание
-     * @var string
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @var string
      */
     private $description;
 
     /**
      * Положение на карте по оси Х
-     * @var integer
      * @ORM\Column(name="x", type="integer")
+     * @var integer
      */
     private $x;
 
     /**
      * Положение на карте по оси Y
-     * @var integer
      * @ORM\Column(name="y", type="integer")
+     * @var integer
      */
     private $y;
 
     /**
      * Положение на карте по оси Z
-     * @var integer
      * @ORM\Column(name="z", type="integer")
+     * @var integer
      */
     private $z;
 

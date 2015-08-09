@@ -15,5 +15,6 @@ class ScriptHandler extends ComposerScriptHandler {
 
         // Вызов symfony-команд для настройки государства
         static::executeCommand($event, $consoleDir, 'kingdom:map:create');
+        static::executeCommand($event, $consoleDir, 'kingdom:items:create');
     }
 }
