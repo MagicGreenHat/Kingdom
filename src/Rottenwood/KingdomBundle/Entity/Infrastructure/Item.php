@@ -108,6 +108,17 @@ abstract class Item {
     protected $picture;
 
     /**
+     * @param string $name
+     * @param int[] $slots
+     * @param string $picture
+     */
+    public function __construct($name, $picture, array $slots = []) {
+        $this->name = $name;
+        $this->slots = $slots;
+        $this->picture = $picture;
+    }
+
+    /**
      * @return integer
      */
     public function getId() {
