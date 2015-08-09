@@ -25,12 +25,12 @@ class Inventory extends AbstractGameCommand {
             $itemId = $item->getId();
 
             $itemData[] = [
-                'itemId' => $itemId,
-                'name' => $item->getName(),
+                'itemId'      => $itemId,
+                'name'        => $item->getName(),
                 'description' => $item->getDescription(),
-                'slots' => $item->getSlots(),
-                'pic' => $item->getPicture(),
-                'worn' => in_array($itemId, $equipedItemsIds),
+                'slots'       => $item->getSlots(),
+                'pic'         => $item->getPicture(),
+                'equiped'     => in_array($itemId, $equipedItemsIds),
             ];
         }
 
