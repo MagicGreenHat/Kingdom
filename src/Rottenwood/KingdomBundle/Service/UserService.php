@@ -165,4 +165,37 @@ class UserService {
 
         $this->inventoryItemRepository->flush($inventoryItem);
     }
+
+    /**
+     * Id одетых на персонаже вещей
+     * @param User $user
+     * @return int[]
+     */
+    public function getWornItemsIds(User $user) {
+        $headSlot = $user->getHeadSlot();
+        $amuletSlot = $user->getAmuletSlot();
+        $bodySlot = $user->getBodySlot();
+        $cloakSlot = $user->getCloakSlot();
+        $weaponSlot = $user->getWeaponSlot();
+        $leftHandSlot = $user->getLeftHandSlot();
+        $glovesSlot = $user->getGlovesSlot();
+        $ringFirstSlot = $user->getRingFirstSlot();
+        $ringSecondSlot = $user->getRingSecondSlot();
+        $legsSlot = $user->getLegsSlot();
+        $bootsSlot = $user->getBootsSlot();
+
+        return [
+            Item::USER_SLOT_HEAD => $headSlot ? $headSlot->getId() : null,
+            Item::USER_SLOT_AMULET => $amuletSlot ? $amuletSlot->getId() : null,
+            Item::USER_SLOT_BODY => $bodySlot ? $bodySlot->getId() : null,
+            Item::USER_SLOT_CLOAK => $cloakSlot ? $cloakSlot->getId() : null,
+            Item::USER_SLOT_WEAPON => $weaponSlot ? $weaponSlot->getId() : null,
+            Item::USER_SLOT_LEFT_HAND => $leftHandSlot ? $leftHandSlot->getId() : null,
+            Item::USER_SLOT_GLOVES => $glovesSlot ? $glovesSlot->getId() : null,
+            Item::USER_SLOT_RING_FIRST => $ringFirstSlot ? $ringFirstSlot->getId() : null,
+            Item::USER_SLOT_RING_SECOND => $ringSecondSlot ? $ringSecondSlot->getId() : null,
+            Item::USER_SLOT_LEGS => $legsSlot ? $legsSlot->getId() : null,
+            Item::USER_SLOT_BOOTS => $bootsSlot ? $bootsSlot->getId() : null,
+        ];
+    }
 }
