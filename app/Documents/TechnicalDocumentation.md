@@ -8,9 +8,10 @@
 * MySQL 5.5
 * jQuery 2.1
 * Node.js 0.10.25
+* Symfony 2.7 [документация](https://symfony.com/doc/current/index.html)
 * Redis 2.8.4 [команды](http://redis.io/commands)
 * Docker 1.0 [руководство](http://docs.docker.com/mac/started/)
-* Symfony 2.7 [документация](https://symfony.com/doc/current/index.html)
+* Autobahn.js 0.9.6 [документация](http://autobahn.ws/js/)
 
 ## Ход работы приложения
 
@@ -33,3 +34,7 @@
 * Симфони команда производит соответствующие расчеты бизнес-логики и отдает json-ответ
 * Обработчик команд отправляет json-ответ запросившему в его личный вебсокет-канал
 * Javascript-клиент обрабатывает полученный результат, отрисовывает данные в браузере
+
+
+## Структура директорий
+
