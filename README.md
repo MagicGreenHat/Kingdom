@@ -15,7 +15,7 @@
 Техническая документация
 ------------------------
 
-Используемые технологии, ход работы приложения и структура директорий описаны в [технической документации](https://github.com/MagicGreenHat/Kingdom/blob/master/app/Documents/TechnicalDocumentation.md).
+Используемые технологии, ход работы приложения и структура директорий описаны в [технической документации](https://github.com/MagicGreenHat/Kingdom/blob/master/app/documents/TechnicalDocumentation.md).
 
 Именование веток
 ----------------
