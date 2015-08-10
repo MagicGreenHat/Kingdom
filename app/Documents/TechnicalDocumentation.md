@@ -37,4 +37,40 @@
 
 
 ## Структура директорий
+app/
+app/config -- Конфигурационные файлы фреймворка
+app/Documents -- Файлы проектной документации
 
+src/Rottenwood/UserBundle -- Расширение для FOSUserBundle
+src/Rottenwood/UserBundle/Resources/views -- шаблоны для отображения страниц логина и регистрации
+Rottenwood/UserBundle/EventListener/FOSUserListener.php -- EventListener для события регистрации
+
+src/Rottenwood/KingdomBundle/Command/Infrastructure/AbstractGameCommand.php -- Абстрактный класс игровых команд
+src/Rottenwood/KingdomBundle/Command/Infrastructure/GameCommandInterface.php -- Интерфейс для игровых команд
+src/Rottenwood/KingdomBundle/Command/Infrastructure/CommandResponse.php -- DataObject для результата выполнения игровой команды
+src/Rottenwood/KingdomBundle/Command/ExecuteCommand.php -- Симфони команда для вызова игровых команд
+src/Rottenwood/KingdomBundle/Command/Composer/ScriptHandler.php -- Команды для вызова при `composer install`
+src/Rottenwood/KingdomBundle/Command/Console -- Технические консольные команды
+src/Rottenwood/KingdomBundle/Command/Game -- Игровые команды, вызываемые командой kingdom:execute
+
+src/Rottenwood/KingdomBundle/Entity -- Классы сущностей приложения
+src/Rottenwood/KingdomBundle/Entity/Infrastructure -- Классы репозиториев
+src/Rottenwood/KingdomBundle/Entity/Infrastructure/Item.php -- Абстрактный класс игрового предмета
+src/Rottenwood/KingdomBundle/Entity/Items -- Классы игровых предметов наследующихся от Item
+
+src/Rottenwood/KingdomBundle/Exception -- Классы исключений
+src/Rottenwood/KingdomBundle/Redis/RedisClientInterface.php -- Интерфейс для удобства работы с redis-командами
+
+src/Rottenwood/KingdomBundle/Service -- Сервисы, не имеющие состояний
+src/Rottenwood/KingdomBundle/Resources/views -- Twig-шаблоны страниц
+
+src/Rottenwood/KingdomBundle/Resources/views/Default/game.html.twig -- Шаблон основной страницы игры
+web/js/websocket/client.js -- Javascript-клиент для подключения к вебсокетам и обработки ответов сервера
+
+vendor/ -- Код сторонних библиотек, подгруженных композером
+web/ -- Файлы, доступные для запроса браузером: js, css, изображения 
+
+websocket/ -- Серверы node.js для работы через вебсокеты
+websocket/router.js -- Вебсокет сервер и роутер соединений
+websocket/gate.js -- Сервер для обработки команд от клиентов
+websocket/ticker.js -- Сервер для генерации событий
