@@ -24,14 +24,20 @@ class Inventory extends AbstractGameCommand {
             $item = $inventoryItem->getItem();
             $itemId = $item->getId();
 
-            $itemData[] = [
-                'itemId'      => $itemId,
-                'name'        => $item->getName(),
-                'description' => $item->getDescription(),
-                'slots'       => $item->getSlots(),
-                'pic'         => $item->getPicture(),
-                'equiped'     => in_array($itemId, $equipedItemsIds),
+            $itemResult = [
+                'itemId'       => $itemId,
+                'name'         => $item->getName(),
+                'description'  => $item->getDescription(),
+                'quantity'     => $inventoryItem->getQuantity(),
+                'allowedSlots' => $item->getSlots(),
+                'pic'          => $item->getPicture(),
             ];
+
+            if (in_array($itemId, $equipedItemsIds)) {
+                $itemResult['slot'] = array_search($itemId, $equipedItemsIds);
+            }
+
+            $itemData[] = $itemResult;
         }
 
         $result->setData($itemData);
