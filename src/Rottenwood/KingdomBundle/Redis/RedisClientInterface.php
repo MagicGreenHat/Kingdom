@@ -7,10 +7,9 @@ namespace Rottenwood\KingdomBundle\Redis;
 
 interface RedisClientInterface {
 
-    const CHARACTERS_HASH_TEMPORARY = 'kingdom:characters:hash:temp';
-    const CHARACTERS_HASH_NAME = 'kingdom:characters:hash';
-    const ID_USERNAME_HASH = 'kingdom:usernames';
-    const ID_SESSION_HASH = 'kingdom:sessions';
+    const ID_USERNAME_HASH = 'kingdom:users:usernames';
+    const ID_SESSION_HASH = 'kingdom:users:sessions';
+    const SESSION_ID_HASH = 'kingdom:sessions:users';
 
     public function get($key);
 
