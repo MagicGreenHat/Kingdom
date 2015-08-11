@@ -6,5 +6,5 @@ echo "Удаление старого контейнера ..."
 docker stop kingdom > /dev/null 2>&1
 docker rm kingdom > /dev/null 2>&1
 echo "Создание нового контейнера ..."
-docker run -d --name="kingdom" -v $(pwd):/kingdom rottenwood/kingdom
+docker run -d --name="kingdom" --hostname="kingdom" -v $(pwd):/kingdom --entrypoint="kingdom/app/docker/init.sh" -p 7777:7777 -p 8000:8000 rottenwood/kingdom
 echo "Контейнер создан!"
