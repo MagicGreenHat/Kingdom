@@ -9,6 +9,7 @@ SYMFONY_CONSOLE_ENTRY_POINT = '../app/console kingdom:execute';
 
 REDIS_ID_USERNAME_HASH = 'kingdom:users:usernames';
 REDIS_SESSION_ID_HASH = 'kingdom:sessions:users';
+REDIS_ONLINE_LIST = 'kingdom:users:online';
 
 var autobahn = require('autobahn');
 var exec = require('child_process').exec;
@@ -141,7 +142,7 @@ connection.onopen = function (session) {
                      * Запрос количества пользователей находящихся онлайн
                      */
                     function getPlayersOnline() {
-                        redis.hlen(REDIS_SESSION_ID_HASH).then(function (playersOnline) {
+                        redis.scard(REDIS_ONLINE_LIST).then(function (playersOnline) {
                             var jsonResponse = JSON.stringify({playersOnlineCount: playersOnline});
 
                             session.publish(localChannelName, [jsonResponse]);
