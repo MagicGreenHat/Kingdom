@@ -1,5 +1,5 @@
 var connection = new autobahn.Connection({
-    url: 'ws://localhost:7777',
+    url: 'ws://' + websocketUrl + ':7777', // параметр передается из twig-шаблона
     realm: 'kingdom'
 });
 

@@ -55,6 +55,12 @@ class DefaultController extends Controller {
         $redis->hset(RedisClientInterface::ID_USERNAME_HASH, $userId, $username);
         $redis->hset(RedisClientInterface::ID_SESSION_HASH, $userId, $sessionId);
 
-        return $this->render('RottenwoodKingdomBundle:Default:game.html.twig', ['sessionId' => $sessionId]);
+        return $this->render(
+            'RottenwoodKingdomBundle:Default:game.html.twig',
+            [
+                'sessionId'    => $sessionId,
+                'websocketUrl' => $this->getParameter('websocket_router_url'),
+            ]
+        );
     }
 }
