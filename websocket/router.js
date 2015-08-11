@@ -31,9 +31,9 @@ app.on('RPCRegistered', function (topicUri) {
     if (channel.lastIndexOf('online.', 0) === 0) {
         var clientData = channel.split(".");
 
-        // Удаление id игрока из redis-списка онлайн игроков
+       // Добавление id игрока в redis-список онлайн игроков
         redis.hget(REDIS_SESSION_ID_HASH, clientData[1]).then(function(userId) {
-            redis.srem(REDIS_ONLINE_LIST, userId);
+            redis.sadd(REDIS_ONLINE_LIST, userId);
         });
     }
 });
@@ -45,9 +45,9 @@ app.on('RPCUnregistered', function (topicUri) {
    if (channel.lastIndexOf('online.', 0) === 0) {
        var clientData = channel.split(".");
 
-       // Добавление id игрока в redis-список онлайн игроков
+       // Удаление id игрока из redis-списка онлайн игроков
        redis.hget(REDIS_SESSION_ID_HASH, clientData[1]).then(function(userId) {
-           redis.sadd(REDIS_ONLINE_LIST, userId);
+           redis.srem(REDIS_ONLINE_LIST, userId);
        });
    }
 });
