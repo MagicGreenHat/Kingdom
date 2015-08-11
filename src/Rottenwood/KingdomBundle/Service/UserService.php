@@ -67,12 +67,7 @@ class UserService {
      * @return int[]
      */
     public function getOnlineUsersIds() {
-        return array_map(
-            function ($player) {
-                return json_decode($player, true)['id'];
-            },
-            $this->redis->hgetall(RedisClientInterface::CHARACTERS_HASH_NAME)
-        );
+        return $this->redis->hgetall(RedisClientInterface::SESSION_ID_HASH);
     }
 
     /**
