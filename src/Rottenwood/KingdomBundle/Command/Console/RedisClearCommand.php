@@ -20,6 +20,7 @@ class RedisClearCommand extends ContainerAwareCommand {
         $redis->del(RedisClientInterface::ID_USERNAME_HASH);
         $redis->del(RedisClientInterface::ID_SESSION_HASH);
         $redis->del(RedisClientInterface::SESSION_ID_HASH);
+        $redis->del(RedisClientInterface::ONLINE_LIST);
 
         $output->writeln('Данные удалены из redis');
     }
