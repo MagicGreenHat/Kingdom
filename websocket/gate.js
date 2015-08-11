@@ -44,6 +44,7 @@ connection.onopen = function (session) {
             //TODO[Rottenwood]: Обработка перезагрузки на стороне клиента
             if (!character) {
                 session.publish(localChannelName, [{commandName: 'reloadPage'}]);
+                console.log('Игрок не найден!');
                 return;
             }
 
