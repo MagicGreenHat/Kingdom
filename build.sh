@@ -15,6 +15,8 @@ echo "Обновление библиотек композера ..."
 echo "Обновление библиотек nmp ..."
 npm install
 
+
+echo "Сборка Docker-образа ..."
 docker stop kingdom > /dev/null 2>&1
 docker rm kingdom > /dev/null 2>&1
 docker rmi rottenwood/kingdom > /dev/null 2>&1
