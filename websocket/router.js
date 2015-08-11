@@ -1,16 +1,22 @@
-//WAMPRT_TRACE = true; // Verbose output
+/**
+ * Вебсокет роутер реализующий протокол WAMP
+ */
+
+//WAMPRT_TRACE = true; // Вывод технической информации
 WEBSOCKET_PORT = 7777;
-REDIS_CHARACTERS_HASH = 'kingdom:characters:hash';
-REDIS_CHARACTERS_HASH_TEMPORARY = 'kingdom:characters:hash:temp';
+
+REDIS_ID_USERNAME_HASH = 'kingdom:users:usernames';
+REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
+REDIS_SESSION_ID_HASH = 'kingdom:sessions:users';
+REDIS_ONLINE_LIST = 'kingdom:users:online';
 
 var Router = require('wamp.rt');
-var redis = require('redis').createClient();
+var redis = require('then-redis').createClient();
 
 redis.on('error', function (err) {
    console.log('[!] Redis error ' + err);
 });
 
-// WebSocket router
 var app = new Router({port: WEBSOCKET_PORT});
 
 // Событие при публикации
@@ -24,12 +30,10 @@ app.on('RPCRegistered', function (topicUri) {
 
     if (channel.lastIndexOf('online.', 0) === 0) {
         var clientData = channel.split(".");
-        var sessionId = clientData[1];
 
-        //Запрос userId и username по id сессии из redis
-        redis.hget(REDIS_CHARACTERS_HASH_TEMPORARY, sessionId, function(err, characterDataJson) {
-            // Добавление пользователя в хэш онлайн игроков в redis
-            redis.hset(REDIS_CHARACTERS_HASH, sessionId, characterDataJson);
+        // Удаление id игрока из redis-списка онлайн игроков
+        redis.hget(REDIS_SESSION_ID_HASH, clientData[1]).then(function(userId) {
+            redis.srem(REDIS_ONLINE_LIST, userId);
         });
     }
 });
@@ -41,8 +45,10 @@ app.on('RPCUnregistered', function (topicUri) {
    if (channel.lastIndexOf('online.', 0) === 0) {
        var clientData = channel.split(".");
 
-       // Удаление пользователя из хэша онлайн игроков в redis
-       redis.hdel(REDIS_CHARACTERS_HASH, clientData[1]);
+       // Добавление id игрока в redis-список онлайн игроков
+       redis.hget(REDIS_SESSION_ID_HASH, clientData[1]).then(function(userId) {
+           redis.sadd(REDIS_ONLINE_LIST, userId);
+       });
    }
 });
 
