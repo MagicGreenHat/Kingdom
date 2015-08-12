@@ -2,8 +2,6 @@
 
 namespace Rottenwood\KingdomBundle\Command\Console;
 
-use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
-use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,11 +14,11 @@ class ItemsPurgeCommand extends ContainerAwareCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $output->write('Удаление предметов в инвентарях ... ');
-        $this->truncateEntity(InventoryItem::class);
+        $this->truncateEntity('Rottenwood\KingdomBundle\Entity\InventoryItem');
         $output->writeln('Инвентари удалены.');
 
         $output->write('Удаление предметов ... ');
-        $this->truncateEntity(Item::class);
+        $this->truncateEntity('Rottenwood\KingdomBundle\Entity\Infrastructure\Item');
         $output->writeln('Предметы удалены.');
     }
 
