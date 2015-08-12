@@ -6,10 +6,6 @@ command -v curl >/dev/null 2>&1 || { echo "Curl не установлен. Ус�
 command -v ./composer.phar >/dev/null 2>&1 || { echo "Composer не установлен. Установка ..."; curl -sS https://getcomposer.org/installer | php; }
 command -v npm >/dev/null 2>&1 || { echo "NPM не установлен. Установка: sudo apt-get install npm"; exit 1; }
 
-echo "Создание БД, при ее отсутствии ..."
-app/console doctrine:database:create > /dev/null 2>&1
-echo "Обновление структуры БД ..."
-app/console doctrine:schema:update --force
 echo "Обновление библиотек композера ..."
 ./composer.phar install
 echo "Обновление библиотек nmp ..."
