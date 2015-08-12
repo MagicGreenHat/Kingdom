@@ -45,7 +45,7 @@
 /****** Игровые блоки ******/
 #game-underlayer {
     position: absolute;
-    background: url('../img/woods-background.png') right;
+    background: url('/img/woods-background.png') right;
     top: 0;
     left: 0;
     right: 0;
@@ -93,7 +93,7 @@
 /* Блок "Карта" */
 #game-map {
     position: absolute;
-    background-image: url('../img/textures/wood1.jpg');
+    background-image: url('/img/textures/wood1.jpg');
     top: 10px;
     right: 10px;
     padding: 5px;
@@ -203,7 +203,7 @@ div.game-chat-input {
 }
 
 div.game-chat-input input {
-    background: white url('../img/chat-icon.png') no-repeat;
+    background: white url('/img/chat-icon.png') no-repeat;
     position: absolute;
     bottom: 0;
     box-sizing: border-box;
