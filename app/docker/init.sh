@@ -21,17 +21,14 @@ echo "CREATE USER 'kingdom'@'localhost';" | mysql
 echo "GRANT ALL PRIVILEGES ON * . * TO 'kingdom'@'localhost';" | mysql
 echo "FLUSH PRIVILEGES;" | mysql
 
+# Обновление библиотек композера
+/composer.phar install -n -d /kingdom/
+
 # Создание БД, при ее отсутствии
 /kingdom/app/console doctrine:database:create > /dev/null 2>&1
 
 # Обновление структуры БД
 /kingdom/app/console doctrine:schema:update --force
-
-# Обновление библиотек композера
-/composer.phar install -n
-
-# Обновление библиотек nmp ...
-npm install
 
 # Симфони-команды
 # Загрузка игровых данных в БД
