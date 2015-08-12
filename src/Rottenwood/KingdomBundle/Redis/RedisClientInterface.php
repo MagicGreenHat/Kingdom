@@ -29,4 +29,6 @@ interface RedisClientInterface {
     public function del($key);
 
     public function sadd($key, $value);
+
+    public function smembers($key);
 }

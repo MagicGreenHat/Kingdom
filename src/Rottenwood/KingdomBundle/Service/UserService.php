@@ -67,7 +67,7 @@ class UserService {
      * @return int[]
      */
     public function getOnlineUsersIds() {
-        return $this->redis->hgetall(RedisClientInterface::SESSION_ID_HASH);
+        return $this->redis->smembers(RedisClientInterface::ONLINE_LIST);
     }
 
     /**
