@@ -23,7 +23,7 @@ case $1 in
     echo "Создание нового контейнера ..."
     docker run -d --name="kingdom" --hostname="kingdom" -v $(pwd):/kingdom --entrypoint="kingdom/app/docker/init.sh" -p 7777:7777 -p 81:81 -m 500M rottenwood/kingdom > /dev/null 2>&1
     echo "Контейнер создан!"
-    echo "Игра доступна по адресу: \033[1;33;24mhttp://localhost:81"
+    echo "Игра доступна по адресу: \033[1;33;24mhttp://localhost:81\033[0m"
 ;;
 'stop')
     echo "Удаление старого контейнера ..."
