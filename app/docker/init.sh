@@ -17,14 +17,23 @@ chown -R :www-data /kingdom/web
 /etc/init.d/redis-server start
 
 # Создание юзера для MySQL
-echo "CREATE USER 'kingdom'@'localhost' IDENTIFIED BY 'Ff2LJHlnef14';" | mysql
+echo "CREATE USER 'kingdom'@'localhost';" | mysql
 echo "GRANT ALL PRIVILEGES ON * . * TO 'kingdom'@'localhost';" | mysql
 echo "FLUSH PRIVILEGES;" | mysql
 
 # Создание БД, при ее отсутствии
 /kingdom/app/console doctrine:database:create > /dev/null 2>&1
+
 # Обновление структуры БД
 /kingdom/app/console doctrine:schema:update --force
+
+# Обновление библиотек композера
+/composer.phar install -n
+
+# Обновление библиотек nmp ...
+npm install
+
+# Симфони-команды
 # Загрузка игровых данных в БД
 /kingdom/app/console kingdom:map:create
 /kingdom/app/console kingdom:items:create
