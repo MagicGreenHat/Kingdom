@@ -1,12 +1,9 @@
-# Параметры логина и пароля к БД - для докера. К БД разрешен доступ
-# только локальному пользователю, поэтому такой вариант можно считать безопасным
-
 parameters:
     database_host:     127.0.0.1
     database_port:     ~
     database_name:     kingdom
     database_user:     kingdom
-    database_password: Ff2LJHlnef14
+    database_password: ~
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
