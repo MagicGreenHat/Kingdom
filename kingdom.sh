@@ -8,7 +8,7 @@ case $1 in
     $0 start
 ;;
 'download')
-    echo "Скачивание образа из Docker hub ..."
+    echo "Обновление образа из Docker hub ..."
 	docker pull rottenwood/kingdom
 ;;
 'build')
