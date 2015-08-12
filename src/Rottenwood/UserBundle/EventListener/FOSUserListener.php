@@ -2,9 +2,9 @@
 
 namespace Rottenwood\UserBundle\EventListener;
 
-use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,18 +17,18 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class FOSUserListener implements EventSubscriberInterface {
 
-    /** @var EntityManager */
-    private $entityManager;
     /** @var UrlGeneratorInterface */
     private $router;
+    /** @var RoomRepository */
+    private $roomRepository;
 
     /**
      * @param UrlGeneratorInterface $router
-     * @param EntityManager         $entityManager
+     * @param RoomRepository        $roomRepository
      */
-    public function __construct(UrlGeneratorInterface $router, EntityManager $entityManager) {
-        $this->entityManager = $entityManager;
+    public function __construct(UrlGeneratorInterface $router, RoomRepository $roomRepository) {
         $this->router = $router;
+        $this->roomRepository = $roomRepository;
     }
 
     public static function getSubscribedEvents() {
@@ -38,11 +38,10 @@ class FOSUserListener implements EventSubscriberInterface {
     }
 
     public function onRegistrationSuccess(FormEvent $event) {
-        $roomRepository = $this->entityManager->getRepository(Room::class);
         /** @var User $user */
         $user = $event->getForm()->getData();
         /** @var Room $room */
-        $room = $roomRepository->find(1);
+        $room = $this->roomRepository->find(1);
 
         // Приведение имени к нужному виду
         $newName = explode(' ', $user->getUsernameCanonical())[0];
