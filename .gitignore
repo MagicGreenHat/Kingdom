@@ -1,6 +1,6 @@
 # Symfony directories
 bin/
-vendor/*
+vendor/
 app/bootstrap.php.cache
 app/cache/*
 app/logs/*
