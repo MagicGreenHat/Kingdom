@@ -4,8 +4,8 @@
 cp -r /kingdom/app/docker/nginx /etc
 ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
 
-# Удаление кэша
-rm -rf /kingdom/app/cache/* /kingdom/app/logs/*
+## Удаление кэша
+#rm -rf /kingdom/app/cache/* /kingdom/app/logs/*
 
 # Инициализация серверов при запуске контейнера
 /etc/init.d/php5-fpm start
