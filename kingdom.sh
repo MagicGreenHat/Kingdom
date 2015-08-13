@@ -20,15 +20,25 @@ case $1 in
 'start')
     $0 stop
     $0 download
+
+    echo "Настройка контейнера данных для MySQL ..."
+    docker create --name kingdom-mysql-data rottenwood/mysql-data > /dev/null 2>&1
+
+    echo "Создание нового контейнера для сервера MySQL ..."
+    docker run -d --name kingdom-mysql-server --volumes-from=kingdom-mysql-data -e MYSQL_PASS="docker" -e MYSQL_USER="kingdom" tutum/mysql > /dev/null 2>&1
+
     echo "Создание нового контейнера ..."
-    docker run -d --name="kingdom" --hostname="kingdom" -v $(pwd):/kingdom --entrypoint="kingdom/app/docker/init.sh" -p 7777:7777 -p 81:81 -m 500M rottenwood/kingdom > /dev/null 2>&1
+    docker run -d --name="kingdom" -v $(pwd):/kingdom --entrypoint="kingdom/app/docker/init.sh" --link kingdom-mysql-server:mysql -p 7777:7777 -p 81:81 rottenwood/kingdom > /dev/null 2>&1
+
     echo "Контейнер создан!"
     echo "Игра доступна по адресу: \033[1;33;24mhttp://localhost:81\033[0m"
 ;;
 'stop')
     echo "Удаление старого контейнера ..."
-    docker stop kingdom > /dev/null 2>&1
+    docker kill kingdom > /dev/null 2>&1
     docker rm kingdom > /dev/null 2>&1
+    docker kill kingdom-mysql-server > /dev/null 2>&1
+    docker rm kingdom-mysql-server > /dev/null 2>&1
     echo "Контейнер остановлен и удален!"
 ;;
 *)

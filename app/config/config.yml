@@ -6,11 +6,11 @@ imports:
 parameters:
     locale: ru
     # Параметры для докера
-    database_host:          127.0.0.1
+    database_host:          mysql
     database_port:          ~
     database_name:          kingdom
     database_user:          kingdom
-    database_password:      ~
+    database_password:      docker
 
 framework:
     #esi:             ~

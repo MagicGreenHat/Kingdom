@@ -13,13 +13,7 @@ chown -R :www-data /kingdom/web
 # Инициализация серверов при запуске контейнера
 /etc/init.d/php5-fpm start
 /etc/init.d/nginx start
-/etc/init.d/mysql start
 /etc/init.d/redis-server start
-
-# Создание юзера для MySQL
-echo "CREATE USER 'kingdom'@'localhost';" | mysql
-echo "GRANT ALL PRIVILEGES ON * . * TO 'kingdom'@'localhost';" | mysql
-echo "FLUSH PRIVILEGES;" | mysql
 
 # Обновление библиотек композера
 /composer.phar install -n -d /kingdom/
