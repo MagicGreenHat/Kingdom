@@ -1,5 +1,43 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends 'RottenwoodUserBundle::layout.html.twig' %}
 
 {% block fos_user_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    {% trans_default_domain 'FOSUserBundle' %}
+
+    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+        <table class="registration-block">
+            <tr class="center">
+                <td>
+                    <h3>Регистрация в Государстве</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_start(form) }}
+
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                </td>
+            </tr>
+            <tr class="center">
+                <td>
+                    <span class="break-10"></span>
+                    <button>{{ 'registration.submit'|trans }}</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 {% endblock fos_user_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var $button = $('button');
+
+        $button.closest('form').on('submit', (function () {
+            $button.attr('disabled', true);
+        }));
+    </script>
+{% endblock javascripts %}
