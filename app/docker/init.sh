@@ -4,6 +4,9 @@
 cp -r /kingdom/app/docker/nginx /etc
 ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
 
+# Удаление кэша
+rm -rf /kingdom/app/cache/* /kingdom/app/logs/*
+
 # Инициализация серверов при запуске контейнера
 /etc/init.d/php5-fpm start
 /etc/init.d/nginx start
@@ -24,9 +27,8 @@ ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
 /kingdom/app/console kingdom:items:create
 
 # Изменение прав на директории app/cache и app/logs
-rm -rf /kingdom/app/cache/* /kingdom/app/logs/*
 chown -R :www-data /kingdom/app/cache /kingdom/app/logs
-chmod -R 775 /kingdom/app/cache /kingdom/app/logs
+chmod -R 777 /kingdom/app/cache /kingdom/app/logs
 chown -R :www-data /kingdom/web
 
 # Запуск node.js приложений
