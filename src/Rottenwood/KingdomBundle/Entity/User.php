@@ -23,6 +23,12 @@ class User extends BaseUser {
     protected $id;
 
     /**
+     * @ORM\Column(name="character_name", type="string", length=25)
+     * @var string
+     */
+    protected $name;
+
+    /**
      * Комната в которой находится персонаж
      * @ORM\ManyToOne(targetEntity="Room")
      * @ORM\JoinColumn(name="room", referencedColumnName="id", nullable=false)
@@ -122,6 +128,20 @@ class User extends BaseUser {
         parent::__construct();
 
         $this->inventoryItems = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = $name;
     }
 
     /**
