@@ -8,8 +8,13 @@ case $1 in
     $0 start
 ;;
 'download')
-    echo "Обновление образа из Docker hub ..."
-	docker pull rottenwood/kingdom
+    # Проверка соединения с сетью
+    echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
+
+    if [ $? -eq 0 ]; then
+        echo "Обновление образа из Docker hub ..."
+        docker pull rottenwood/kingdom
+    fi
 ;;
 'build')
     $0 stop
