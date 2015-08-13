@@ -29,7 +29,7 @@ case $1 in
     echo "Настройка контейнера данных для MySQL ..."
     docker create --name kingdom-mysql-data rottenwood/mysql-data > /dev/null 2>&1
 
-    echo "Создание нового контейнера для сервера MySQL ..."
+    echo "Запуск контейнера с сервером MySQL ..."
     docker run -d --name kingdom-mysql-server \
         --volumes-from=kingdom-mysql-data \
         -e MYSQL_PASS="docker" \
