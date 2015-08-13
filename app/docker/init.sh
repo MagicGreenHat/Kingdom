@@ -13,7 +13,9 @@ ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
 /etc/init.d/redis-server start
 
 # Обновление библиотек композера
-/composer.phar install -n -d /kingdom/
+[ -d /kingdom/vendor ] || mkdir /kingdom/vendor
+chown www-data:www-data /kingdom/vendor
+sudo -u www-data ~/composer.phar install -n -d /kingdom/
 
 # Создание БД, при ее отсутствии
 /kingdom/app/console doctrine:database:create > /dev/null 2>&1
@@ -27,9 +29,9 @@ ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
 /kingdom/app/console kingdom:items:create
 
 # Изменение прав на директории app/cache и app/logs
-chown -R :www-data /kingdom/app/cache /kingdom/app/logs
+chown -R www-data:www-data /kingdom/app/cache /kingdom/app/logs
 chmod -R 777 /kingdom/app/cache /kingdom/app/logs
-chown -R :www-data /kingdom/web
+chown -R www-data:www-data /kingdom/web
 
 # Запуск node.js приложений
 cd /kingdom/websocket
