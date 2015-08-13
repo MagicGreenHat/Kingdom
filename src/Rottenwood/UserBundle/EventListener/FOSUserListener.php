@@ -50,7 +50,11 @@ class FOSUserListener implements EventSubscriberInterface {
         $newName = preg_replace('/№/', '', $newName);
         $newName = mb_convert_case($newName, MB_CASE_TITLE, 'UTF-8');
 
-        $user->setUsername($newName);
+        if (!$newName) {
+        	$newName = $this->generateName();
+        }
+
+        $user->setName($newName);
         $user->setRoom($room);
 
         $url = $this->router->generate('game_page');
@@ -63,7 +67,15 @@ class FOSUserListener implements EventSubscriberInterface {
      * @return string
      */
     private function transliterate($string) {
-        $translit = [
+        return strtr($string, $this->getAlphabet());
+    }
+
+    /**
+     * Массив соответствия русских букв латинским
+     * @return string[]
+     */
+    private function getAlphabet() {
+        return [
             'a' => 'а',
             'b' => 'б',
             'c' => 'ц',
@@ -117,7 +129,24 @@ class FOSUserListener implements EventSubscriberInterface {
             'Y' => 'Й',
             'Z' => 'З',
         ];
+    }
 
-        return strtr($string, $translit);
+    /**
+     * Генератор бессмысленных имен
+     * @param int $lettersCount Количество символов в имени
+     * @return string
+     */
+    private function generateName($lettersCount = 6)
+    {
+        $alphabet = $this->getAlphabet();
+
+        $name = '';
+        for ($i = 1;$i <= $lettersCount;$i++) {
+            $randomLetterKey = array_rand($alphabet);
+            $name .= $alphabet[$randomLetterKey];
+            unset($alphabet[$randomLetterKey]);
+        }
+
+        return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
     }
 }
