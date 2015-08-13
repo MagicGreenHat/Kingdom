@@ -38,19 +38,30 @@ case $1 in
         --volumes-from=kingdom-mysql-data \
         -e MYSQL_PASS="docker" \
         -e MYSQL_USER="kingdom" \
-        tutum/mysql > /dev/null 2>&1
+        tutum/mysql
 
     echo "Создание нового контейнера ..."
     docker run -d --name="kingdom" \
         -v $(pwd):/kingdom -p 7777:7777 -p 81:81 \
         --entrypoint="kingdom/app/docker/init.sh" \
         --link kingdom-mysql-server:mysql \
-        rottenwood/kingdom > /dev/null 2>&1
+        rottenwood/kingdom
+
+    SERVER_URL="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' kingdom)"
+
+    if [ -z $SERVER_URL ]; then
+        echo "\033[1;31mКонтейнер не был создан!\033[0m"
+        exit 1
+    fi
 
     echo "Контейнер создан!"
-    echo "Игра доступна по адресу: \033[1;33;24mhttp://localhost:81\033[0m"
+    echo "Игра доступна по адресу: \033[1;33;24mhttp://$SERVER_URL:81\033[0m"
     echo "Если контейнер запускается впервые, системе понадобится время для установки и настройки."
     echo "Это может занять около минуты. Детальная информация в логах: \033[5;33;24m$0 log\033[0m"
+;;
+
+'start')
+    $0 start
 ;;
 
 'stop')
@@ -92,16 +103,19 @@ case $1 in
 ;;
 
 'help')
-	echo "Применение:"
-	echo "\033[1;33;24m$0\033[0m - запуск контейнера с окружением"
+	echo "----------------------------------------------------------------------"
 	echo "\033[1;33;24m$0 start\033[0m - запуск контейнера с окружением"
-	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера"
+	echo "\033[1;33;24m$0 restart\033[0m - перезапуск контейнера"
+	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера\n"
+
 	echo "\033[1;33;24m$0 log\033[0m [nginx]- просмотр логов"
-	echo "\033[1;33;24m$0 new\033[0m - сборка нового образа"
 	echo "\033[1;33;24m$0 bash\033[0m - Запуск серверной консоли"
 	echo "\033[1;33;24m$0 mysql\033[0m - Запуск консоли MySQL"
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
-	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony"
+	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony\n"
+
+	echo "\033[1;33;24m$0 new\033[0m - сборка нового образа"
+	echo "----------------------------------------------------------------------"
 ;;
 
 *)
