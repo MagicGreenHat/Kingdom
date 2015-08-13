@@ -30,10 +30,18 @@ case $1 in
     docker create --name kingdom-mysql-data rottenwood/mysql-data > /dev/null 2>&1
 
     echo "Создание нового контейнера для сервера MySQL ..."
-    docker run -d --name kingdom-mysql-server --volumes-from=kingdom-mysql-data -e MYSQL_PASS="docker" -e MYSQL_USER="kingdom" tutum/mysql > /dev/null 2>&1
+    docker run -d --name kingdom-mysql-server \
+        --volumes-from=kingdom-mysql-data \
+        -e MYSQL_PASS="docker" \
+        -e MYSQL_USER="kingdom" \
+        tutum/mysql > /dev/null 2>&1
 
     echo "Создание нового контейнера ..."
-    docker run -d --name="kingdom" -v $(pwd):/kingdom --entrypoint="kingdom/app/docker/init.sh" --link kingdom-mysql-server:mysql -p 7777:7777 -p 81:81 rottenwood/kingdom > /dev/null 2>&1
+    docker run -d --name="kingdom" \
+        -v $(pwd):/kingdom -p 7777:7777 -p 81:81 \
+        --entrypoint="kingdom/app/docker/init.sh" \
+        --link kingdom-mysql-server:mysql \
+        rottenwood/kingdom > /dev/null 2>&1
 
     echo "Контейнер создан!"
     echo "Игра доступна по адресу: \033[1;33;24mhttp://localhost:81\033[0m"

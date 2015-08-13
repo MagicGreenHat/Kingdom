@@ -7,11 +7,6 @@ ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
 ## Удаление кэша
 #rm -rf /kingdom/app/cache/* /kingdom/app/logs/*
 
-# Инициализация серверов при запуске контейнера
-/etc/init.d/php5-fpm start
-/etc/init.d/nginx start
-/etc/init.d/redis-server start
-
 # Обновление библиотек композера
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor
 chown www-data:www-data /kingdom/vendor
@@ -32,6 +27,11 @@ sudo -u www-data ~/composer.phar install -n -d /kingdom/
 chown -R www-data:www-data /kingdom/app/cache /kingdom/app/logs
 chmod -R 777 /kingdom/app/cache /kingdom/app/logs
 chown -R www-data:www-data /kingdom/web
+
+# Инициализация серверов
+/etc/init.d/php5-fpm start
+/etc/init.d/redis-server start
+/etc/init.d/nginx start
 
 # Запуск node.js приложений
 cd /kingdom/websocket
