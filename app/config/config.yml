@@ -1,5 +1,4 @@
 imports:
-    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
 
@@ -11,6 +10,13 @@ parameters:
     database_name:          kingdom
     database_user:          kingdom
     database_password:      docker
+
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    websocket_router_url: localhost
 
 framework:
     #esi:             ~
