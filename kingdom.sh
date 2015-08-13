@@ -7,6 +7,7 @@ case $1 in
 '')
     $0 help
 ;;
+
 'download')
     # Проверка соединения с сетью
     echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
@@ -16,12 +17,14 @@ case $1 in
         docker pull rottenwood/kingdom
     fi
 ;;
+
 'build')
     $0 stop
     echo "Сборка Docker-образа ..."
     docker rmi rottenwood/kingdom > /dev/null 2>&1
     docker build --no-cache -t rottenwood/kingdom .
 ;;
+
 'start')
     $0 stop
     $0 download
@@ -47,8 +50,9 @@ case $1 in
     echo "Контейнер создан!"
     echo "Игра доступна по адресу: \033[1;33;24mhttp://localhost:81\033[0m"
     echo "Если контейнер запускается впервые, системе понадобится время для установки и настройки."
-    echo "Это может занять около минуты. Для детальной информации смотрите логи: \033[5;33;24m$0 log\033[0m"
+    echo "Это может занять около минуты. Детальная информация в логах: \033[5;33;24m$0 log\033[0m"
 ;;
+
 'stop')
     echo "Удаление старого контейнера ..."
     docker kill kingdom > /dev/null 2>&1
@@ -57,22 +61,31 @@ case $1 in
     docker rm kingdom-mysql-server > /dev/null 2>&1
     echo "Контейнер остановлен и удален!"
 ;;
+
+'bash')
+    docker exec -it kingdom bash
+;;
+
+'update')
+    docker exec -it kingdom /kingdom/app/console doc:sch:upd --force
+;;
+
+'mysql')
+    docker exec -it kingdom-mysql-server mysql
+;;
+
 'log')
     case $2 in
     '')
         docker logs kingdom
     ;;
+
     'nginx')
         docker exec -it kingdom tail -100 /var/log/nginx/kingdom_error.log
     ;;
-    '')
-        $0 help
-    ;;
     esac
 ;;
-'bash')
-    docker exec -it kingdom bash
-;;
+
 'help')
 	echo "Применение:"
 	echo "\033[1;33;24m$0\033[0m - запуск контейнера с окружением"
@@ -80,7 +93,11 @@ case $1 in
 	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера"
 	echo "\033[1;33;24m$0 log\033[0m [nginx]- просмотр логов"
 	echo "\033[1;33;24m$0 new\033[0m - сборка нового образа"
+	echo "\033[1;33;24m$0 bash\033[0m - Запуск серверной консоли"
+	echo "\033[1;33;24m$0 mysql\033[0m - Запуск консоли MySQL"
+	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
 ;;
+
 *)
     $0 help
 ;;
