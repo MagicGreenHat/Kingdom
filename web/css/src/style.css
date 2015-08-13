@@ -1,0 +1,218 @@
+/* Общие классы */
+.center {
+    text-align: center;
+}
+
+.break-10 {
+    display: block;
+    margin-top: 10px;
+}
+
+.noselect {
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none; /* kde html format */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+/* Форма логина */
+.login-block, .registration-block {
+    margin: 20px auto;
+}
+
+.login-block button,
+.registration-block button {
+    width: 150px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+/* Форма регистрации */
+.fos_user_registration_register label,
+.fos_user_registration_register input {
+    width: 180px;
+    display: inline-block;
+}
+
+#fos_user_registration_form div {
+    padding-bottom: 5px;
+}
+
+/****** Игровые блоки ******/
+#game-underlayer {
+    position: absolute;
+    background: url('/img/woods-background.png') right;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: solid 2px #3D3D3D;
+}
+
+/* Блок "Основной Контент" */
+#game-content {
+    position: absolute;
+    background-color: darkseagreen;
+    top: 10px;
+    left: 10px;
+    width: 68%;
+    height: 60%;
+    padding: 5px;
+    border: solid 2px #3D3D3D;
+}
+
+#game-content .room-name {
+    background-color: rgba(255, 255, 255, 0.24);
+    font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    padding: 10px;
+    height: 30px;
+}
+
+#game-content .room-name .coordinates {
+    color: #565656;
+    padding-left: 10px;
+    font-size: smaller;
+}
+
+#game-content .room-description,
+#game-content .room-players {
+    padding: 10px;
+    font-size: 18px;
+}
+
+#game-content .room-players {
+    color: #5d3118;
+}
+
+/* Блок "Карта" */
+#game-map {
+    position: absolute;
+    background-image: url('/img/textures/wood1.jpg');
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    border: solid 2px black;
+}
+
+.map {
+    margin-bottom: -3px;
+}
+
+.map .map-frame {
+    display: inline-block;
+    border: solid black 2px;
+    width: 50px;
+    height: 50px;
+}
+
+.map .map-frame-player {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 2px;
+    background: none;
+    border: none;
+}
+
+/* Кнопки перехода в соседние локации */
+.map .direction.arrow {
+    background: none;
+    height: 0;
+    border-style: solid;
+    cursor: pointer;
+}
+
+.map .direction.arrow img {
+    display: none;
+}
+
+/* Север */
+.map .north.arrow {
+    width: 0;
+    height: 10px;
+    border-width: 0 27px 42px 27px;
+    border-color: transparent transparent black transparent;
+}
+
+.map .north.arrow:hover {
+    transition: border-bottom-color 0.5s ease-out;
+    border-bottom-color: whitesmoke;
+}
+
+/* Запад */
+.map .west.arrow {
+    width: 10px;
+    border-width: 25px 44px 25px 0;
+    border-color: transparent black transparent transparent;
+}
+
+.map .west.arrow:hover {
+    transition: border-right-color 0.5s ease-out;
+    border-right-color: whitesmoke;
+}
+
+/* Восток */
+.map .east.arrow {
+    width: 10px;
+    border-width: 25px 0 25px 44px;
+    border-color: transparent transparent transparent black;
+}
+
+.map .east.arrow:hover {
+    transition: border-left-color 0.5s ease-out;
+    border-left-color: whitesmoke;
+}
+
+/* Юг */
+.map .south.arrow {
+    width: 0;
+    height: 10px;
+    border-width: 42px 27px 0 27px;
+    border-color: black transparent transparent transparent;
+}
+
+.map .south.arrow:hover {
+    transition: border-top-color 0.5s ease-out;
+    border-top-color: whitesmoke;
+}
+
+/* Блок "Чат" */
+#game-chat {
+    position: absolute;
+    background-color: #ceface;
+    bottom: 36px;
+    left: 0;
+    right: 0;
+    height: 25%;
+    padding: 5px;
+    border: solid 2px #3D3D3D;
+    overflow-y: auto;
+}
+
+div.game-chat-input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+div.game-chat-input input {
+    background: white url('/img/chat-icon.png') no-repeat;
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: solid 2px #3D3D3D;
+    -webkit-transition: border 0.3s;
+    -moz-transition: border 0.3s;
+    -o-transition: border 0.3s;
+    transition: border 0.3s;
+    outline: none;
+}
