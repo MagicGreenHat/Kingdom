@@ -62,7 +62,7 @@ class Move extends AbstractGameCommand {
             $resultData = [
                 'directionTo'   => $directionTo,
                 'directionFrom' => $directionFrom,
-                'name'          => $this->user->getUsername(),
+                'name'          => $this->user->getName(),
             ];
 
             if ($usersInCurrentRoom = $userService->getOnlineUsersIdsInRoom($currentRoom, $userId)) {

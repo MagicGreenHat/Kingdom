@@ -56,7 +56,7 @@ class ItemsCreateCommand extends ContainerAwareCommand {
                     $inventortItemRepository->persist($inventoryItem);
 
                     $output->writeln(
-                        sprintf('Предмет "%s" передан персонажу %s.', $item->getName(), $user->getUsername())
+                        sprintf('Предмет "%s" передан персонажу %s.', $item->getName(), $user->getName())
                     );
                 }
             }

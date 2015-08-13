@@ -23,6 +23,7 @@ class User extends BaseUser {
     protected $id;
 
     /**
+     * Русское имя персонажа
      * @ORM\Column(name="character_name", type="string", length=25)
      * @var string
      */

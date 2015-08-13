@@ -37,7 +37,7 @@ class LookUser extends AbstractGameCommand {
 
         $result->setData(
             [
-                'name'  => $userToLookAt->getUsername(),
+                'name'  => $userToLookAt->getName(),
                 'items' => $itemData,
             ]
         );
