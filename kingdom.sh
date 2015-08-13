@@ -67,11 +67,16 @@ case $1 in
 ;;
 
 'update')
-    docker exec -it kingdom /kingdom/app/console doc:sch:upd --force
+    $0 console doc:sch:upd --force
 ;;
 
 'mysql')
     docker exec -it kingdom-mysql-server mysql
+;;
+
+'console')
+    shift
+    docker exec -it kingdom /kingdom/app/console "$@"
 ;;
 
 'log')
@@ -96,6 +101,7 @@ case $1 in
 	echo "\033[1;33;24m$0 bash\033[0m - Запуск серверной консоли"
 	echo "\033[1;33;24m$0 mysql\033[0m - Запуск консоли MySQL"
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
+	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony"
 ;;
 
 *)
