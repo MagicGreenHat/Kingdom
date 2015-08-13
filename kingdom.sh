@@ -46,12 +46,29 @@ case $1 in
     docker rm kingdom-mysql-server > /dev/null 2>&1
     echo "Контейнер остановлен и удален!"
 ;;
-*)
+'log')
+    case $2 in
+    'nginx')
+        docker exec -it kingdom tail -100 /var/log/nginx/kingdom_error.log
+    ;;
+    '')
+        $0 help
+    ;;
+    esac
+;;
+'bash')
+    docker exec -it kingdom bash
+;;
+'help')
 	echo "Применение:"
 	echo "\033[1;33;24m$0\033[0m - запуск контейнера с окружением"
 	echo "\033[1;33;24m$0 start\033[0m - запуск контейнера с окружением"
 	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера"
+	echo "\033[1;33;24m$0 log\033[0m [nginx]- просмотр логов"
 	echo "\033[1;33;24m$0 new\033[0m - сборка нового образа"
+;;
+*)
+    $0 help
 ;;
 esac
 
