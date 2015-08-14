@@ -90,13 +90,17 @@
     color: #5d3118;
 }
 
-/* Блок "Карта" */
-#game-map {
+/* Блок панелей слева */
+.game-left-box {
     position: absolute;
-    background-image: url('/img/textures/wood1.jpg');
     top: 10px;
     right: 10px;
+}
+
+/* Блок "Карта" */
+#game-map {
     padding: 5px;
+    background-image: url('/img/textures/wood1.jpg');
     border: solid 2px black;
 }
 
@@ -215,4 +219,20 @@ div.game-chat-input input {
     -o-transition: border 0.3s;
     transition: border 0.3s;
     outline: none;
+}
+
+/* Кнопка открытия инвентаря */
+.game-inventory-button {
+    position: absolute;
+    background-color: #ffdb3f;
+    width: 100px;
+    margin: 20px 30%;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.game-inventory-button:hover {
+    background-color: #ff8400;
+    cursor: pointer;
 }
