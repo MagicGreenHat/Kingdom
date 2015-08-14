@@ -25,10 +25,9 @@ case $1 in
     docker build --no-cache -t rottenwood/kingdom .
 ;;
 
-'start')
+(start|restart)
     $0 stop
     $0 download
-
     echo "Настройка контейнера данных для MySQL ..."
     docker create --name kingdom-mysql-data rottenwood/mysql-data > /dev/null 2>&1
 
@@ -70,10 +69,6 @@ case $1 in
     echo "Это может занять около минуты. Детальная информация в логах: \033[5;33;24m$0 log\033[0m"
 ;;
 
-'start')
-    $0 start
-;;
-
 'stop')
     echo "Удаление старого контейнера ..."
     docker kill kingdom > /dev/null 2>&1
@@ -100,6 +95,11 @@ case $1 in
     docker exec -it kingdom /kingdom/app/console "$@"
 ;;
 
+(gulp|css)
+    command -v node >/dev/null 2>&1 || { echo "Node.js не установлен"; exit 1; }
+    node node_modules/gulp/bin/gulp.js build
+;;
+
 'log')
     case $2 in
     '')
@@ -113,10 +113,10 @@ case $1 in
 ;;
 
 'help')
-	echo "----------------------------------------------------------------------"
+	echo "--------------------------------------------------------------------"
 	echo "\033[1;33;24m$0 start\033[0m - запуск контейнера с окружением"
 	echo "\033[1;33;24m$0 start dev\033[0m - запуск контейнера с dev-окружением (без кэширования)"
-	echo "\033[1;33;24m$0 restart\033[0m - перезапуск контейнера"
+	echo "\033[1;33;24m$0 restart\033[0m [dev]- перезапуск контейнера"
 	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера\n"
 
 	echo "\033[1;33;24m$0 log\033[0m [nginx]- просмотр логов"
@@ -125,7 +125,10 @@ case $1 in
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
 	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony\n"
 
-	echo "\033[1;33;24m$0 new\033[0m - сборка нового образа"
+	echo "\033[1;33;24m$0 css\033[0m - Сборка CSS и JS с помощью gulp"
+	echo "\033[1;33;24m$0 gulp\033[0m - Сборка CSS и JS с помощью gulp\n"
+
+	echo "\033[1;33;24m$0 build\033[0m - сборка нового образа"
 	echo "----------------------------------------------------------------------"
 ;;
 

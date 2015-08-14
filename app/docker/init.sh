@@ -38,7 +38,11 @@ echo "Инициализация серверов ..."
 /etc/init.d/nginx start
 
 echo "Сборка CSS и JS ассетов ..."
-cd /kingdom && sudo -u www-data node node_modules/gulp/bin/gulp.js build
+cd /kingdom && node node_modules/gulp/bin/gulp.js build
+
+echo "Очистка кэша ..."
+rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
+sudo -u www-data /kingdom/app/console cache:warm -e prod
 
 echo "Запуск node.js приложений ..."
 cd /kingdom/websocket
