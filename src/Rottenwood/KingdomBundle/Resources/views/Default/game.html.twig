@@ -18,6 +18,14 @@
 {% block body %}
     <div id="game-underlayer"></div>
 
+    <div id="game-inventory" class="noselect">
+        <div class="title">
+            <span>Инвентарь</span>
+            <span class="game-inventory-close-button">❌</span>
+        </div>
+        <div class="room-description"></div>
+    </div>
+
     <div id="game-room" class="noselect">
         <div class="room-name"></div>
         <div class="room-description"></div>
@@ -79,10 +87,8 @@
                 </div>
             </div>
         </div>
-        <div class="game-inventory-button">Инвентарь</div>
+        <div class="open-inventory-button">Инвентарь</div>
     </div>
-
-    <div id="game-inventory"></div>
 
     <div class="game-chat-input">
         <input id="chat-input" type="text" title="chat-box">

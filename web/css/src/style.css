@@ -53,8 +53,9 @@
     border: solid 2px #3D3D3D;
 }
 
-/* Блок "Основной Контент" */
-#game-room {
+/* Блок комнат и инвентаря */
+#game-room,
+#game-inventory {
     position: absolute;
     background-color: darkseagreen;
     top: 10px;
@@ -65,6 +66,12 @@
     border: solid 2px #3D3D3D;
 }
 
+#game-inventory {
+    background-color: #949376;
+    display: none;
+}
+
+#game-inventory .title,
 #game-room .room-name {
     background-color: rgba(255, 255, 255, 0.24);
     font-size: 24px;
@@ -222,7 +229,7 @@ div.game-chat-input input {
 }
 
 /* Кнопка открытия инвентаря */
-.game-inventory-button {
+.open-inventory-button {
     position: absolute;
     background-color: #ffdb3f;
     width: 100px;
@@ -232,7 +239,22 @@ div.game-chat-input input {
     font-size: 18px;
 }
 
-.game-inventory-button:hover {
+.open-inventory-button:hover {
     background-color: #ff8400;
     cursor: pointer;
+}
+
+/* Кнопка закрытия инвентаря */
+.game-inventory-close-button {
+    position: absolute;
+    background-color: #727266;
+    padding: 16px;
+    right: 0;
+    display: inline-block;
+    top: 0;
+    cursor: pointer;
+}
+
+.game-inventory-close-button:hover {
+    background-color: #c2c2b5;
 }
