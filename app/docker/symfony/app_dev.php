@@ -1,5 +1,7 @@
 <?php
 
+//TODO[Rottenwood]: Придумать защиту для доступа
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 

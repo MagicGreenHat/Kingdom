@@ -40,16 +40,26 @@ case $1 in
         -e MYSQL_USER="kingdom" \
         tutum/mysql
 
+    SYMFONY_ENVIRONMENT="prod"
+    if [ ! -z $2 ]; then
+        if [ $2 = "dev" ]; then
+            SYMFONY_ENVIRONMENT="dev"
+        fi
+    fi
+
+    echo "Выбрано symfony окружение: \033[1;31m$SYMFONY_ENVIRONMENT\033[0m"
+
     echo "Создание нового контейнера ..."
     docker run -d --name="kingdom" \
         -v $(pwd):/kingdom -p 7777:7777 -p 81:81 \
         --entrypoint="kingdom/app/docker/init.sh" \
         --link kingdom-mysql-server:mysql \
+        -e SYMFONY_ENVIRONMENT="$SYMFONY_ENVIRONMENT" \
         rottenwood/kingdom
 
     SERVER_URL="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' kingdom)"
 
-    if [ -z $SERVER_URL ]; then
+    if [ -z ${SERVER_URL} ]; then
         echo "\033[1;31mКонтейнер не был создан!\033[0m"
         exit 1
     fi
@@ -105,6 +115,7 @@ case $1 in
 'help')
 	echo "----------------------------------------------------------------------"
 	echo "\033[1;33;24m$0 start\033[0m - запуск контейнера с окружением"
+	echo "\033[1;33;24m$0 start dev\033[0m - запуск контейнера с dev-окружением (без кэширования)"
 	echo "\033[1;33;24m$0 restart\033[0m - перезапуск контейнера"
 	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера\n"
 

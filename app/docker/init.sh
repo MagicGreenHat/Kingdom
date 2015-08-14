@@ -5,7 +5,17 @@ usermod -u 1000 www-data
 
 echo "Копирование конфигов для nginx ..."
 cp -r /kingdom/app/docker/nginx /etc
-ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
+
+echo "Конфигурация Symfony-окружения: $SYMFONY_ENVIRONMENT ..."
+
+if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
+    ln -s /etc/nginx/sites-available/kingdom-dev.conf /etc/nginx/sites-enabled/
+    rm /kingdom/web/app_dev.php
+    cp /kingdom/app/docker/symfony/app_dev.php /kingdom/web/
+else
+    rm /kingdom/web/app_dev.php
+    ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
+fi
 
 echo "Обновление библиотек композера ..."
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor

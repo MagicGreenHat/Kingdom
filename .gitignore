@@ -8,6 +8,8 @@ web/bundles/*
 web/uploads/*
 app/phpunit.xml
 
+web/app_dev.php
+
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
