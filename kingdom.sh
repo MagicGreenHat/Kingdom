@@ -95,7 +95,7 @@ case $1 in
     docker exec -it kingdom /kingdom/app/console "$@"
 ;;
 
-(gulp|css)
+(gulp|css|js)
     command -v node >/dev/null 2>&1 || { echo "Node.js не установлен"; exit 1; }
     node node_modules/gulp/bin/gulp.js build
 ;;
@@ -125,10 +125,9 @@ case $1 in
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
 	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony\n"
 
-	echo "\033[1;33;24m$0 css\033[0m - Сборка CSS и JS с помощью gulp"
-	echo "\033[1;33;24m$0 gulp\033[0m - Сборка CSS и JS с помощью gulp\n"
+	echo "\033[1;33;24m$0 (css|js|gulp)\033[0m - Сборка CSS и JS с помощью gulp"
 
-	echo "\033[1;33;24m$0 build\033[0m - сборка нового образа"
+	echo "\033[1;33;24m$0 build\033[0m - сборка нового Docker-образа"
 	echo "----------------------------------------------------------------------"
 ;;
 

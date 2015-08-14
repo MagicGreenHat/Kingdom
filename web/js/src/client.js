@@ -97,7 +97,7 @@ $(function () {
 
     /////// Функции клиентского интерфейса ///////
 
-    var $gameContent = $('#game-content');
+    var $gameContentRoom = $('#game-room');
     var $gameMap = $('#game-map');
     var $gameChat = $('#game-chat');
 
@@ -132,9 +132,9 @@ $(function () {
     }
 
     function redrawRoom(roomData) {
-        var $roomName = $gameContent.find('.room-name');
-        var $roomDescription = $gameContent.find('.room-description');
-        var $roomPlayers = $gameContent.find('.room-players');
+        var $roomName = $gameContentRoom.find('.room-name');
+        var $roomDescription = $gameContentRoom.find('.room-description');
+        var $roomPlayers = $gameContentRoom.find('.room-players');
 
         $roomPlayers.html('');
         $roomName.html('').html(roomData.name + '<span class="coordinates">[' + roomData.x + '/' + roomData.y + ']</span>');
@@ -142,7 +142,7 @@ $(function () {
     }
 
     function showPlayersInRoom(players) {
-        var $roomPlayers = $gameContent.find('.room-players');
+        var $roomPlayers = $gameContentRoom.find('.room-players');
 
         $roomPlayers.html('');
 

@@ -54,7 +54,7 @@
 }
 
 /* Блок "Основной Контент" */
-#game-content {
+#game-room {
     position: absolute;
     background-color: darkseagreen;
     top: 10px;
@@ -65,7 +65,7 @@
     border: solid 2px #3D3D3D;
 }
 
-#game-content .room-name {
+#game-room .room-name {
     background-color: rgba(255, 255, 255, 0.24);
     font-size: 24px;
     font-weight: 800;
@@ -74,19 +74,19 @@
     height: 30px;
 }
 
-#game-content .room-name .coordinates {
+#game-room .room-name .coordinates {
     color: #565656;
     padding-left: 10px;
     font-size: smaller;
 }
 
-#game-content .room-description,
-#game-content .room-players {
+#game-room .room-description,
+#game-room .room-players {
     padding: 10px;
     font-size: 18px;
 }
 
-#game-content .room-players {
+#game-room .room-players {
     color: #5d3118;
 }
 
