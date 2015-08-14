@@ -37,6 +37,9 @@ echo "Инициализация серверов ..."
 /etc/init.d/redis-server start
 /etc/init.d/nginx start
 
+echo "Сборка CSS и JS ассетов ..."
+cd /kingdom && sudo -u www-data node node_modules/gulp/bin/gulp.js build
+
 echo "Запуск node.js приложений ..."
 cd /kingdom/websocket
 (node router.js &) && node gate.js

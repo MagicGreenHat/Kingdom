@@ -10,14 +10,13 @@ var gulp = require('gulp'),
 
 var path = {
     build: {
-        js: 'js',
-        css: 'css'
+        js: 'web/js',
+        css: 'web/css'
     },
     src: {
-        js: 'js/main.js',
-        css: 'css/main.css'
-    },
-    clean: './build'
+        js: 'web/js/main.js',
+        css: 'web/css/main.css'
+    }
 };
 
 gulp.task('js:build', function () {
