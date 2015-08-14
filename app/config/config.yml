@@ -6,7 +6,7 @@ parameters:
     locale: ru
     # Параметры для докера
     database_host:          mysql
-    database_port:          ~
+    database_port:          3306
     database_name:          kingdom
     database_user:          kingdom
     database_password:      docker

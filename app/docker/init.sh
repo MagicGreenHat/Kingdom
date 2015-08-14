@@ -19,8 +19,7 @@ fi
 
 echo "Обновление библиотек композера ..."
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor
-chown www-data:www-data /kingdom/vendor
-sudo -u www-data ~/composer.phar install -n -d /kingdom/
+sudo -u www-data /composer.phar install -n -d /kingdom/
 
 echo "Создание БД, при ее отсутствии ..."
 /kingdom/app/console doctrine:database:create > /dev/null 2>&1
