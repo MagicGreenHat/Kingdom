@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 
 var path = {
     build: {
-        js: 'js/websocket',
+        js: 'js',
         css: 'css'
     },
     src: {

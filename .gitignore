@@ -1,4 +1,4 @@
-# Symfony directories
+# Symfony directories and files
 bin/
 vendor/
 app/bootstrap.php.cache
@@ -7,7 +7,6 @@ app/logs/*
 web/bundles/*
 web/uploads/*
 app/phpunit.xml
-
 web/app_dev.php
 
 # Configuration files
@@ -22,3 +21,5 @@ composer.phar
 
 # JS and CSS compiled files
 web/assets/*
+web/css/style.css
+web/js/client.js
