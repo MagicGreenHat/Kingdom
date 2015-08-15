@@ -56,9 +56,9 @@ case $1 in
         -e SYMFONY_ENVIRONMENT="$SYMFONY_ENVIRONMENT" \
         rottenwood/kingdom
 
-    SERVER_URL="$(docker inspect --format='{{.NetworkSettings.IPAddress}}' kingdom)"
+    SERVER_URL="$(ifconfig docker | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')"
 
-    if [ -z ${SERVER_URL} ]; then
+    if [ -z $(docker inspect --format='{{.NetworkSettings.IPAddress}}' kingdom) ]; then
         echo "\033[1;31mКонтейнер не был создан!\033[0m"
         exit 1
     fi
