@@ -16,7 +16,6 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-    websocket_router_url: localhost
 
 framework:
     #esi:             ~

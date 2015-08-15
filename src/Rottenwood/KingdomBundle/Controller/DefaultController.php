@@ -49,7 +49,6 @@ class DefaultController extends Controller {
             'RottenwoodKingdomBundle:Default:game.html.twig',
             [
                 'sessionId'    => $sessionId,
-                'websocketUrl' => $this->getParameter('websocket_router_url'),
             ]
         );
     }

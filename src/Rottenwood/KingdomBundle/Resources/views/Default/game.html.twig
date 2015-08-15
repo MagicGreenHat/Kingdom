@@ -7,7 +7,7 @@
 {% block javascripts %}
     <script type="text/javascript">
         var sessionId = '{{ sessionId }}';
-        var websocketUrl = '{{ websocketUrl }}';
+        var websocketUrl = window.location.hostname;
     </script>
 
     <script type="text/javascript" src="{{ asset('js/lib/autobahn.min.jgz') }}"></script>
