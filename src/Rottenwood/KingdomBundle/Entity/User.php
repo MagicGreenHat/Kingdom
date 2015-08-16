@@ -125,10 +125,18 @@ class User extends BaseUser {
      */
     private $bootsSlot;
 
+    /**
+     * Дата регистрации
+     * @var \DateTime
+     * @ORM\Column(name="register_date", type="datetime")
+     */
+    private $registerDate;
+
     public function __construct() {
         parent::__construct();
 
         $this->inventoryItems = new ArrayCollection();
+        $this->registerDate = new \DateTime();
     }
 
     /**
