@@ -55,7 +55,7 @@ connection.onopen = function (session) {
 
                         if (command) {
                             console.log('[' + localChannelName + '] [команда]: ' + command + ' [параметры]: ' + commandArguments);
-                            if (command == 'chat') {
+                            if (command == 'chat' && commandArguments) {
                                 var chatData = {
                                     chat: {
                                         from: character.name,
@@ -104,7 +104,11 @@ connection.onopen = function (session) {
                          * @param callback
                          */
                         function runConsoleCommand(character, command, callback) {
-                            var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command + ' ' + commandArguments;
+                            var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command;
+
+                            if (commandArguments) {
+                                cmd = cmd + ' ' + commandArguments;
+                            }
 
                             exec(cmd, function (error, stdout) {
                                 //TODO[Rottenwood]: Обработка ошибок
