@@ -172,7 +172,7 @@ $(function () {
         $roomPlayers.html('');
 
         playersStances.forEach(function(playerView) {
-            $roomPlayers.append('<div>' + playerView + '</div>');
+            $roomPlayers.append('<div class="user-info">' + playerView + '</div><br>');
         });
     }
 

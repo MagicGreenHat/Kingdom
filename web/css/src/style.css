@@ -100,8 +100,15 @@
     font-size: 18px;
 }
 
-#game-room .room-players {
+#game-room .room-players .user-info {
+    font-weight: 900;
     color: #5d3118;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#game-room .room-players .user-info:hover {
+    color: #b06231;
 }
 
 /* Блок панелей слева */
