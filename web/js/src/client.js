@@ -1,12 +1,12 @@
-var connection = new autobahn.Connection({
-    url: 'ws://' + websocketUrl + ':7777', // параметр передается из twig-шаблона
-    realm: 'kingdom'
-});
-
 $(function () {
+    var connection = new autobahn.Connection({
+        url: 'ws://' + websocketUrl + ':7777', // параметр передается из twig-шаблона
+        realm: 'kingdom'
+    });
+
     connection.onopen = function (session) {
         var userData = {
-            sessionId: sessionId // параметры передаются из twig-шаблона
+            sessionId: sessionId // параметр передаeтся из twig-шаблона
         };
 
         // Регистрация удаленной процедуры для отслеживания дисконнекта
@@ -102,6 +102,10 @@ $(function () {
     var $gameMap = $('#game-map');
     var $gameChat = $('#game-chat');
 
+    /**
+     * Отрисовка карты
+     * @param mapData
+     */
     function redrawMap(mapData) {
         $('#game-map .map-frame img').attr('src', '/img/locations/null.png');
 
@@ -111,11 +115,19 @@ $(function () {
         });
     }
 
+    /**
+     * Добавление сообщения в чат
+     * @param chatData
+     */
     function addChatPhrase(chatData) {
         $gameChat.append('<div><strong>' + chatData.from + '</strong>: ' + chatData.phrase.replace(/<[^>]+>/gi, '') + '</div>');
         $gameChat.scrollTop($gameChat.prop("scrollHeight"));
     }
 
+    /**
+     * Добавление информационной строки в чат
+     * @param infoData
+     */
     function addInfo(infoData) {
         var html;
         if (infoData.event == 'playerEnter') {
@@ -128,10 +140,18 @@ $(function () {
         $gameChat.scrollTop($gameChat.prop('scrollHeight'));
     }
 
+    /**
+     * Отображение игроков онлайн
+     * @param playersOnlineCount
+     */
     function showOnline(playersOnlineCount) {
         $('#game-chat .hello-username .players-online').html('Игроков онлайн: ' + playersOnlineCount);
     }
 
+    /**
+     * Перерисовка комнаты
+     * @param roomData
+     */
     function redrawRoom(roomData) {
         var $roomName = $gameContentRoom.find('.room-name');
         var $roomDescription = $gameContentRoom.find('.room-description');
@@ -142,12 +162,16 @@ $(function () {
         $roomDescription.html('').html(roomData.description);
     }
 
-    function showPlayersInRoom(players) {
+    /**
+     * Отрисовка игроков в комнате
+     * @param playersStances string Описание стойки игрока
+     */
+    function showPlayersInRoom(playersStances) {
         var $roomPlayers = $gameContentRoom.find('.room-players');
 
         $roomPlayers.html('');
 
-        players.forEach(function(playerView) {
+        playersStances.forEach(function(playerView) {
             $roomPlayers.append('<div>' + playerView + '</div>');
         });
     }
