@@ -14,6 +14,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
  */
 class User extends BaseUser {
 
+    const AVATAR_PATH = '/web/img/avatars/';
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -346,7 +348,7 @@ class User extends BaseUser {
      * @return string
      */
     public function getAvatar() {
-        return $this->avatar;
+        return self::AVATAR_PATH . $this->avatar;
     }
 
     /**
