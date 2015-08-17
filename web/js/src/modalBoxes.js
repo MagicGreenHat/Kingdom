@@ -9,7 +9,7 @@ $(function () {
         $inventory.show();
     });
 
-    $('#game-inventory .close-button').click(function() {
+    $inventory.find('.close-button').click(function() {
         $room.show();
         $inventory.hide();
     });
@@ -20,7 +20,7 @@ $(function () {
         $userInfo.show();
     });
 
-    $('#game-user-info .close-button').click(function() {
+    $userInfo.find('.close-button').click(function() {
         $room.show();
         $userInfo.hide();
     });
