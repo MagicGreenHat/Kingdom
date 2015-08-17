@@ -1,27 +1,58 @@
+/**
+ * Модальные блоки интерфейса
+ */
 $(function () {
     var $room = $('#game-room');
     var $inventory = $('#game-inventory');
     var $userInfo = $('#game-user-info');
+    var userName = $userInfo.data('name');
 
     $('.open-inventory-button').click(function() {
-        $room.hide();
-        $userInfo.hide();
-        $inventory.show();
-    });
-
-    $inventory.find('.close-button').click(function() {
-        $room.show();
-        $inventory.hide();
+        openInventory();
     });
 
     $('.open-user-info-button').click(function() {
-        $room.hide();
-        $inventory.hide();
-        $userInfo.show();
+        openUserInfo(userName);
+    });
+
+    $inventory.find('.close-button').click(function() {
+        openRoomBox();
     });
 
     $userInfo.find('.close-button').click(function() {
-        $room.show();
-        $userInfo.hide();
+        openRoomBox();
     });
+
+    $room.find('.room-players').on('click', '.user-info', function() {
+        openUserInfo($(this).data('name'));
+    });
+
+    /**
+     * Открытие окна информации об игроке
+     */
+    function openUserInfo(userName) {
+        $userInfo.find('.user-name').html(userName);
+
+        $userInfo.show();
+        $room.hide();
+        $inventory.hide();
+    }
+
+    /**
+     * Открытие окна комнаты
+     */
+    function openRoomBox() {
+        $room.show();
+        $inventory.hide();
+        $userInfo.hide();
+    }
+
+    /**
+     * Открытие окна инвентаря
+     */
+    function openInventory() {
+        $inventory.show();
+        $userInfo.hide();
+        $room.hide();
+    }
 });

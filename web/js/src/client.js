@@ -164,15 +164,15 @@ $(function () {
 
     /**
      * Отрисовка игроков в комнате
-     * @param playersStances string Описание стойки игрока
+     * @param players
      */
-    function showPlayersInRoom(playersStances) {
+    function showPlayersInRoom(players) {
         var $roomPlayers = $gameContentRoom.find('.room-players');
 
         $roomPlayers.html('');
 
-        playersStances.forEach(function(playerView) {
-            $roomPlayers.append('<div class="user-info">' + playerView + '</div><br>');
+        players.forEach(function(player) {
+            $roomPlayers.append('<div class="user-info" data-name="' + player.name + '">' + player.name + ' ' + player.stance + '</div><br>');
         });
     }
 
