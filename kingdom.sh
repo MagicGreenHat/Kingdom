@@ -90,6 +90,12 @@ case $1 in
     docker exec -it kingdom-mysql-server mysql
 ;;
 
+'drop-database')
+    $0 stop
+    echo "Удаление всех данных из БД ..."
+    docker rm kingdom-mysql-data >/dev/null 2>&1
+;;
+
 'console')
     shift
     docker exec -it kingdom /kingdom/app/console "$@"
@@ -127,7 +133,8 @@ case $1 in
 
 	echo "\033[1;33;24m$0 (css|js|gulp)\033[0m - Сборка CSS и JS с помощью gulp"
 
-	echo "\033[1;33;24m$0 build\033[0m - сборка нового Docker-образа"
+	echo "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
+	echo "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
 	echo "----------------------------------------------------------------------"
 ;;
 
