@@ -24,7 +24,7 @@ class User extends BaseUser {
 
     /**
      * Русское имя персонажа
-     * @ORM\Column(name="character_name", type="string", length=25)
+     * @ORM\Column(name="character_name", type="string", length=25, unique=true)
      * @var string
      */
     protected $name;
@@ -127,10 +127,17 @@ class User extends BaseUser {
 
     /**
      * Дата регистрации
-     * @var \DateTime
      * @ORM\Column(name="register_date", type="datetime")
+     * @var \DateTime
      */
     private $registerDate;
+
+    /**
+     * Изображение персонажа (аватар)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $avatar;
 
     public function __construct() {
         parent::__construct();
@@ -326,6 +333,27 @@ class User extends BaseUser {
      */
     public function setBootsSlot($bootsSlot) {
         $this->bootsSlot = $bootsSlot;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRegisterDate() {
+        return $this->registerDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar() {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar($avatar) {
+        $this->avatar = $avatar;
     }
 
     /**
