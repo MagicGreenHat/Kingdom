@@ -8,7 +8,7 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 /**
  * Смена аватара (изображения игрока)
  * Параметры: string - название изображения без пути и раширения
- * Пример: callCommand('changeAvatar', 'male2')
+ * Применение в js: callCommand('changeAvatar', 'male2')
  */
 class ChangeAvatar extends AbstractGameCommand {
 
