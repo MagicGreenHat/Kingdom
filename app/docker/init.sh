@@ -12,9 +12,11 @@ if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
     ln -s /etc/nginx/sites-available/kingdom-dev.conf /etc/nginx/sites-enabled/
     rm /kingdom/web/app_dev.php
     cp /kingdom/app/docker/symfony/app_dev.php /kingdom/web/
+    mv /etc/nginx/nginx-dev.conf /etc/nginx/nginx.conf
 else
     rm /kingdom/web/app_dev.php
     ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
+    rm /etc/nginx/nginx-dev.conf
 fi
 
 echo "Обновление библиотек композера ..."
@@ -41,7 +43,10 @@ cd /kingdom && node node_modules/gulp/bin/gulp.js build
 
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
-sudo -u www-data /kingdom/app/console cache:warm -e prod
+
+if [ ${SYMFONY_ENVIRONMENT} = "prod" ]; then
+    sudo -u www-data /kingdom/app/console cache:warm -e prod
+fi
 
 echo "Запуск node.js приложений ..."
 cd /kingdom/websocket
