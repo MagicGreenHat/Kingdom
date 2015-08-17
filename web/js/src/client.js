@@ -34,6 +34,7 @@ $(function () {
                         showPlayersInRoom(data.data);
                     } else if (data.commandName == 'moveAnother') {
                         addInfo(data.message);
+                        callCommand('showPlayersInRoom');
                     }
 
                     // Отрисовка карты
@@ -102,11 +103,11 @@ $(function () {
     var $gameChat = $('#game-chat');
 
     function redrawMap(mapData) {
-        $('#game-map .map-frame img').attr('src', '../../img/locations/null.png');
+        $('#game-map .map-frame img').attr('src', '/img/locations/null.png');
 
         mapData.forEach(function (room) {
             $('.map .y' + room.y + ' .x' + room.x)
-                .html('<img src="../../img/locations/' + room.pic + '.png">');
+                .html('<img src="/img/locations/' + room.pic + '.png">');
         });
     }
 
