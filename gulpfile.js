@@ -26,7 +26,7 @@ var path = {
 
 gulp.task('js:build', function () {
     gulp.src(path.src.js)
-        .pipe(concat(path.build.js))
+        .pipe(concat(path.destination.js))
         .pipe(rigger())
         .pipe(sourcemaps.init())
         .pipe(uglify())
@@ -37,7 +37,7 @@ gulp.task('js:build', function () {
 
 gulp.task('css:build', function () {
     gulp.src(path.src.css)
-        .pipe(concat(path.build.css))
+        .pipe(concat(path.destination.css))
         .pipe(sourcemaps.init())
         .pipe(prefixer())
         .pipe(cssmin())
