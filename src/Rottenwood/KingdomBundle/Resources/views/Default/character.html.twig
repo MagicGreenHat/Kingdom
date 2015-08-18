@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {% if not character %}
+        <div>Персонаж не найден!</div>
+    {% else %}
+        {% set room = character.room %}
+        {% set equipment = character.equipment %}
+
+        <h2>{{ character.name }}</h2>
+        <img src="{{ asset(character.avatar) }}">
+        <p>Дата регистрации: {{ character.registerDate|date('d-m-Y') }}</p>
+        <p>Последний раз был: {{ room.name ?: room.type.name }} [{{ room.x ~ '/' ~ room.y }}]</p>
+        <table>
+            <tr>
+                <td style="vertical-align: top;">Одежда:</td>
+                <td>
+                    {% if not equipment %}
+                        нет
+                    {% else %}
+                        {% for item in character.equipment %}
+                            <div>{{ item.name }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+{% endblock body %}

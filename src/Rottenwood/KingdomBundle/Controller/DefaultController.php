@@ -36,7 +36,7 @@ class DefaultController extends Controller {
         $sessionId = $request->getSession()->getId();
         /** @var User $user */
         $user = $this->getUser();
-        $userId =  $user->getId();
+        $userId = $user->getId();
 
         /** @var RedisClientInterface $redis */
         $redis = $this->container->get('snc_redis.default');
@@ -45,11 +45,24 @@ class DefaultController extends Controller {
         $redis->hset(RedisClientInterface::ID_SESSION_HASH, $userId, $sessionId);
         $redis->hset(RedisClientInterface::SESSION_ID_HASH, $sessionId, $userId);
 
-        return $this->render(
-            'RottenwoodKingdomBundle:Default:game.html.twig',
-            [
-                'sessionId'    => $sessionId,
-            ]
-        );
+        return $this->render('RottenwoodKingdomBundle:Default:game.html.twig', ['sessionId' => $sessionId]);
+    }
+
+    /**
+     * Страница информации о персонаже
+     * @Route("/character/{name}", name="character_page")
+     * @param Request $request
+     * @return Response
+     */
+    public function characterPageAction(Request $request) {
+        $characterNameOrId = $request->attributes->get('name');
+        $userRepository = $this->get('kingdom.user_repository');
+        $character = $userRepository->findByName($characterNameOrId);
+
+        if (!$character) {
+        	$character = $userRepository->findById($characterNameOrId);
+        }
+
+        return $this->render('RottenwoodKingdomBundle:Default:character.html.twig', ['character' => $character]);
     }
 }
