@@ -34,7 +34,7 @@ var Inventory = (function() {
 
                 window.inventory.forEach(function(item) {
                     if (item.quantity==1) {
-                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+"_color.png");
+                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+".png");
                     }
                     else if (item.quantity>1) {
                         $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+"_color.png");

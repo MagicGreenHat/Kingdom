@@ -33,16 +33,16 @@ class ItemsCreateCommand extends ContainerAwareCommand {
             $output->write('Создание предметов ... ');
 
             $itemsData = [
-                ['Шлем тестировщика', '', [Item::USER_SLOT_HEAD], 'helm'],
-                ['Плащ тестировщика', '', [Item::USER_SLOT_CLOAK], 'cloak'],
-                ['Амулет тестировщика', '', [Item::USER_SLOT_AMULET], 'amulet'],
-                ['Щит тестировщика', '', [Item::USER_SLOT_LEFT_HAND], 'shield'],
-                ['Рукавицы тестировщика', '', [Item::USER_SLOT_GLOVES], 'gloves'],
-                ['Оружие тестировщика', '', [Item::USER_SLOT_WEAPON], 'weapon'],
-                ['Роба тестировщика', '', [Item::USER_SLOT_BODY], 'robe'],
-                ['Ботинки тестировщика', '', [Item::USER_SLOT_BOOTS], 'boots'],
-                ['Штаны тестировщика', '', [Item::USER_SLOT_LEGS], 'legs'],
-                ['Кольцо тестировщика', '', [Item::USER_SLOT_RING_FIRST, Item::USER_SLOT_RING_SECOND], 'ring'],
+                ['Шляпа тестировщика', '', [Item::USER_SLOT_HEAD], 'hat1'],
+                ['Плащ тестировщика', '', [Item::USER_SLOT_CLOAK], 'cloak1'],
+                ['Амулет тестировщика', '', [Item::USER_SLOT_AMULET], 'amulettester'],
+                ['Щит тестировщика', '', [Item::USER_SLOT_LEFT_HAND], 'shield1'],
+                ['Рукавицы тестировщика', '', [Item::USER_SLOT_GLOVES], 'gloves1'],
+                ['Оружие тестировщика', '', [Item::USER_SLOT_WEAPON], 'dagger1'],
+                ['Рубаха тестировщика', '', [Item::USER_SLOT_BODY], 'shirt1'],
+                ['Ботинки тестировщика', '', [Item::USER_SLOT_BOOTS], 'boots1'],
+                ['Штаны тестировщика', '', [Item::USER_SLOT_LEGS], 'legs1'],
+                ['Кольцо тестировщика', '', [Item::USER_SLOT_RING_FIRST, Item::USER_SLOT_RING_SECOND], 'ring1'],
             ];
 
             foreach ($itemsData as $itemData) {
