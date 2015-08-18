@@ -11,16 +11,16 @@ define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sess
         var $userInfo = $('#game-user-info');
         var userName = $userInfo.data('name');
 
-        $('.open-inventory-button').click(function () {
-            openInventory();
+
+        /**
+         * Подключение класса Инвентаря и его инициация
+         */
+        requirejs(['inventory'],function(inventory) {
+            inventory.init();
         });
 
         $('.open-user-info-button').click(function () {
             openUserInfo(userName);
-        });
-
-        $inventory.find('.close-button').click(function () {
-            openRoomBox();
         });
 
         $userInfo.find('.close-button').click(function () {
@@ -54,17 +54,6 @@ define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sess
             $userInfo.hide();
         }
 
-        /**
-         * Открытие окна инвентаря
-         */
-        function openInventory() {
-
-            callCommand('inventory');
-
-            $inventory.show();
-            $userInfo.hide();
-            $room.hide();
-        }
 
         /**
          * Подписка на сообщения от сервера

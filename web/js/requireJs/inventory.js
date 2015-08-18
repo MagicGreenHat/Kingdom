@@ -1,16 +1,24 @@
 define(['jquery'], function ($) {
 
-var Inventory = function() {
+var Inventory = (function() {
 
+    var $room = $('#game-room');
     var $inventory = $('#game-inventory');
+    var $userInfo = $('#game-user-info');
+
+    var allHide = function() {
+        $room.hide();
+        $userInfo.hide();
+    }
 
     var openInventory = function() {
-        callCommand('inventory');
-
-        $inventory.show();
-
-        allAnother.close() // тут какая-то другая функция - общая для закрытия лишних окон
-
+        if (typeof (window.inventory) != 'undefined' && window.inventory!='') {
+            allHide();
+            $inventory.show();
+        }
+        else {
+            console.log('Инвентарь еще не загружен!');
+        }
     }
 
     /**
@@ -19,9 +27,9 @@ var Inventory = function() {
      */
     var views = {
 
-        allItems: function(data) {
+        allItems: function() {
             var html = '';
-            data.forEach(function(i) {
+            window.inventory.forEach(function(i) {
                 html += '<div class="inventoryItem"><img src="/img/items/'+ i.pic+'.png"></div>';
             });
             $inventory.children('.container').html(html);
@@ -36,14 +44,24 @@ var Inventory = function() {
                 openInventory();
             });
 
-            $inventory.children('.close-button').click(function () { // кажется children работает быстрее fined, но не увере, надо почитать
-                openRoomBox(); // тут опять же стандартная функци для закрытия всего и открытия roomBox
+            $inventory.find('.close-button').click(function () { // кажется children работает быстрее fined, но не увере, надо почитать
+                $room.show();
+                $userInfo.hide();
+                $inventory.hide();
             });
         },
 
-        printItems: views.allItems
-    }
-}
+        setInventory: function(obj) {
+            window.inventory = obj;
+            views.allItems();
+        },
 
-return new Inventory();
+        getInventory: function() {
+            return window.inventory;
+        }
+
+    }
+})();
+
+return Inventory;
 });
