@@ -31,7 +31,6 @@ gulp.task('js:build', function () {
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(rename(path.destination.js))
         .pipe(gulp.dest(path.build.js));
 });
 
@@ -42,7 +41,6 @@ gulp.task('css:build', function () {
         .pipe(prefixer())
         .pipe(cssmin())
         .pipe(sourcemaps.write())
-        .pipe(rename(path.destination.css))
         .pipe(gulp.dest(path.build.css));
 });
 

@@ -68,7 +68,7 @@ define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
                             addInfo(data.message);
                             callCommand('showPlayersInRoom');
                         } else if (data.commandName == 'inventory') {
-                            inventory.printItems(data.data);
+                            inventory.setInventory(data.data);
                         }
 
 
@@ -125,6 +125,7 @@ define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
                     /////// Вызов команд при загрузке страницы ///////
                     callCommand('composeMap');
                     callCommand('who');
+                    callCommand('inventory');
                 }
             );
         };
