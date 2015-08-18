@@ -58,6 +58,9 @@ define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sess
          * Открытие окна инвентаря
          */
         function openInventory() {
+
+            callCommand('inventory');
+
             $inventory.show();
             $userInfo.hide();
             $room.hide();
@@ -73,6 +76,14 @@ define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sess
                 var avatar = data.data.avatar;
 
                 $userInfo.find('.avatar').html('<img src="' + avatar + '">');
+            }
+
+            if (data.commandName == 'inventory') {
+                var html = '';
+                data.data.forEach(function(i) {
+                    html += '<div class="inventoryItem"><img src="/img/items/'+ i.pic+'.png"></div>';
+                });
+                $inventory.children('.container').html(html);
             }
         });
     });
