@@ -29,11 +29,21 @@ var Inventory = (function() {
         var views = {
 
             allItems: function() {
-                var html = '';
-                window.inventory.forEach(function(i) {
-                    html += '<div class="inventoryItem"><img src="/img/items/'+ i.pic+'.png"></div>';
+
+                console.log(window.inventory);
+
+                window.inventory.forEach(function(item) {
+                    if (item.quantity==1) {
+                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+"_color.png");
+                    }
+                    else if (item.quantity>1) {
+                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+"_color.png");
+                        $(".paperdoll ."+item.allowedSlots[0]).append('<div class="count_item">'+item.quantity+'</div>');
+                    }
+                    else {
+                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+".png");
+                    }
                 });
-                $inventory.children('.items-list').html(html);
             }
 
         };
@@ -55,10 +65,6 @@ var Inventory = (function() {
             setInventory: function(obj) {
                 window.inventory = obj;
                 views.allItems();
-            },
-
-            getInventory: function() {
-                return window.inventory;
             }
 
         }
