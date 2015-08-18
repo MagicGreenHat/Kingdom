@@ -33,7 +33,7 @@ case $1 in
 
     echo "Запуск контейнера с сервером MySQL ..."
     docker run -d --name kingdom-mysql-server \
-        -p 3306:3306 \
+        -p 3307:3306 \
         --volumes-from=kingdom-mysql-data \
         -e MYSQL_PASS="docker" \
         -e MYSQL_USER="kingdom" \
