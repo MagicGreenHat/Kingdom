@@ -76,13 +76,6 @@ define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sess
                 var avatar = data.data.avatar;
 
                 $userInfo.find('.avatar').html('<img src="' + avatar + '">');
-            } else if (data.commandName == 'inventory') {
-                var html = '';
-                data.data.forEach(function (item) {
-                    html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
-                });
-
-                $inventory.children('.items-list').html(html);
             }
         });
     });

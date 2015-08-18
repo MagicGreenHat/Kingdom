@@ -1,4 +1,4 @@
-define(['jquery', 'autobahn'], function ($, autobahn) {
+define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
     $(function () {
         var connection = new autobahn.Connection({
             url: 'ws://' + websocketUrl + ':7777', // параметр передается из twig-шаблона
@@ -67,7 +67,10 @@ define(['jquery', 'autobahn'], function ($, autobahn) {
                         } else if (data.commandName == 'moveAnother') {
                             addInfo(data.message);
                             callCommand('showPlayersInRoom');
+                        } else if (data.commandName == 'inventory') {
+                            inventory.printItems(data.data);
                         }
+
 
                         // Отрисовка карты
                         if (data.mapData) {
