@@ -9,7 +9,7 @@ var autobahn = require('autobahn');
 var redis = require('then-redis').createClient();
 
 var connection = new autobahn.Connection({
-    url: 'ws://localhost:7777/',
+    url: 'ws://localhost:7777',
     realm: 'kingdom'
 });
 
@@ -19,10 +19,10 @@ connection.onopen = function (session) {
         redis.hgetall(REDIS_ID_SESSION_HASH).then(function (sessions) {
             for (var property in sessions) {
                 if (sessions.hasOwnProperty(property)) {
-                    var sessionId = sessions[property];
-                    var channel = 'character.' + sessionId;
+                    var channel = 'character.' + sessions[property];
+                    var messageJson = JSON.stringify(message);
 
-                    session.publish(channel, [message]);
+                    session.publish(channel, [messageJson]);
                 }
             }
         });
