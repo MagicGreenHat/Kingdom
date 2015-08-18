@@ -79,7 +79,7 @@ define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sess
             } else if (data.commandName == 'inventory') {
                 var html = '';
                 data.data.forEach(function (item) {
-                    html += '<div class="inventoryItem"><img src="/img/items/' + item.pic + '.png"></div>';
+                    html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
                 });
 
                 $inventory.children('.items-list').html(html);
