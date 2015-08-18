@@ -4,7 +4,7 @@
 
 SECONDS_IN_TICK = 60;
 REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
-SECONDS_TO_ADVICE = 600;
+SECONDS_TO_ADVICE = 1800;
 
 var autobahn = require('autobahn');
 var redis = require('then-redis').createClient();
@@ -49,8 +49,15 @@ connection.onopen = function (session) {
         };
     }
 
+    var oldAdvice = {info: {advice: ''}};
     setInterval(function () {
-        sendToAllOnlinePlayers(gameAdvice());
+        var advice = gameAdvice();
+
+        if (oldAdvice.info.advice != advice.info.advice) {
+            sendToAllOnlinePlayers(advice);
+            oldAdvice = advice;
+        }
+
     }, SECONDS_TO_ADVICE * 1000);
 
 };
