@@ -8,7 +8,7 @@ use Rottenwood\KingdomBundle\Entity\User;
 
 /**
  * Отображение игроков в текущей комнате
- * @package Rottenwood\KingdomBundle\Command\Game
+ * Применение в js: callCommand('showPlayersInRoom')
  */
 class ShowPlayersInRoom extends AbstractGameCommand {
 
@@ -18,7 +18,10 @@ class ShowPlayersInRoom extends AbstractGameCommand {
     public function execute() {
         $playersInRoom = array_map(
             function (User $user) {
-                return $user->getUsername() . ' стоит тут.';
+                return [
+                    'name'   => $user->getName(),
+                    'stance' => 'стоит тут.',
+                ];
             },
             $this->container->get('kingdom.user_service')->getOnlineUsersInRoom(
                 $this->user->getRoom(),

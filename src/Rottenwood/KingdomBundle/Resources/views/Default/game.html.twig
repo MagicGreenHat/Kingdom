@@ -7,73 +7,95 @@
 {% block javascripts %}
     <script type="text/javascript">
         var sessionId = '{{ sessionId }}';
+        var websocketUrl = window.location.hostname;
     </script>
 
-    <script type="text/javascript" src="{{ asset('js/autobahn.min.jgz') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/websocket/client.js') }}"></script>
+    <script type="text/javascript" data-main="js/requireJs/main" src="{{ asset('js/lib/require-2.1.20.js') }}"></script>
 {% endblock javascripts %}
 
 {% block body %}
     <div id="game-underlayer"></div>
 
-    <div id="game-content" class="noselect">
+    <div id="game-inventory" class="noselect">
+        <div class="title">
+            <span>Инвентарь</span>
+            <span class="close-button">❌</span>
+        </div>
+        <div class="container"></div>
+    </div>
+
+    <div id="game-user-info" class="noselect" data-name="{{ app.user.name }}">
+        <div class="title">
+            <span class="user-name">{{ app.user.name }}</span>
+            <span class="close-button">❌</span>
+        </div>
+        <div class="avatar"></div>
+    </div>
+
+    <div id="game-room" class="noselect">
         <div class="room-name"></div>
         <div class="room-description"></div>
         <div class="room-players"></div>
         {# TODO[Rottenwood]: Ссылка выхода из игры #}
         {#| <a href="{{ path('fos_user_security_logout') }}">#}
-            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+        {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
         {#</a>#}
-    </div>
-
-    <div id="game-map" class="noselect">
-        <div class="map">
-            <div class="map-frame-line y5">
-                <div class="map-frame x1">{{ emptyRoomImage }}</div>
-                <div class="map-frame x2">{{ emptyRoomImage }}</div>
-                <div class="map-frame x3">{{ emptyRoomImage }}</div>
-                <div class="map-frame x4">{{ emptyRoomImage }}</div>
-                <div class="map-frame x5">{{ emptyRoomImage }}</div>
-            </div>
-            <div class="map-frame-line y4">
-                <div class="map-frame x1">{{ emptyRoomImage }}</div>
-                <div class="map-frame x2">{{ emptyRoomImage }}</div>
-                <div class="map-frame x3 direction north" data-direction="north">{{ emptyRoomImage }}</div>
-                <div class="map-frame x4">{{ emptyRoomImage }}</div>
-                <div class="map-frame x5">{{ emptyRoomImage }}</div>
-            </div>
-            <div class="map-frame-line y3">
-                <div class="map-frame x1">{{ emptyRoomImage }}</div>
-                <div class="map-frame x2 direction west" data-direction="west">{{ emptyRoomImage }}</div>
-                <div class="map-frame-player"><img src="{{ asset('img/locations/character-male.png') }}"></div>
-                <div class="map-frame x4 direction east" data-direction="east">{{ emptyRoomImage }}</div>
-                <div class="map-frame x5">{{ emptyRoomImage }}</div>
-            </div>
-            <div class="map-frame-line y2">
-                <div class="map-frame x1">{{ emptyRoomImage }}</div>
-                <div class="map-frame x2">{{ emptyRoomImage }}</div>
-                <div class="map-frame x3 direction south" data-direction="south">{{ emptyRoomImage }}</div>
-                <div class="map-frame x4">{{ emptyRoomImage }}</div>
-                <div class="map-frame x5">{{ emptyRoomImage }}</div>
-            </div>
-            <div class="map-frame-line y1">
-                <div class="map-frame x1">{{ emptyRoomImage }}</div>
-                <div class="map-frame x2">{{ emptyRoomImage }}</div>
-                <div class="map-frame x3">{{ emptyRoomImage }}</div>
-                <div class="map-frame x4">{{ emptyRoomImage }}</div>
-                <div class="map-frame x5">{{ emptyRoomImage }}</div>
-            </div>
-        </div>
     </div>
 
     <div id="game-chat">
         <div class="hello-username">
-            {{ 'hello_username'|trans({'%username%': app.user.username}) }}
+            {{ 'hello_username'|trans({'%username%': app.user.name}) }}
             <span class="players-online"></span>
         </div>
         <div>
-            Доска задач проекта: <a href="https://trello.com/b/dYc2L9lX/kingdom">https://trello.com/b/dYc2L9lX/kingdom</a>
+            Доска задач проекта: <a
+                    href="https://trello.com/b/dYc2L9lX/kingdom">https://trello.com/b/dYc2L9lX/kingdom</a>
+        </div>
+    </div>
+
+    <div class="game-left-box noselect">
+        <div id="game-map">
+            <div class="map">
+                <div class="map-frame-line y5">
+                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x3">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                </div>
+                <div class="map-frame-line y4">
+                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x3 direction north" data-direction="north">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                </div>
+                <div class="map-frame-line y3">
+                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x2 direction west" data-direction="west">{{ emptyRoomImage }}</div>
+                    <div class="map-frame-player"><img src="{{ asset('img/locations/character-male.png') }}"></div>
+                    <div class="map-frame x4 direction east" data-direction="east">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                </div>
+                <div class="map-frame-line y2">
+                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x3 direction south" data-direction="south">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                </div>
+                <div class="map-frame-line y1">
+                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x3">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x4">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="control-buttons">
+            <div class="open-inventory-button">Инвентарь</div>
+            <div class="open-user-info-button">Персонаж</div>
         </div>
     </div>
 

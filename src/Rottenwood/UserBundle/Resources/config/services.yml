@@ -2,6 +2,6 @@ services:
     # Слушатель событий FOSUserBundle
     fosuser.listener:
         class: "Rottenwood\UserBundle\EventListener\FOSUserListener"
-        arguments: [@router, @doctrine.orm.entity_manager]
+        arguments: [@router, @kernel, @kingdom.room_repository]
         tags:
             - { name: kernel.event_subscriber }

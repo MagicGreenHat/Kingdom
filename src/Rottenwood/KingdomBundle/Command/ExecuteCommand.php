@@ -61,7 +61,7 @@ class ExecuteCommand extends ContainerAwareCommand {
             /** @var GameCommandInterface $command */
             $command = new $commandClass($user, $parameters, $container);
         } else {
-            throw new CommandNotFound('Команда не найдена');
+            throw new CommandNotFound(sprintf('Команда %s не найдена', $commandName));
         }
 
         //TODO[Rottenwood]: handle InvalidCommandParameter exception

@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Controller;
 
+use Rottenwood\KingdomBundle\Entity\User;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,28 +34,22 @@ class DefaultController extends Controller {
      */
     public function gamePageAction(Request $request) {
         $sessionId = $request->getSession()->getId();
+        /** @var User $user */
         $user = $this->getUser();
         $userId =  $user->getId();
-        $username =  $user->getUsername();
-
-        $userData = [
-            'id'   => $userId,
-            'name' => $username,
-        ];
 
         /** @var RedisClientInterface $redis */
         $redis = $this->container->get('snc_redis.default');
 
-        $allSessions = $redis->hgetall(RedisClientInterface::CHARACTERS_HASH_TEMPORARY);
-
-        if ($oldCharacterData = array_search(json_encode($userData), $allSessions)) {
-            $redis->hdel(RedisClientInterface::CHARACTERS_HASH_TEMPORARY, $oldCharacterData);
-        }
-
-        $redis->hset(RedisClientInterface::CHARACTERS_HASH_TEMPORARY, $sessionId, json_encode($userData));
-        $redis->hset(RedisClientInterface::ID_USERNAME_HASH, $userId, $username);
+        $redis->hset(RedisClientInterface::ID_USERNAME_HASH, $userId, $user->getName());
         $redis->hset(RedisClientInterface::ID_SESSION_HASH, $userId, $sessionId);
+        $redis->hset(RedisClientInterface::SESSION_ID_HASH, $sessionId, $userId);
 
-        return $this->render('RottenwoodKingdomBundle:Default:game.html.twig', ['sessionId' => $sessionId]);
+        return $this->render(
+            'RottenwoodKingdomBundle:Default:game.html.twig',
+            [
+                'sessionId'    => $sessionId,
+            ]
+        );
     }
 }
