@@ -241,3 +241,11 @@ div.game-chat-input input {
     transition: border 0.3s;
     outline: none;
 }
+
+/* Аватар игрока */
+#game-user-info .avatar {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    padding: 10px;
+}

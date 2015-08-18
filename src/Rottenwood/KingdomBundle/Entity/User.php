@@ -14,7 +14,7 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
  */
 class User extends BaseUser {
 
-    const AVATAR_PATH = '/web/img/avatars/';
+    const AVATAR_PATH = '/img/avatars/';
     const AVATAR_EXTENSION = 'jpg';
 
     /**

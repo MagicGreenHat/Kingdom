@@ -1,7 +1,10 @@
 /**
  * Модальные блоки интерфейса
  */
-define(['jquery', 'command'], function ($, callCommand) {
+define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sessionData) {
+    var session = sessionData.session;
+    var localChannelName = sessionData.localChannelName;
+
     $(function () {
         var $room = $('#game-room');
         var $inventory = $('#game-inventory');
@@ -33,6 +36,7 @@ define(['jquery', 'command'], function ($, callCommand) {
          */
         function openUserInfo(userName) {
             $userInfo.find('.user-name').html(userName);
+            $userInfo.find('.avatar').html('');
 
             callCommand('lookUser', userName);
 
@@ -58,5 +62,18 @@ define(['jquery', 'command'], function ($, callCommand) {
             $userInfo.hide();
             $room.hide();
         }
+
+        /**
+         * Подписка на сообщения от сервера
+         */
+        session.subscribe(localChannelName, function (args) {
+            var data = JSON.parse(args[0]);
+
+            if (data.commandName == 'lookUser') {
+                var avatar = data.data.avatar;
+
+                $userInfo.find('.avatar').html('<img src="' + avatar + '">');
+            }
+        });
     });
 });

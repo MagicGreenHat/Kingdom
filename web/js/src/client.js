@@ -10,12 +10,27 @@ define(['jquery', 'autobahn'], function ($, autobahn) {
                 sessionId: sessionId // параметр передаeтся из twig-шаблона
             };
 
-            // Регистрация удаленной процедуры для отслеживания дисконнекта
+            /**
+             * Регистрация удаленной процедуры для отслеживания дисконнекта
+             */
             session.register('online.' + sessionId, function () {});
 
+            /**
+             * Вызов удаленной процедуры
+             */
             session.call('gate', [userData]).then(
                 function () {
                     var localChannelName = 'character.' + sessionId;
+
+                    /**
+                     * Модуль вебсокет-сессии
+                     */
+                    define('websocketSession', function () {
+                        return {
+                            session: session,
+                            localChannelName: localChannelName
+                        };
+                    });
 
                     /**
                      * Модуль отправки команды по локальному каналу
@@ -28,6 +43,9 @@ define(['jquery', 'autobahn'], function ($, autobahn) {
                         };
                     });
 
+                    /**
+                     * Подключение модуля модальных окон
+                     */
                     requirejs(['modalBoxes']);
 
                     session.subscribe(localChannelName, function (args) {
