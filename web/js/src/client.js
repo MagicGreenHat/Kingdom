@@ -71,7 +71,6 @@ define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
                             inventory.setInventory(data.data);
                         }
 
-
                         // Отрисовка карты
                         if (data.mapData) {
                             redrawMap(data.mapData);
@@ -168,6 +167,8 @@ define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
             var html;
             if (infoData.event == 'playerEnter') {
                 html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
+            } else if (infoData.event == 'advice') {
+                html = '<div><strong>Игровая информация:</strong> ' + infoData.advice + '</div>';
             } else {
                 html = '<div>' + infoData + '.</div>';
             }
