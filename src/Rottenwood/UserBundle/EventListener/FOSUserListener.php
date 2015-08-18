@@ -8,7 +8,10 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -21,14 +24,17 @@ class FOSUserListener implements EventSubscriberInterface {
     private $router;
     /** @var RoomRepository */
     private $roomRepository;
+    /** @var string */
+    private $avatarPath;
 
     /**
      * @param UrlGeneratorInterface $router
      * @param RoomRepository        $roomRepository
      */
-    public function __construct(UrlGeneratorInterface $router, RoomRepository $roomRepository) {
+    public function __construct(UrlGeneratorInterface $router, Kernel $kernel, RoomRepository $roomRepository) {
         $this->router = $router;
         $this->roomRepository = $roomRepository;
+        $this->avatarPath = $kernel->getRootDir() . '/../web/img/avatars/';
     }
 
     public static function getSubscribedEvents() {
@@ -53,6 +59,8 @@ class FOSUserListener implements EventSubscriberInterface {
         if (!$newName) {
         	$newName = $this->generateName();
         }
+
+        $user->setAvatar($this->pickAvatar());
 
         $user->setName($newName);
         $user->setRoom($room);
@@ -148,5 +156,28 @@ class FOSUserListener implements EventSubscriberInterface {
         }
 
         return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
+    }
+
+    /**
+     * Установка рэндомного аватара
+     * @return string
+     */
+    private function pickAvatar() {
+        $finder = new Finder();
+
+        $prefix = 'male';
+        $avatarPath = $this->avatarPath . $prefix;
+
+        $files = $finder->files()->in($avatarPath);
+
+        $avatars = [];
+        /** @var SplFileInfo $file */
+        foreach ($files as $file) {
+            $avatars[] = $file->getBasename('.jpg');
+        }
+
+        $avatar = $prefix . '/' . $avatars[array_rand($avatars)];
+
+        return $avatar;
     }
 }
