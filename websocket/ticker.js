@@ -4,6 +4,7 @@
 
 SECONDS_IN_TICK = 60;
 REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
+SECONDS_TO_ADVICE = 600;
 
 var autobahn = require('autobahn');
 var redis = require('then-redis').createClient();
@@ -28,15 +29,27 @@ connection.onopen = function (session) {
         });
     };
 
-    var tick = 1;
+    function gameAdvice() {
+        var advices = [
+            'Чтобы узнать, что должно случиться, достаточно проследить, что было.',
+            'За золото не всегда найдёшь хороших солдат, а хорошие солдаты всегда достанут золото.',
+            'Цель оправдывает средства.',
+            'У победителя много друзей, и лишь у побежденного они настоящие.',
+            'Скрой то, что говоришь сам, узнай то, что говорят другие, и станешь истинным князем.',
+            'Войны начинают когда хотят, но завершают, когда могут.'
+        ];
 
-    function processTick() {
-        sendToAllOnlinePlayers('tick #' + tick);
-        tick++;
+        return {
+            info: {
+                event: 'advice',
+                advice: advices[Math.floor(Math.random() * advices.length)]
+            }
+        };
     }
 
-    processTick();
-    setInterval(processTick, SECONDS_IN_TICK * 1000);
+    setInterval(function () {
+        sendToAllOnlinePlayers(gameAdvice());
+    }, SECONDS_TO_ADVICE * 1000);
 
 };
 
