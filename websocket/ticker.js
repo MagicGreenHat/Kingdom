@@ -3,8 +3,10 @@
  */
 
 SECONDS_IN_TICK = 60;
+REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
 
 var autobahn = require('autobahn');
+var redis = require('then-redis').createClient();
 
 var connection = new autobahn.Connection({
     url: 'ws://localhost:7777/',
@@ -13,9 +15,23 @@ var connection = new autobahn.Connection({
 
 connection.onopen = function (session) {
 
+    var sendToAllOnlinePlayers = function (message) {
+        redis.hgetall(REDIS_ID_SESSION_HASH).then(function (sessions) {
+            for (var property in sessions) {
+                if (sessions.hasOwnProperty(property)) {
+                    var sessionId = sessions[property];
+                    var channel = 'character.' + sessionId;
+
+                    session.publish(channel, [message]);
+                }
+            }
+        });
+    };
+
     var tick = 1;
+
     function processTick() {
-        session.publish('system', ['tick #' + tick]);
+        sendToAllOnlinePlayers('tick #' + tick);
         tick++;
     }
 
@@ -25,4 +41,3 @@ connection.onopen = function (session) {
 };
 
 connection.open();
-
