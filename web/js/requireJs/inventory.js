@@ -1,49 +1,47 @@
 define(['jquery'], function ($) {
 
-var Inventory = function() {
+    var Inventory = function () {
 
-    var $inventory = $('#game-inventory');
+        var $inventory = $('#game-inventory');
 
-    var openInventory = function() {
-        callCommand('inventory');
+        var openInventory = function () {
+            callCommand('inventory');
 
-        $inventory.show();
+            $inventory.show();
 
-        allAnother.close() // тут какая-то другая функция - общая для закрытия лишних окон
+            allAnother.close(); // тут какая-то другая функция - общая для закрытия лишних окон
+        };
 
-    }
+        /**
+         * Отображение всего, что касается инвентаря
+         * @type {{allItems: allItems}}
+         */
+        var views = {
+            allItems: function (data) {
+                var html = '';
+                data.forEach(function (item) {
+                    html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
+                });
 
-    /**
-     * Отображение всего, что касается инвентаря
-     * @type {{allItems: allItems}}
-     */
-    var views = {
+                $inventory.children('.items-list').html(html);
+            }
 
-        allItems: function(data) {
-            var html = '';
-            data.forEach(function(i) {
-                html += '<div class="inventoryItem"><img src="/img/items/'+ i.pic+'.png"></div>';
-            });
-            $inventory.children('.container').html(html);
+        };
+
+        return {
+            init: function () {
+                $('.open-inventory-button').click(function () {
+                    openInventory();
+                });
+
+                $inventory.children('.close-button').click(function () { // кажется children работает быстрее fined, но не увере, надо почитать
+                    openRoomBox(); // тут опять же стандартная функци для закрытия всего и открытия roomBox
+                });
+            },
+
+            printItems: views.allItems
         }
+    };
 
-    }
-
-    return {
-
-        init: function() {
-            $('.open-inventory-button').click(function () {
-                openInventory();
-            });
-
-            $inventory.children('.close-button').click(function () { // кажется children работает быстрее fined, но не увере, надо почитать
-                openRoomBox(); // тут опять же стандартная функци для закрытия всего и открытия roomBox
-            });
-        },
-
-        printItems: views.allItems
-    }
-}
-
-return new Inventory();
+    return new Inventory();
 });
