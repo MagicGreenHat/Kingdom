@@ -10,6 +10,7 @@ SYMFONY_CONSOLE_ENTRY_POINT = '../app/console kingdom:execute';
 REDIS_ID_USERNAME_HASH = 'kingdom:users:usernames';
 REDIS_SESSION_ID_HASH = 'kingdom:sessions:users';
 REDIS_ONLINE_LIST = 'kingdom:users:online';
+REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
 
 var autobahn = require('autobahn');
 var exec = require('child_process').exec;
@@ -26,6 +27,8 @@ redis.on('error', function (err) {
 
 connection.onopen = function (session) {
     session.publish(SYSTEM_CHANNEL_NAME, ['Gate service is running ...']);
+
+    reloadAllClients();
 
     //TODO[Rottenwood]: Удаленная команда всем клиентам переподключиться, чтобы гейт подключился к локальным каналам
 
@@ -175,6 +178,19 @@ connection.onopen = function (session) {
             });
         });
     });
+
+    function reloadAllClients() {
+        redis.hgetall(REDIS_ID_SESSION_HASH).then(function (sessions) {
+            for (var property in sessions) {
+                if (sessions.hasOwnProperty(property)) {
+                    var channel = 'character.' + sessions[property];
+                    var messageJson = JSON.stringify({commandName: 'reloadPage'});
+
+                    session.publish(channel, [messageJson]);
+                }
+            }
+        });
+    }
 };
 
 connection.open();

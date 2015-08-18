@@ -67,6 +67,8 @@ define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
                         } else if (data.commandName == 'moveAnother') {
                             addInfo(data.message);
                             callCommand('showPlayersInRoom');
+                        } else if (data.commandName == 'reloadPage') {
+                            location.reload();
                         } else if (data.commandName == 'inventory') {
                             inventory.setInventory(data.data);
                         }
