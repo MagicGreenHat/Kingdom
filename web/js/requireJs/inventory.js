@@ -30,20 +30,12 @@ var Inventory = (function() {
 
             allItems: function() {
 
-                console.log(window.inventory);
-
-                window.inventory.forEach(function(item) {
-                    if (item.quantity==1) {
-                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+".png");
-                    }
-                    else if (item.quantity>1) {
-                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+"_color.png");
-                        $(".paperdoll ."+item.allowedSlots[0]).append('<div class="count_item">'+item.quantity+'</div>');
-                    }
-                    else {
-                        $(".paperdoll ."+item.allowedSlots[0]+" img").prop("src","/img/items/"+item.pic+".png");
-                    }
+                var html = '';
+                window.inventory.forEach(function (item) {
+                    html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
                 });
+
+                $inventory.children('.items-list').html(html);
             }
 
         };
