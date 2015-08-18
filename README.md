@@ -16,13 +16,12 @@
 
 Установка
 ---------
-0. Скачать этот репозиторий: `git clone https://github.com/MagicGreenHat/Kingdom.git`
-0. Перейти в директорию с проектом `cd Kingdom`
 0. Установить Docker:
     * Для linux: `curl -sSL https://get.docker.com/ | sh`
     * Для [MacOS и Windows](https://www.docker.com/toolbox)
-0. Запустить скрипт установки: `./kingdom.sh`
-0. После установки игра будет доступна на 81 порту по адресу: http://localhost:81
+0. Скачать этот репозиторий: `git clone https://github.com/MagicGreenHat/Kingdom.git`
+0. Перейти в директорию с проектом `cd Kingdom`
+0. Запустить скрипт установки: `./kingdom.sh start`
 
 Совместная работа над проектом
 ------------------------------

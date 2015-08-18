@@ -1,0 +1,40 @@
+.game-left-box .control-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Кнопки открытия инвентаря и информации о персонаже */
+.open-user-info-button,
+.open-inventory-button {
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    background-color: #ffdb3f;
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.open-user-info-button:hover,
+.open-inventory-button:hover {
+    background-color: #ff8400;
+    cursor: pointer;
+}
+
+/* Кнопка закрытия блока */
+#game-user-info .close-button,
+#game-inventory .close-button {
+    position: absolute;
+    /*background-color: #727266;*/
+    padding: 16px;
+    right: 0;
+    display: inline-block;
+    top: 0;
+    cursor: pointer;
+}
+
+#game-user-info .close-button:hover,
+#game-inventory .close-button:hover {
+    color: #b21200;
+}

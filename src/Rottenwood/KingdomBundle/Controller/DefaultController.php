@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Controller;
 
+use Rottenwood\KingdomBundle\Entity\User;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,13 +34,14 @@ class DefaultController extends Controller {
      */
     public function gamePageAction(Request $request) {
         $sessionId = $request->getSession()->getId();
+        /** @var User $user */
         $user = $this->getUser();
         $userId =  $user->getId();
 
         /** @var RedisClientInterface $redis */
         $redis = $this->container->get('snc_redis.default');
 
-        $redis->hset(RedisClientInterface::ID_USERNAME_HASH, $userId, $user->getUsername());
+        $redis->hset(RedisClientInterface::ID_USERNAME_HASH, $userId, $user->getName());
         $redis->hset(RedisClientInterface::ID_SESSION_HASH, $userId, $sessionId);
         $redis->hset(RedisClientInterface::SESSION_ID_HASH, $sessionId, $userId);
 
@@ -47,7 +49,6 @@ class DefaultController extends Controller {
             'RottenwoodKingdomBundle:Default:game.html.twig',
             [
                 'sessionId'    => $sessionId,
-                'websocketUrl' => $this->getParameter('websocket_router_url'),
             ]
         );
     }

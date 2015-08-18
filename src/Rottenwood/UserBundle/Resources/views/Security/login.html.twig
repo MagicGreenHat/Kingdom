@@ -54,3 +54,14 @@
         </table>
     </form>
 {% endblock fos_user_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var $button = $('button');
+
+        $button.closest('form').on('submit', (function () {
+            $button.attr('disabled', true);
+        }));
+    </script>
+{% endblock javascripts %}

@@ -14,6 +14,9 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
  */
 class User extends BaseUser {
 
+    const AVATAR_PATH = '/img/avatars/';
+    const AVATAR_EXTENSION = 'jpg';
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -21,6 +24,13 @@ class User extends BaseUser {
      * @var int
      */
     protected $id;
+
+    /**
+     * Русское имя персонажа
+     * @ORM\Column(name="character_name", type="string", length=25, unique=true)
+     * @var string
+     */
+    protected $name;
 
     /**
      * Комната в которой находится персонаж
@@ -118,10 +128,39 @@ class User extends BaseUser {
      */
     private $bootsSlot;
 
+    /**
+     * Дата регистрации
+     * @ORM\Column(name="register_date", type="datetime")
+     * @var \DateTime
+     */
+    private $registerDate;
+
+    /**
+     * Изображение персонажа (аватар)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $avatar;
+
     public function __construct() {
         parent::__construct();
 
         $this->inventoryItems = new ArrayCollection();
+        $this->registerDate = new \DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = $name;
     }
 
     /**
@@ -297,6 +336,27 @@ class User extends BaseUser {
      */
     public function setBootsSlot($bootsSlot) {
         $this->bootsSlot = $bootsSlot;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRegisterDate() {
+        return $this->registerDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar() {
+        return $this->avatar ? sprintf('%s%s.%s', self::AVATAR_PATH, $this->avatar, self::AVATAR_EXTENSION) : '';
+    }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar($avatar) {
+        $this->avatar = $avatar;
     }
 
     /**
