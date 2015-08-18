@@ -21,7 +21,31 @@
             <span>Инвентарь</span>
             <span class="close-button">❌</span>
         </div>
-        <div class="container"></div>
+
+        <div class="paperdoll">
+            <div>
+                <div class="empty"></div>
+                <div class="head slot"><img src="{{ asset('img/items/helm.png') }}" alt=""></div>
+                <div class="cloak slot"><img src="{{ asset('img/items/cloak.png') }}" alt=""></div>
+            </div>
+            <div>
+                <div class="weapon slot"><img src="{{ asset('img/items/weapon.png') }}" alt=""></div>
+                <div class="body slot"><img src="{{ asset('img/items/robe.png') }}" alt=""></div>
+                <div class="left-hand slot"><img src="{{ asset('img/items/shield.png') }}" alt=""></div>
+            </div>
+            <div>
+                <div class="gloves slot"><img src="{{ asset('img/items/gloves.png') }}" alt=""></div>
+                <div class="legs slot"><img src="{{ asset('img/items/legs.png') }}" alt=""></div>
+                <div class="ring-first slot"><img src="{{ asset('img/items/ring.png') }}" alt=""></div>
+            </div>
+            <div>
+                <div class="amulet slot"><img src="{{ asset('img/items/amulet.png') }}" alt=""></div>
+                <div class="boots slot"><img src="{{ asset('img/items/boots.png') }}" alt=""></div>
+                <div class="ring-second slot"><img src="{{ asset('img/items/ring.png') }}" alt=""></div>
+            </div>
+        </div>
+
+        <div class="items-list"></div>
     </div>
 
     <div id="game-user-info" class="noselect" data-name="{{ app.user.name }}">
