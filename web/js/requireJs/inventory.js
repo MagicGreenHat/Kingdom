@@ -1,25 +1,37 @@
 define(['jquery'], function ($) {
 
-    var Inventory = function () {
 
-        var $inventory = $('#game-inventory');
+var Inventory = (function() {
 
-        var openInventory = function () {
-            callCommand('inventory');
+    var $room = $('#game-room');
+    var $inventory = $('#game-inventory');
+    var $userInfo = $('#game-user-info');
 
+    var allHide = function() {
+        $room.hide();
+        $userInfo.hide();
+    }
+
+    var openInventory = function() {
+        if (typeof (window.inventory) != 'undefined' && window.inventory!='') {
+            allHide();
             $inventory.show();
-
-            allAnother.close(); // тут какая-то другая функция - общая для закрытия лишних окон
-        };
+        }
+        else {
+            console.log('Инвентарь еще не загружен!');
+        }
+    }
 
         /**
          * Отображение всего, что касается инвентаря
          * @type {{allItems: allItems}}
          */
         var views = {
-            allItems: function (data) {
+
+            allItems: function() {
+
                 var html = '';
-                data.forEach(function (item) {
+                window.inventory.forEach(function (item) {
                     html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
                 });
 
@@ -34,14 +46,21 @@ define(['jquery'], function ($) {
                     openInventory();
                 });
 
-                $inventory.children('.close-button').click(function () { // кажется children работает быстрее fined, но не увере, надо почитать
-                    openRoomBox(); // тут опять же стандартная функци для закрытия всего и открытия roomBox
+
+                $inventory.find('.close-button').click(function () { // кажется children работает быстрее fined, но не увере, надо почитать
+                    $room.show();
+                    $userInfo.hide();
+                    $inventory.hide();
                 });
             },
 
-            printItems: views.allItems
-        }
-    };
+            setInventory: function(obj) {
+                window.inventory = obj;
+                views.allItems();
+            }
 
-    return new Inventory();
+        }
+})();
+
+return Inventory;
 });
