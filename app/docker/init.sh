@@ -50,4 +50,6 @@ fi
 
 echo "Запуск node.js приложений ..."
 cd /kingdom/websocket
-(node router.js &) && node gate.js
+node router.js &
+node ticker.js &
+node gate.js

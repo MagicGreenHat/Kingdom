@@ -16,6 +16,8 @@ var connection = new autobahn.Connection({
 
 connection.onopen = function (session) {
 
+    console.log('Ticker server is running ...');
+
     var sendToAllOnlinePlayers = function (message) {
         redis.hgetall(REDIS_ID_SESSION_HASH).then(function (sessions) {
             for (var property in sessions) {
