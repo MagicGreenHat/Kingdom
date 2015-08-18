@@ -26,13 +26,8 @@ redis.on('error', function (err) {
 });
 
 connection.onopen = function (session) {
-    session.publish(SYSTEM_CHANNEL_NAME, ['Gate service is running ...']);
-
+    console.log('Gate service is running ...');
     reloadAllClients();
-
-    //TODO[Rottenwood]: Удаленная команда всем клиентам переподключиться, чтобы гейт подключился к локальным каналам
-
-    //TODO[Rottenwood]: Отключаться от каналов, когда из них выходят клиенты
 
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
