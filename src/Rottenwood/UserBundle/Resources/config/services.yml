@@ -2,6 +2,10 @@ services:
     # Слушатель событий FOSUserBundle
     fosuser.listener:
         class: "Rottenwood\UserBundle\EventListener\FOSUserListener"
-        arguments: [@router, @kernel, @kingdom.room_repository]
+        arguments:
+            - @router
+            - @kernel
+            - @kingdom.room_repository
+            - @kingdom.money_repository
         tags:
             - { name: kernel.event_subscriber }

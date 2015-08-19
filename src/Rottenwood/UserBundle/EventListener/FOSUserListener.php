@@ -2,9 +2,12 @@
 
 namespace Rottenwood\UserBundle\EventListener;
 
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\MoneyRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
+use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,23 +27,40 @@ class FOSUserListener implements EventSubscriberInterface {
     private $router;
     /** @var RoomRepository */
     private $roomRepository;
+    /** @var MoneyRepository */
+    private $moneyRepository;
     /** @var string */
     private $avatarPath;
 
     /**
      * @param UrlGeneratorInterface $router
+     * @param Kernel                $kernel
      * @param RoomRepository        $roomRepository
+     * @param MoneyRepository       $moneyRepository
      */
-    public function __construct(UrlGeneratorInterface $router, Kernel $kernel, RoomRepository $roomRepository) {
+    public function __construct(
+        UrlGeneratorInterface $router,
+        Kernel $kernel,
+        RoomRepository $roomRepository,
+        MoneyRepository $moneyRepository) {
         $this->router = $router;
         $this->roomRepository = $roomRepository;
         $this->avatarPath = $kernel->getRootDir() . '/../web/img/avatars/';
+        $this->moneyRepository = $moneyRepository;
     }
 
     public static function getSubscribedEvents() {
         return [
-            FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess',
+            FOSUserEvents::REGISTRATION_SUCCESS   => 'onRegistrationSuccess',
+            FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrationCompleted',
         ];
+    }
+
+    public function onRegistrationCompleted(FilterUserResponseEvent $event) {
+        $user = $event->getUser();
+        $money = new Money($user);
+        $this->moneyRepository->persist($money);
+        $this->moneyRepository->flush($money);
     }
 
     public function onRegistrationSuccess(FormEvent $event) {
@@ -57,7 +77,7 @@ class FOSUserListener implements EventSubscriberInterface {
         $newName = mb_convert_case($newName, MB_CASE_TITLE, 'UTF-8');
 
         if (!$newName) {
-        	$newName = $this->generateName();
+            $newName = $this->generateName();
         }
 
         $user->setAvatar($this->pickAvatar());
@@ -144,12 +164,11 @@ class FOSUserListener implements EventSubscriberInterface {
      * @param int $lettersCount Количество символов в имени
      * @return string
      */
-    private function generateName($lettersCount = 6)
-    {
+    private function generateName($lettersCount = 6) {
         $alphabet = $this->getAlphabet();
 
         $name = '';
-        for ($i = 1;$i <= $lettersCount;$i++) {
+        for ($i = 1; $i <= $lettersCount; $i++) {
             $randomLetterKey = array_rand($alphabet);
             $name .= $alphabet[$randomLetterKey];
             unset($alphabet[$randomLetterKey]);
