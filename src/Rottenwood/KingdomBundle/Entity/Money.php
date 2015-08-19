@@ -22,7 +22,7 @@ class Money {
     /**
      * Персонаж
      * @ORM\OneToOne(targetEntity="Rottenwood\KingdomBundle\Entity\User")
-     * @ORM\JoinColumn(name="character", referencedColumnName="id")
+     * @ORM\JoinColumn(name="character", referencedColumnName="id", nullable=false, unique=true)
      * @var User
      */
     private $user;
