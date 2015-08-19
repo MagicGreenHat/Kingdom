@@ -1,4 +1,4 @@
-define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
+define(['jquery', 'autobahn','inventory', 'money'], function ($, autobahn, inventory, money) {
     $(function () {
         var connection = new autobahn.Connection({
             url: 'ws://' + websocketUrl + ':7777', // параметр передается из twig-шаблона
@@ -71,6 +71,8 @@ define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
                             location.reload();
                         } else if (data.commandName == 'inventory') {
                             inventory.setInventory(data.data);
+                        } else if (data.commandName == 'getMoney') {
+                            money.setMoney(data.data);
                         }
 
                         // Отрисовка карты
@@ -127,6 +129,7 @@ define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
                     callCommand('composeMap');
                     callCommand('who');
                     callCommand('inventory');
+                    callCommand('getMoney');
                 }
             );
         };
