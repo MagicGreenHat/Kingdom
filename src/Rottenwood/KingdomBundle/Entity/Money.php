@@ -3,6 +3,7 @@
 namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Деньги
@@ -22,7 +23,7 @@ class Money {
     /**
      * Персонаж
      * @ORM\OneToOne(targetEntity="Rottenwood\KingdomBundle\Entity\User")
-     * @ORM\JoinColumn(name="character", referencedColumnName="id", nullable=false, unique=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, unique=true)
      * @var User
      */
     private $user;
@@ -32,18 +33,18 @@ class Money {
      * @ORM\Column(name="silver", type="integer")
      * @var int
      */
-    private $silver;
+    private $silver = 0;
 
     /**
      * @ORM\Column(name="gold", type="integer")
      * @var int
      */
-    private $gold;
+    private $gold = 0;
 
     /**
-     * @param User $user
+     * @param UserInterface $user
      */
-    public function __construct(User $user) { $this->user = $user; }
+    public function __construct(UserInterface $user) { $this->user = $user; }
 
     /**
      * @return int
