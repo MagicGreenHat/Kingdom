@@ -274,3 +274,13 @@ div.game-chat-input input {
 #game-inventory .items-list .item {
     display: inline-block;
 }
+
+#game-inventory .money {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 275px;
+    padding: 20px;
+    width: 160px;
+    font-weight: 900;
+}
