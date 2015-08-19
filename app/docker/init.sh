@@ -31,7 +31,6 @@ echo "Обновление структуры БД ..."
 
 echo "Загрузка игровых данных в БД ..."
 /kingdom/app/console kingdom:map:create
-/kingdom/app/console kingdom:items:create
 
 echo "Инициализация серверов ..."
 /etc/init.d/php5-fpm start
