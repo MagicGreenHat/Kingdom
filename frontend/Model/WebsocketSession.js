@@ -1,26 +1,46 @@
 /**
  * Websocket сессия
- * @param session Сессия autobahn.js
- * @param sessionId Id симфони-сессии
- * @constructor
+ * @type {{setSession, getSession, getChannel, getOnline}}
  */
-Kingdom.WebsocketSession = function (session, sessionId) {
-    this.session = session;
-    this.localChannel = 'character.' + sessionId;
-    this.onlineRPC = 'online.' + sessionId;
-};
+Kingdom.WebsocketSession = (function () {
+    var session,
+        localChannel;
 
-Kingdom.WebsocketSession.prototype = {
-    session: function () {
-        return this.session;
-    },
-    localChannel: function () {
-        return this.localChannel;
-    },
-    onlineRPC: function () {
-        return this.onlineRPC;
-    },
-    command: function () {
+    return {
 
+        /**
+         * Сохранение сессии и регистрация удаленной процедуры для отслеживания дисконнекта
+         * @param websocketSession Сессия autobahn.js
+         * @param symfonySessionId Id symfony-сессии
+         */
+        register: function (websocketSession, symfonySessionId) {
+            session = websocketSession;
+            localChannel = 'character.' + symfonySessionId;
+
+            session.register('online.' + symfonySessionId, function () {});
+        },
+
+        /**
+         * @returns session
+         */
+        getSession: function () {
+            return session;
+        },
+
+        /**
+         * Личный вебсокет-канал игрока
+         * @returns string
+         */
+        getChannel: function () {
+            return localChannel;
+        },
+
+        /**
+         * Название RPC-канала для отслеживания онлайн-статуса игроков
+         * @returns string
+         */
+        getOnline: function () {
+            return onlineHandler;
+        },
     }
-};
+})();

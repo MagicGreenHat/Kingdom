@@ -1,7 +1,7 @@
 define(['jquery', 'autobahn','inventory', 'money'], function ($, autobahn, inventory, money) {
     $(function () {
         var connection = new autobahn.Connection({
-            url: 'ws://' + websocketUrl + ':7777', // параметр передается из twig-шаблона
+            url: 'ws://' + window.location.hostname + ':7777', // параметр передается из twig-шаблона
             realm: 'kingdom'
         });
 
@@ -10,10 +10,8 @@ define(['jquery', 'autobahn','inventory', 'money'], function ($, autobahn, inven
                 sessionId: sessionId // параметр передаeтся из twig-шаблона
             };
 
-            /**
-             * Регистрация удаленной процедуры для отслеживания дисконнекта
-             */
-            session.register('online.' + sessionId, function () {});
+            // Запись вебсокет-сессии
+            Kingdom.WebsocketSession.register(session, sessionId);
 
             /**
              * Вызов удаленной процедуры
