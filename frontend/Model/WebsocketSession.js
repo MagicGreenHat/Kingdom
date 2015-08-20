@@ -4,13 +4,13 @@
  * @param sessionId Id симфони-сессии
  * @constructor
  */
-var WebsocketSession = function (session, sessionId) {
+Kingdom.WebsocketSession = function (session, sessionId) {
     this.session = session;
     this.localChannel = 'character.' + sessionId;
     this.onlineRPC = 'online.' + sessionId;
 };
 
-WebsocketSession.prototype = {
+Kingdom.WebsocketSession.prototype = {
     session: function () {
         return this.session;
     },

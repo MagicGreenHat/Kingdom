@@ -15,7 +15,12 @@ var path = {
         css: 'web/css'
     },
     src: {
-        js: ['web/js/src/**/*.js', 'frontend/Model/**/*.js', 'frontend/**/*.js'],
+        js: [
+            'frontend/namespace.js',
+            'web/js/src/**/*.js',
+            'frontend/Model/**/*.js',
+            'frontend/**/*.js'
+        ],
         css: 'web/css/src/**/*.css'
     },
     destination: {
