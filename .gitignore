@@ -23,3 +23,10 @@ composer.phar
 web/assets/*
 web/css/style.css
 web/js/client.js
+
+# npm
+node_modules/*
+
+# node modules under git
+!node_modules/autobahn
+!node_modules/wamp.rt

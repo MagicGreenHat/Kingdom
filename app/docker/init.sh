@@ -37,8 +37,12 @@ echo "Инициализация серверов ..."
 /etc/init.d/redis-server start
 /etc/init.d/nginx start
 
+echo "Установка npm пакетов ..."
+cd /kingdom
+npm install
+
 echo "Сборка CSS и JS ассетов ..."
-cd /kingdom && node node_modules/gulp/bin/gulp.js build
+node node_modules/gulp/bin/gulp.js build
 
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
