@@ -1,6 +1,3 @@
-define(['jquery'], function ($) {
-
-
 var Inventory = (function() {
 
     var $room = $('#game-room');
@@ -10,17 +7,12 @@ var Inventory = (function() {
     var allHide = function() {
         $room.hide();
         $userInfo.hide();
-    }
+    };
 
     var openInventory = function() {
-        if (typeof (window.inventory) != 'undefined' && window.inventory!='') {
-            allHide();
-            $inventory.show();
-        }
-        else {
-            console.log('Инвентарь еще не загружен!');
-        }
-    }
+        allHide();
+        $inventory.show();
+    };
 
         /**
          * Отображение всего, что касается инвентаря
@@ -62,5 +54,4 @@ var Inventory = (function() {
         }
 })();
 
-return Inventory;
-});
+Inventory.init();

@@ -7,10 +7,11 @@
 {% block javascripts %}
     <script type="text/javascript">
         var sessionId = '{{ sessionId }}';
-        var websocketUrl = window.location.hostname;
     </script>
 
-    <script type="text/javascript" data-main="js/requireJs/main" src="{{ asset('js/lib/require-2.1.20.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery-2.1.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/autobahn.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/client.js') }}"></script>
 {% endblock javascripts %}
 
 {% block body %}

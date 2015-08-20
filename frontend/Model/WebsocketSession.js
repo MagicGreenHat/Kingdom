@@ -42,5 +42,19 @@ Kingdom.WebsocketSession = (function () {
         getOnline: function () {
             return onlineHandler;
         },
+
+        /**
+         * Отправка команды по локальному каналу
+         * @param command
+         * @param arguments строка, или несколько аргументов разделенных символом :
+         */
+        command: function (command, arguments) {
+            //TODO[Rottenwood]: блокировка интерфейса отправки команд
+
+            //TODO[Rottenwood]: if (typeof arguments == 'object') { // implode }
+
+            session.publish(localChannel, [{command: command, arguments: arguments}]);
+            //TODO[Rottenwood]: разблокировка интерфейса отправки команд
+        }
     }
 })();
