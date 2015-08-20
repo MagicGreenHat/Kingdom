@@ -1,21 +1,22 @@
 {
-  "name": "kingdom",
-  "version": "2.0.1",
-  "description": "Browser game",
-  "main": "index.js",
-  "dependencies": {
-    "autobahn": "^0.9.6",
-    "commander": "^2.8.1",
-    "wamp.io": "^0.0.4",
-    "wamp.rt": "^0.1.4",
-    "websocket": "^1.0.21",
-    "websocket.io": "^0.2.1",
-    "then-redis": "~1.3.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Rottenwood",
-  "license": "ISC"
+    "name": "kingdom",
+    "version": "2.1.1",
+    "description": "Browser game",
+    "main": "index.js",
+    "dependencies": {
+        "gulp": "3.9.0",
+        "autobahn": "^0.9.6",
+        "commander": "^2.8.1",
+        "wamp.io": "^0.0.4",
+        "wamp.rt": "^0.1.4",
+        "websocket": "^1.0.21",
+        "websocket.io": "^0.2.1",
+        "then-redis": "~1.3.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Rottenwood",
+    "license": "ISC"
 }
