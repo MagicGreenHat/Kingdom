@@ -4,7 +4,7 @@ MAINTAINER Petr Karmashev (Rottenwood) <smonkl@bk.ru>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get install -y curl \
-    && curl -sLS https://deb.nodesource.com/setup | bash - \
+    && curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - \
     && apt-get install -y php5 php5-cli php5-mysql php5-fpm \
        php5-redis redis-server nodejs nginx git \
     && apt-get clean \
