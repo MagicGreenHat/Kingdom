@@ -8,6 +8,7 @@ $(function () {
     var $inventory = $('#game-inventory');
     var $userInfo = $('#game-user-info');
     var userName = $userInfo.data('name');
+    var userAvatar = $userInfo.data('avatar');
 
     $('.open-user-info-button').click(function () {
         openUserInfo(userName);
@@ -24,11 +25,16 @@ $(function () {
     /**
      * Открытие окна информации об игроке
      */
-    function openUserInfo(userName) {
-        $userInfo.find('.user-name').html(userName);
+    function openUserInfo(userNameToLook) {
+        $userInfo.find('.user-name').html(userNameToLook);
         $userInfo.find('.avatar').html('');
 
-        Kingdom.Websocket.command('lookUser', userName);
+        if (userName == userNameToLook) {
+            $('#game-user-info').find('.avatar').html('<img src="' + userAvatar + '">');
+        } else {
+            $('#game-user-info').find('.avatar').html('');
+            Kingdom.Websocket.command('lookUser', userNameToLook);
+        }
 
         $userInfo.show();
         $room.hide();

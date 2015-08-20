@@ -51,12 +51,13 @@
         <div class="items-list"></div>
     </div>
 
-    <div id="game-user-info" class="noselect" data-name="{{ app.user.name }}">
+    <div id="game-user-info" class="noselect" data-name="{{ app.user.name }}" data-avatar="{{ app.user.avatar }}">
+
         <div class="title">
             <span class="user-name">{{ app.user.name }}</span>
             <span class="close-button">❌</span>
         </div>
-        <div class="avatar"></div>
+        <div class="avatar"><img src="{{ app.user.avatar }}"></div>
     </div>
 
     <div id="game-room" class="noselect">
