@@ -1,1 +1,2 @@
-new WebsocketSession(1,2);
+var test = new WebsocketSession('session', 'test2');
+console.log(test.session);
