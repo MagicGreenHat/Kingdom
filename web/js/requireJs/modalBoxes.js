@@ -1,7 +1,7 @@
 /**
  * Модальные блоки интерфейса
  */
-define(['jquery', 'command', 'websocketSession', 'money'], function ($, callCommand, sessionData, money) {
+define(['jquery', 'command', 'websocketSession'], function ($, callCommand, sessionData) {
     var session = sessionData.session;
     var localChannelName = sessionData.localChannelName;
 
@@ -18,8 +18,6 @@ define(['jquery', 'command', 'websocketSession', 'money'], function ($, callComm
         requirejs(['inventory'],function(inventory) {
             inventory.init();
         });
-
-        money.init();
 
         $('.open-user-info-button').click(function () {
             openUserInfo(userName);

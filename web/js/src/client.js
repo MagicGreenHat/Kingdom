@@ -1,4 +1,4 @@
-define(['jquery', 'autobahn','inventory', 'money'], function ($, autobahn, inventory, money) {
+define(['jquery', 'autobahn','inventory'], function ($, autobahn, inventory) {
     $(function () {
         var connection = new autobahn.Connection({
             url: 'ws://' + window.location.hostname + ':7777', // параметр передается из twig-шаблона
@@ -70,7 +70,7 @@ define(['jquery', 'autobahn','inventory', 'money'], function ($, autobahn, inven
                         } else if (data.commandName == 'inventory') {
                             inventory.setInventory(data.data);
                         } else if (data.commandName == 'getMoney') {
-                            money.setMoney(data.data);
+                            Kingdom.Money.setMoney(data.data);
                         }
 
                         // Отрисовка карты
