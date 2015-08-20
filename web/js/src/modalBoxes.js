@@ -28,7 +28,7 @@ $(function () {
         $userInfo.find('.user-name').html(userName);
         $userInfo.find('.avatar').html('');
 
-        Kingdom.WebsocketSession.command('lookUser', userName);
+        Kingdom.Websocket.command('lookUser', userName);
 
         $userInfo.show();
         $room.hide();

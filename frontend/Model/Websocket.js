@@ -2,7 +2,7 @@
  * Websocket сессия
  * @type {{setSession, getSession, getChannel, getOnline}}
  */
-Kingdom.WebsocketSession = (function () {
+Kingdom.Websocket = (function () {
     var session,
         localChannel;
 

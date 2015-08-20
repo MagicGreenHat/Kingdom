@@ -10,7 +10,7 @@ $(function () {
         };
 
         // Запись вебсокет-сессии
-        Kingdom.WebsocketSession.register(session, sessionId);
+        Kingdom.Websocket.register(session, sessionId);
 
         /**
          * Вызов удаленной процедуры
@@ -28,16 +28,16 @@ $(function () {
                     // Обработка результатов запрошенных команд
                     if (data.commandName == 'move') {
                         if (!data.errors) {
-                            Kingdom.WebsocketSession.command('composeMap');
+                            Kingdom.Websocket.command('composeMap');
                         }
                     } else if (data.commandName == 'composeMap') {
                         redrawRoom(data.data);
-                        Kingdom.WebsocketSession.command('showPlayersInRoom');
+                        Kingdom.Websocket.command('showPlayersInRoom');
                     } else if (data.commandName == 'showPlayersInRoom') {
                         showPlayersInRoom(data.data);
                     } else if (data.commandName == 'moveAnother') {
                         addInfo(data.message);
-                        Kingdom.WebsocketSession.command('showPlayersInRoom');
+                        Kingdom.Websocket.command('showPlayersInRoom');
                     } else if (data.commandName == 'reloadPage') {
                         location.reload();
                     } else if (data.commandName == 'inventory') {
@@ -74,23 +74,23 @@ $(function () {
                 // Кнопки перемещения
                 $('.map .direction').on('click', function () {
                     var direction = $(this).data('direction');
-                    Kingdom.WebsocketSession.command('move', direction);
+                    Kingdom.Websocket.command('move', direction);
                 });
 
                 // Поле для чата
                 $('#chat-input').keypress(function (event) {
                     if (event.which == 13) {
-                        Kingdom.WebsocketSession.command('chat', $(this).val());
+                        Kingdom.Websocket.command('chat', $(this).val());
                         $(this).val('');
                         return false;
                     }
                 });
 
                 /////// Вызов команд при загрузке страницы ///////
-                Kingdom.WebsocketSession.command('composeMap');
-                Kingdom.WebsocketSession.command('who');
-                Kingdom.WebsocketSession.command('inventory');
-                Kingdom.WebsocketSession.command('getMoney');
+                Kingdom.Websocket.command('composeMap');
+                Kingdom.Websocket.command('who');
+                Kingdom.Websocket.command('inventory');
+                Kingdom.Websocket.command('getMoney');
             }
         );
     };
