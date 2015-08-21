@@ -45,10 +45,12 @@ Kingdom.Websocket = (function () {
         /**
          * Отправка команды по локальному каналу
          * @param command
-         * @param arguments строка, или несколько аргументов разделенных символом :
+         * @param arguments string|array
          */
         command: function (command, arguments) {
-            //TODO[Rottenwood]: if (typeof arguments == 'object') { // implode }
+            if (typeof arguments != 'undefined' && arguments.constructor === Array) {
+                arguments = arguments.join(':');
+            }
 
             session.publish(localChannel, [{command: command, arguments: arguments}]);
         }

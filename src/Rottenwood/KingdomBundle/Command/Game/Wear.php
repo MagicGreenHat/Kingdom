@@ -9,7 +9,7 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 /**
  * Одеть предмет
  * Список слотов доступен в статическом методе Item::getAllSlotNames()
- * Применение в js: Kingdom.Websocket.command('wear', 'idПредмета:названиеСлота')
+ * Применение в js: Kingdom.Websocket.command('wear', ['idПредмета', 'названиеСлота'])
  */
 class Wear extends AbstractGameCommand {
 
