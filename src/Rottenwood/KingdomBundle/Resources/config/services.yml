@@ -35,10 +35,27 @@ services:
         factory_method: getRepository
         arguments: ["Rottenwood\KingdomBundle\Entity\Money"]
 
-
     kingdom.user_service:
         class: Rottenwood\KingdomBundle\Service\UserService
         arguments:
             - @snc_redis.default
             - @kingdom.user_repository
             - @kingdom.inventory_item_repository
+
+    # Логгер
+    kingdom.logger:
+        class: Monolog\Logger
+        arguments: ['default']
+        calls:
+          - ['pushHandler', [@kingdom.logger_handler.commands]]
+
+    kingdom.logger_handler.commands:
+        class: Monolog\Handler\StreamHandler
+        arguments: [ "%kernel.logs_dir%/game_logs/commands.log"]
+        calls:
+          - ['setFormatter', [@kingdom.logger_formatter]]
+
+    kingdom.logger_formatter:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] %%message%%\n"
