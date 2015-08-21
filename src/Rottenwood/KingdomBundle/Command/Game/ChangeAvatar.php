@@ -8,7 +8,7 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 /**
  * Смена аватара (изображения игрока)
  * Параметры: string - название изображения без пути и раширения
- * Применение в js: callCommand('changeAvatar', 'male2')
+ * Применение в js: Kingdom.Websocket.command('changeAvatar', 'male2')
  */
 class ChangeAvatar extends AbstractGameCommand {
 
@@ -16,15 +16,13 @@ class ChangeAvatar extends AbstractGameCommand {
      * @return CommandResponse
      */
     public function execute() {
-        $result = new CommandResponse('changeAvatar');
-
         if ($this->parameters) {
             $this->user->setAvatar($this->parameters);
 
-            $result->setData(['avatar' => $this->user->getAvatar()]);
+            $this->result->setData(['avatar' => $this->user->getAvatar()]);
             $this->container->get('doctrine.orm.entity_manager')->flush($this->user);
         }
 
-        return $result;
+        return $this->result;
     }
 }

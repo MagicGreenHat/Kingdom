@@ -7,7 +7,7 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 
 /**
  * Запрос количества денег у персонажа
- * Применение в js: callCommand('getMoney')
+ * Применение в js: Kingdom.Websocket.command('getMoney')
  */
 class GetMoney extends AbstractGameCommand {
 
@@ -15,13 +15,11 @@ class GetMoney extends AbstractGameCommand {
      * @return CommandResponse
      */
     public function execute() {
-        $result = new CommandResponse('getMoney');
-
         $moneyRepository = $this->container->get('kingdom.money_repository');
         $money = $moneyRepository->findOneByUser($this->user);
 
         if ($money) {
-            $result->setData(
+            $this->result->setData(
                 [
                     'gold'   => $money->getGold(),
                     'silver' => $money->getSilver(),
@@ -30,6 +28,6 @@ class GetMoney extends AbstractGameCommand {
         }
 
 
-        return $result;
+        return $this->result;
     }
 }

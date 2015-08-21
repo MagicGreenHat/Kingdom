@@ -8,6 +8,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 
 /**
  * Снять предмет
+ * Список слотов доступен в статическом методе Item::getAllSlotNames()
+ * Применение в js: Kingdom.Websocket.command('remove', 'названиеСлота')
  */
 class Remove extends AbstractGameCommand {
 
@@ -15,8 +17,6 @@ class Remove extends AbstractGameCommand {
      * @return CommandResponse
      */
     public function execute() {
-        $result = new CommandResponse('remove');
-
         if ($this->parameters == Item::USER_SLOT_HEAD) {
             $this->user->setHeadSlot(null);
         } elseif ($this->parameters == Item::USER_SLOT_AMULET) {
@@ -42,8 +42,8 @@ class Remove extends AbstractGameCommand {
         };
 
         $this->container->get('kingdom.user_repository')->flush();
-        $result->setData(['slot' => $this->parameters]);
+        $this->result->setData(['slot' => $this->parameters]);
 
-        return $result;
+        return $this->result;
     }
 }

@@ -7,6 +7,7 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 
 /**
  * Просмотр инвентаря и одетых вещей игрока
+ * Применение в js: Kingdom.Websocket.command('inventory')
  */
 class Inventory extends AbstractGameCommand {
 
@@ -14,8 +15,6 @@ class Inventory extends AbstractGameCommand {
      * @return CommandResponse
      */
     public function execute() {
-        $result = new CommandResponse('inventory');
-
         $equipedItemsIds = $this->container->get('kingdom.user_service')->getEquipedItemsIds($this->user);
         $inventoryItems = $this->container->get('kingdom.inventory_item_repository')->findByUser($this->user);
 
@@ -40,8 +39,8 @@ class Inventory extends AbstractGameCommand {
             $itemData[] = $itemResult;
         }
 
-        $result->setData($itemData);
+        $this->result->setData($itemData);
 
-        return $result;
+        return $this->result;
     }
 }

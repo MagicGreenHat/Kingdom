@@ -8,6 +8,7 @@ use Rottenwood\KingdomBundle\Entity\Room;
 
 /**
  * Отрисовка карты
+ * Применение в js: Kingdom.Websocket.command('composeMap')
  */
 class ComposeMap extends AbstractGameCommand {
 
@@ -50,12 +51,16 @@ class ComposeMap extends AbstractGameCommand {
             }
         }
 
-        return new CommandResponse('composeMap', [
+        $this->result->setData([
             'name'        => $currentRoom->getName() ?: $currentRoom->getType()->getName(),
             'description' => $currentRoom->getDescription() ?: $currentRoom->getType()->getDescription(),
             'x'           => $currentX,
             'y'           => $currentY,
-            ], $map);
+        ]);
+
+        $this->result->setMapData($map);
+
+        return $this->result;
     }
 
     /**

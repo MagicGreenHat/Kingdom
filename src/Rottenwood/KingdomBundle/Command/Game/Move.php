@@ -7,6 +7,10 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Exception\InvalidCommandParameter;
 
+/**
+ * Перемещение по карте
+ * Применение в js: Kingdom.Websocket.command('move', 'north|south|west|east')
+ */
 class Move extends AbstractGameCommand {
 
     const DEFAULT_ROOM = 1;
@@ -48,10 +52,8 @@ class Move extends AbstractGameCommand {
 
         $destinationRoom = $roomRepository->findOneByXandY($x, $y);
 
-        $result = new CommandResponse('move');
-
         if (!$destinationRoom) {
-            $result->addError('В эту сторону не пройти');
+            $this->result->addError('В эту сторону не пройти');
         } else {
             $this->user->setRoom($destinationRoom);
             $em->flush($this->user);
@@ -73,9 +75,9 @@ class Move extends AbstractGameCommand {
                 $resultData['enter'] = $userService->getSessionsByUserIds($usersInDestinationRoom);
             }
 
-            $result->setData($resultData);
+            $this->result->setData($resultData);
         }
 
-        return $result;
+        return $this->result;
     }
 }

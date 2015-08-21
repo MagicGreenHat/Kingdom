@@ -8,7 +8,7 @@ use Rottenwood\KingdomBundle\Entity\User;
 
 /**
  * Отображение игроков в текущей комнате
- * Применение в js: callCommand('showPlayersInRoom')
+ * Применение в js: Kingdom.Websocket.command('showPlayersInRoom')
  */
 class ShowPlayersInRoom extends AbstractGameCommand {
 
@@ -29,9 +29,8 @@ class ShowPlayersInRoom extends AbstractGameCommand {
             )
         );
 
-        $response = new CommandResponse('showPlayersInRoom');
-        $response->setData($playersInRoom);
+        $this->result->setData($playersInRoom);
 
-        return $response;
+        return $this->result;
     }
 }

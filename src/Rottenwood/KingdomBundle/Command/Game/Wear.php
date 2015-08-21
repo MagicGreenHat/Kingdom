@@ -8,6 +8,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 
 /**
  * Одеть предмет
+ * Список слотов доступен в статическом методе Item::getAllSlotNames()
+ * Применение в js: Kingdom.Websocket.command('wear', 'idПредмета:названиеСлота')
  */
 class Wear extends AbstractGameCommand {
 
@@ -15,8 +17,6 @@ class Wear extends AbstractGameCommand {
      * @return CommandResponse
      */
     public function execute() {
-        $result = new CommandResponse('wear');
-
         $parameters = explode(':', $this->parameters);
         $itemId = $parameters[0];
         $slot = $parameters[1];
@@ -50,7 +50,7 @@ class Wear extends AbstractGameCommand {
 
         $inventoryItemRepository->flush();
 
-        $result->setData(
+        $this->result->setData(
             [
                 'itemName'       => $item->getName(),
                 'description'    => $item->getDescription(),
@@ -60,6 +60,6 @@ class Wear extends AbstractGameCommand {
             ]
         );
 
-        return $result;
+        return $this->result;
     }
 }

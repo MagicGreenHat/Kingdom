@@ -8,6 +8,7 @@ use Rottenwood\KingdomBundle\Exception\UserNotFound;
 
 /**
  * Просмотр информации и одетых вещей другого игрока
+ * Применение в js: Kingdom.Websocket.command('lookUser', 'ИмяПерсонажа')
  */
 class LookUser extends AbstractGameCommand {
 
@@ -16,8 +17,6 @@ class LookUser extends AbstractGameCommand {
      * @throws UserNotFound
      */
     public function execute() {
-        $result = new CommandResponse('lookUser');
-
         $userToLookAt = $this->container->get('kingdom.user_repository')->findByName($this->parameters);
 
         if (!$userToLookAt) {
@@ -35,7 +34,7 @@ class LookUser extends AbstractGameCommand {
             ];
         }
 
-        $result->setData(
+        $this->result->setData(
             [
                 'name'   => $userToLookAt->getName(),
                 'items'  => $itemData,
@@ -43,6 +42,6 @@ class LookUser extends AbstractGameCommand {
             ]
         );
 
-        return $result;
+        return $this->result;
     }
 }
