@@ -115,6 +115,14 @@ case $1 in
     'nginx')
         docker exec -it kingdom tail -100 /var/log/nginx/kingdom_error.log
     ;;
+
+    'game')
+        docker exec kingdom cat /kingdom/app/logs/game_logs/user_actions.log
+    ;;
+
+    'players')
+        docker exec kingdom cat /kingdom/app/logs/game_logs/user_actions.log | awk -F" "  '{array[$3]}END{for (player in array) print player}'
+    ;;
     esac
 ;;
 
@@ -125,7 +133,7 @@ case $1 in
 	echo "\033[1;33;24m$0 restart\033[0m [dev]- перезапуск контейнера"
 	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера\n"
 
-	echo "\033[1;33;24m$0 log\033[0m [nginx]- просмотр логов"
+	echo "\033[1;33;24m$0 log\033[0m [game|players|nginx]- просмотр логов"
 	echo "\033[1;33;24m$0 bash\033[0m - Запуск серверной консоли"
 	echo "\033[1;33;24m$0 mysql\033[0m - Запуск консоли MySQL"
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
