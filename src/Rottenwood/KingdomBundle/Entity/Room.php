@@ -86,7 +86,7 @@ class Room {
      * @return string
      */
     public function getName() {
-        return $this->name;
+        return $this->name ?: $this->getType()->getName();
     }
 
     /**
@@ -100,7 +100,7 @@ class Room {
      * @return string
      */
     public function getDescription() {
-        return $this->description;
+        return $this->description ?: $this->getType()->getDescription();
     }
 
     /**

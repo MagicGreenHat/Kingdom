@@ -13,8 +13,6 @@ use Rottenwood\KingdomBundle\Exception\InvalidCommandParameter;
  */
 class Move extends AbstractGameCommand {
 
-    const DEFAULT_ROOM = 1;
-
     /**
      * @return CommandResponse
      * @throws InvalidCommandParameter
@@ -23,9 +21,11 @@ class Move extends AbstractGameCommand {
         $roomRepository = $this->container->get('kingdom.room_repository');
         $em = $roomRepository->getEntityManager();
 
-        //TODO[Rottenwood]: логировать ошибку если у пользователя нет комнаты
+        $userId = $this->user->getId();
+        $userName = $this->user->getName();
+
         /** @var Room $currentRoom */
-        $currentRoom = $this->user->getRoom() ?: $roomRepository->find(self::DEFAULT_ROOM);
+        $currentRoom = $this->user->getRoom();
 
         $x = $currentRoom->getX();
         $y = $currentRoom->getY();
@@ -58,13 +58,24 @@ class Move extends AbstractGameCommand {
             $this->user->setRoom($destinationRoom);
             $em->flush($this->user);
 
+            $logger = $this->container->get('kingdom.logger');
+            $logString = sprintf(
+                '[#%d] %s переместился %s в комнату %s [%d/%d/%d]',
+                $userId,
+                $userName,
+                $directionTo,
+                $destinationRoom->getName(),
+                $x,
+                $y,
+                $destinationRoom->getZ()
+            );
+
             $userService = $this->container->get('kingdom.user_service');
-            $userId = $this->user->getId();
 
             $resultData = [
+                'name'          => $userName,
                 'directionTo'   => $directionTo,
                 'directionFrom' => $directionFrom,
-                'name'          => $this->user->getName(),
             ];
 
             if ($usersInCurrentRoom = $userService->getOnlineUsersIdsInRoom($currentRoom, $userId)) {
@@ -73,8 +84,14 @@ class Move extends AbstractGameCommand {
 
             if ($usersInDestinationRoom = $userService->getOnlineUsersIdsInRoom($destinationRoom, $userId)) {
                 $resultData['enter'] = $userService->getSessionsByUserIds($usersInDestinationRoom);
+
+                $logString .= sprintf(
+                    ', встретил игроков: [%s]',
+                    implode(',', $usersInDestinationRoom)
+                );
             }
 
+            $logger->info($logString);
             $this->result->setData($resultData);
         }
 

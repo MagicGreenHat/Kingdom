@@ -52,8 +52,8 @@ class ComposeMap extends AbstractGameCommand {
         }
 
         $this->result->setData([
-            'name'        => $currentRoom->getName() ?: $currentRoom->getType()->getName(),
-            'description' => $currentRoom->getDescription() ?: $currentRoom->getType()->getDescription(),
+            'name'        => $currentRoom->getName(),
+            'description' => $currentRoom->getDescription(),
             'x'           => $currentX,
             'y'           => $currentY,
         ]);

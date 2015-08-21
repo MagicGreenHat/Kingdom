@@ -60,9 +60,6 @@ class ExecuteCommand extends ContainerAwareCommand {
 
             /** @var GameCommandInterface $command */
             $command = new $commandClass($user, $commandName, $parameters, $container);
-
-            $logger = $container->get('kingdom.logger');
-            $logger->info(sprintf('[%s #%d]: %s %s', $user->getName(), $user->getId(), $commandName, $parameters));
         } else {
             throw new CommandNotFound(sprintf('Команда %s не найдена', $commandName));
         }
