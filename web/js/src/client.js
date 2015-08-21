@@ -46,8 +46,7 @@ $(function () {
                     } else if (data.commandName == 'getMoney') {
                         Kingdom.Money.setMoney(data.data);
                     } else if (data.commandName == 'lookUser') {
-                        //TODO[Rottenwood]: Вынести в отдельный контроллер
-                        $('#game-user-info').find('.avatar').html('<img src="' + data.data.avatar + '">');
+                        Kingdom.User.renderAvatar(data.data.avatar);
                     }
 
                     // Отрисовка карты
