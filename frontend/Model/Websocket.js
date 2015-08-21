@@ -1,6 +1,5 @@
 /**
  * Websocket сессия
- * @type {{setSession, getSession, getChannel, getOnline}}
  */
 Kingdom.Websocket = (function () {
     var session,

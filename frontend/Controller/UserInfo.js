@@ -1,5 +1,3 @@
-//TODO[Rottenwood]: Рефакторинг в модели и контроллеры
-
 /**
  * Модальные блоки интерфейса
  */
@@ -9,6 +7,8 @@ $(function () {
     var $userInfo = $('#game-user-info');
     var userName = $userInfo.data('name');
     var userAvatar = $userInfo.data('avatar');
+
+    Kingdom.User.create(userName, userAvatar);
 
     $('.open-user-info-button').click(function () {
         openUserInfo(userName);

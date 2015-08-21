@@ -1,6 +1,5 @@
 /**
  * Деньги персонажа
- * @type {{setMoney, getGold, getSilver}}
  */
 Kingdom.Money = (function () {
     var money = {};
