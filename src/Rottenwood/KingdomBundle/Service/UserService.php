@@ -135,8 +135,6 @@ class UserService {
      * @throws NotEnoughItems
      */
     public function dropItem(User $user, Item $item, $quantityToDrop) {
-        //TODO[Rottenwood]: Логирование
-
         $inventoryItem = $this->inventoryItemRepository->findOneByUserAndItemId($user, $item->getId());
 
         if (!$inventoryItem) {
@@ -156,6 +154,18 @@ class UserService {
 
         $this->inventoryItemRepository->flush($inventoryItem);
 
+        $this->logger->info(
+            sprintf(
+                '[%d]%s выбросил предмет: [%d]%s x %d шт. (осталось %d)',
+                $user->getId(),
+                $user->getName(),
+                $item->getId(),
+                $item->getName(),
+                $quantityToDrop,
+                $itemQuantityAfterDrop
+            )
+        );
+
         return $itemQuantityAfterDrop;
     }
 
@@ -166,8 +176,6 @@ class UserService {
      * @param int  $quantityToTake Сколько предметов взять
      */
     public function takeItem(User $user, Item $item, $quantityToTake = 1) {
-        //TODO[Rottenwood]: Логирование
-
         $inventoryItem = $this->inventoryItemRepository->findOneByUserAndItemId($user, $item->getId());
 
         if ($inventoryItem) {
@@ -179,6 +187,18 @@ class UserService {
         }
 
         $this->inventoryItemRepository->flush($inventoryItem);
+
+        $this->logger->info(
+            sprintf(
+                '[%d]%s взял предмет: [%d]%s x %d шт. (всего %d)',
+                $user->getId(),
+                $user->getName(),
+                $item->getId(),
+                $item->getName(),
+                $quantityToTake,
+                isset($quantity) ? $quantity : $quantityToTake
+            )
+        );
     }
 
     /**
