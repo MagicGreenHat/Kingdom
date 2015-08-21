@@ -5,7 +5,9 @@
 COMMAND_CHANNEL_NAME = 'command';
 SYSTEM_CHANNEL_NAME = 'system';
 GATE_CHANNEL_NAME = 'gate';
-SYMFONY_CONSOLE_ENTRY_POINT = '../app/console kingdom:execute';
+LOG_CHANNEL = 'logger';
+SYMFONY_CONSOLE_ENTRY_POINT = '/kingdom/app/console kingdom:execute';
+SYMFONY_CONSOLE_LOG_CONNECTION_COMMAND = '/kingdom/app/console kingdom:node:log';
 
 REDIS_ID_USERNAME_HASH = 'kingdom:users:usernames';
 REDIS_SESSION_ID_HASH = 'kingdom:sessions:users';
@@ -28,6 +30,7 @@ redis.on('error', function (err) {
 connection.onopen = function (session) {
     console.log('Gate service is running ...');
     reloadAllClients();
+    initLogger();
 
     session.register(GATE_CHANNEL_NAME, function (args) {
         var data = args[0];
@@ -185,6 +188,26 @@ connection.onopen = function (session) {
                 }
             }
         });
+    }
+
+    function initLogger() {
+        session.subscribe(LOG_CHANNEL, function (jsonData) {
+            var data = JSON.parse(jsonData[0]);
+            var event = data.event;
+            var userId = data.userId;
+            var userName = data.userName;
+
+            if (data.event == 'userEnter' || data.event == 'userExit') {
+                var cmd = SYMFONY_CONSOLE_LOG_CONNECTION_COMMAND + ' ' + event + ' ' + userId + ' ' + userName;
+
+                exec(cmd, function (error) {
+                    if (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
     }
 };
 

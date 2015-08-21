@@ -64,12 +64,12 @@ app.on('RPCUnregistered', function (topicUri) {
  * @param userId int
  */
 function logEvent(eventType, userId) {
-    redis.hget(REDIS_ID_USERNAME_HASH, userId).then(function (username) {
-        if (username) {
+    redis.hget(REDIS_ID_USERNAME_HASH, userId).then(function (userName) {
+        if (userName) {
             app.publish(LOG_CHANNEL, 1, [JSON.stringify({
                 event: eventType,
                 userId: userId,
-                username: username
+                userName: userName
             })]);
         }
     });
