@@ -39,6 +39,7 @@ services:
         class: Rottenwood\KingdomBundle\Service\UserService
         arguments:
             - @snc_redis.default
+            - @kingdom.logger
             - @kingdom.user_repository
             - @kingdom.inventory_item_repository
 

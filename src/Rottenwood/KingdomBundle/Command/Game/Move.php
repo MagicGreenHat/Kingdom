@@ -60,10 +60,11 @@ class Move extends AbstractGameCommand {
 
             $logger = $this->container->get('kingdom.logger');
             $logString = sprintf(
-                '[#%d] %s переместился %s в комнату %s [%d/%d/%d]',
+                '[%d]%s переместился %s в комнату [%d]%s [%d/%d/%d]',
                 $userId,
                 $userName,
                 $directionTo,
+                $destinationRoom->getId(),
                 $destinationRoom->getName(),
                 $x,
                 $y,

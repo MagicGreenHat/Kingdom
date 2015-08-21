@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Service;
 
+use Monolog\Logger;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
@@ -21,30 +22,24 @@ class UserService {
     private $userRepository;
     /** @var InventoryItemRepository */
     private $inventoryItemRepository;
+    /** @var Logger */
+    private $logger;
 
     /**
      * @param Client                  $redis
+     * @param Logger                  $logger
      * @param UserRepository          $userRepository
      * @param InventoryItemRepository $inventoryItemRepository
      */
-    public function __construct(Client $redis, UserRepository $userRepository, InventoryItemRepository $inventoryItemRepository) {
+    public function __construct(
+        Client $redis,
+        Logger $logger,
+        UserRepository $userRepository,
+        InventoryItemRepository $inventoryItemRepository) {
         $this->redis = $redis;
+        $this->logger = $logger;
         $this->userRepository = $userRepository;
         $this->inventoryItemRepository = $inventoryItemRepository;
-    }
-
-    /**
-     * Запрос всех онлайн игроков в комнате
-     * @param Room  $room
-     * @param array $excludePlayerIds
-     * @return User[]
-     */
-    public function getOnlineUsersInRoom(Room $room, $excludePlayerIds = []) {
-        if (!is_array($excludePlayerIds)) {
-            $excludePlayerIds = [$excludePlayerIds];
-        }
-
-        return $this->userRepository->findOnlineByRoom($room, $this->getOnlineUsersIds(), $excludePlayerIds);
     }
 
     /**
@@ -60,6 +55,20 @@ class UserService {
             },
             $this->getOnlineUsersInRoom($room, $excludePlayerIds)
         );
+    }
+
+    /**
+     * Запрос всех онлайн игроков в комнате
+     * @param Room      $room
+     * @param int|array $excludePlayerIds
+     * @return User[]
+     */
+    public function getOnlineUsersInRoom(Room $room, $excludePlayerIds = []) {
+        if (!is_array($excludePlayerIds)) {
+            $excludePlayerIds = [$excludePlayerIds];
+        }
+
+        return $this->userRepository->findOnlineByRoom($room, $this->getOnlineUsersIds(), $excludePlayerIds);
     }
 
     /**
@@ -88,8 +97,6 @@ class UserService {
      * @throws \Exception
      */
     public function giveItem(User $userFrom, User $userTo, Item $item, $quantityToGive = 1) {
-        //TODO[Rottenwood]: Логирование
-
         try {
             $this->dropItem($userFrom, $item, $quantityToGive);
         } catch (\Exception $exception) {
@@ -101,6 +108,19 @@ class UserService {
         }
 
         $this->takeItem($userTo, $item, $quantityToGive);
+
+        $this->logger->info(
+            sprintf(
+                '[%d]%s передал [%d]%s предмет: [%d]%s x %d шт.',
+                $userFrom->getId(),
+                $userFrom->getName(),
+                $userTo->getId(),
+                $userTo->getName(),
+                $item->getId(),
+                $item->getName(),
+                $quantityToGive
+            )
+        );
 
         return true;
     }
