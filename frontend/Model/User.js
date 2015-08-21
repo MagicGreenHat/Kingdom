@@ -11,13 +11,17 @@ Kingdom.User = (function () {
             avatar = userAvatar;
         },
 
+        /**
+         * Имя персонажа
+         * @returns string
+         */
         getName: function () {
             return username;
         },
 
         /**
-         *
-         * @returns {*}
+         * Аватар персонажа
+         * @returns string
          */
         getAvatar: function () {
             return avatar;
