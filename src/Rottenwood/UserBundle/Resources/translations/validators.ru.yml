@@ -1,9 +1,9 @@
 fos_user:
     username:
-        already_used: Логин уже используется
-        blank: Пожалуйста, укажите логин
-        short: "[-Inf,Inf]Логин слишком короткий"
-        long: "[-Inf,Inf]Логин слишком длинный"
+        already_used: Имя уже используется
+        blank: Пожалуйста, укажите имя персонажа
+        short: "[-Inf,Inf]Имя слишком короткое"
+        long: "[-Inf,Inf]Имя слишком длинное"
     email:
         already_used: Email уже используется
         blank: Пожалуйста, укажите Ваш email
