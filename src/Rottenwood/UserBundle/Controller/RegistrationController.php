@@ -54,7 +54,7 @@ class RegistrationController extends FOSURegistrationController {
             $user->setAvatar($this->pickAvatar());
             $user->setRoom($room);
 
-            $this->createMoney();
+            $this->createMoney($user);
 
             $userManager->updateUser($user);
 
