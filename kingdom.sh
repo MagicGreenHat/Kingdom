@@ -98,7 +98,7 @@ case $1 in
 
 'console')
     shift
-    docker exec -it kingdom /kingdom/app/console "$@"
+    docker exec -it kingdom sudo -u www-data /kingdom/app/console "$@"
 ;;
 
 (gulp|css|js)
