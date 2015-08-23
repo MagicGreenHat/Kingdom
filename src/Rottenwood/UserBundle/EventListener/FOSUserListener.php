@@ -67,22 +67,10 @@ class FOSUserListener implements EventSubscriberInterface {
         /** @var User $user */
         $user = $event->getForm()->getData();
         /** @var Room $room */
-        $room = $this->roomRepository->find(1);
+        $room = $this->roomRepository->find(25);
 
-        // Приведение имени к нужному виду
-        $newName = explode(' ', $user->getUsernameCanonical())[0];
-        $newName = $this->transliterate($newName);
-        $newName = preg_replace('/[[:print:]]/', '', $newName);
-        $newName = preg_replace('/№/', '', $newName);
-        $newName = mb_convert_case($newName, MB_CASE_TITLE, 'UTF-8');
-
-        if (!$newName) {
-            $newName = $this->generateName();
-        }
-
+        $user->setName($this->transliterate($user->getLiteralUsername()));
         $user->setAvatar($this->pickAvatar());
-
-        $user->setName($newName);
         $user->setRoom($room);
 
         $url = $this->router->generate('game_page');
@@ -90,12 +78,12 @@ class FOSUserListener implements EventSubscriberInterface {
     }
 
     /**
-     * Транслитерация строк
+     * Транслитерация имени
      * @param string $string
      * @return string
      */
     private function transliterate($string) {
-        return strtr($string, $this->getAlphabet());
+        return mb_convert_case(strtr($string, $this->getAlphabet()), MB_CASE_TITLE, 'UTF-8');
     }
 
     /**
@@ -157,24 +145,6 @@ class FOSUserListener implements EventSubscriberInterface {
             'Y' => 'Й',
             'Z' => 'З',
         ];
-    }
-
-    /**
-     * Генератор бессмысленных имен
-     * @param int $lettersCount Количество символов в имени
-     * @return string
-     */
-    private function generateName($lettersCount = 6) {
-        $alphabet = $this->getAlphabet();
-
-        $name = '';
-        for ($i = 1; $i <= $lettersCount; $i++) {
-            $randomLetterKey = array_rand($alphabet);
-            $name .= $alphabet[$randomLetterKey];
-            unset($alphabet[$randomLetterKey]);
-        }
-
-        return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
     }
 
     /**
