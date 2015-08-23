@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Игровой персонаж
@@ -377,5 +378,22 @@ class User extends BaseUser {
             Item::USER_SLOT_LEGS => $this->getLegsSlot(),
             Item::USER_SLOT_BOOTS => $this->getBootsSlot(),
         ]);
+    }
+
+    /**
+     * @Assert\GreaterThanOrEqual(value = 4, message = "Минимальная длина имени - 4 буквы")
+     * @Assert\LessThanOrEqual(value = 10, message = "Максимальная длина имени - 10 букв")
+     * @return int
+     */
+    public function isNameValid() {
+        return mb_strlen($this->getLiteralUsername(), 'UTF-8');
+    }
+
+    /**
+     * Очистка логина от спецсимволов для генерации имени
+     * @return string
+     */
+    public function getLiteralUsername() {
+        return preg_replace('/[^a-zA-Zа-яА-Я]/us', '', $this->getUsernameCanonical());
     }
 }
