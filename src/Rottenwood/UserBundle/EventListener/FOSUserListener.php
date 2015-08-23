@@ -67,7 +67,7 @@ class FOSUserListener implements EventSubscriberInterface {
         /** @var User $user */
         $user = $event->getForm()->getData();
         /** @var Room $room */
-        $room = $this->roomRepository->find(25);
+        $room = $this->roomRepository->findOneByXandY(0, 0);
 
         $user->setName($this->transliterate($user->getLiteralUsername()));
         $user->setAvatar($this->pickAvatar());
