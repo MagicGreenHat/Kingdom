@@ -50,7 +50,6 @@ class RegistrationController extends FOSURegistrationController {
 
             $user->setAvatar($userService->pickAvatar());
             $user->setRoom($userService->getStartRoom());
-            $this->createMoney($user);
 
             $userManager->updateUser($user);
 
@@ -63,6 +62,8 @@ class RegistrationController extends FOSURegistrationController {
                 FOSUserEvents::REGISTRATION_COMPLETED,
                 new FilterUserResponseEvent($user, $request, $response)
             );
+
+            $this->createMoney($user);
 
             return $response;
         }
