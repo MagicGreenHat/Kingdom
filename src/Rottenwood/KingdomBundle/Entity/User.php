@@ -382,7 +382,7 @@ class User extends BaseUser {
 
     /**
      * @Assert\GreaterThanOrEqual(value = 4, message = "Минимальная длина имени - 4 буквы")
-     * @Assert\LessThanOrEqual(value = 10, message = "Максимальная длина имени - 10 букв")
+     * @Assert\LessThanOrEqual(value = 20, message = "Максимальная длина имени - 20 букв")
      * @return int
      */
     public function isNameValid() {
