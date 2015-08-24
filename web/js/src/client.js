@@ -94,6 +94,31 @@ $(function () {
         );
     };
 
+    var pingInterval;
+    connection.onclose = function () {
+        clearInterval(pingInterval);
+        pingInterval = setInterval(function () {
+            ping(window.location.origin);
+        }, 3000);
+
+        var $gameOverlay = $('#game-overlay');
+        var $systemMessage = $('#system-message');
+
+        function ping(url){
+            $.ajax({
+                url: url,
+                success: function(){
+                    window.location.reload();
+                },
+                error: function(){
+                    $gameOverlay.show();
+                    $systemMessage.show();
+                }
+            });
+        }
+    };
+
+
     connection.open();
 
     /////// Функции клиентского интерфейса ///////

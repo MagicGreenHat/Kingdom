@@ -19,6 +19,34 @@
     -o-user-select: none;
 }
 
+/* Серый фильтр для затемнения всей страницы */
+#game-overlay {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: 0.9;
+    z-index: 1;
+}
+
+#system-message {
+    display: none;
+    color: #fff;
+    font-size: 24px;
+    padding-top: 5%;
+    position: absolute;
+    text-align: center;
+    padding-bottom: 5%;
+    left: 0;
+    right: 0;
+    background-color: red;
+    margin: 150px 300px;
+    z-index: 2;
+}
+
 /* Форма логина */
 .login-block, .registration-block {
     margin: 20px auto;
