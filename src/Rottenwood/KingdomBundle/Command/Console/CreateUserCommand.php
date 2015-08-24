@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Command\Console;
 
+use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -45,22 +46,35 @@ class CreateUserCommand extends ContainerAwareCommand {
 
         /** @var User $user */
         $user = $userManager->createUser();
-
         $user->setUsername($username);
-        $user->setPlainPassword($password);
-        $userManager->updateCanonicalFields($user);
-        $userManager->updatePassword($user);
-
         $user->setEmail($email);
-        $user->setEnabled(true);
-        $user->setAvatar($userService->pickAvatar());
-        $user->setName($userService->transliterate($user->getUsernameCanonical()));
-        $user->setRoom($userService->getStartRoom());
+        $userManager->updateCanonicalFields($user);
 
-        $this->createMoney($user, $container);
+        $cyrillicName = $userService->transliterate($user->getUsernameCanonical());
 
-        $userRepository->persist($user);
-        $userRepository->flush($user);
+        if ($this->checkUserExist($userRepository, $username, $cyrillicName, $email)) {
+            $output->writeln('Тестовый персонаж уже существует.');
+        } else {
+            $user->setPlainPassword($password);
+            $userManager->updatePassword($user);
+
+            $user->setEnabled(true);
+            $user->setAvatar($userService->pickAvatar());
+            $user->setName($cyrillicName);
+            $user->setRoom($userService->getStartRoom());
+
+            $this->createMoney($user, $container);
+
+            $userRepository->persist($user);
+            $userRepository->flush($user);
+
+            $output->writeln('Создан персонаж!');
+            $output->writeln('====================================');
+            $output->writeln('Логин: ' . $username);
+            $output->writeln('Пароль: ' . $password);
+            $output->writeln('E-mail: ' . $email);
+            $output->writeln('====================================');
+        }
     }
 
     /**
@@ -72,5 +86,26 @@ class CreateUserCommand extends ContainerAwareCommand {
         $money = new Money($user);
         $moneyRepository = $container->get('kingdom.money_repository');
         $moneyRepository->persist($money);
+    }
+
+    /**
+     * @param UserRepository $userRepository
+     * @param string         $username
+     * @param string         $cyrillicName
+     * @param string         $email
+     * @return bool
+     */
+    private function checkUserExist(UserRepository $userRepository, $username, $cyrillicName, $email) {
+        $user = $userRepository->findByUsername($username);
+
+        if (!$user) {
+            $user = $userRepository->findByName($cyrillicName);
+        }
+
+        if (!$user) {
+            $user = $userRepository->findOneByEmail($email);
+        }
+
+        return (bool)$user;
     }
 }

@@ -57,4 +57,12 @@ class UserRepository extends AbstractRepository {
     public function findByName($name) {
         return $this->findOneBy(['name' => $name]);
     }
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function findOneByEmail($email) {
+        return $this->findOneBy(['email' => $email]);
+    }
 }
