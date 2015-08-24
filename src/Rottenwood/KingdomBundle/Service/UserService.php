@@ -13,9 +13,14 @@ use Rottenwood\KingdomBundle\Exception\ItemNotFound;
 use Rottenwood\KingdomBundle\Exception\NotEnoughItems;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Snc\RedisBundle\Client\Phpredis\Client;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class UserService {
 
+    /** @var KernelInterface */
+    private $kernel;
     /** @var RedisClientInterface */
     private $redis;
     /** @var UserRepository */
@@ -26,12 +31,14 @@ class UserService {
     private $logger;
 
     /**
+     * @param KernelInterface         $kernel
      * @param Client                  $redis
      * @param Logger                  $logger
      * @param UserRepository          $userRepository
      * @param InventoryItemRepository $inventoryItemRepository
      */
     public function __construct(
+        KernelInterface $kernel,
         Client $redis,
         Logger $logger,
         UserRepository $userRepository,
@@ -40,6 +47,7 @@ class UserService {
         $this->logger = $logger;
         $this->userRepository = $userRepository;
         $this->inventoryItemRepository = $inventoryItemRepository;
+        $this->kernel = $kernel;
     }
 
     /**
@@ -215,5 +223,57 @@ class UserService {
             },
             $equipmentItems
         );
+    }
+
+    /**
+     * Установка рэндомного аватара
+     * @return string
+     */
+    public function pickAvatar() {
+        $finder = new Finder();
+
+        $prefix = 'male';
+        $avatarPath = $this->kernel->getRootDir() . '/../web/img/avatars/' . $prefix;
+
+        $files = $finder->files()->in($avatarPath);
+
+        $avatars = [];
+        /** @var SplFileInfo $file */
+        foreach ($files as $file) {
+            $avatars[] = $file->getBasename('.jpg');
+        }
+
+        $avatar = $prefix . '/' . $avatars[array_rand($avatars)];
+
+        return $avatar;
+    }
+
+    /**
+     * Транслитерация и конвертация строки
+     * @param string $string
+     * @return string
+     */
+    public function transliterate($string) {
+        return mb_convert_case(strtr($string, $this->getAlphabet()), MB_CASE_TITLE, 'UTF-8');
+    }
+
+    /**
+     * Массив соответствия русских букв латинским
+     * @return string[]
+     */
+    private function getAlphabet() {
+        return [
+            'a' => 'а',  'b' => 'б', 'c' => 'ц', 'd' => 'д',  'e' => 'е',
+            'f' => 'ф',  'g' => 'г', 'h' => 'х', 'i' => 'ай', 'j' => 'дж',
+            'k' => 'к',  'l' => 'л', 'm' => 'м', 'n' => 'н',  'o' => 'о',
+            'p' => 'п',  'q' => 'к', 'r' => 'р', 's' => 'с',  't' => 'т',
+            'u' => 'ю',  'v' => 'в', 'w' => 'в', 'x' => 'кс', 'y' => 'й',
+            'z' => 'з',  'A' => 'А', 'B' => 'Б', 'C' => 'Ц',  'D' => 'Д',
+            'E' => 'Е',  'F' => 'Ф', 'G' => 'Г', 'H' => 'Х',  'I' => 'Ай',
+            'J' => 'Дж', 'K' => 'К', 'L' => 'Л', 'M' => 'М',  'N' => 'Н',
+            'O' => 'О',  'P' => 'П', 'Q' => 'К', 'R' => 'Р',  'S' => 'С',
+            'T' => 'Т',  'U' => 'Ю', 'V' => 'В', 'W' => 'В',  'X' => 'Кс',
+            'Y' => 'Й',  'Z' => 'З',
+        ];
     }
 }
