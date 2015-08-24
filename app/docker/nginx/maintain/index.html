@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Государство. Загрузка</title>
+</head>
+<body>
+<p>Приложение загружается ... Страница будет перезагружена через <span id="timer"></span></p>
+
+<script type="text/javascript">
+    var timer = 10;
+
+    renderTime(timer);
+    setInterval(function () {
+        timer--;
+        if (timer == 0) {
+            window.location.reload();
+        } else {
+            renderTime(timer);
+        }
+    }, 1000);
+
+    /**
+     * Отрисовка таймера
+     * @param timer int
+     */
+    function renderTime(timer) {
+        document.getElementById('timer').innerHTML = timer + pluralize(timer, ' секунду', ' секунды', ' секунд');
+    }
+
+    /**
+     * Плюрализатор
+     * @param number int
+     * @param one string
+     * @param two string
+     * @param five string
+     * @returns string
+     */
+    function pluralize(number, one, two, five) {
+        number = Math.abs(number);
+        number %= 100;
+        if (number >= 5 && number <= 20) {
+            return five;
+        }
+        number %= 10;
+        if (number == 1) {
+            return one;
+        }
+        if (number >= 2 && number <= 4) {
+            return two;
+        }
+        return five;
+    }
+</script>
+
+</body>
+</html>
