@@ -6,18 +6,11 @@ usermod -u 1000 www-data
 echo "Копирование конфигов для nginx ..."
 cp -r /kingdom/app/docker/nginx /etc
 
-echo "Конфигурация Symfony-окружения: $SYMFONY_ENVIRONMENT ..."
+echo "Подключение страницы с информацией о загрузке ..."
+ln -s /etc/nginx/sites-available/maintain.conf /etc/nginx/sites-enabled/
 
-if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
-    ln -s /etc/nginx/sites-available/kingdom-dev.conf /etc/nginx/sites-enabled/
-    rm /kingdom/web/app_dev.php
-    cp /kingdom/app/docker/symfony/app_dev.php /kingdom/web/
-    mv /etc/nginx/nginx-dev.conf /etc/nginx/nginx.conf
-else
-    rm /kingdom/web/app_dev.php
-    ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
-    rm /etc/nginx/nginx-dev.conf
-fi
+echo "Запуск nginx ..."
+/etc/init.d/nginx start
 
 echo "Обновление библиотек композера ..."
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor
@@ -59,6 +52,24 @@ chown -R www-data /kingdom/app/logs
 
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
+
+echo "Конфигурация Symfony-окружения: $SYMFONY_ENVIRONMENT ..."
+rm /kingdom/web/app_dev.php
+
+if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
+    ln -s /etc/nginx/sites-available/kingdom-dev.conf /etc/nginx/sites-enabled/
+    cp /kingdom/app/docker/symfony/app_dev.php /kingdom/web/
+    mv /etc/nginx/nginx-dev.conf /etc/nginx/nginx.conf
+else
+    ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
+    rm /etc/nginx/nginx-dev.conf
+fi
+
+echo "Отключение страницы с информацией о загрузке ..."
+rm /etc/nginx/sites-enabled/maintain.conf
+
+echo "Рестарт nginx ..."
+/etc/init.d/nginx restart
 
 echo "Запуск node.js приложений ..."
 cd /kingdom/websocket
