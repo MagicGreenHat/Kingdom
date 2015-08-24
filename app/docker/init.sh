@@ -14,6 +14,7 @@ echo "Запуск nginx ..."
 
 echo "Обновление библиотек композера ..."
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor
+chown -R www-data:www-data /kingdom/vendor
 sudo -u www-data /composer.phar install -n -d /kingdom/
 
 echo "Создание БД, при ее отсутствии ..."
