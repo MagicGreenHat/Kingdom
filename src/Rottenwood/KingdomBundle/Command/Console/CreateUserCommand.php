@@ -77,6 +77,18 @@ class CreateUserCommand extends ContainerAwareCommand {
             $output->writeln('Пароль: ' . $password);
             $output->writeln('E-mail: ' . $email);
             $output->writeln('====================================');
+
+            $logger = $container->get('kingdom.logger.registration');
+            $logger->info(
+                sprintf(
+                    '[#%d] логин: %s, имя: %s, email: %s',
+                    $user->getId(),
+                    $user->getUsername(),
+                    $user->getName(),
+                    $user->getEmail()
+                )
+            );
+
         }
     }
 

@@ -107,13 +107,11 @@ case $1 in
 ;;
 
 (cache|clear)
+    docker exec kingdom rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
+
     case $2 in
-    '')
-        $0 console cache:clear -e prod
+    'warm')
         $0 console cache:warm -e prod
-    ;;
-    'dev')
-        $0 console cache:clear -e dev
     ;;
     esac
 ;;
@@ -150,7 +148,7 @@ case $1 in
 	echo "\033[1;33;24m$0 mysql\033[0m - Запуск консоли MySQL"
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
 	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony\n"
-	echo "\033[1;33;24m$0 (cache|clear)\033[0m [dev] - Очистка кэша\n"
+	echo "\033[1;33;24m$0 (cache|clear)\033[0m [warm] - Очистка кэша\n"
 
 	echo "\033[1;33;24m$0 (css|js|gulp)\033[0m - Сборка CSS и JS с помощью gulp"
 

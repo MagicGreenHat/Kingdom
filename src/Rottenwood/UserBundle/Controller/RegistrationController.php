@@ -65,6 +65,17 @@ class RegistrationController extends FOSURegistrationController {
 
             $this->createMoney($user);
 
+            $logger = $this->container->get('kingdom.logger.registration');
+            $logger->info(
+                sprintf(
+                    '[#%d] логин: %s, имя: %s, email: %s',
+                    $user->getId(),
+                    $user->getUsername(),
+                    $user->getName(),
+                    $user->getEmail()
+                )
+            );
+
             return $response;
         }
 

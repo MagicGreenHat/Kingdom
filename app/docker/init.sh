@@ -44,17 +44,23 @@ npm install
 echo "Сборка CSS и JS ассетов ..."
 node node_modules/gulp/bin/gulp.js build
 
-if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
-    sudo -u www-data /kingdom/app/console kingdom:create:user test test test@test.ru
-    sudo -u www-data /kingdom/app/console kingdom:items:create
-fi
-
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
 
-if [ ${SYMFONY_ENVIRONMENT} = "prod" ]; then
-    sudo -u www-data /kingdom/app/console cache:warm -e prod
+if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
+    /kingdom/app/console kingdom:create:user test test test@test.ru
+    /kingdom/app/console kingdom:items:create
 fi
+
+if [ ${SYMFONY_ENVIRONMENT} = "prod" ]; then
+    /kingdom/app/console cache:warm -e prod
+fi
+
+echo "Настройка прав на логи"
+chown -R www-data /kingdom/app/logs
+
+echo "Очистка кэша ..."
+rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
 
 echo "Запуск node.js приложений ..."
 cd /kingdom/websocket
