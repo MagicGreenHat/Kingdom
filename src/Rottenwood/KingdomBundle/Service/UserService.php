@@ -5,6 +5,7 @@ namespace Rottenwood\KingdomBundle\Service;
 use Monolog\Logger;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
@@ -29,6 +30,8 @@ class UserService {
     private $inventoryItemRepository;
     /** @var Logger */
     private $logger;
+    /** @var RoomRepository */
+    private $roomRepository;
 
     /**
      * @param KernelInterface         $kernel
@@ -36,18 +39,22 @@ class UserService {
      * @param Logger                  $logger
      * @param UserRepository          $userRepository
      * @param InventoryItemRepository $inventoryItemRepository
+     * @param RoomRepository          $roomRepository
      */
     public function __construct(
         KernelInterface $kernel,
         Client $redis,
         Logger $logger,
         UserRepository $userRepository,
-        InventoryItemRepository $inventoryItemRepository) {
+        InventoryItemRepository $inventoryItemRepository,
+        RoomRepository $roomRepository
+    ) {
         $this->redis = $redis;
         $this->logger = $logger;
         $this->userRepository = $userRepository;
         $this->inventoryItemRepository = $inventoryItemRepository;
         $this->kernel = $kernel;
+        $this->roomRepository = $roomRepository;
     }
 
     /**
@@ -275,5 +282,13 @@ class UserService {
             'T' => 'Т',  'U' => 'Ю', 'V' => 'В', 'W' => 'В',  'X' => 'Кс',
             'Y' => 'Й',  'Z' => 'З',
         ];
+    }
+
+    /**
+     * Стартовая комната при создании персонажа
+     * @return Room
+     */
+    public function getStartRoom() {
+        return $this->roomRepository->findOneByXandY(0, 0);
     }
 }

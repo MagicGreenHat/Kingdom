@@ -43,6 +43,7 @@ services:
             - @kingdom.logger
             - @kingdom.user_repository
             - @kingdom.inventory_item_repository
+            - @kingdom.room_repository
 
     # Логгер
     kingdom.logger:
