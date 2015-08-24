@@ -46,6 +46,7 @@ node node_modules/gulp/bin/gulp.js build
 
 if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
     sudo -u www-data /kingdom/app/console kingdom:create:user test test test@test.ru
+    sudo -u www-data /kingdom/app/console kingdom:items:create
 fi
 
 echo "Очистка кэша ..."
