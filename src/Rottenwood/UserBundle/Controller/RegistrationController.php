@@ -7,10 +7,8 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Rottenwood\KingdomBundle\Entity\Money;
-use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
+use Rottenwood\KingdomBundle\Service\UserService;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,19 +39,17 @@ class RegistrationController extends FOSURegistrationController {
         $form = $formFactory->createForm();
         $form->setData($user);
 
+        $userService = $this->get('kingdom.user_service');
+
         $form->handleRequest($request);
-        $this->updateUserAndForm($user, $form);
+        $this->updateUserAndForm($user, $form, $userService);
 
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-            /** @var Room $room */
-            $room = $this->get('kingdom.room_repository')->findOneByXandY(0, 0);
-
-            $user->setAvatar($this->pickAvatar());
-            $user->setRoom($room);
-
+            $user->setAvatar($userService->pickAvatar());
+            $user->setRoom($userService->getStartRoom());
             $this->createMoney($user);
 
             $userManager->updateUser($user);
@@ -79,8 +75,8 @@ class RegistrationController extends FOSURegistrationController {
         );
     }
 
-    private function updateUserAndForm(User &$user, FormInterface &$form) {
-        $cyrillicName = $this->transliterate($user->getLiteralUsername());
+    private function updateUserAndForm(User &$user, FormInterface &$form, UserService $userService) {
+        $cyrillicName = $userService->transliterate($user->getLiteralUsername());
 
         if ($this->isAllreadyExists($cyrillicName)) {
             $errorMessage = $this->get('translator')->trans('fos_user.username.already_used', [], 'validators');
@@ -88,58 +84,6 @@ class RegistrationController extends FOSURegistrationController {
         } else {
             $user->setName($cyrillicName);
         }
-    }
-
-    /**
-     * Транслитерация имени
-     * @param string $string
-     * @return string
-     */
-    private function transliterate($string) {
-        return mb_convert_case(strtr($string, $this->getAlphabet()), MB_CASE_TITLE, 'UTF-8');
-    }
-
-    /**
-     * Массив соответствия русских букв латинским
-     * @return string[]
-     */
-    private function getAlphabet() {
-        return [
-            'a' => 'а',  'b' => 'б', 'c' => 'ц', 'd' => 'д',  'e' => 'е',
-            'f' => 'ф',  'g' => 'г', 'h' => 'х', 'i' => 'ай', 'j' => 'дж',
-            'k' => 'к',  'l' => 'л', 'm' => 'м', 'n' => 'н',  'o' => 'о',
-            'p' => 'п',  'q' => 'к', 'r' => 'р', 's' => 'с',  't' => 'т',
-            'u' => 'ю',  'v' => 'в', 'w' => 'в', 'x' => 'кс', 'y' => 'й',
-            'z' => 'з',  'A' => 'А', 'B' => 'Б', 'C' => 'Ц',  'D' => 'Д',
-            'E' => 'Е',  'F' => 'Ф', 'G' => 'Г', 'H' => 'Х',  'I' => 'Ай',
-            'J' => 'Дж', 'K' => 'К', 'L' => 'Л', 'M' => 'М',  'N' => 'Н',
-            'O' => 'О',  'P' => 'П', 'Q' => 'К', 'R' => 'Р',  'S' => 'С',
-            'T' => 'Т',  'U' => 'Ю', 'V' => 'В', 'W' => 'В',  'X' => 'Кс',
-            'Y' => 'Й',  'Z' => 'З',
-        ];
-    }
-
-    /**
-     * Установка рэндомного аватара
-     * @return string
-     */
-    private function pickAvatar() {
-        $finder = new Finder();
-
-        $prefix = 'male';
-        $avatarPath = $this->get('kernel')->getRootDir() . '/../web/img/avatars/' . $prefix;
-
-        $files = $finder->files()->in($avatarPath);
-
-        $avatars = [];
-        /** @var SplFileInfo $file */
-        foreach ($files as $file) {
-            $avatars[] = $file->getBasename('.jpg');
-        }
-
-        $avatar = $prefix . '/' . $avatars[array_rand($avatars)];
-
-        return $avatar;
     }
 
     /**
