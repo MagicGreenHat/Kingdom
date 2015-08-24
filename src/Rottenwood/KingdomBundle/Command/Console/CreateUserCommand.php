@@ -6,6 +6,7 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,6 +39,8 @@ class CreateUserCommand extends ContainerAwareCommand {
         $password = $input->getArgument('password');
         $email = $input->getArgument('email');
 
+        $output->write('Создание тестового персонажа ... ');
+
         $container = $this->getContainer();
 
         $userManager = $container->get('fos_user.user_manager');
@@ -53,7 +56,7 @@ class CreateUserCommand extends ContainerAwareCommand {
         $cyrillicName = $userService->transliterate($user->getUsernameCanonical());
 
         if ($this->checkUserExist($userRepository, $username, $cyrillicName, $email)) {
-            $output->writeln('Тестовый персонаж уже существует.');
+            $output->writeln('персонаж уже существует.');
         } else {
             $user->setPlainPassword($password);
             $userManager->updatePassword($user);
@@ -68,12 +71,18 @@ class CreateUserCommand extends ContainerAwareCommand {
             $userRepository->persist($user);
             $userRepository->flush($user);
 
-            $output->writeln('Создан персонаж!');
+            $output->writeln('персонаж создан!');
+
+            $createItemsCommand = $this->getApplication()->find('kingdom:items:create');
+            $createItemsCommand->execute(new ArrayInput([]), $output);
+
+            $output->writeln('');
             $output->writeln('====================================');
             $output->writeln('Логин: ' . $username);
             $output->writeln('Пароль: ' . $password);
             $output->writeln('E-mail: ' . $email);
             $output->writeln('====================================');
+            $output->writeln('');
         }
     }
 

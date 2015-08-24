@@ -24,13 +24,13 @@ echo "Обновление библиотек композера ..."
 sudo -u www-data /composer.phar install -n -d /kingdom/
 
 echo "Создание БД, при ее отсутствии ..."
-/kingdom/app/console doctrine:database:create > /dev/null 2>&1
+sudo -u www-data /kingdom/app/console doctrine:database:create > /dev/null 2>&1
 
 echo "Обновление структуры БД ..."
-/kingdom/app/console doctrine:schema:update --force
+sudo -u www-data /kingdom/app/console doctrine:schema:update --force
 
 echo "Загрузка игровых данных в БД ..."
-/kingdom/app/console kingdom:map:create
+sudo -u www-data /kingdom/app/console kingdom:map:create
 
 echo "Инициализация серверов ..."
 /etc/init.d/php5-fpm start
@@ -43,6 +43,10 @@ npm install
 
 echo "Сборка CSS и JS ассетов ..."
 node node_modules/gulp/bin/gulp.js build
+
+if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
+    sudo -u www-data /kingdom/app/console kingdom:create:user test test test@test.ru
+fi
 
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
