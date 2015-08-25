@@ -42,9 +42,18 @@ class Money {
     private $gold = 0;
 
     /**
-     * @param UserInterface $user
+     * @param User $user
      */
-    public function __construct(UserInterface $user) { $this->user = $user; }
+    public function __construct(User $user) {
+        $this->user = $user;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * @return int
