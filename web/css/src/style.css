@@ -35,15 +35,16 @@
 #system-message {
     display: none;
     color: #fff;
-    font-size: 24px;
+    font-size: 25px;
     padding-top: 5%;
     position: absolute;
     text-align: center;
     padding-bottom: 5%;
     left: 0;
     right: 0;
-    background-color: red;
+    background-image: url('/img/textures/wood1.jpg');
     margin: 150px 300px;
+    text-shadow: 1px 1px 2px black, 0 0 1em black;
     z-index: 2;
 }
 
