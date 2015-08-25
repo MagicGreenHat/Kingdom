@@ -83,6 +83,7 @@ case $1 in
 ;;
 
 'deploy')
+    $0 stop
     git pull
     $0 start $2
 ;;
