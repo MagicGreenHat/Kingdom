@@ -89,11 +89,36 @@ case $1 in
 ;;
 
 'broadcast')
-    shift
-    if [ ! -z $1 ]; then
-        echo $@
+    if [ ! -z $2 ]; then
+        shift
         docker exec -it kingdom node /kingdom/websocket/broadcast.js $@
     fi
+;;
+
+'reboot')
+    echo "Оповещение игроков о перезагрузке"
+
+    MINUTES_TO_REBOOT=10
+    BROADCAST_MESSAGE="Перезагрузка через $MINUTES_TO_REBOOT минут!";
+    $0 broadcast $BROADCAST_MESSAGE
+    echo $BROADCAST_MESSAGE
+    sleep $(echo "5 * 60" | bc)
+
+    # Второе предупреждение
+    MINUTES_TO_REBOOT=5
+    BROADCAST_MESSAGE="Перезагрузка через $MINUTES_TO_REBOOT минут!";
+    $0 broadcast $BROADCAST_MESSAGE
+    echo $BROADCAST_MESSAGE
+    sleep $(echo "4 * 60" | bc)
+
+    # Последнее предупреждение
+    MINUTES_TO_REBOOT=1
+    BROADCAST_MESSAGE="Перезагрузка через $MINUTES_TO_REBOOT минуту!";
+    $0 broadcast $BROADCAST_MESSAGE
+    echo $BROADCAST_MESSAGE
+    sleep $(echo "1 * 60" | bc)
+
+    $0 restart $2
 ;;
 
 'update')
@@ -152,10 +177,10 @@ case $1 in
 
 'help')
 	echo "--------------------------------------------------------------------"
-	echo "\033[1;33;24m$0 start\033[0m - запуск контейнера с окружением"
-	echo "\033[1;33;24m$0 start dev\033[0m - запуск контейнера с dev-окружением (без кэширования)"
-	echo "\033[1;33;24m$0 restart\033[0m [dev]- перезапуск контейнера"
-	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера"
+	echo "\033[1;33;24m$0 start\033[0m [dev] - Запуск контейнера [в dev-окружении (без кэширования)]"
+	echo "\033[1;33;24m$0 restart\033[0m [dev]- Перезапуск контейнера"
+	echo "\033[1;33;24m$0 stop\033[0m - Остановка контейнера"
+	echo "\033[1;33;24m$0 reboot\033[0m [dev] - Отложенная перезагрузка (с оповещением игроков)"
 	echo ""
 	echo "\033[1;33;24m$0 log\033[0m [game|players|nginx]- просмотр логов"
 	echo "\033[1;33;24m$0 bash\033[0m - Запуск серверной консоли"

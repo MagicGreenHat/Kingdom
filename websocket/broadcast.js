@@ -15,12 +15,12 @@ var connection = new autobahn.Connection({
 });
 
 connection.onopen = function (session) {
-    console.log('Broadcasting ...');
 
     sendToAllOnlinePlayers(broadcastMessage);
 
     function sendToAllOnlinePlayers(message) {
         redis.hgetall(REDIS_ID_SESSION_HASH).then(function (sessions) {
+            console.log('[Оповещение]: ' + message);
             for (var property in sessions) {
                 if (sessions.hasOwnProperty(property)) {
                     var channel = 'character.' + sessions[property];
