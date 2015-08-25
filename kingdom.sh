@@ -88,6 +88,14 @@ case $1 in
     $0 start $2
 ;;
 
+'broadcast')
+    shift
+    if [ ! -z $1 ]; then
+        echo $@
+        docker exec -it kingdom node /kingdom/websocket/broadcast.js $@
+    fi
+;;
+
 'update')
     $0 console doc:sch:upd --force
 ;;
@@ -147,17 +155,18 @@ case $1 in
 	echo "\033[1;33;24m$0 start\033[0m - запуск контейнера с окружением"
 	echo "\033[1;33;24m$0 start dev\033[0m - запуск контейнера с dev-окружением (без кэширования)"
 	echo "\033[1;33;24m$0 restart\033[0m [dev]- перезапуск контейнера"
-	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера\n"
-
+	echo "\033[1;33;24m$0 stop\033[0m - остановка контейнера"
+	echo ""
 	echo "\033[1;33;24m$0 log\033[0m [game|players|nginx]- просмотр логов"
 	echo "\033[1;33;24m$0 bash\033[0m - Запуск серверной консоли"
 	echo "\033[1;33;24m$0 mysql\033[0m - Запуск консоли MySQL"
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
-	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony\n"
+	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony"
 	echo "\033[1;33;24m$0 (cache|clear)\033[0m [warm] - Очистка кэша"
-	echo "\033[1;33;24m$0 (css|js|gulp)\033[0m - Сборка CSS и JS с помощью gulp\n"
-
-
+	echo "\033[1;33;24m$0 (css|js|gulp)\033[0m - Сборка CSS и JS с помощью gulp"
+	echo ""
+	echo "\033[1;33;24m$0 broadcast (phrase)\033[0m - Отправка сообщения всем игрокам онлайн"
+	echo ""
 	echo "\033[1;33;24m$0 deploy\033[0m (dev) - Деплой проекта (git pull, рестарт серверов)"
 	echo "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
 	echo "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
