@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Государство. Загрузка</title>
+    <script src="jquery.min.js"></script>
 </head>
 <body>
 <p>Внимание. Происходит обновление и перезагрузка игры. Страница будет перезагружена через <span id="timer"></span></p>
@@ -13,8 +14,21 @@
     renderTime(timer);
     setInterval(function () {
         timer--;
-        if (timer == 0) {
-            window.location.reload();
+        if (timer <= 0) {
+            ping(window.location.origin);
+
+            function ping(url){
+                $.ajax({
+                    url: url,
+                    success: function(){
+                        window.location.reload();
+                    },
+                    error: function(){
+                        timer = 10;
+                        renderTime(timer);
+                    }
+                });
+            }
         } else {
             renderTime(timer);
         }

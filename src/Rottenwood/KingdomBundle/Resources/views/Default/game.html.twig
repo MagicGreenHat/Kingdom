@@ -15,6 +15,11 @@
 {% endblock javascripts %}
 
 {% block body %}
+    <div id="game-overlay"></div>
+    <div id="system-message">
+        <p>Внимание. Происходит обновление и перезагрузка игры</p>
+        <img src="{{ asset('img/web_elements/loading.gif') }}">
+    </div>
     <div id="game-underlayer"></div>
 
     <div id="game-inventory" class="noselect">
