@@ -97,6 +97,7 @@ $(function () {
     var pingInterval;
     connection.onclose = function () {
         clearInterval(pingInterval);
+        ping(window.location.origin);
         pingInterval = setInterval(function () {
             ping(window.location.origin);
         }, 3000);
