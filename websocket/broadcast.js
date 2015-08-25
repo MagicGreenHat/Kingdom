@@ -4,7 +4,7 @@
 
 REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
 
-var broadcastMessage = process.argv[2];
+var broadcastMessage = process.argv.slice(2).join(" ");
 
 var autobahn = require('autobahn');
 var redis = require('then-redis').createClient();
@@ -24,7 +24,7 @@ connection.onopen = function (session) {
             for (var property in sessions) {
                 if (sessions.hasOwnProperty(property)) {
                     var channel = 'character.' + sessions[property];
-                    var messageJson = JSON.stringify(message);
+                    var messageJson = JSON.stringify({info:{event: "broadcast", message: message}});
 
                     session.publish(channel, [messageJson]);
                 }

@@ -160,6 +160,8 @@ $(function () {
             html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
         } else if (infoData.event == 'advice') {
             html = '<div><strong>Игровая информация:</strong> ' + infoData.advice + '</div>';
+        } else if (infoData.event == 'broadcast') {
+            html = '<div class="broadcast-message"><strong>Внимание:</strong> ' + infoData.message + '</div>';
         } else {
             html = '<div>' + infoData + '.</div>';
         }
