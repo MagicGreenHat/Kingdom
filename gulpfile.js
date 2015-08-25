@@ -16,10 +16,10 @@ var path = {
     },
     src: {
         js: [
-            'frontend/namespace.js',
+            'frontend/namespace.js', // Загрузка пространства имен вначале
             'web/js/src/**/*.js',
             'frontend/Model/**/*.js',
-            'frontend/**/*.js'
+            'frontend/Controller/**/*.js' // Загрузка контроллеров в конце
         ],
         css: 'web/css/src/**/*.css'
     },
