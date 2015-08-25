@@ -82,6 +82,11 @@ case $1 in
     docker exec -it kingdom bash
 ;;
 
+'deploy')
+    git pull
+    $0 start $2
+;;
+
 'update')
     $0 console doc:sch:upd --force
 ;;
@@ -148,10 +153,11 @@ case $1 in
 	echo "\033[1;33;24m$0 mysql\033[0m - Запуск консоли MySQL"
 	echo "\033[1;33;24m$0 update\033[0m - Обновление структуры базы данных"
 	echo "\033[1;33;24m$0 console\033[0m - Консоль Symfony\n"
-	echo "\033[1;33;24m$0 (cache|clear)\033[0m [warm] - Очистка кэша\n"
+	echo "\033[1;33;24m$0 (cache|clear)\033[0m [warm] - Очистка кэша"
+	echo "\033[1;33;24m$0 (css|js|gulp)\033[0m - Сборка CSS и JS с помощью gulp\n"
 
-	echo "\033[1;33;24m$0 (css|js|gulp)\033[0m - Сборка CSS и JS с помощью gulp"
 
+	echo "\033[1;33;24m$0 deploy\033[0m (dev) - Деплой проекта (git pull, рестарт серверов)"
 	echo "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
 	echo "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
 	echo "----------------------------------------------------------------------"
