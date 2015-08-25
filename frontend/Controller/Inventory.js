@@ -37,7 +37,10 @@ $(function () {
             var items = inventory.items;
 
             items.forEach(function (item) {
-                html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
+                // Показываются только неодетые предметы
+                if (!item.slot) {
+                    html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
+                }
             });
 
             $('#game-inventory .items-list').html(html);
