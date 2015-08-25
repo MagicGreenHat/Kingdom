@@ -34,12 +34,16 @@ $(function () {
         var inventory = Kingdom.Inventory.getItems();
 
         inventory.done(function () {
-            var items = inventory.items;
+            var $paperdoll = $('#game-inventory .paperdoll');
+            var imagePath = '/img/items/';
+            var imageExtension = '.png';
 
-            items.forEach(function (item) {
-                // Показываются только неодетые предметы
-                if (!item.slot) {
-                    html += '<div class="item"><img src="/img/items/' + item.pic + '.png"></div>';
+            inventory.items.forEach(function (item) {
+                if (item.slot) {
+                    var $slot = $paperdoll.find('.' + item.slot + '.slot img');
+                    $slot.attr('src', imagePath + item.pic + imageExtension);
+                } else {
+                    html += '<div class="item"><img src="' + imagePath + item.pic + imageExtension + '"></div>';
                 }
             });
 
