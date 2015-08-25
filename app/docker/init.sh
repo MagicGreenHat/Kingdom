@@ -16,7 +16,9 @@ echo "Обновление библиотек композера ..."
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor
 chown -R www-data:www-data /kingdom/vendor
 sudo -u www-data /composer.phar install -n -d /kingdom/
-chown -R www-data:www-data /kingdom/app/cache
+
+echo "Очистка кэша ..."
+rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
 
 echo "Создание БД, при ее отсутствии ..."
 sudo -u www-data /kingdom/app/console doctrine:database:create > /dev/null 2>&1
