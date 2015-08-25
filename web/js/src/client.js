@@ -41,8 +41,7 @@ $(function () {
                     } else if (data.commandName == 'reloadPage') {
                         location.reload();
                     } else if (data.commandName == 'inventory') {
-                        //TODO[Rottenwood]: Сделать модель Kingdom.Inventory. Сделать контроллер
-                        Inventory.setInventory(data.data);
+                        Kingdom.Inventory.setItems(data.data);
                     } else if (data.commandName == 'getMoney') {
                         Kingdom.Money.setMoney(data.data);
                     } else if (data.commandName == 'lookUser') {
@@ -118,7 +117,6 @@ $(function () {
             });
         }
     };
-
 
     connection.open();
 
