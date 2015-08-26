@@ -2,11 +2,11 @@
 
 namespace Rottenwood\KingdomBundle\Command\Console;
 
-use Rottenwood\KingdomBundle\Command\Console\Integration\TruncateEntity;
+use Rottenwood\KingdomBundle\Command\Console\Integration\Truncate;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ItemsPurgeCommand extends TruncateEntity {
+class ItemsPurgeCommand extends Truncate {
 
     protected function configure() {
         $this->setName('kingdom:items:purge')->setDescription('Удаление всех предметов');

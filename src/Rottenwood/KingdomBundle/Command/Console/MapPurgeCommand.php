@@ -2,11 +2,11 @@
 
 namespace Rottenwood\KingdomBundle\Command\Console;
 
-use Rottenwood\KingdomBundle\Command\Console\Integration\TruncateEntity;
+use Rottenwood\KingdomBundle\Command\Console\Integration\Truncate;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MapPurgeCommand extends TruncateEntity {
+class MapPurgeCommand extends Truncate {
 
     protected function configure() {
         $this->setName('kingdom:map:purge')->setDescription('Удаление всех комнат');

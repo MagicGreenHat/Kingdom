@@ -4,7 +4,7 @@ namespace Rottenwood\KingdomBundle\Command\Console\Integration;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
-abstract class TruncateEntity extends ContainerAwareCommand {
+abstract class Truncate extends ContainerAwareCommand {
 
     protected function truncateEntity($entityName) {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
