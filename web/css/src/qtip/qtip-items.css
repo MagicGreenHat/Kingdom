@@ -9,6 +9,8 @@
 .qtip-items .qtip-titlebar {
     background-color: #B0DE78;
     padding: 10px;
+    color: #3F6219;
+    text-shadow: 0 0 4px white;
 }
 
 .qtip-items .qtip-content {
@@ -17,5 +19,4 @@
 
 .qtip-items .qtip-close .qtip-icon {
     background-position: -42px 0;
-    /*padding: 10px;*/
 }
