@@ -79,9 +79,14 @@ $(function () {
                     },
                     position: {
                         target: 'mouse',
-                        adjust: { x: 5, y: 5 }
+                        adjust: { x: 10, y: 10 }
                     },
-                    style: { classes: 'qtip-items' }
+                    style: {
+                        classes: 'qtip-items',
+                        tip: {
+                            corner: false
+                        }
+                    }
                 });
             });
         });
@@ -117,7 +122,7 @@ $(function () {
             body: 'на тело',
             cloak: 'как плащ',
             weapon: 'как оружие',
-            left_hand: 'в левую руку',
+            left_hand: 'как щит',
             gloves: 'на руки',
             ring: 'на палец',
             legs: 'на ноги',
