@@ -149,6 +149,20 @@ $(function () {
     }
 
     /**
+     * Удаление персонажа из комнаты
+     * @param playerName
+     */
+    function removePlayerFromRoom(playerName) {
+        $('#game-room div.room-players div').each(function () {
+            var $this = $(this);
+
+            if($this.data('name') == playerName) {
+                $this.remove();
+            }
+        });
+    }
+
+    /**
      * Добавление информационной строки в чат
      * @param infoData
      */
@@ -158,6 +172,7 @@ $(function () {
             html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
         } else if (infoData.event == 'playerExit') {
             html = '<div><strong>' + infoData.name + ' вышел из игры.</strong></div>';
+            removePlayerFromRoom(infoData.name);
         } else if (infoData.event == 'advice') {
             html = '<div><strong>Игровая информация:</strong> ' + infoData.advice + '</div>';
         } else if (infoData.event == 'broadcast') {
