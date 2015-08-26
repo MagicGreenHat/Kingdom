@@ -160,8 +160,6 @@ connection.onopen = function (session) {
                         session.publish('character.' + channel, [JSON.stringify(message)]);
                     }
                 }
-
-                sendToOnlinePlayers({info: {event: 'playerEnter', name: character.name}});
             });
         });
     });
@@ -186,7 +184,7 @@ connection.onopen = function (session) {
             var userId = data.userId;
             var userName = data.userName;
 
-            if (data.event == 'userEnter' || data.event == 'userExit') {
+            if (event == 'playerEnter' || event == 'playerExit') {
                 var cmd = config.symfonyConsoleLogCommand + ' ' + event + ' ' + userId + ' ' + userName;
 
                 exec(cmd, function (error) {

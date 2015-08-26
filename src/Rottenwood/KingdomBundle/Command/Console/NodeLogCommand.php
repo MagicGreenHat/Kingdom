@@ -37,9 +37,9 @@ class NodeLogCommand extends ContainerAwareCommand {
         $userId = $input->getArgument('userId');
         $userName = $input->getArgument('userName');
 
-        if ($event == 'userEnter') {
+        if ($event == 'playerEnter') {
             $eventPhrase = 'присоединился к игре';
-        } elseif ($event == 'userExit') {
+        } elseif ($event == 'playerExit') {
             $eventPhrase = 'вышел из игры';
         } else {
             throw new InvalidCommandParameter('Неизвестное событие: ' . $event);

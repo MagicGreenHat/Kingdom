@@ -156,6 +156,8 @@ $(function () {
         var html;
         if (infoData.event == 'playerEnter') {
             html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
+        } else if (infoData.event == 'playerExit') {
+            html = '<div><strong>' + infoData.name + ' вышел из игры.</strong></div>';
         } else if (infoData.event == 'advice') {
             html = '<div><strong>Игровая информация:</strong> ' + infoData.advice + '</div>';
         } else if (infoData.event == 'broadcast') {
