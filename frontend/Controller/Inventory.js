@@ -40,8 +40,15 @@ $(function () {
 
             inventory.items.forEach(function (item) {
                 if (item.slot) {
-                    var $slot = $paperdoll.find('.' + item.slot + '.slot img');
-                    $slot.attr('src', imagePath + item.pic + imageExtension);
+                    var $slot = $paperdoll.find('.' + item.slot + '.slot');
+
+                    $slot.addClass('dressed');
+
+                    $slot.data('name', item.name);
+                    $slot.data('description', item.description);
+                    $slot.data('slots', item.allowedSlots);
+
+                    $slot.find('img').attr('src', imagePath + item.pic + imageExtension);
                 } else {
                     html += '<div class="item" ' +
                         'data-name="' + item.name + '" ' +
@@ -60,7 +67,7 @@ $(function () {
 
             $('#game-inventory .items-list').html(html);
 
-            $('#game-inventory .items-list .item').each(function (key, itemElement) {
+            $('#game-inventory .items-list .item').add($('#game-inventory .paperdoll .slot.dressed')).each(function (key, itemElement) {
                 var $item = $(itemElement);
                 var name = $item.data('name');
                 var $text = $('<div>').html(renderInfoText($item));
