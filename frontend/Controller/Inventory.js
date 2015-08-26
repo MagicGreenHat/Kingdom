@@ -43,7 +43,11 @@ $(function () {
                     var $slot = $paperdoll.find('.' + item.slot + '.slot img');
                     $slot.attr('src', imagePath + item.pic + imageExtension);
                 } else {
-                    html += '<div class="item">';
+                    html += '<div class="item" ' +
+                        'data-name="' + item.name + '" ' +
+                        'data-description="' + item.description + '" ' +
+                        'data-slots="' + item.allowedSlots + '">';
+
                     html += '<img src="' + imagePath + item.pic + imageExtension + '">';
 
                     if (item.quantity > 1) {
@@ -55,7 +59,39 @@ $(function () {
             });
 
             $('#game-inventory .items-list').html(html);
+
+            $('#game-inventory .items-list .item').each(function (key, itemElement) {
+                var $item = $(itemElement);
+                var name = $item.data('name');
+                var $text = $('<div>').html(renderInfoText($item));
+
+                $item.qtip({
+                    content: {
+                        title: name,
+                        text: $text
+                    },
+                    position: {
+                        target: 'mouse',
+                        adjust: { x: 5, y: 5 }
+                    },
+                    style: { classes: 'qtip-items' }
+                });
+            });
         });
+    }
+
+    function renderInfoText($item) {
+        var description = $item.data('description');
+        var slots = $item.data('slots');
+        var infoText = '';
+
+        if (description != '') {
+            infoText += description + '<br><br>';
+        }
+
+        infoText += '<strong>Можно одеть:</strong> ' + slots + '<br>';
+
+        return infoText;
     }
 
     renderInventory();

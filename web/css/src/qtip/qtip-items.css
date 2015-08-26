@@ -1,0 +1,21 @@
+.qtip-items {
+    background-color: #CAED9E;
+    border-color: #90D93F;
+    color: #3F6219;
+    font-size: 16px;
+    line-height: 100%;
+}
+
+.qtip-items .qtip-titlebar {
+    background-color: #B0DE78;
+    padding: 10px;
+}
+
+.qtip-items .qtip-content {
+    padding: 10px;
+}
+
+.qtip-items .qtip-close .qtip-icon {
+    background-position: -42px 0;
+    /*padding: 10px;*/
+}
