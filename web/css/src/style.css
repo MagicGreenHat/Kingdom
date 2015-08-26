@@ -301,7 +301,18 @@ div.game-chat-input input {
 }
 
 #game-inventory .items-list .item {
+    position: relative;
     display: inline-block;
+}
+
+#game-inventory .items-list .quantity {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(197, 197, 197);
+    padding: 1px 8px;
+    font-family: fantasy;
+    border: black 1px solid;
 }
 
 #game-inventory .money {

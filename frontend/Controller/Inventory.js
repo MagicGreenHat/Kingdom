@@ -43,7 +43,14 @@ $(function () {
                     var $slot = $paperdoll.find('.' + item.slot + '.slot img');
                     $slot.attr('src', imagePath + item.pic + imageExtension);
                 } else {
-                    html += '<div class="item"><img src="' + imagePath + item.pic + imageExtension + '"></div>';
+                    html += '<div class="item">';
+                    html += '<img src="' + imagePath + item.pic + imageExtension + '">';
+
+                    if (item.quantity > 1) {
+                        html += '<span class="quantity">' + item.quantity + '</span>';
+                    }
+
+                    html += '</div>';
                 }
             });
 
