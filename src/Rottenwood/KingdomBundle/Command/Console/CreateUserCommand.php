@@ -121,6 +121,6 @@ class CreateUserCommand extends ContainerAwareCommand {
             $user = $userRepository->findOneByEmail($email);
         }
 
-        return (bool)$user;
+        return (bool) $user;
     }
 }
