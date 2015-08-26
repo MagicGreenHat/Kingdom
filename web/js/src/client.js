@@ -170,6 +170,7 @@ $(function () {
         var html;
         if (infoData.event == 'playerEnter') {
             html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
+            Kingdom.Websocket.command('showPlayersInRoom');
         } else if (infoData.event == 'playerExit') {
             html = '<div><strong>' + infoData.name + ' вышел из игры.</strong></div>';
             removePlayerFromRoom(infoData.name);
