@@ -51,6 +51,13 @@ services:
         arguments:
             - "[%%datetime%%] %%message%%\n"
 
+    kingdom.logger_error_formatter:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] %%message%%\n %%context%%\n"
+        calls:
+            - [includeStacktraces]
+
     kingdom.logger:
         class: Monolog\Logger
         arguments: ['default']
@@ -85,5 +92,5 @@ services:
         class: Monolog\Handler\StreamHandler
         arguments: [ "%kernel.logs_dir%/game_logs/commands_errors.log"]
         calls:
-          - ['setFormatter', [@kingdom.logger_formatter]]
+          - ['setFormatter', [@kingdom.logger_error_formatter]]
 

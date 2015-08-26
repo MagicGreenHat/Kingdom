@@ -47,30 +47,36 @@ class ExecuteCommand extends ContainerAwareCommand {
      * @param string $commandName Название команды
      * @param string $parameters  Параметры команды
      * @return string json
-     * @throws CommandNotFound
-     * @throws InvalidCommandResponse
      */
     private function executeExternal($userId, $commandName, $parameters) {
         $commandClass = __NAMESPACE__ . '\\Game\\' . ucfirst($commandName);
+        $container = $this->getContainer();
 
-        if (class_exists($commandClass)) {
-            $container = $this->getContainer();
-            $userRepository = $container->get('kingdom.user_repository');
-            $user = $userRepository->findById($userId);
+        try {
+            if (class_exists($commandClass)) {
+                $userRepository = $container->get('kingdom.user_repository');
+                $user = $userRepository->findById($userId);
 
-            /** @var GameCommandInterface $command */
-            $command = new $commandClass($user, $commandName, $parameters, $container);
-        } else {
-            throw new CommandNotFound(sprintf('Команда %s не найдена', $commandName));
+                /** @var GameCommandInterface $command */
+                $command = new $commandClass($user, $commandName, $parameters, $container);
+            } else {
+                throw new CommandNotFound(sprintf('Команда %s не найдена', $commandName));
+            }
+
+            $result = $command->execute();
+
+            if (!$result instanceof CommandResponse) {
+                throw new InvalidCommandResponse;
+            }
+
+            $resultData = $result->getData();
+        } catch (\Exception $exception) {
+            $logger = $container->get('kingdom.logger.commands_errors');
+            $logger->info($exception->getMessage(), ['exception' => $exception]);
+
+            $resultData = [];
         }
 
-        //TODO[Rottenwood]: handle InvalidCommandParameter exception
-        $result = $command->execute();
-
-        if (!$result instanceof CommandResponse) {
-        	throw new InvalidCommandResponse;
-        }
-
-        return json_encode($result->getData());
+        return json_encode($resultData);
     }
 }
