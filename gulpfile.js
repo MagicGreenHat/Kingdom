@@ -18,7 +18,7 @@ var path = {
         js: [
             'frontend/namespace.js', // Загрузка пространства имен вначале
             'web/js/src/**/*.js',
-            'frontend/Lib/**/*.js',
+            'frontend/Library/**/*.js',
             'frontend/Model/**/*.js',
             'frontend/Controller/**/*.js' // Загрузка контроллеров в конце
         ],
