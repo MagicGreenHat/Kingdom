@@ -187,7 +187,7 @@ connection.onopen = function (session) {
             var userName = data.userName;
 
             if (data.event == 'userEnter' || data.event == 'userExit') {
-                var cmd = config.symfonyConsoleLogConnectionCommand + ' ' + event + ' ' + userId + ' ' + userName;
+                var cmd = config.symfonyConsoleLogCommand + ' ' + event + ' ' + userId + ' ' + userName;
 
                 exec(cmd, function (error) {
                     if (error) {

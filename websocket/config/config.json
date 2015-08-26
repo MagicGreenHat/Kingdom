@@ -6,7 +6,7 @@
     "logChannel": "logger",
 
     "symfonyConsoleEntryPoint": "/kingdom/app/console kingdom:execute",
-    "symfonyConsoleLogConnectionCommand": "/kingdom/app/console kingdom:node:log",
+    "symfonyConsoleLogCommand": "/kingdom/app/console kingdom:node:log",
 
     "redisIdUsernameHash": "kingdom:users:usernames",
     "redisSessionIdHash": "kingdom:sessions:users",
