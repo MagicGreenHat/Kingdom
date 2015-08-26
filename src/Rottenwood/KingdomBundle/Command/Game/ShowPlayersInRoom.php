@@ -17,7 +17,7 @@ class ShowPlayersInRoom extends AbstractGameCommand {
      */
     public function execute() {
         $playersInRoom = array_map(
-            function (User $user) {
+            function(User $user) {
                 return [
                     'name'   => $user->getName(),
                     'stance' => 'стоит тут.',
