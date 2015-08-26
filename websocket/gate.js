@@ -2,18 +2,7 @@
  * Сервер для запуска симфони команд
  */
 
-COMMAND_CHANNEL_NAME = 'command';
-SYSTEM_CHANNEL_NAME = 'system';
-GATE_CHANNEL_NAME = 'gate';
-LOG_CHANNEL = 'logger';
-SYMFONY_CONSOLE_ENTRY_POINT = '/kingdom/app/console kingdom:execute';
-SYMFONY_CONSOLE_LOG_CONNECTION_COMMAND = '/kingdom/app/console kingdom:node:log';
-
-REDIS_ID_USERNAME_HASH = 'kingdom:users:usernames';
-REDIS_SESSION_ID_HASH = 'kingdom:sessions:users';
-REDIS_ONLINE_LIST = 'kingdom:users:online';
-REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
-
+var config = require('./config/config.json');
 var autobahn = require('autobahn');
 var exec = require('child_process').exec;
 var redis = require('then-redis').createClient();
@@ -32,13 +21,13 @@ connection.onopen = function (session) {
     reloadAllClients();
     initLogger();
 
-    session.register(GATE_CHANNEL_NAME, function (args) {
+    session.register(config.gateChannelName, function (args) {
         var data = args[0];
         var localChannelName = 'character.' + data.sessionId;
 
         // Получение данных о пользователе из redis
-        redis.hget(REDIS_SESSION_ID_HASH, data.sessionId).then(function (userId) {
-            redis.hget(REDIS_ID_USERNAME_HASH, userId).then(function(username) {
+        redis.hget(config.redisSessionIdHash, data.sessionId).then(function (userId) {
+            redis.hget(config.redisIdUsernameHash, userId).then(function(username) {
                 var character = {
                     id: userId,
                     name: username
@@ -105,7 +94,7 @@ connection.onopen = function (session) {
                          * @param callback
                          */
                         function runConsoleCommand(character, command, callback) {
-                            var cmd = SYMFONY_CONSOLE_ENTRY_POINT + ' ' + character.id + ' ' + command;
+                            var cmd = config.symfonyConsoleEntryPoint + ' ' + character.id + ' ' + command;
 
                             if (commandArguments) {
                                 cmd = cmd + ' ' + commandArguments;
@@ -140,7 +129,7 @@ connection.onopen = function (session) {
                      * Запрос количества пользователей находящихся онлайн
                      */
                     function getPlayersOnline() {
-                        redis.scard(REDIS_ONLINE_LIST).then(function (playersOnline) {
+                        redis.scard(config.redisOnlineList).then(function (playersOnline) {
                             var jsonResponse = JSON.stringify({playersOnlineCount: playersOnline});
 
                             session.publish(localChannelName, [jsonResponse]);
@@ -178,7 +167,7 @@ connection.onopen = function (session) {
     });
 
     function reloadAllClients() {
-        redis.hgetall(REDIS_ID_SESSION_HASH).then(function (sessions) {
+        redis.hgetall(config.redisIdSessionHash).then(function (sessions) {
             for (var property in sessions) {
                 if (sessions.hasOwnProperty(property)) {
                     var channel = 'character.' + sessions[property];
@@ -191,14 +180,14 @@ connection.onopen = function (session) {
     }
 
     function initLogger() {
-        session.subscribe(LOG_CHANNEL, function (jsonData) {
+        session.subscribe(config.logChannel, function (jsonData) {
             var data = JSON.parse(jsonData[0]);
             var event = data.event;
             var userId = data.userId;
             var userName = data.userName;
 
             if (data.event == 'userEnter' || data.event == 'userExit') {
-                var cmd = SYMFONY_CONSOLE_LOG_CONNECTION_COMMAND + ' ' + event + ' ' + userId + ' ' + userName;
+                var cmd = config.symfonyConsoleLogConnectionCommand + ' ' + event + ' ' + userId + ' ' + userName;
 
                 exec(cmd, function (error) {
                     if (error) {

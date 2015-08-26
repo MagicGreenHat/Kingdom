@@ -2,10 +2,7 @@
  * Сервер для отсчета времени
  */
 
-SECONDS_IN_TICK = 60;
-REDIS_ID_SESSION_HASH = 'kingdom:users:sessions';
-SECONDS_TO_ADVICE = 1800;
-
+var config = require('./config/config.json');
 var autobahn = require('autobahn');
 var redis = require('then-redis').createClient();
 
@@ -15,11 +12,10 @@ var connection = new autobahn.Connection({
 });
 
 connection.onopen = function (session) {
-
     console.log('Ticker server is running ...');
 
     var sendToAllOnlinePlayers = function (message) {
-        redis.hgetall(REDIS_ID_SESSION_HASH).then(function (sessions) {
+        redis.hgetall(config.redisIdSessionHash).then(function (sessions) {
             for (var property in sessions) {
                 if (sessions.hasOwnProperty(property)) {
                     var channel = 'character.' + sessions[property];
@@ -58,7 +54,7 @@ connection.onopen = function (session) {
             oldAdvice = advice;
         }
 
-    }, SECONDS_TO_ADVICE * 1000);
+    }, config.secondsToAdvice * 1000);
 
 };
 
