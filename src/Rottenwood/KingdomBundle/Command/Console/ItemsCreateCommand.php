@@ -33,14 +33,14 @@ class ItemsCreateCommand extends ContainerAwareCommand {
             $output->write('Создание предметов ... ');
 
             $itemsData = [
-                ['Шляпа тестировщика', '', [Item::USER_SLOT_HEAD], 'hat1'],
-                ['Плащ тестировщика', '', [Item::USER_SLOT_CLOAK], 'cloak1'],
+                ['Шляпа тестировщика', 'Тяжелая шляпа из нержавеющей стали', [Item::USER_SLOT_HEAD], 'hat1'],
+                ['Плащ тестировщика', 'Дырявая, изъеденная молью накидка', [Item::USER_SLOT_CLOAK], 'cloak1'],
                 ['Амулет тестировщика', '', [Item::USER_SLOT_AMULET], 'amulettester'],
                 ['Щит тестировщика', '', [Item::USER_SLOT_LEFT_HAND], 'shield1'],
                 ['Рукавицы тестировщика', '', [Item::USER_SLOT_GLOVES], 'gloves1'],
                 ['Оружие тестировщика', '', [Item::USER_SLOT_WEAPON], 'dagger1'],
                 ['Рубаха тестировщика', '', [Item::USER_SLOT_BODY], 'shirt1'],
-                ['Ботинки тестировщика', '', [Item::USER_SLOT_BOOTS], 'boots1'],
+                ['Ботинки тестировщика', 'Крепкие ботинки - ужас насекомых!', [Item::USER_SLOT_BOOTS], 'boots1'],
                 ['Штаны тестировщика', '', [Item::USER_SLOT_LEGS], 'legs1'],
                 ['Кольцо тестировщика', '', [Item::USER_SLOT_RING], 'ring1'],
             ];

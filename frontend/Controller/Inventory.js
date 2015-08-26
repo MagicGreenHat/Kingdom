@@ -46,7 +46,7 @@ $(function () {
 
                     $slot.data('name', item.name);
                     $slot.data('description', item.description);
-                    $slot.data('slots', item.allowedSlots);
+                    $slot.data('slots', item.allowedSlots.join());
 
                     $slot.find('img').attr('src', imagePath + item.pic + imageExtension);
                 } else {
@@ -92,13 +92,39 @@ $(function () {
         var slots = $item.data('slots');
         var infoText = '';
 
+        slots = slots.split(',');
+
         if (description != '') {
             infoText += description + '<br><br>';
         }
 
-        infoText += '<strong>Можно одеть:</strong> ' + slots + '<br>';
+        infoText += '<strong>Можно одеть:</strong> ';
+
+        var slotNames = [];
+        slots.forEach(function (slotName) {
+            slotNames.push(translateItemName(slotName));
+        });
+
+        infoText += slotNames.join(', ') + '<br>';
 
         return infoText;
+    }
+
+    function translateItemName(itemName) {
+        var names = {
+            head: 'на голову',
+            amulet: 'как амулет',
+            body: 'на тело',
+            cloak: 'как плащ',
+            weapon: 'как оружие',
+            left_hand: 'в левую руку',
+            gloves: 'на руки',
+            ring: 'на палец',
+            legs: 'на ноги',
+            boots: 'как обувь'
+        };
+
+        return names[itemName];
     }
 
     renderInventory();
