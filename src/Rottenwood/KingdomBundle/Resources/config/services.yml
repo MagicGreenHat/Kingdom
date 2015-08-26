@@ -45,7 +45,12 @@ services:
             - @kingdom.inventory_item_repository
             - @kingdom.room_repository
 
-    # Логгер
+    # Логгеры
+    kingdom.logger_formatter:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] %%message%%\n"
+
     kingdom.logger:
         class: Monolog\Logger
         arguments: ['default']
@@ -70,7 +75,15 @@ services:
         calls:
           - ['setFormatter', [@kingdom.logger_formatter]]
 
-    kingdom.logger_formatter:
-        class: Monolog\Formatter\LineFormatter
-        arguments:
-            - "[%%datetime%%] %%message%%\n"
+    kingdom.logger.commands_errors:
+        class: Monolog\Logger
+        arguments: ['default']
+        calls:
+          - ['pushHandler', [@kingdom.logger_handler.commands_errors]]
+
+    kingdom.logger_handler.commands_errors:
+        class: Monolog\Handler\StreamHandler
+        arguments: [ "%kernel.logs_dir%/game_logs/commands_errors.log"]
+        calls:
+          - ['setFormatter', [@kingdom.logger_formatter]]
+
