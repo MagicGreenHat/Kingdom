@@ -1,6 +1,8 @@
 Государство
 ===========
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MagicGreenHat/Kingdom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MagicGreenHat/Kingdom/?branch=master)
+
 Браузерная игра "Государство" это мир браузерной игры открытый для исследований и приключений, сражений и завоеваний, ремесла и производства, свободной экономики и рынков, общения и дипломатии, управления городами и армиями. Захвати власть в Государстве!
 
 * Обсуждение: https://gitter.im/Rottenwood/kingdom
