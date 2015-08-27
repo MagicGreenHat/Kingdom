@@ -79,7 +79,7 @@ $(function () {
                     },
                     position: {
                         target: 'mouse',
-                        adjust: { x: 10, y: 10 }
+                        adjust: {x: 10, y: 10}
                     },
                     style: {
                         classes: 'qtip-items',
@@ -88,6 +88,9 @@ $(function () {
                         }
                     }
                 });
+
+            }).draggable({
+                stack: '.item'
             });
         });
     }
