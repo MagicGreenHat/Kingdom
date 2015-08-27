@@ -90,7 +90,9 @@ $(function () {
                 });
 
             }).draggable({
-                stack: '.item'
+                stack: '.item',
+                containment: '#game-inventory',
+                scroll: false
             });
         });
     }
