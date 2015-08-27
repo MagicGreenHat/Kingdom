@@ -10,26 +10,33 @@ var gulp = require('gulp'),
 
 var path = {
     build: {
-        js: 'web/js',
-        css: 'web/css'
+        js: 'web/js/',
+        css: 'web/css/'
     },
     src: {
         jsLib: [
             'frontend/Library/**/*.js'
         ],
         js: [
-            'frontend/namespace.js', // Загрузка пространства имен вначале
-            'web/js/src/**/*.js',
-            'frontend/Model/**/*.js',
-            'frontend/Controller/**/*.js' // Загрузка контроллеров в конце
+            'frontend/namespace.js',        // Пространства имен
+            'frontend/app.js',              // Скрипт инициализации приложения
+            'frontend/Model/**/*.js',       // Модели
+            'frontend/Controller/**/*.js'   // Контроллеры
         ],
-        css: 'web/css/src/**/*.css'
+        css: 'frontend/View/css/**/*.css'
     },
     destination: {
-        js: 'client.js',
+        jsLib: 'libraries.js',
+        js: 'scripts.js',
         css: 'style.css'
     }
 };
+
+gulp.task('jsLib:build', function () {
+    gulp.src(path.src.jsLib)
+        .pipe(concat(path.destination.jsLib))
+        .pipe(gulp.dest(path.build.js));
+});
 
 gulp.task('js:build', function () {
     gulp.src(path.src.js)
@@ -51,6 +58,7 @@ gulp.task('css:build', function () {
 });
 
 gulp.task('build', [
+    'jsLib:build',
     'js:build',
     'css:build'
 ]);
