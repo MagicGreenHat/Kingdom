@@ -93,6 +93,7 @@ $(function () {
                 stack: '.item',
                 containment: '#game-inventory',
                 scroll: false,
+                revert: true,
                 start: function (event, ui) {
                     highlightSlot(ui, true);
                 },
@@ -118,7 +119,15 @@ $(function () {
 
         var slotNames = [];
         slots.forEach(function (slotName) {
-            slotNames.push(translateItemName(slotName));
+            if (slotName == 'ring_first' || slotName == 'ring_second') {
+                slotName = 'ring';
+            }
+
+            var translatedSlotName = translateItemName(slotName);
+
+            if($.inArray(translatedSlotName, slotNames) === -1) {
+                slotNames.push(translatedSlotName);
+            }
         });
 
         infoText += slotNames.join(', ') + '<br>';

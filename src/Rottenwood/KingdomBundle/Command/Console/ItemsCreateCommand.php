@@ -42,7 +42,7 @@ class ItemsCreateCommand extends ContainerAwareCommand {
                 ['Рубаха тестировщика', 'Синяя рубашка униформы тестировщиков', [Item::USER_SLOT_BODY], 'shirt1'],
                 ['Ботинки тестировщика', 'Крепкие ботинки - ужас насекомых!', [Item::USER_SLOT_BOOTS], 'boots1'],
                 ['Штаны тестировщика', 'Синие штаны униформы тестировщиков', [Item::USER_SLOT_LEGS], 'legs1'],
-                ['Кольцо тестировщика', 'Кольцо - символ братства тестировщиков', [Item::USER_SLOT_RING], 'ring1'],
+                ['Кольцо тестировщика', 'Кольцо - символ братства тестировщиков', [Item::USER_SLOT_RING_FIRST, Item::USER_SLOT_RING_SECOND], 'ring1'],
             ];
 
             foreach ($itemsData as $itemData) {

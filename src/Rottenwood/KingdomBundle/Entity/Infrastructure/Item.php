@@ -31,7 +31,6 @@ abstract class Item {
     const USER_SLOT_WEAPON = 'weapon';
     const USER_SLOT_LEFT_HAND = 'left_hand';
     const USER_SLOT_GLOVES = 'gloves';
-    const USER_SLOT_RING = 'ring';
     const USER_SLOT_RING_FIRST = 'ring_first';
     const USER_SLOT_RING_SECOND = 'ring_second';
     const USER_SLOT_LEGS = 'legs';
