@@ -1,0 +1,5 @@
+@keyframes blink {
+    from {
+        background-color: rgba(254, 255, 168, 0.8);
+    }
+}

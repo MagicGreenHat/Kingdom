@@ -280,20 +280,24 @@ div.game-chat-input input {
 }
 
 /* Слоты одежды игрока */
-.paperdoll {
+#game-inventory .paperdoll {
     display: inline-block;
     right: 0;
     position: absolute;
     padding: 20px;
 }
 
-.paperdoll .slot,
-.paperdoll .empty {
+#game-inventory .paperdoll .slot,
+#game-inventory .paperdoll .empty {
     display: inline-block;
     background-color: #806345;
     width: 50px;
     height: 50px;
     border: black 1px solid;
+}
+
+#game-inventory .paperdoll .slot.highlight {
+    animation: blink 0.5s infinite alternate;
 }
 
 #game-inventory .items-list {

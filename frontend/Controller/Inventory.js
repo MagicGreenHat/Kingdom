@@ -92,7 +92,13 @@ $(function () {
             }).draggable({
                 stack: '.item',
                 containment: '#game-inventory',
-                scroll: false
+                scroll: false,
+                start: function (event, ui) {
+                    highlightSlot(ui, true);
+                },
+                stop: function (event, ui) {
+                    highlightSlot(ui, false);
+                }
             });
         });
     }
@@ -135,6 +141,17 @@ $(function () {
         };
 
         return names[itemName];
+    }
+
+    function highlightSlot(uiElement, toggleHighlight) {
+        var $dragginItem = $(uiElement.helper);
+        var allowedSlots = $dragginItem.data('slots').split(',');
+
+        allowedSlots.forEach(function (slot) {
+            var $slot = $('#game-inventory .paperdoll .' + slot + '.slot');
+
+            $slot.toggleClass('highlight', toggleHighlight);
+        });
     }
 
     renderInventory();
