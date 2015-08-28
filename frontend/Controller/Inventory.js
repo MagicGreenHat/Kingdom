@@ -23,7 +23,7 @@ $(function () {
         var html = '<div>Золото: ' + Kingdom.Money.getGold() + '</div>'
             + '<div>Серебро: ' + Kingdom.Money.getSilver() + '</div>';
 
-        $('#game-inventory .money').html(html);
+        $('#game-inventory').find('.money').html(html);
     });
 
     /**
@@ -34,7 +34,8 @@ $(function () {
         var inventory = Kingdom.Inventory.getItems();
 
         inventory.done(function () {
-            var $paperdoll = $('#game-inventory .paperdoll');
+            var $inventory = $('#game-inventory');
+            var $paperdoll = $inventory.find('.paperdoll');
             var imagePath = '/img/items/';
             var imageExtension = '.png';
 
@@ -69,17 +70,17 @@ $(function () {
                 }
             });
 
-            $('#game-inventory .items-list').html(html);
+            $inventory.find('.items-list').html(html);
 
-            makeItemsDraggable();
+            makeItemsDraggable($inventory);
         });
     }
 
     /**
      * Настройка draggable-предметов
      */
-    function makeItemsDraggable() {
-        $('#game-inventory .items-list .item').add($('#game-inventory .paperdoll .slot.dressed')).each(function (key, itemElement) {
+    function makeItemsDraggable($inventory) {
+        $inventory.find('.items-list .item').add($inventory.find('.paperdoll .slot.dressed')).each(function (key, itemElement) {
             var $item = $(itemElement);
             var name = $item.data('name');
             var $text = $('<div>').html(renderInfoText($item));
@@ -102,7 +103,7 @@ $(function () {
             });
         });
 
-        $('#game-inventory .items-list .item').draggable({
+        $inventory.find('.items-list .item').draggable({
             stack: '.item',
             containment: '#game-inventory',
             scroll: false,
@@ -170,7 +171,7 @@ $(function () {
      * Настройка droppable-"куклы" персонажа
      */
     function initializePaperdollSlots() {
-        $('#game-inventory .paperdoll .slot').each(function (key, element) {
+        $('#game-inventory').find('.paperdoll .slot').each(function (key, element) {
             var $slot = $(element);
             var slotName = $slot.data('slot');
 
