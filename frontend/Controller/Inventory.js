@@ -179,7 +179,7 @@ $(function () {
      * Настройка droppable-"куклы" персонажа
      */
     function initializePaperdollSlots() {
-        $('#game-inventory').find('.paperdoll .slot').each(function (key, element) {
+        $inventory.find('.paperdoll .slot').each(function (key, element) {
             var $slot = $(element);
             var slotName = $slot.data('slot');
 
@@ -207,6 +207,9 @@ $(function () {
                         $slotImage.attr('src', $slot.data('img'));
                         $draggingItem.css('background-color', 'transparent');
                         $draggingItem.css('border', 'none');
+                    },
+                    stop: function () {
+                        $slot.removeClass('highlight');
                     }
                 });
             }
@@ -229,8 +232,6 @@ $(function () {
                 } else {
                     removeItem($slot);
                 }
-
-                $slot.removeClass('highlight');
             }
         });
     }
@@ -261,7 +262,9 @@ $(function () {
         $slot.find('img').attr('src', $item.find('img').attr('src'));
         $item.remove();
 
-        Kingdom.Websocket.command('wear', [itemId, slotName]);
+        $inventory.find('.paperdoll .slot').removeClass('highlight');
+
+        //Kingdom.Websocket.command('wear', [itemId, slotName]);
     }
 
     /**
@@ -291,8 +294,9 @@ $(function () {
         });
 
         $inventory.find('.items-list').append($item);
+        $inventory.find('.paperdoll .slot').removeClass('highlight');
 
-        Kingdom.Websocket.command('remove', slotName);
+        //Kingdom.Websocket.command('remove', slotName);
     }
 
     // Запуск команд
