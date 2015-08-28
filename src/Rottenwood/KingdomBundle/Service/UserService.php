@@ -225,8 +225,8 @@ class UserService {
         $equipmentItems = $user->getEquipment();
 
         return array_map(
-            function (Item $item) {
-                return $item->getId();
+            function (InventoryItem $inventoryItem) {
+                return $inventoryItem->getItem()->getId();
             },
             $equipmentItems
         );

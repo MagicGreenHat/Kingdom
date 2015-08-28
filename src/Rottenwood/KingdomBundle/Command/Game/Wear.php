@@ -22,7 +22,7 @@ class Wear extends AbstractGameCommand {
         $slot = $parameters[1];
 
         $inventoryItemRepository = $this->container->get('kingdom.inventory_item_repository');
-        $item = $inventoryItemRepository->findOneByUserAndItemId($this->user, $itemId)->getItem();
+        $item = $inventoryItemRepository->findOneByUserAndItemId($this->user, $itemId);
 
         if ($slot == Item::USER_SLOT_HEAD) {
             $this->user->setHeadSlot($item);
@@ -49,16 +49,6 @@ class Wear extends AbstractGameCommand {
         };
 
         $inventoryItemRepository->flush();
-
-        $this->result->setData(
-            [
-                'itemName'       => $item->getName(),
-                'description'    => $item->getDescription(),
-                'availableSlots' => $item->getSlots(),
-                'pic'            => $item->getPicture(),
-                'slot'           => $slot,
-            ]
-        );
 
         return $this->result;
     }

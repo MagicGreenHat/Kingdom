@@ -2,7 +2,6 @@
 
 namespace Rottenwood\KingdomBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
@@ -43,89 +42,89 @@ class User extends BaseUser {
 
     /**
      * Слот одежды: голова
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_head", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $headSlot;
 
     /**
      * Слот одежды: амулет
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_amulet", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $amuletSlot;
 
     /**
      * Слот одежды: тело
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_body", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $bodySlot;
 
     /**
      * Слот одежды: плащ
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_cloak", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $cloakSlot;
 
     /**
      * Слот одежды: оружие или инструмент
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_weapon", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $weaponSlot;
 
     /**
      * Слот одежды: в левой руке
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_left_hand", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $leftHandSlot;
 
     /**
      * Слот одежды: перчатки
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_gloves", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $glovesSlot;
 
     /**
      * Слот одежды: первое кольцо
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_ring_first", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $ringFirstSlot;
 
     /**
      * Слот одежды: второе кольцо
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_ring_second", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $ringSecondSlot;
 
     /**
      * Слот одежды: ноги
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_legs", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $legsSlot;
 
     /**
      * Слот одежды: обувь
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\Item")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\InventoryItem")
      * @ORM\JoinColumn(name="slot_boots", referencedColumnName="id")
-     * @var Item
+     * @var InventoryItem
      */
     private $bootsSlot;
 
@@ -146,7 +145,6 @@ class User extends BaseUser {
     public function __construct() {
         parent::__construct();
 
-        $this->inventoryItems = new ArrayCollection();
         $this->registerDate = new \DateTime();
     }
 
@@ -179,161 +177,154 @@ class User extends BaseUser {
     }
 
     /**
-     * @return InventoryItem[]
-     */
-    public function getInventory() {
-        return $this->inventoryItems->toArray();
-    }
-
-    /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getHeadSlot() {
         return $this->headSlot;
     }
 
     /**
-     * @param Item $headSlot
+     * @param InventoryItem $headSlot
      */
     public function setHeadSlot($headSlot) {
         $this->headSlot = $headSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getAmuletSlot() {
         return $this->amuletSlot;
     }
 
     /**
-     * @param Item $amuletSlot
+     * @param InventoryItem $amuletSlot
      */
     public function setAmuletSlot($amuletSlot) {
         $this->amuletSlot = $amuletSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getBodySlot() {
         return $this->bodySlot;
     }
 
     /**
-     * @param Item $bodySlot
+     * @param InventoryItem $bodySlot
      */
     public function setBodySlot($bodySlot) {
         $this->bodySlot = $bodySlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getCloakSlot() {
         return $this->cloakSlot;
     }
 
     /**
-     * @param Item $cloakSlot
+     * @param InventoryItem $cloakSlot
      */
     public function setCloakSlot($cloakSlot) {
         $this->cloakSlot = $cloakSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getWeaponSlot() {
         return $this->weaponSlot;
     }
 
     /**
-     * @param Item $weaponSlot
+     * @param InventoryItem $weaponSlot
      */
     public function setWeaponSlot($weaponSlot) {
         $this->weaponSlot = $weaponSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getLeftHandSlot() {
         return $this->leftHandSlot;
     }
 
     /**
-     * @param Item $leftHandSlot
+     * @param InventoryItem $leftHandSlot
      */
     public function setLeftHandSlot($leftHandSlot) {
         $this->leftHandSlot = $leftHandSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getGlovesSlot() {
         return $this->glovesSlot;
     }
 
     /**
-     * @param Item $glovesSlot
+     * @param InventoryItem $glovesSlot
      */
     public function setGlovesSlot($glovesSlot) {
         $this->glovesSlot = $glovesSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getRingFirstSlot() {
         return $this->ringFirstSlot;
     }
 
     /**
-     * @param Item $ringFirstSlot
+     * @param InventoryItem $ringFirstSlot
      */
     public function setRingFirstSlot($ringFirstSlot) {
         $this->ringFirstSlot = $ringFirstSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getRingSecondSlot() {
         return $this->ringSecondSlot;
     }
 
     /**
-     * @param Item $ringSecondSlot
+     * @param InventoryItem $ringSecondSlot
      */
     public function setRingSecondSlot($ringSecondSlot) {
         $this->ringSecondSlot = $ringSecondSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getLegsSlot() {
         return $this->legsSlot;
     }
 
     /**
-     * @param Item $legsSlot
+     * @param InventoryItem $legsSlot
      */
     public function setLegsSlot($legsSlot) {
         $this->legsSlot = $legsSlot;
     }
 
     /**
-     * @return Item
+     * @return InventoryItem
      */
     public function getBootsSlot() {
         return $this->bootsSlot;
     }
 
     /**
-     * @param Item $bootsSlot
+     * @param InventoryItem $bootsSlot
      */
     public function setBootsSlot($bootsSlot) {
         $this->bootsSlot = $bootsSlot;
@@ -362,7 +353,7 @@ class User extends BaseUser {
 
     /**
      * Одетые на персонаже вещи
-     * @return Item[]
+     * @return InventoryItem[]
      */
     public function getEquipment() {
         return array_filter([

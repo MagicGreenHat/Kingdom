@@ -24,7 +24,9 @@ class LookUser extends AbstractGameCommand {
         }
 
         $itemData = [];
-        foreach ($userToLookAt->getEquipment() as $slot => $item) {
+        foreach ($userToLookAt->getEquipment() as $slot => $inventoryItem) {
+            $item = $inventoryItem->getItem();
+
             $itemData[] = [
                 'name'        => $item->getName(),
                 'description' => $item->getDescription(),
