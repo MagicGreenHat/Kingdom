@@ -186,8 +186,8 @@ $(function () {
             $slot.droppable({
                 accept: '#game-inventory .items-list .item.' + slotName,
                 activeClass: 'highlight',
-                drop: function (event, itemElement) {
-                    wearItem(itemElement, $slot);
+                drop: function (event, ui) {
+                    wearItem($(ui.draggable), $slot);
                 }
             });
 
@@ -198,7 +198,6 @@ $(function () {
                     stack: '.item',
                     containment: '#game-inventory',
                     scroll: false,
-                    revert: 'invalid',
                     helper: 'clone',
                     start: function (event, ui) {
                         var $draggingItem = $(ui.helper);
@@ -208,10 +207,6 @@ $(function () {
                         $slotImage.attr('src', $slot.data('img'));
                         $draggingItem.css('background-color', 'transparent');
                         $draggingItem.css('border', 'none');
-                    },
-                    stop: function (event, ui) {
-                        $slot.removeClass('highlight');
-                        $slotImage.attr('src', $slot.data('previous-image'));
                     }
                 });
             }
@@ -223,21 +218,29 @@ $(function () {
      * @param $inventory
      */
     function makeInventoryDroppable($inventory) {
-        $inventory.droppable({
+        $inventory.find('.items-list, .paperdoll').droppable({
             accept: '#game-inventory .paperdoll .slot',
             drop: function (event, ui) {
-                var slotName = $(ui.draggable).data('slot');
+                var $slot = $(ui.draggable);
+                var $eventTarget = $(event.target);
 
-                Kingdom.Websocket.command('remove', slotName);
+                if ($eventTarget.hasClass('paperdoll')) {
+                    $slot.find('img').attr('src', $slot.data('previous-image'));
+                } else {
+                    removeItem($slot);
+                }
+
+                $slot.removeClass('highlight');
             }
         });
     }
 
     /**
      * Одеть предмет
+     * @param $item
+     * @param $slot
      */
-    function wearItem(itemElement, $slot) {
-        var $item = $(itemElement.draggable);
+    function wearItem($item, $slot) {
         var $itemQtip = $item.qtip('api');
         var itemId = $item.data('id');
         var slotName = $slot.data('slot');
@@ -255,6 +258,19 @@ $(function () {
         $item.remove();
 
         Kingdom.Websocket.command('wear', [itemId, slotName]);
+    }
+
+    /**
+     * Снять предмет
+     * @param $slot
+     */
+    function removeItem($slot) {
+        var slotName = $slot.data('slot');
+
+        $slot.draggable('destroy');
+        $slot.qtip('destroy', true);
+
+        Kingdom.Websocket.command('remove', slotName);
     }
 
     // Запуск команд

@@ -19,6 +19,11 @@
     -o-user-select: none;
 }
 
+/* Анимационные эффекты */
+.highlight {
+    animation: blink 0.5s infinite alternate;
+}
+
 /* Серый фильтр для затемнения всей страницы */
 #game-overlay {
     display: none;
@@ -296,13 +301,10 @@ div.game-chat-input input {
     border: black 1px solid;
 }
 
-#game-inventory .paperdoll .slot.highlight {
-    animation: blink 0.5s infinite alternate;
-}
-
 #game-inventory .items-list {
     padding: 20px;
-    width: 70%;
+    width: 75%;
+    height: 80%;
 }
 
 #game-inventory .items-list .item {
