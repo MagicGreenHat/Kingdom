@@ -260,9 +260,13 @@ $(function () {
         $slot.data('slots', $item.data('slots'));
 
         $slot.find('img').attr('src', $item.find('img').attr('src'));
+        $slot.addClass('dressed');
+
         $item.remove();
 
         $inventory.find('.paperdoll .slot').removeClass('highlight');
+
+        initializePaperdollSlots();
 
         Kingdom.Websocket.command('wear', [itemId, slotName]);
     }
@@ -275,6 +279,7 @@ $(function () {
         var slotName = $slot.data('slot');
         var slotQtip = $slot.qtip('api');
 
+        $slot.removeClass('dressed');
         $slot.draggable('destroy');
         slotQtip.destroy();
 
