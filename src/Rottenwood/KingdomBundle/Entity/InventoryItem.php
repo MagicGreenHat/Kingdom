@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
+use Rottenwood\KingdomBundle\Exception\WrongSlot;
 
 /**
  * Предмет в инвентаре персонажа
@@ -45,6 +46,13 @@ class InventoryItem {
      * @ORM\Column(name="quantity", type="integer")
      */
     private $quantity;
+
+    /**
+     * Слот, в который одет предмет
+     * @ORM\Column(name="slot", type="string", length=50, nullable=true)
+     * @var string
+     */
+    private $slot;
 
     /**
      * @param User $user
@@ -90,5 +98,24 @@ class InventoryItem {
      */
     public function setQuantity($quantity) {
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlot() {
+        return $this->slot;
+    }
+
+    /**
+     * @param string $slot
+     * @throws WrongSlot
+     */
+    public function setSlot($slot) {
+        if (in_array($slot, Item::getAllSlotNames())) {
+            $this->slot = $slot;
+        } else {
+            throw new WrongSlot($slot);
+        }
     }
 }

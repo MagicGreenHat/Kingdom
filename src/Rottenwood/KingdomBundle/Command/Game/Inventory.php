@@ -15,13 +15,13 @@ class Inventory extends AbstractGameCommand {
      * @return CommandResponse
      */
     public function execute() {
-        $equipedItemsIds = $this->container->get('kingdom.user_service')->getEquipedItemsIds($this->user);
         $inventoryItems = $this->container->get('kingdom.inventory_item_repository')->findByUser($this->user);
 
         $itemData = [];
         foreach ($inventoryItems as $inventoryItem) {
             $item = $inventoryItem->getItem();
             $itemId = $item->getId();
+            $itemSlot = $inventoryItem->getSlot();
 
             $itemResult = [
                 'itemId'       => $itemId,
@@ -32,8 +32,8 @@ class Inventory extends AbstractGameCommand {
                 'pic'          => $item->getPicture(),
             ];
 
-            if (in_array($itemId, $equipedItemsIds)) {
-                $itemResult['slot'] = array_search($itemId, $equipedItemsIds);
+            if ($itemSlot) {
+                $itemResult['slot'] = $itemSlot;
             }
 
             $itemData[] = $itemResult;

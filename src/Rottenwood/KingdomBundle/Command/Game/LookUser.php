@@ -24,7 +24,7 @@ class LookUser extends AbstractGameCommand {
         }
 
         $itemData = [];
-        foreach ($userToLookAt->getEquipment() as $slot => $inventoryItem) {
+        foreach ($this->container->get('kingdom.inventory_item_repository')->findByUser($userToLookAt) as $inventoryItem) {
             $item = $inventoryItem->getItem();
 
             $itemData[] = [
@@ -32,7 +32,7 @@ class LookUser extends AbstractGameCommand {
                 'description' => $item->getDescription(),
                 'slots'       => $item->getSlots(),
                 'pic'         => $item->getPicture(),
-                'slot'        => $slot,
+                'slot'        => $inventoryItem->getSlot(),
             ];
         }
 

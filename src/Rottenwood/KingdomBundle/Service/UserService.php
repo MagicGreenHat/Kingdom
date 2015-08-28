@@ -217,22 +217,6 @@ class UserService {
     }
 
     /**
-     * Id одетых на персонаже вещей
-     * @param User $user
-     * @return int[]
-     */
-    public function getEquipedItemsIds(User $user) {
-        $equipmentItems = $user->getEquipment();
-
-        return array_map(
-            function (InventoryItem $inventoryItem) {
-                return $inventoryItem->getItem()->getId();
-            },
-            $equipmentItems
-        );
-    }
-
-    /**
      * Установка рэндомного аватара
      * @return string
      */
