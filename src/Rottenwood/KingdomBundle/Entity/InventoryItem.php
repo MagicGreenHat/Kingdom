@@ -118,4 +118,11 @@ class InventoryItem {
             throw new WrongSlot($slot);
         }
     }
+
+    /**
+     * Удаление предмета из слота
+     */
+    public function removeSlot() {
+        $this->slot = null;
+    }
 }
