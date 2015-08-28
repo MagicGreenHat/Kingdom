@@ -32,12 +32,12 @@ $(function () {
     function renderInventory() {
         var html = '';
         var inventory = Kingdom.Inventory.getItems();
+        var imagePath = '/img/items/';
+        var imageExtension = '.png';
 
         inventory.done(function () {
             var $inventory = $('#game-inventory');
             var $paperdoll = $inventory.find('.paperdoll');
-            var imagePath = '/img/items/';
-            var imageExtension = '.png';
 
             inventory.items.forEach(function (item) {
                 var itemPicture = imagePath + item.pic + imageExtension;
@@ -72,23 +72,25 @@ $(function () {
 
             $inventory.find('.items-list').html(html);
 
+            initializePaperdollSlots();
+            renderInventoryInfo($inventory);
             makeItemsDraggable($inventory);
         });
     }
 
     /**
-     * Настройка draggable-предметов
+     * Отрисовка всплывающих окон для всех предметов в инвентаре
+     * @param $inventory
      */
-    function makeItemsDraggable($inventory) {
+    function renderInventoryInfo($inventory) {
         $inventory.find('.items-list .item').add($inventory.find('.paperdoll .slot.dressed')).each(function (key, itemElement) {
             var $item = $(itemElement);
             var name = $item.data('name');
-            var $text = $('<div>').html(renderInfoText($item));
 
             $item.qtip({
                 content: {
                     title: name,
-                    text: $text
+                    text: $('<div>').html(renderInfoText($item))
                 },
                 position: {
                     target: 'mouse',
@@ -101,13 +103,6 @@ $(function () {
                     }
                 }
             });
-        });
-
-        $inventory.find('.items-list .item').draggable({
-            stack: '.item',
-            containment: '#game-inventory',
-            scroll: false,
-            revert: 'invalid'
         });
     }
 
@@ -146,6 +141,18 @@ $(function () {
     }
 
     /**
+     * Настройка draggable-предметов
+     */
+    function makeItemsDraggable($inventory) {
+        $inventory.find('.items-list .item').draggable({
+            stack: '.item',
+            containment: '#game-inventory',
+            scroll: false,
+            revert: 'invalid'
+        });
+    }
+
+    /**
      * Перевод типа слота на русский
      * @param itemName
      * @returns string
@@ -179,16 +186,39 @@ $(function () {
                 accept: '#game-inventory .items-list .item.' + slotName,
                 activeClass: 'highlight',
                 drop: function (event, itemElement) {
-                    removeItem(itemElement, $slot);
+                    wearItem(itemElement, $slot);
                 }
             });
+
+            if ($slot.hasClass('dressed')) {
+                var $slotImage = $slot.find('img');
+
+                $slot.draggable({
+                    stack: '.item',
+                    containment: '#game-inventory',
+                    scroll: false,
+                    revert: 'invalid',
+                    helper: 'clone',
+                    start: function (event, ui) {
+                        $slot.addClass('highlight');
+                        $slot.data('previous-image', $slotImage.attr('src'));
+                        $slotImage.attr('src', $slot.data('img'));
+                        $(ui.helper).css('background-color', 'transparent');
+                        $(ui.helper).css('border', 'none');
+                    },
+                    stop: function (event, ui) {
+                        $slot.removeClass('highlight');
+                        $slotImage.attr('src', $slot.data('previous-image'));
+                    }
+                });
+            }
         });
     }
 
     /**
-     * Снять предмет
+     * Одеть предмет
      */
-    function removeItem(itemElement, $slot) {
+    function wearItem(itemElement, $slot) {
         var $item = $(itemElement.draggable);
         var $itemQtip = $item.qtip('api');
         var itemId = $item.data('id');
@@ -205,12 +235,10 @@ $(function () {
         $slot.find('img').attr('src', $item.find('img').attr('src'));
         $item.remove();
 
-        Kingdom.Inventory.removeItem(itemId);
         Kingdom.Websocket.command('wear', [itemId, slotName])
     }
 
     // Запуск команд
-    initializePaperdollSlots();
     renderInventory();
 
 });
