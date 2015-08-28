@@ -91,7 +91,7 @@ $(function () {
             $item.qtip({
                 content: {
                     title: name,
-                    text: $('<div>').html(renderInfoText($item))
+                    text: $('<div></div>').html(renderInfoText($item))
                 },
                 position: {
                     target: 'mouse',
@@ -241,19 +241,23 @@ $(function () {
      * @param $slot
      */
     function wearItem($item, $slot) {
-        var $itemQtip = $item.qtip('api');
-        var itemId = $item.data('id');
         var slotName = $slot.data('slot');
+        var itemQtip = $item.qtip('api');
+        var itemId = $item.data('id');
 
-        $itemQtip.destroy();
+        itemQtip.destroy();
 
         $slot.qtip({
-            content: $itemQtip.get('content'),
-            position: $itemQtip.get('position'),
-            style: $itemQtip.get('style')
+            content: itemQtip.get('content'),
+            position: itemQtip.get('position'),
+            style: itemQtip.get('style')
         });
 
         $slot.data('id', itemId);
+        $slot.data('name', $item.data('name'));
+        $slot.data('description', $item.data('description'));
+        $slot.data('slots', $item.data('slots'));
+
         $slot.find('img').attr('src', $item.find('img').attr('src'));
         $item.remove();
 
@@ -266,9 +270,27 @@ $(function () {
      */
     function removeItem($slot) {
         var slotName = $slot.data('slot');
+        var slotQtip = $slot.qtip('api');
 
         $slot.draggable('destroy');
-        $slot.qtip('destroy', true);
+        slotQtip.destroy();
+
+        var $item = $('<div class="item ' + $slot.data('slots').split(',').join(' ') + '"></div>');
+
+        $item.data('id', $slot.data('id'));
+        $item.data('name', $slot.data('name'));
+        $item.data('description', $slot.data('description'));
+        $item.data('slots', $slot.data('slots'));
+
+        $item.html('<img src="' + $slot.data('previous-image') + '">');
+
+        $item.qtip({
+            content: slotQtip.get('content'),
+            position: slotQtip.get('position'),
+            style: slotQtip.get('style')
+        });
+
+        $inventory.find('.items-list').append($item);
 
         Kingdom.Websocket.command('remove', slotName);
     }
