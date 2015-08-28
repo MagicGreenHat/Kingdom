@@ -258,7 +258,10 @@ $(function () {
         itemQtip.destroy();
 
         $slot.qtip({
-            content: itemQtip.get('content'),
+            content: {
+                title: itemQtip.get('content.title'),
+                text: $('<div></div>').html(renderInfoText($item))
+            },
             position: itemQtip.get('position'),
             style: itemQtip.get('style')
         });
@@ -302,7 +305,10 @@ $(function () {
         $item.html('<img src="' + $slot.data('previous-image') + '">');
 
         $item.qtip({
-            content: slotQtip.get('content'),
+            content: {
+                title: slotQtip.get('content.title'),
+                text: $('<div></div>').html(renderInfoText($item))
+            },
             position: slotQtip.get('position'),
             style: slotQtip.get('style')
         });
