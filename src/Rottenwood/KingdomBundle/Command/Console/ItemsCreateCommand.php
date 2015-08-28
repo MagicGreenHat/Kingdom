@@ -39,7 +39,7 @@ class ItemsCreateCommand extends ContainerAwareCommand {
                 ['Щит тестировщика', 'Крепкий стальной щит из нержавейки', [Item::USER_SLOT_LEFT_HAND], 'shield1'],
                 ['Рукавицы тестировщика', 'Ценный аксессуар, помогающий не запачкать руки', [Item::USER_SLOT_GLOVES], 'gloves1'],
                 ['Оружие тестировщика', 'Убийца насекомых!', [Item::USER_SLOT_WEAPON], 'dagger1'],
-                ['Рубаха тестировщика', 'Синяя рубашка униформы тестировщиков', [Item::USER_SLOT_BODY], 'shirt1'],
+                ['Рубаха тестировщика', 'Синяя рубашка униформы тестировщиков', [Item::USER_SLOT_BODY], 'shirt-blue'],
                 ['Ботинки тестировщика', 'Крепкие ботинки - ужас насекомых!', [Item::USER_SLOT_BOOTS], 'boots1'],
                 ['Штаны тестировщика', 'Синие штаны униформы тестировщиков', [Item::USER_SLOT_LEGS], 'legs1'],
                 ['Кольцо тестировщика', 'Кольцо - символ братства тестировщиков', [Item::USER_SLOT_RING_FIRST, Item::USER_SLOT_RING_SECOND], 'ring1'],
