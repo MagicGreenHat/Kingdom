@@ -39,23 +39,27 @@ $(function () {
             var imageExtension = '.png';
 
             inventory.items.forEach(function (item) {
+                var itemPicture = imagePath + item.pic + imageExtension;
+
                 if (item.slot) {
                     var $slot = $paperdoll.find('.' + item.slot + '.slot');
 
                     $slot.addClass('dressed');
 
+                    $slot.data('id', item.itemId);
                     $slot.data('name', item.name);
                     $slot.data('description', item.description);
                     $slot.data('slots', item.allowedSlots.join());
 
-                    $slot.find('img').attr('src', imagePath + item.pic + imageExtension);
+                    $slot.find('img').attr('src', itemPicture);
                 } else {
                     html += '<div class="item ' + item.allowedSlots.join(' ') + '" ' +
+                        'data-id="' + item.itemId + '" ' +
                         'data-name="' + item.name + '" ' +
                         'data-description="' + item.description + '" ' +
                         'data-slots="' + item.allowedSlots + '">';
 
-                    html += '<img src="' + imagePath + item.pic + imageExtension + '">';
+                    html += '<img src="' + itemPicture + '">';
 
                     if (item.quantity > 1) {
                         html += '<span class="quantity">' + item.quantity + '</span>';
@@ -168,12 +172,27 @@ $(function () {
     function initializePaperdollSlots() {
         $('#game-inventory .paperdoll .slot').each(function (key, element) {
             var $slot = $(element);
+            var slotName = $slot.data('slot');
 
             $slot.droppable({
-                accept: '#game-inventory .items-list .item.' + $slot.data('slot'),
+                accept: '#game-inventory .items-list .item.' + slotName,
                 activeClass: 'highlight',
                 drop: function (event, ui) {
                     var $item = $(ui.draggable);
+                    var $itemQtip = $item.qtip('api');
+
+                    $itemQtip.destroy();
+
+                    $slot.qtip({
+                        content: $itemQtip.get('content'),
+                        position: $itemQtip.get('position'),
+                        style: $itemQtip.get('style')
+                    });
+
+                    $slot.find('img').attr('src', $item.find('img').attr('src'));
+                    $item.remove();
+
+                    Kingdom.Websocket.command('wear', [$item.data('id'), slotName])
                 }
             });
         });
