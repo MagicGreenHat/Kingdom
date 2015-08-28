@@ -74,6 +74,7 @@ $(function () {
 
             initializePaperdollSlots();
             renderInventoryInfo($inventory);
+            makeInventoryDroppable($inventory);
             makeItemsDraggable($inventory);
         });
     }
@@ -200,17 +201,34 @@ $(function () {
                     revert: 'invalid',
                     helper: 'clone',
                     start: function (event, ui) {
+                        var $draggingItem = $(ui.helper);
+
                         $slot.addClass('highlight');
                         $slot.data('previous-image', $slotImage.attr('src'));
                         $slotImage.attr('src', $slot.data('img'));
-                        $(ui.helper).css('background-color', 'transparent');
-                        $(ui.helper).css('border', 'none');
+                        $draggingItem.css('background-color', 'transparent');
+                        $draggingItem.css('border', 'none');
                     },
                     stop: function (event, ui) {
                         $slot.removeClass('highlight');
                         $slotImage.attr('src', $slot.data('previous-image'));
                     }
                 });
+            }
+        });
+    }
+
+    /**
+     * Настройка droppable-инвентаря
+     * @param $inventory
+     */
+    function makeInventoryDroppable($inventory) {
+        $inventory.droppable({
+            accept: '#game-inventory .paperdoll .slot',
+            drop: function (event, ui) {
+                var slotName = $(ui.draggable).data('slot');
+
+                Kingdom.Websocket.command('remove', slotName);
             }
         });
     }
@@ -232,10 +250,11 @@ $(function () {
             style: $itemQtip.get('style')
         });
 
+        $slot.data('id', itemId);
         $slot.find('img').attr('src', $item.find('img').attr('src'));
         $item.remove();
 
-        Kingdom.Websocket.command('wear', [itemId, slotName])
+        Kingdom.Websocket.command('wear', [itemId, slotName]);
     }
 
     // Запуск команд
