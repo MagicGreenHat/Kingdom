@@ -177,25 +177,35 @@ $(function () {
             $slot.droppable({
                 accept: '#game-inventory .items-list .item.' + slotName,
                 activeClass: 'highlight',
-                drop: function (event, ui) {
-                    var $item = $(ui.draggable);
-                    var $itemQtip = $item.qtip('api');
-
-                    $itemQtip.destroy();
-
-                    $slot.qtip({
-                        content: $itemQtip.get('content'),
-                        position: $itemQtip.get('position'),
-                        style: $itemQtip.get('style')
-                    });
-
-                    $slot.find('img').attr('src', $item.find('img').attr('src'));
-                    $item.remove();
-
-                    Kingdom.Websocket.command('wear', [$item.data('id'), slotName])
+                drop: function (event, itemElement) {
+                    removeItem(itemElement, $slot);
                 }
             });
         });
+    }
+
+    /**
+     * Снять предмет
+     */
+    function removeItem(itemElement, $slot) {
+        var $item = $(itemElement.draggable);
+        var $itemQtip = $item.qtip('api');
+        var itemId = $item.data('id');
+        var slotName = $slot.data('slot');
+
+        $itemQtip.destroy();
+
+        $slot.qtip({
+            content: $itemQtip.get('content'),
+            position: $itemQtip.get('position'),
+            style: $itemQtip.get('style')
+        });
+
+        $slot.find('img').attr('src', $item.find('img').attr('src'));
+        $item.remove();
+
+        Kingdom.Inventory.removeItem(itemId);
+        Kingdom.Websocket.command('wear', [itemId, slotName])
     }
 
     // Запуск команд

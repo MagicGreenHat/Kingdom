@@ -15,11 +15,23 @@ Kingdom.Inventory = (function () {
 
         /**
          * Заполнение инвентаря предметами
-         * @param inventoryItems
+         * @param inventoryItems object
          */
         setItems: function (inventoryItems) {
             items.items = inventoryItems;
             items.resolve();
+        },
+
+        /**
+         * Удаление предмета из инвентаря
+         * @param itemId int
+         */
+        removeItem: function (itemId) {
+            items.items.forEach(function (item, key) {
+                if (item.itemId == itemId) {
+                    items.items.splice(key, 1);
+                }
+            });
         }
     }
 })();
