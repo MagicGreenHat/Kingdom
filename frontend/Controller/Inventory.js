@@ -201,15 +201,21 @@ $(function () {
                     helper: 'clone',
                     start: function (event, ui) {
                         var $draggingItem = $(ui.helper);
+                        var availableSlots = $slot.data('slots').split(',');
 
-                        $slot.addClass('highlight');
+                        // Подсветка подходящих для предмета слотов
+                        availableSlots.forEach(function (availableSlot) {
+                            $inventory.find('.paperdoll .slot.' + availableSlot).addClass('highlight');
+                        });
+                        $draggingItem.removeClass('highlight');
+
                         $slot.data('previous-image', $slotImage.attr('src'));
                         $slotImage.attr('src', $slot.data('img'));
                         $draggingItem.css('background-color', 'transparent');
                         $draggingItem.css('border', 'none');
                     },
                     stop: function () {
-                        $slot.removeClass('highlight');
+                        $inventory.find('.paperdoll .slot').removeClass('highlight');
                     }
                 });
             }
