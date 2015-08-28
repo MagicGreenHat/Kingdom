@@ -13,6 +13,10 @@
     user-select: none;
 }
 
+.nointeract {
+    pointer-events: none !important;
+}
+
 /* Анимационные эффекты */
 .highlight {
     animation: blink 0.5s infinite alternate;

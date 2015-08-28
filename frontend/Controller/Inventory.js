@@ -46,6 +46,7 @@ $(function () {
                     var $slot = $paperdoll.find('.' + item.slot + '.slot');
 
                     $slot.addClass('dressed');
+                    $slot.removeClass('nointeract');
 
                     $slot.data('id', item.itemId);
                     $slot.data('name', item.name);
@@ -252,6 +253,8 @@ $(function () {
         var itemQtip = $item.qtip('api');
         var itemId = $item.data('id');
 
+        $slot.addClass('dressed');
+        $slot.removeClass('nointeract');
         itemQtip.destroy();
 
         $slot.qtip({
@@ -266,7 +269,6 @@ $(function () {
         $slot.data('slots', $item.data('slots'));
 
         $slot.find('img').attr('src', $item.find('img').attr('src'));
-        $slot.addClass('dressed');
 
         $item.remove();
 
@@ -285,6 +287,7 @@ $(function () {
         var slotName = $slot.data('slot');
         var slotQtip = $slot.qtip('api');
 
+        $slot.addClass('nointeract');
         $slot.removeClass('dressed');
         $slot.draggable('destroy');
         slotQtip.destroy();
