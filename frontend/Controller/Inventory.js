@@ -264,7 +264,7 @@ $(function () {
 
         $inventory.find('.paperdoll .slot').removeClass('highlight');
 
-        //Kingdom.Websocket.command('wear', [itemId, slotName]);
+        Kingdom.Websocket.command('wear', [itemId, slotName]);
     }
 
     /**
@@ -296,7 +296,9 @@ $(function () {
         $inventory.find('.items-list').append($item);
         $inventory.find('.paperdoll .slot').removeClass('highlight');
 
-        //Kingdom.Websocket.command('remove', slotName);
+        makeItemsDraggable($inventory);
+
+        Kingdom.Websocket.command('remove', slotName);
     }
 
     // Запуск команд
