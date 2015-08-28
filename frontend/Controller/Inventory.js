@@ -50,7 +50,7 @@ $(function () {
 
                     $slot.find('img').attr('src', imagePath + item.pic + imageExtension);
                 } else {
-                    html += '<div class="item" ' +
+                    html += '<div class="item ' + item.allowedSlots.join(' ') + '" ' +
                         'data-name="' + item.name + '" ' +
                         'data-description="' + item.description + '" ' +
                         'data-slots="' + item.allowedSlots + '">';
@@ -67,50 +67,55 @@ $(function () {
 
             $('#game-inventory .items-list').html(html);
 
-            $('#game-inventory .items-list .item').add($('#game-inventory .paperdoll .slot.dressed')).each(function (key, itemElement) {
-                var $item = $(itemElement);
-                var name = $item.data('name');
-                var $text = $('<div>').html(renderInfoText($item));
-
-                $item.qtip({
-                    content: {
-                        title: name,
-                        text: $text
-                    },
-                    position: {
-                        target: 'mouse',
-                        adjust: {x: 10, y: 10}
-                    },
-                    style: {
-                        classes: 'qtip-items',
-                        tip: {
-                            corner: false
-                        }
-                    }
-                });
-
-            }).draggable({
-                stack: '.item',
-                containment: '#game-inventory',
-                scroll: false,
-                revert: true,
-                start: function (event, ui) {
-                    highlightSlot(ui, true);
-                },
-                stop: function (event, ui) {
-                    highlightSlot(ui, false);
-                }
-            });
+            makeItemsDraggable();
         });
     }
 
+    /**
+     * Настройка draggable-предметов
+     */
+    function makeItemsDraggable() {
+        $('#game-inventory .items-list .item').add($('#game-inventory .paperdoll .slot.dressed')).each(function (key, itemElement) {
+            var $item = $(itemElement);
+            var name = $item.data('name');
+            var $text = $('<div>').html(renderInfoText($item));
+
+            $item.qtip({
+                content: {
+                    title: name,
+                    text: $text
+                },
+                position: {
+                    target: 'mouse',
+                    adjust: {x: 10, y: 10}
+                },
+                style: {
+                    classes: 'qtip-items',
+                    tip: {
+                        corner: false
+                    }
+                }
+            });
+        });
+
+        $('#game-inventory .items-list .item').draggable({
+            stack: '.item',
+            containment: '#game-inventory',
+            scroll: false,
+            revert: 'invalid'
+        });
+    }
+
+    /**
+     * Отрисовка контента всплывающего окна с информацией о предмете
+     * @param $item
+     * @returns string
+     */
     function renderInfoText($item) {
         var description = $item.data('description');
-        var slots = $item.data('slots');
+        var slots = $item.data('slots').split(',');
+
         var infoText = '';
-
-        slots = slots.split(',');
-
         if (description != '') {
             infoText += description + '<br><br>';
         }
@@ -135,6 +140,11 @@ $(function () {
         return infoText;
     }
 
+    /**
+     * Перевод типа слота на русский
+     * @param itemName
+     * @returns string
+     */
     function translateItemName(itemName) {
         var names = {
             head: 'на голову',
@@ -152,16 +162,25 @@ $(function () {
         return names[itemName];
     }
 
-    function highlightSlot(uiElement, toggleHighlight) {
-        var $dragginItem = $(uiElement.helper);
-        var allowedSlots = $dragginItem.data('slots').split(',');
+    /**
+     * Настройка droppable-"куклы" персонажа
+     */
+    function initializePaperdollSlots() {
+        $('#game-inventory .paperdoll .slot').each(function (key, element) {
+            var $slot = $(element);
 
-        allowedSlots.forEach(function (slot) {
-            var $slot = $('#game-inventory .paperdoll .' + slot + '.slot');
-
-            $slot.toggleClass('highlight', toggleHighlight);
+            $slot.droppable({
+                accept: '#game-inventory .items-list .item.' + $slot.data('slot'),
+                activeClass: 'highlight',
+                drop: function (event, ui) {
+                    var $item = $(ui.draggable);
+                }
+            });
         });
     }
 
+    // Запуск команд
+    initializePaperdollSlots();
     renderInventory();
+
 });
