@@ -36,7 +36,7 @@ $(function () {
                     } else if (data.commandName == 'showPlayersInRoom') {
                         showPlayersInRoom(data.data);
                     } else if (data.commandName == 'moveAnother') {
-                        addInfo(data.message);
+                        Kingdom.Chat.addInfo(data.message);
                         Kingdom.Websocket.command('showPlayersInRoom');
                     } else if (data.commandName == 'reloadPage') {
                         location.reload();
@@ -55,12 +55,12 @@ $(function () {
 
                     // Отрисовка чата
                     if (data.chat) {
-                        addChatPhrase(data.chat);
+                        Kingdom.Chat.addChatPhrase(data.chat);
                     }
 
                     // Вывод информационного сообщения
                     if (data.info) {
-                        addInfo(data.info);
+                        Kingdom.Chat.addInfo(data.info);
                     }
 
                     // Вывод количества игроков онлайн
@@ -137,53 +137,6 @@ $(function () {
             $('.map .y' + room.y + ' .x' + room.x)
                 .html('<img src="/img/locations/' + room.pic + '.png">');
         });
-    }
-
-    /**
-     * Добавление сообщения в чат
-     * @param chatData
-     */
-    function addChatPhrase(chatData) {
-        $gameChat.append('<div><strong>' + chatData.from + '</strong>: ' + chatData.phrase.replace(/<[^>]+>/gi, '') + '</div>');
-        $gameChat.scrollTop($gameChat.prop("scrollHeight"));
-    }
-
-    /**
-     * Удаление персонажа из комнаты
-     * @param playerName
-     */
-    function removePlayerFromRoom(playerName) {
-        $('#game-room div.room-players div').each(function () {
-            var $this = $(this);
-
-            if($this.data('name') == playerName) {
-                $this.remove();
-            }
-        });
-    }
-
-    /**
-     * Добавление информационной строки в чат
-     * @param infoData
-     */
-    function addInfo(infoData) {
-        var html;
-        if (infoData.event == 'playerEnter') {
-            html = '<div><strong>' + infoData.name + ' вошел в игру.</strong></div>';
-            Kingdom.Websocket.command('showPlayersInRoom');
-        } else if (infoData.event == 'playerExit') {
-            html = '<div><strong>' + infoData.name + ' вышел из игры.</strong></div>';
-            removePlayerFromRoom(infoData.name);
-        } else if (infoData.event == 'advice') {
-            html = '<div><strong>Игровая информация:</strong> ' + infoData.advice + '</div>';
-        } else if (infoData.event == 'broadcast') {
-            html = '<div class="broadcast-message"><strong>Внимание:</strong> ' + infoData.message + '</div>';
-        } else {
-            html = '<div>' + infoData + '.</div>';
-        }
-
-        $gameChat.append(html);
-        $gameChat.scrollTop($gameChat.prop('scrollHeight'));
     }
 
     /**
