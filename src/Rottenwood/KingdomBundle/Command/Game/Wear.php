@@ -5,6 +5,7 @@ namespace Rottenwood\KingdomBundle\Command\Game;
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
+use Rottenwood\KingdomBundle\Exception\WrongSlot;
 
 /**
  * Одеть предмет
@@ -15,6 +16,7 @@ class Wear extends AbstractGameCommand {
 
     /**
      * @return CommandResponse
+     * @throws WrongSlot
      */
     public function execute() {
         $parameters = explode(':', $this->parameters);
@@ -24,10 +26,15 @@ class Wear extends AbstractGameCommand {
         $inventoryItemRepository = $this->container->get('kingdom.inventory_item_repository');
         $item = $inventoryItemRepository->findOneByUserAndItemId($this->user, $itemId);
 
-        //TODO[Rottenwood]: Проверка на то, подходит ли предмет к слоту
-        $item->setSlot($slot);
+        // Проверка на то, подходит ли предмет к слоту
+        if (in_array($slot, $item->getItem()->getSlots())) {
+            $item->setSlot($slot);
 
-        $inventoryItemRepository->flush();
+            $inventoryItemRepository->flush();
+        } else {
+            throw new WrongSlot($slot);
+        }
+
 
         return $this->result;
     }

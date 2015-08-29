@@ -95,7 +95,7 @@ abstract class Item {
 
     /**
      * Слоты куда можно одеть предмет
-     * @var int[]
+     * @var string[]
      * @ORM\Column(name="slots", type="simple_array")
      */
     protected $slots;
@@ -115,7 +115,7 @@ abstract class Item {
      * @param string $name5
      * @param string $name6
      * @param string $description
-     * @param int[] $slots
+     * @param string[] $slots
      * @param string $picture
      */
     public function __construct($name, $name2, $name3, $name4, $name5, $name6, $description, $picture, array $slots = []) {
