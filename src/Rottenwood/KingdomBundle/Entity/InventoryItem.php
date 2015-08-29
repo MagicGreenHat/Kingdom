@@ -10,7 +10,10 @@ use Rottenwood\KingdomBundle\Exception\WrongSlot;
  * Предмет в инвентаре персонажа
  * @ORM\Table(
  *      name="users_items",
- *      uniqueConstraints={@ORM\UniqueConstraint(name="inventory_user_item", columns={"user_id", "item_id"})}
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="inventory_user_item", columns={"user_id", "item_id"}),
+ *          @ORM\UniqueConstraint(name="inventory_user_slot", columns={"user_id", "slot"})
+ *      }
  * )
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository")
  */
