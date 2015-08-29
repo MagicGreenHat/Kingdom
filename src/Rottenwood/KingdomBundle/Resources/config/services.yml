@@ -86,11 +86,11 @@ services:
         class: Monolog\Logger
         arguments: ['default']
         calls:
-          - ['pushHandler', [@kingdom.logger_handler.commands_errors]]
+          - ['pushHandler', [@kingdom.logger_handler.errors]]
 
-    kingdom.logger_handler.commands_errors:
+    kingdom.logger_handler.errors:
         class: Monolog\Handler\StreamHandler
-        arguments: [ "%kernel.logs_dir%/game_logs/commands_errors.log"]
+        arguments: [ "%kernel.logs_dir%/game_logs/errors.log"]
         calls:
           - ['setFormatter', [@kingdom.logger_error_formatter]]
 
