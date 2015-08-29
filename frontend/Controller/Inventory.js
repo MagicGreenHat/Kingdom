@@ -73,10 +73,10 @@ $(function () {
 
             $inventory.find('.items-list').html(html);
 
-            initializePaperdollSlots();
             renderInventoryInfo($inventory);
             makeInventoryDroppable($inventory);
-            makeItemsDraggable($inventory);
+            initializePaperdollSlots();
+            makeItemsDraggable();
         });
     }
 
@@ -145,7 +145,7 @@ $(function () {
     /**
      * Настройка draggable-предметов
      */
-    function makeItemsDraggable($inventory) {
+    function makeItemsDraggable() {
         $inventory.find('.items-list .item').draggable({
             stack: '.item',
             containment: '#game-inventory',
@@ -183,6 +183,12 @@ $(function () {
         $inventory.find('.paperdoll .slot').each(function (key, element) {
             var $slot = $(element);
             var slotName = $slot.data('slot');
+
+            //TODO[Rottenwood]: Хак для колец. Нужно исправить: предметы должны
+            //TODO[Rottenwood]: одеваться во все доступные для них слоты
+            if (slotName == 'ring_first' || (slotName == 'ring_second')) {
+                slotName += ', .slot.ring';
+            }
 
             $slot.droppable({
                 accept: '#game-inventory .items-list .item.' + slotName,
@@ -273,7 +279,12 @@ $(function () {
 
         $slot.find('img').attr('src', $item.find('img').attr('src'));
 
-        $item.remove();
+        // Если предмет одет из инвентаря или из другого слота
+        if ($item.hasClass('item')) {
+            $item.remove();
+        } else if ($item.hasClass('slot')) {
+            $item.find('img').attr('src', $item.data('img'));
+        }
 
         $inventory.find('.paperdoll .slot').removeClass('highlight');
 
@@ -316,7 +327,7 @@ $(function () {
         $inventory.find('.items-list').append($item);
         $inventory.find('.paperdoll .slot').removeClass('highlight');
 
-        makeItemsDraggable($inventory);
+        makeItemsDraggable();
 
         Kingdom.Websocket.command('remove', slotName);
     }
