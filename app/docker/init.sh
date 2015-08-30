@@ -27,7 +27,7 @@ echo "Обновление структуры БД ..."
 sudo -u www-data /kingdom/app/console doctrine:schema:update --force
 
 echo "Загрузка игровых данных в БД ..."
-sudo -u www-data /kingdom/app/console kingdom:map:create
+sudo -u www-data /kingdom/app/console kingdom:create:map
 
 echo "Инициализация серверов ..."
 /etc/init.d/php5-fpm start
@@ -48,7 +48,7 @@ if [ ${SYMFONY_ENVIRONMENT} = "prod" ]; then
     /kingdom/app/console cache:warm -e prod
 elif [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
     /kingdom/app/console kingdom:create:user test test test@test.ru
-    /kingdom/app/console kingdom:items:create
+    /kingdom/app/console kingdom:create:items
 fi
 
 echo "Настройка прав на логи"

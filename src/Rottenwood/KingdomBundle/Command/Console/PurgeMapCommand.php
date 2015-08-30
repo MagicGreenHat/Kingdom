@@ -6,10 +6,10 @@ use Rottenwood\KingdomBundle\Command\Console\Integration\Truncate;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MapPurgeCommand extends Truncate {
+class PurgeMapCommand extends Truncate {
 
     protected function configure() {
-        $this->setName('kingdom:map:purge')->setDescription('Удаление всех комнат');
+        $this->setName('kingdom:purge:map')->setDescription('Удаление всех комнат');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {

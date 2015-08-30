@@ -8,10 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MapCreateCommand extends ContainerAwareCommand {
+class CreateMapCommand extends ContainerAwareCommand {
 
     protected function configure() {
-        $this->setName('kingdom:map:create')->setDescription('Создание карты мира');
+        $this->setName('kingdom:create:map')->setDescription('Создание карты мира');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
@@ -22,7 +22,7 @@ class MapCreateCommand extends ContainerAwareCommand {
         $rooms = $repository->findAll();
 
         if (count($rooms)) {
-            $output->writeln(sprintf('Уже создано %d комнат. Удалите их командой kingdom:map:purge', count($rooms)));
+            $output->writeln(sprintf('Уже создано %d комнат. Удалите их командой kingdom:purge:map', count($rooms)));
         } else {
             $output->write('Создание новых типов комнат ... ');
 

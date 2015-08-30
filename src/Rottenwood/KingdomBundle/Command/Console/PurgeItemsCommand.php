@@ -6,10 +6,10 @@ use Rottenwood\KingdomBundle\Command\Console\Integration\Truncate;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ItemsPurgeCommand extends Truncate {
+class PurgeItemsCommand extends Truncate {
 
     protected function configure() {
-        $this->setName('kingdom:items:purge')->setDescription('Удаление всех предметов');
+        $this->setName('kingdom:purge:items')->setDescription('Удаление всех предметов');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {

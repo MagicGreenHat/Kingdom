@@ -9,10 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ItemsCreateCommand extends ContainerAwareCommand {
+class CreateItemsCommand extends ContainerAwareCommand {
 
     protected function configure() {
-        $this->setName('kingdom:items:create')->setDescription('Создание тестовых предметов');
+        $this->setName('kingdom:create:items')->setDescription('Создание тестовых предметов');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
@@ -27,7 +27,7 @@ class ItemsCreateCommand extends ContainerAwareCommand {
 
         if (count($items)) {
             $output->writeln(
-                sprintf('Уже создано %d предметов. Удалите их командой kingdom:items:purge', count($items))
+                sprintf('Уже создано %d предметов. Удалите их командой kingdom:purge:items', count($items))
             );
         } else {
             $output->write('Создание предметов ... ');
