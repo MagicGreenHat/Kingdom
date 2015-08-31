@@ -99,3 +99,4 @@ snc_redis:
             type: phpredis # заменить на predis
             alias: default
             dsn: redis://localhost
+            logging: ~     # Отключение логирования из-за ошибок в prod-environment
