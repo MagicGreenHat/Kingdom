@@ -29,7 +29,7 @@ class Room {
 
     /**
      * Тип
-     * @ORM\ManyToOne(targetEntity="RoomType")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType")
      * @ORM\JoinColumn(name="type", referencedColumnName="id")
      * @var RoomType
      **/
