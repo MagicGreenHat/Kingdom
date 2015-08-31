@@ -3,6 +3,7 @@
 namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType;
 
 /**
  * Игровая локация
