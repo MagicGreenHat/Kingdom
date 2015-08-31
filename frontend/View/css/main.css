@@ -321,11 +321,9 @@ div.game-chat-input input {
 }
 
 #game-inventory .money {
-    display: inline-block;
     position: absolute;
     right: 0;
-    top: 275px;
-    padding: 20px;
-    width: 160px;
+    top: 300px;
+    width: 185px;
     font-weight: 900;
 }
