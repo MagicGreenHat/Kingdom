@@ -3,7 +3,9 @@
 namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Entity\Room;
-use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType;
+use Rottenwood\KingdomBundle\Entity\RoomTypes\Forest;
+use Rottenwood\KingdomBundle\Entity\RoomTypes\River;
+use Rottenwood\KingdomBundle\Entity\RoomTypes\Road;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,14 +29,9 @@ class CreateMapCommand extends ContainerAwareCommand {
             $output->write('Создание новых типов комнат ... ');
 
             $types = [
-                new RoomType('Лес', 'Густой лес раскинул ветви деревьев.', 'forest'),
-                new RoomType('Река',
-                    'Широкое мелкое русло с мутной водой заросло травой и водорослями.
-                    То и дело на пути попадаются небольшие, но заросшие непроходимым
-                    лесом острова. Гигантские деревья нависают над головой, погружая
-                    реку в полумрак.',
-                    'river'),
-                new RoomType('Дорога', 'Пыльная лесная дорога проходит тут.', 'road'),
+                new Forest(),
+                new River(),
+                new Road(),
             ];
 
             foreach ($types as $type) {
