@@ -15,12 +15,7 @@ class PurgeMapCommand extends Truncate {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $output->write('Удаление комнат ... ');
-        $this->truncateEntity(Room::class);
-        $output->writeln('Комнаты удалены.');
-
-        $output->write('Удаление типов комнат ... ');
-        $this->truncateEntity(RoomType::class);
-        $output->writeln('Типы комнаты удалены.');
+        $this->truncateEntity(Room::class, $output, 'Удаление комнат ... ', 'Комнаты удалены.');
+        $this->truncateEntity(RoomType::class, $output, 'Удаление типов комнат ... ', 'Типы комнат удалены.');
     }
 }

@@ -15,12 +15,7 @@ class PurgeItemsCommand extends Truncate {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $output->write('Удаление предметов в инвентарях ... ');
-        $this->truncateEntity(InventoryItem::class);
-        $output->writeln('Инвентари удалены.');
-
-        $output->write('Удаление предметов ... ');
-        $this->truncateEntity(Item::class);
-        $output->writeln('Предметы удалены.');
+        $this->truncateEntity(InventoryItem::class, $output, 'Удаление предметов в инвентарях ... ', 'Инвентари удалены.');
+        $this->truncateEntity(Item::class, $output, 'Удаление предметов ... ', 'Предметы удалены.');
     }
 }
