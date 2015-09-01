@@ -52,7 +52,7 @@ abstract class RoomType {
      * @param string $description
      * @param string $picture
      */
-    public function __construct($name = null, $description = null, $picture = null) {
+    public function __construct($name = '', $description = '', $picture = '') {
         if ($name) {
             $this->name = $name;
         }
