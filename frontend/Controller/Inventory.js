@@ -117,29 +117,34 @@ $(function () {
      */
     function renderInfoText($item) {
         var description = $item.data('description');
-        var slots = $item.data('slots').split(',');
+        var slotsString = $item.data('slots');
 
         var infoText = '';
+
         if (description != '') {
-            infoText += description + '<br><br>';
+            infoText += description + '<br>';
         }
 
-        infoText += '<strong>Можно одеть:</strong> ';
+        if (slotsString != '') {
+            var slots = slotsString.split(',');
 
-        var slotNames = [];
-        slots.forEach(function (slotName) {
-            if (slotName == 'ring_first' || slotName == 'ring_second') {
-                slotName = 'ring';
-            }
+            infoText += '<br><strong>Можно одеть:</strong> ';
 
-            var translatedSlotName = translateItemName(slotName);
+            var slotNames = [];
+            slots.forEach(function (slotName) {
+                if (slotName == 'ring_first' || slotName == 'ring_second') {
+                    slotName = 'ring';
+                }
 
-            if($.inArray(translatedSlotName, slotNames) === -1) {
-                slotNames.push(translatedSlotName);
-            }
-        });
+                var translatedSlotName = translateItemName(slotName);
 
-        infoText += slotNames.join(', ') + '<br>';
+                if($.inArray(translatedSlotName, slotNames) === -1) {
+                    slotNames.push(translatedSlotName);
+                }
+            });
+
+            infoText += slotNames.join(', ') + '<br>';
+        }
 
         return infoText;
     }
