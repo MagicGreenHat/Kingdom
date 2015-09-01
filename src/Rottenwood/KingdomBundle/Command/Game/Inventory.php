@@ -26,7 +26,7 @@ class Inventory extends AbstractGameCommand {
             $itemResult = [
                 'itemId'       => $itemId,
                 'name'         => $item->getName(),
-                'name2'         => $item->getName2(),
+                'name4'        => $item->getName4(),
                 'description'  => $item->getDescription(),
                 'quantity'     => $inventoryItem->getQuantity(),
                 'allowedSlots' => $item->getSlots(),

@@ -50,7 +50,7 @@ $(function () {
 
                     $slot.data('id', item.itemId);
                     $slot.data('name', item.name);
-                    $slot.data('name2', item.name2);
+                    $slot.data('name4', item.name4);
                     $slot.data('description', item.description);
                     $slot.data('slots', item.allowedSlots.join());
 
@@ -59,7 +59,7 @@ $(function () {
                     html += '<div class="item ' + item.allowedSlots.join(' ') + '" ' +
                         'data-id="' + item.itemId + '" ' +
                         'data-name="' + item.name + '" ' +
-                        'data-name2="' + item.name2 + '" ' +
+                        'data-name4="' + item.name4 + '" ' +
                         'data-description="' + item.description + '" ' +
                         'data-slots="' + item.allowedSlots + '">';
 
@@ -276,7 +276,7 @@ $(function () {
 
         $slot.data('id', itemId);
         $slot.data('name', $item.data('name'));
-        $slot.data('name2', $item.data('name2'));
+        $slot.data('name4', $item.data('name4'));
         $slot.data('description', $item.data('description'));
         $slot.data('slots', $item.data('slots'));
 
@@ -286,11 +286,11 @@ $(function () {
         if ($item.hasClass('item')) {
             $item.remove();
 
-            Kingdom.Chat.addInfo('Ты одел ' + $slot.data('name2'));
+            Kingdom.Chat.addInfo('Ты одел ' + $slot.data('name4'));
         } else if ($item.hasClass('slot')) {
             $item.find('img').attr('src', $item.data('img'));
 
-            Kingdom.Chat.addInfo('Ты переодел ' + $slot.data('name2'));
+            Kingdom.Chat.addInfo('Ты переодел ' + $slot.data('name4'));
         }
 
         $inventory.find('.paperdoll .slot').removeClass('highlight');
@@ -317,7 +317,7 @@ $(function () {
 
         $item.data('id', $slot.data('id'));
         $item.data('name', $slot.data('name'));
-        $item.data('name2', $slot.data('name2'));
+        $item.data('name4', $slot.data('name4'));
         $item.data('description', $slot.data('description'));
         $item.data('slots', $slot.data('slots'));
 
@@ -337,7 +337,7 @@ $(function () {
 
         makeItemsDraggable();
 
-        Kingdom.Chat.addInfo('Ты снял ' + $item.data('name2'));
+        Kingdom.Chat.addInfo('Ты снял ' + $item.data('name4'));
 
         Kingdom.Websocket.command('remove', slotName);
     }
