@@ -4,7 +4,6 @@ namespace Rottenwood\KingdomBundle\Command\Game;
 
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
-use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 
 /**
  * Снять предмет
