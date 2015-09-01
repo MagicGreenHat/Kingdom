@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      "clothes" = "Rottenwood\KingdomBundle\Entity\Items\Clothes",
  *      "food" = "Rottenwood\KingdomBundle\Entity\Items\Food",
  *      "key" = "Rottenwood\KingdomBundle\Entity\Items\Key",
- *      "resource" = "Rottenwood\KingdomBundle\Entity\Items\Resource",
+ *      "resource_wood" = "Rottenwood\KingdomBundle\Entity\Items\ResourceWood",
  *      "ring" = "Rottenwood\KingdomBundle\Entity\Items\Ring",
  *      "scroll" = "Rottenwood\KingdomBundle\Entity\Items\Scroll",
  *      "shield" = "Rottenwood\KingdomBundle\Entity\Items\Shield",
@@ -96,7 +96,7 @@ abstract class Item {
     /**
      * Слоты куда можно одеть предмет
      * @var string[]
-     * @ORM\Column(name="slots", type="simple_array")
+     * @ORM\Column(name="slots", type="simple_array", nullable=true)
      */
     protected $slots;
 

@@ -5,6 +5,7 @@ namespace Rottenwood\KingdomBundle\Command\Console;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Items\Armor;
+use Rottenwood\KingdomBundle\Entity\Items\ResourceWood;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -46,7 +47,7 @@ class CreateItemsCommand extends ContainerAwareCommand {
             ];
 
             foreach ($itemsData as $itemData) {
-                $item = new Armor($itemData[0], $itemData[1], $itemData[0], $itemData[0], $itemData[0], $itemData[0], $itemData[2], $itemData[4], $itemData[3]);
+                $item = new Armor($itemData[0], $itemData[0], $itemData[0], $itemData[1], $itemData[0], $itemData[0], $itemData[2], $itemData[4], $itemData[3]);
                 $itemRepository->persist($item);
 
                 $output->writeln(sprintf('Создан предмет %s!', $item->getName()));
@@ -59,6 +60,18 @@ class CreateItemsCommand extends ContainerAwareCommand {
                         sprintf('Предмет "%s" передан персонажу %s.', $item->getName(), $user->getName())
                     );
                 }
+            }
+
+            foreach ($users as $user) {
+                $resourceItem = new ResourceWood('Древесина', 'Древесина', 'Древесина', 'древесину', 'Древесина', 'Древесина', 'Ценный ресурс для производства деревянных предметов', 'resources/wood');
+                $itemRepository->persist($resourceItem);
+
+                $inventoryItem = new InventoryItem($user, $resourceItem);
+                $inventortItemRepository->persist($inventoryItem);
+
+                $output->writeln(
+                    sprintf('Предмет "%s" передан персонажу %s.', $resourceItem->getName(), $user->getName())
+                );
             }
 
             $itemRepository->flush();
