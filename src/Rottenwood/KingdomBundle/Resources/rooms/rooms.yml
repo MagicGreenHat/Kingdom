@@ -1,0 +1,29 @@
+- {y: 2, x: -2, type: forest}
+- {y: 2, x: -1, type: forest}
+- {y: 2, x: 0, type: street}
+- {y: 2, x: 1, type: forest}
+- {y: 2, x: 2, type: forest}
+
+- {y: 1, x: -2, type: forest}
+- {y: 1, x: -1, type: street}
+- {y: 1, x: 0, type: street}
+- {y: 1, x: 1, type: street}
+- {y: 1, x: 2, type: forest}
+
+- {y: 0, x: 2, type: street}
+- {y: 0, x: 1, type: street}
+- {y: 0, x: 0, type: street}
+- {y: 0, x: -1, type: street}
+- {y: 0, x: -2, type: street}
+
+- {y: -1, x: -2, type: forest}
+- {y: -1, x: -1, type: street}
+- {y: -1, x: 0, type: street}
+- {y: -1, x: 1, type: street}
+- {y: -1, x: 2, type: forest}
+
+- {y: -2, x: -2, type: forest}
+- {y: -2, x: -1, type: forest}
+- {y: -2, x: 0, type: street}
+- {y: -2, x: 1, type: forest}
+- {y: -2, x: 2, type: forest}
