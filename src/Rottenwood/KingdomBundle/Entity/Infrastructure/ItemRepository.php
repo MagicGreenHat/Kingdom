@@ -5,11 +5,11 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 class ItemRepository extends AbstractRepository {
 
     /**
-     * @param int $userId
+     * @param int $itemId
      * @return Item
      */
-    public function findById($userId) {
-        return $this->find($userId);
+    public function findById($itemId) {
+        return $this->find($itemId);
     }
 
     /**
