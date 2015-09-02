@@ -18,8 +18,8 @@ class InventoryItemRepository extends AbstractRepository {
 
     /**
      * Предмет с itemId в инвентаре игрока
-     * @param User $user
-     * @param int  $itemId
+     * @param User   $user
+     * @param string $itemId
      * @return InventoryItem
      */
     public function findOneByUserAndItemId(User $user, $itemId) {

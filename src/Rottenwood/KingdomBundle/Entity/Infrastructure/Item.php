@@ -37,10 +37,9 @@ abstract class Item {
     const USER_SLOT_BOOTS = 'boots';
 
     /**
-     * @var integer
-     * @ORM\Column(name="id", type="integer")
+     * @var string
+     * @ORM\Column(name="id", type="string", length=100)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -108,17 +107,19 @@ abstract class Item {
     protected $picture;
 
     /**
-     * @param string $name
-     * @param string $name2
-     * @param string $name3
-     * @param string $name4
-     * @param string $name5
-     * @param string $name6
-     * @param string $description
+     * @param string   $id
+     * @param string   $name
+     * @param string   $name2
+     * @param string   $name3
+     * @param string   $name4
+     * @param string   $name5
+     * @param string   $name6
+     * @param string   $description
+     * @param string   $picture
      * @param string[] $slots
-     * @param string $picture
      */
-    public function __construct($name, $name2, $name3, $name4, $name5, $name6, $description, $picture, array $slots = []) {
+    public function __construct($id, $name, $name2, $name3, $name4, $name5, $name6, $description, $picture, array $slots = []) {
+        $this->id = $id;
         $this->name = $name;
         $this->name2 = $name2;
         $this->name3 = $name3;
@@ -126,12 +127,12 @@ abstract class Item {
         $this->name5 = $name5;
         $this->name6 = $name6;
         $this->description = $description;
-        $this->slots = $slots;
         $this->picture = $picture;
+        $this->slots = $slots;
     }
 
     /**
-     * @return integer
+     * @return string
      */
     public function getId() {
         return $this->id;
