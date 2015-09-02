@@ -71,7 +71,7 @@ class CreateItemsCommand extends ContainerAwareCommand {
 
             $inventortItemRepository->flush();
 
-            $output->writeln(sprintf('Создано %d новых предметов.', count($itemRepository->findAll())));
+            $output->writeln('Создано новых предметов: ' . count($itemRepository->findAll()));
         }
     }
 
