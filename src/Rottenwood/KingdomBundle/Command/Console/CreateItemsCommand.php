@@ -4,11 +4,12 @@ namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
-use Rottenwood\KingdomBundle\Entity\Items\Armor;
-use Rottenwood\KingdomBundle\Entity\Items\ResourceWood;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Yaml\Parser;
 
 class CreateItemsCommand extends ContainerAwareCommand {
 
@@ -31,52 +32,65 @@ class CreateItemsCommand extends ContainerAwareCommand {
                 sprintf('Уже создано %d предметов. Удалите их командой kingdom:purge:items', count($items))
             );
         } else {
-            $output->write('Создание предметов ... ');
+            $output->writeln('Загрузка данных о предметах ... ');
+            $allNewItemsData = $this->parseItemsFromYaml();
 
-            $itemsData = [
-                ['Модная шляпа тестировщика', 'модную шляпу тестировщика', 'Модная шляпа является опознавательным знаком профессионального тестировщика', [Item::USER_SLOT_HEAD], 'hat1'],
-                ['Плащ тестировщика', 'плащ тестировщика', 'Синий плащ является частью униформы тестировщика', [Item::USER_SLOT_CLOAK], 'cloak-blue'],
-                ['Амулет тестировщика', 'амулет тестировщика', 'Знак благодарности за помощь в тестировании!', [Item::USER_SLOT_AMULET], 'amulettester'],
-                ['Стальной щит', 'стальной щит', 'Крепкий стальной щит', [Item::USER_SLOT_LEFT_HAND], 'shield1'],
-                ['Рукавицы тестировщика', 'рукавицы тестировщика', 'Ценный аксессуар, помогающий не запачкать руки', [Item::USER_SLOT_GLOVES], 'gloves-blue'],
-                ['Оружие тестировщика', 'оружие тестировщика', 'Убийца насекомых!', [Item::USER_SLOT_WEAPON], 'dagger1'],
-                ['Рубаха тестировщика', 'рубаху тестировщика', 'Синяя рубашка униформы тестировщиков', [Item::USER_SLOT_BODY], 'shirt1'],
-                ['Ботинки тестировщика', 'ботинки тестировщика', 'Крепкие ботинки - ужас насекомых!', [Item::USER_SLOT_BOOTS], 'boots-blue'],
-                ['Штаны тестировщика', 'штаны тестировщика', 'Синие штаны униформы тестировщиков', [Item::USER_SLOT_LEGS], 'legs1'],
-                ['Кольцо братства тестировщиков', 'кольцо братства тестировщиков', 'Печатка, позволяющая тестировщикам узнавать друг-друга. Про свойства и секреты этого кольца ходят слухи', [Item::USER_SLOT_RING_FIRST, Item::USER_SLOT_RING_SECOND], 'ring1'],
-            ];
+            foreach ($allNewItemsData as $newItemType => $newItemsData) {
+                $newItemType = mb_convert_case($newItemType, MB_CASE_TITLE);
+                $itemClass = 'Rottenwood\\KingdomBundle\\Entity\\Items\\' . $newItemType;
 
-            foreach ($itemsData as $itemData) {
-                $item = new Armor($itemData[0], $itemData[0], $itemData[0], $itemData[1], $itemData[0], $itemData[0], $itemData[2], $itemData[4], $itemData[3]);
-                $itemRepository->persist($item);
-
-                $output->writeln(sprintf('Создан предмет %s!', $item->getName()));
-
-                foreach ($users as $user) {
-                    $inventoryItem = new InventoryItem($user, $item);
-                    $inventortItemRepository->persist($inventoryItem);
-
-                    $output->writeln(
-                        sprintf('Предмет "%s" передан персонажу %s.', $item->getName(), $user->getName())
+                foreach ($newItemsData as $newItemId => $newItemData) {
+                    /** @var Item $newItem */
+                    $newItem = new $itemClass(
+                        $newItemId,
+                        $newItemData['name'][0],
+                        $newItemData['name'][1],
+                        $newItemData['name'][2],
+                        $newItemData['name'][3],
+                        $newItemData['name'][4],
+                        $newItemData['name'][5],
+                        $newItemData['desc'],
+                        $newItemData['pic'],
+                        is_array($newItemData['slots']) ? $newItemData['slots'] : [$newItemData['slots']]
                     );
+
+                    $inventortItemRepository->persist($newItem);
+
+                    $output->writeln(sprintf('Создан предмет %s!', $newItem->getName()));
+
+                    foreach ($users as $user) {
+                        $inventoryItem = new InventoryItem($user, $newItem);
+                        $inventortItemRepository->persist($inventoryItem);
+
+                        $output->writeln(
+                            sprintf('Предмет "%s" передан персонажу %s.', $newItem->getName(), $user->getName())
+                        );
+                    }
                 }
             }
 
-            foreach ($users as $user) {
-                $resourceItem = new ResourceWood('Древесина', 'Древесина', 'Древесина', 'древесину', 'Древесина', 'Древесина', 'Ценный ресурс для производства деревянных предметов', 'resources/wood');
-                $itemRepository->persist($resourceItem);
-
-                $inventoryItem = new InventoryItem($user, $resourceItem);
-                $inventortItemRepository->persist($inventoryItem);
-
-                $output->writeln(
-                    sprintf('Предмет "%s" передан персонажу %s.', $resourceItem->getName(), $user->getName())
-                );
-            }
-
-            $itemRepository->flush();
+            $inventortItemRepository->flush();
 
             $output->writeln(sprintf('Создано %d новых предметов.', count($itemRepository->findAll())));
         }
+    }
+
+    /**
+     * Парсинг yaml-файлов с данными об игровых предметах
+     * @return array
+     */
+    private function parseItemsFromYaml() {
+        $yamlParser = new Parser();
+        $fileFinder = new Finder();
+
+        /** @var SplFileInfo[] $yamlFiles */
+        $yamlFiles = $fileFinder->files()->in(__DIR__ . '/../../Resources/items')->name('*.yml');
+
+        $yamlData = [];
+        foreach ($yamlFiles as $yamlFile) {
+            $yamlData = array_merge($yamlParser->parse(file_get_contents($yamlFile->getPathname())), $yamlData);
+        }
+
+        return $yamlData;
     }
 }
