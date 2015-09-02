@@ -6,17 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType;
 
 /**
- * Тип комнаты: Улица
+ * Тип комнаты: Замшелая каменная стена
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomTypeRepository")
  */
-class Street extends RoomType {
+class StoneWall extends RoomType {
 
     /** {@inheritdoc} */
-    protected $name = 'Городская улица';
+    protected $name = 'Замшелая каменная стена';
 
     /** {@inheritdoc} */
-    protected $description = 'Городская улица, вымощенная крупным булыжником.';
+    protected $description = 'Каменная стена служит надежной защитой поселения.';
 
     /** {@inheritdoc} */
-    protected $picture = 'street';
+    protected $picture = 'stone-moss';
 }

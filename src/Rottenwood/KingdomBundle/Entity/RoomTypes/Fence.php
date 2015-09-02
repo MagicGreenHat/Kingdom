@@ -15,7 +15,7 @@ class Fence extends RoomType {
     protected $name = 'Частокол';
 
     /** {@inheritdoc} */
-    protected $description = 'Забор из остро заточенных бревен, поставленных стеной';
+    protected $description = 'Забор из остро заточенных бревен, поставленных стеной.';
 
     /** {@inheritdoc} */
     protected $picture = 'fence';
