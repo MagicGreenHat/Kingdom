@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      "river" = "Rottenwood\KingdomBundle\Entity\RoomTypes\River",
  *      "road" = "Rottenwood\KingdomBundle\Entity\RoomTypes\Road",
  *      "street" = "Rottenwood\KingdomBundle\Entity\RoomTypes\Street",
+ *      "fence" = "Rottenwood\KingdomBundle\Entity\RoomTypes\Fence",
  * })
  */
 abstract class RoomType {
