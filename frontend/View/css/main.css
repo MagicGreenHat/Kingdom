@@ -126,6 +126,17 @@
     font-size: smaller;
 }
 
+#game-room .room-description {
+    display: inline-block;
+    left: 0;
+    width: 60%;
+}
+
+#game-room .room-controls {
+    display: inline-block;
+    width: 35%;
+}
+
 #game-room .room-description,
 #game-room .room-players {
     padding: 10px;

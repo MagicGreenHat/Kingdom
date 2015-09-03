@@ -56,7 +56,6 @@
     </div>
 
     <div id="game-user-info" class="noselect" data-name="{{ app.user.name }}" data-avatar="{{ app.user.avatar }}">
-
         <div class="title">
             <span class="user-name">{{ app.user.name }}</span>
             <span class="close-button">❌</span>
@@ -66,12 +65,11 @@
 
     <div id="game-room" class="noselect">
         <div class="room-name"></div>
-        <div class="room-description"></div>
+        <div class="room-content">
+            <div class="room-description"></div>
+            <div class="room-controls"></div>
+        </div>
         <div class="room-players"></div>
-        {# TODO[Rottenwood]: Ссылка выхода из игры #}
-        {#| <a href="{{ path('fos_user_security_logout') }}">#}
-        {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
-        {#</a>#}
     </div>
 
     <div id="game-chat">
