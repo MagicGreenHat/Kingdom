@@ -15,4 +15,12 @@ class RoomRepository extends AbstractRepository {
     public function findOneByXandY($x, $y) {
         return $this->findOneBy(['x' => $x, 'y' => $y]);
     }
+
+    /**
+     * Поиск всех комнат
+     * @return Room[]
+     */
+    public function findAllRooms() {
+        return $this->findAll();
+    }
 }
