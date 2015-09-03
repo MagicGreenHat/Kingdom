@@ -6,3 +6,7 @@
     margin-bottom: 2px;
     background-color: rgba(255, 0, 0, 0.8);
 }
+
+#game-chat .warning {
+    color: red;
+}

@@ -60,12 +60,13 @@ connection.onopen = function (session) {
                             } else if (command == 'move') {
                                 runConsoleCommand(character, command, function (commandResponseJson) {
                                     var responseData = JSON.parse(commandResponseJson).data;
+                                    var responseErrors = JSON.parse(commandResponseJson).errors;
 
                                     if (responseData) {
                                         if (responseData.hasOwnProperty('left')) {
                                             responseData.left.forEach(function(channel) {
                                                 var message = responseData.name + ' ушел ' + responseData.directionTo;
-                                                publichToChannel(channel, {commandName: 'moveAnother', message: message});
+                                                publishToChannel(channel, {commandName: 'moveAnother', message: message});
                                             });
                                         }
 
@@ -73,12 +74,18 @@ connection.onopen = function (session) {
                                             responseData.enter.forEach(function(channel) {
                                                 var message = responseData.name + ' пришел ' + responseData.directionFrom;
 
-                                                publichToChannel(channel, {commandName: 'moveAnother', message: message});
+                                                publishToChannel(channel, {commandName: 'moveAnother', message: message});
                                             });
                                         }
-
-                                        publishToLocalChannel(JSON.stringify({commandName: command}));
                                     }
+
+                                    var commandResponse = {commandName: command};
+
+                                    if (responseErrors) {
+                                        commandResponse.errors = responseErrors;
+                                    }
+
+                                    publishToLocalChannel(JSON.stringify(commandResponse));
                                 });
                             } else {
                                 runConsoleCommand(character, command, publishToLocalChannel);
@@ -156,7 +163,7 @@ connection.onopen = function (session) {
                      * @param channel
                      * @param message
                      */
-                    function publichToChannel(channel, message) {
+                    function publishToChannel(channel, message) {
                         session.publish('character.' + channel, [JSON.stringify(message)]);
                     }
                 }

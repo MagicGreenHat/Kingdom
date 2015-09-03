@@ -29,6 +29,10 @@ $(function () {
                     if (data.commandName == 'move') {
                         if (!data.errors) {
                             Kingdom.Websocket.command('composeMap');
+                        } else {
+                            data.errors.forEach(function (error) {
+                                Kingdom.Chat.addInfo({event: 'warning', message: error});
+                            });
                         }
                     } else if (data.commandName == 'composeMap') {
                         redrawRoom(data.data);
