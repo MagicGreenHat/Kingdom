@@ -52,6 +52,18 @@ abstract class RoomType {
     protected $picture;
 
     /**
+     * Может ли игрок перемещаться по комнате пешком
+     * @var bool
+     */
+    protected $canWalk = true;
+
+    /**
+     * Может ли игрок летать в комнате
+     * @var bool
+     */
+    protected $canFly = true;
+
+    /**
      * @param string $name
      * @param string $description
      * @param string $picture
@@ -96,5 +108,19 @@ abstract class RoomType {
      */
     public function getPicture() {
         return $this->picture;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function userCanWalk() {
+        return $this->canWalk;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function userCanFly() {
+        return $this->canFly;
     }
 }

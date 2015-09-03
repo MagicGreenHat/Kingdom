@@ -19,4 +19,7 @@ class StoneWall extends RoomType {
 
     /** {@inheritdoc} */
     protected $picture = 'stone-moss';
+
+    /** {@inheritdoc} */
+    protected $canWalk = false;
 }
