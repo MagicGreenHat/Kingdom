@@ -52,7 +52,7 @@ class Move extends AbstractGameCommand {
 
         $destinationRoom = $roomRepository->findOneByXandY($x, $y);
 
-        if (!$destinationRoom) {
+        if (!$destinationRoom || !$this->userCanWalkToRoom($destinationRoom)) {
             $this->result->addError('В эту сторону не пройти');
         } else {
             $this->user->setRoom($destinationRoom);
@@ -97,5 +97,14 @@ class Move extends AbstractGameCommand {
         }
 
         return $this->result;
+    }
+
+    /**
+     * Может ли персонаж войти в комнату
+     * @param Room $room
+     * @return bool
+     */
+    private function userCanWalkToRoom(Room $room) {
+        return $room->getType()->userCanWalk();
     }
 }
