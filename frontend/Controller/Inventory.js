@@ -124,7 +124,7 @@ $(function () {
             infoText += description + '<br><br>';
         }
 
-        infoText += '<strong>Можно одеть:</strong> ';
+        infoText += '<strong>Можно надеть:</strong> ';
 
         var slotNames = [];
         slots.forEach(function (slotName) {
@@ -252,7 +252,7 @@ $(function () {
     }
 
     /**
-     * Одеть предмет
+     * Надеть предмет
      * @param $item
      * @param $slot
      */
@@ -282,11 +282,11 @@ $(function () {
 
         $slot.find('img').attr('src', $item.find('img').attr('src'));
 
-        // Если предмет одет из инвентаря или из другого слота
+        // Если предмет надет из инвентаря или из другого слота
         if ($item.hasClass('item')) {
             $item.remove();
 
-            Kingdom.Chat.addInfo('Ты одел ' + $slot.data('name2'));
+            Kingdom.Chat.addInfo('Ты надел ' + $slot.data('name2'));
         } else if ($item.hasClass('slot')) {
             $item.find('img').attr('src', $item.data('img'));
 
