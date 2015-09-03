@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
  *      "forest" = "Rottenwood\KingdomBundle\Entity\RoomTypes\Forest",
+ *      "grass" = "Rottenwood\KingdomBundle\Entity\RoomTypes\Grass",
  *      "river" = "Rottenwood\KingdomBundle\Entity\RoomTypes\River",
  *      "road" = "Rottenwood\KingdomBundle\Entity\RoomTypes\Road",
  *      "street" = "Rottenwood\KingdomBundle\Entity\RoomTypes\Street",
