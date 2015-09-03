@@ -4,6 +4,9 @@ namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
+use Rottenwood\KingdomBundle\Entity\Items\ResourceWood;
+use Rottenwood\KingdomBundle\Entity\RoomResource;
+use Rottenwood\KingdomBundle\Entity\RoomTypes\Forest;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,11 +24,12 @@ class CreateItemsCommand extends ContainerAwareCommand {
         $container = $this->getContainer();
 
         $itemRepository = $container->get('kingdom.item_repository');
-        $inventortItemRepository = $container->get('kingdom.inventory_item_repository');
         $userRepository = $container->get('kingdom.user_repository');
+        $em = $itemRepository->getEntityManager();
 
         $items = $itemRepository->findAllItems();
         $users = $userRepository->findAllUsers();
+        $rooms = $container->get('kingdom.room_repository')->findAllRooms();
 
         if (count($items)) {
             $output->writeln(
@@ -54,22 +58,35 @@ class CreateItemsCommand extends ContainerAwareCommand {
                         is_array($newItemData['slots']) ? $newItemData['slots'] : [$newItemData['slots']]
                     );
 
-                    $inventortItemRepository->persist($newItem);
+                    $em->persist($newItem);
 
                     $output->writeln(sprintf('Создан предмет %s!', $newItem->getName()));
 
                     foreach ($users as $user) {
                         $inventoryItem = new InventoryItem($user, $newItem);
-                        $inventortItemRepository->persist($inventoryItem);
+                        $em->persist($inventoryItem);
 
                         $output->writeln(
                             sprintf('Предмет "%s" передан персонажу %s.', $newItem->getName(), $user->getName())
                         );
                     }
+
+                    if ($newItem instanceof ResourceWood) {
+                        foreach ($rooms as $room) {
+                            if ($room->getType() instanceof Forest) {
+                                $roomResource = new RoomResource($room, $newItem, 1000);
+                                $em->persist($roomResource);
+
+                                $output->writeln(
+                                    sprintf('Ресурс "%s" добавлен в комнату %s[%d/%d] в количестве %d единиц.', $newItem->getName(), $room->getName(), $room->getX(), $room->getY(), $roomResource->getQuantity())
+                                );
+                            }
+                        }
+                    }
                 }
             }
 
-            $inventortItemRepository->flush();
+            $em->flush();
 
             $output->writeln('Создано новых предметов: ' . count($itemRepository->findAll()));
         }
