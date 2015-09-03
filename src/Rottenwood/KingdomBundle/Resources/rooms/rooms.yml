@@ -91,8 +91,8 @@
 - {y: -3, x: 1, type: forest}
 - {y: -3, x: 2, type: forest}
 - {y: -3, x: 3, type: forest}
-- {y: -3, x: 4, type: forest}
-- {y: -3, x: 5, type: forest}
+- {y: -3, x: 4, type: grass}
+- {y: -3, x: 5, type: grass}
 
 - {y: -4, x: -5, type: forest}
 - {y: -4, x: -4, type: forest}
@@ -102,6 +102,6 @@
 - {y: -4, x: 0, type: forest}
 - {y: -4, x: 1, type: forest}
 - {y: -4, x: 2, type: forest}
-- {y: -4, x: 3, type: forest}
-- {y: -4, x: 4, type: forest}
-- {y: -4, x: 5, type: forest}
+- {y: -4, x: 3, type: grass}
+- {y: -4, x: 4, type: grass}
+- {y: -4, x: 5, type: grass}
