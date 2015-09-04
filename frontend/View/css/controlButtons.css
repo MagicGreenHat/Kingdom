@@ -6,19 +6,22 @@
 /* Кнопки открытия инвентаря и информации о персонаже */
 .open-user-info-button,
 .open-inventory-button {
-    margin-left: 5px;
-    margin-right: 5px;
+    font-family: arial, sans-serif;
+    box-shadow: inset 0 1px 0 0 #BA441A;
+    background-color: #bc3315;
+    border-radius: 3px;
+    border: 1px solid #942911;
     display: inline-block;
-    background-color: #ffdb3f;
-    width: 100px;
-    text-align: center;
-    padding: 10px;
-    font-size: 18px;
+    cursor: pointer;
+    color: #fff;
+    padding: 10px 29px;
+    text-shadow: 1px 1px 3px #090705;
 }
 
 .open-user-info-button:hover,
 .open-inventory-button:hover {
-    background-color: #ff8400;
+    box-shadow: inset 0 1px 0 0 #853718;
+    background-color: #a32b10;
     cursor: pointer;
 }
 

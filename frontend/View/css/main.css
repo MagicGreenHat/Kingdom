@@ -18,12 +18,8 @@
 }
 
 .button {
-    -moz-box-shadow: inset 0 1px 0 0 #a6827e;
-    -webkit-box-shadow: inset 0 1px 0 0 #a6827e;
     box-shadow: inset 0 1px 0 0 #a6827e;
     background-color: #7d5d3b;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
     border-radius: 3px;
     border: 1px solid #54381e;
     display: inline-block;
