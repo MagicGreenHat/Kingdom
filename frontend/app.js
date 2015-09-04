@@ -50,6 +50,8 @@ $(function () {
                         Kingdom.Money.setMoney(data.data);
                     } else if (data.commandName == 'lookUser') {
                         Kingdom.User.renderAvatar(data.data.avatar);
+                    } else if (data.commandName == 'obtainWood') {
+                        updateResources(data.data);
                     }
 
                     // Отрисовка карты
@@ -172,9 +174,21 @@ $(function () {
             $resourcesList.html('Ресурсы в локации:');
 
             roomData.resources.forEach(function (resource) {
-                $resourcesList.append('<div class="resource ' + resource.id + '">' + resource.name + ' x ' + resource.quantity + '</div>');
+                $resourcesList.append('<div class="resource ' + resource.id + '">' + resource.name + ' x <span class="quantity">' + resource.quantity + '</span></div>');
+                $roomControls.append('<div class="resource-obtain ' + resource.id + ' button">Добывать ' + resource.name4 + '</div>');
             });
         }
+    }
+
+    /**
+     * Обновление информации о доступных ресурсах в комнате
+     * @param resourcesData
+     */
+    function updateResources(resourcesData) {
+        $.each(resourcesData, function(resourceId, resourceQuantity) {
+            var $resourceQuantity = $gameContentRoom.find('.room-resources-list .resource.' + resourceId + ' .quantity');
+            $resourceQuantity.html(resourceQuantity);
+        });
     }
 
     /**
