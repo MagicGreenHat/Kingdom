@@ -9,6 +9,7 @@ $(function () {
 
     $openButton.click(function () {
         if ($inventory.is(':hidden')) {
+            renderInventory();
             $inventory.show();
             $room.hide();
         } else {
@@ -32,12 +33,12 @@ $(function () {
         $('#game-inventory').find('.money').html(html);
     });
 
-    /**
-     * Обновление инвентаря при добыче ресурсов
-     */
-    $room.on('click', '.resource-obtain.button', function () {
-        renderInventory();
-    });
+    ///**
+    // * Обновление инвентаря при добыче ресурсов
+    // */
+    //$room.on('click', '.resource-obtain.button', function () {
+    //    renderInventory();
+    //});
 
     /**
      * Отрисовка инвентаря
@@ -359,8 +360,4 @@ $(function () {
 
         Kingdom.Websocket.command('remove', slotName);
     }
-
-    // Запуск команд
-    renderInventory();
-
 });
