@@ -16,6 +16,8 @@ use Symfony\Component\Yaml\Parser;
 
 class CreateItemsCommand extends ContainerAwareCommand {
 
+    const RESOURCE_QUANTITY = 10;
+
     protected function configure() {
         $this->setName('kingdom:create:items')->setDescription('Создание тестовых предметов');
     }
@@ -74,7 +76,7 @@ class CreateItemsCommand extends ContainerAwareCommand {
                     if ($newItem instanceof ResourceWood) {
                         foreach ($rooms as $room) {
                             if ($room->getType() instanceof Forest) {
-                                $roomResource = new RoomResource($room, $newItem, 1000);
+                                $roomResource = new RoomResource($room, $newItem, self::RESOURCE_QUANTITY);
                                 $em->persist($roomResource);
 
                                 $output->writeln(
