@@ -67,7 +67,7 @@
         <div class="room-name"></div>
         <div class="room-content">
             <div class="room-description"></div>
-            <div class="room-controls"></div>
+            <div class="room-actions"></div>
         </div>
         <div class="room-players"></div>
     </div>
@@ -86,7 +86,7 @@
     <div class="game-left-box noselect">
         <div id="game-map">
             <div class="map">
-                <div class="map-frame-line y5">
+                <div class="map-frame-line y5 nointeract">
                     <div class="map-frame x1">{{ emptyRoomImage }}</div>
                     <div class="map-frame x2">{{ emptyRoomImage }}</div>
                     <div class="map-frame x3">{{ emptyRoomImage }}</div>
@@ -94,27 +94,27 @@
                     <div class="map-frame x5">{{ emptyRoomImage }}</div>
                 </div>
                 <div class="map-frame-line y4">
-                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
-                    <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x1 nointeract">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x2 nointeract">{{ emptyRoomImage }}</div>
                     <div class="map-frame x3 direction north" data-direction="north">{{ emptyRoomImage }}</div>
-                    <div class="map-frame x4">{{ emptyRoomImage }}</div>
-                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x4 nointeract">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5 nointeract">{{ emptyRoomImage }}</div>
                 </div>
                 <div class="map-frame-line y3">
-                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x1 nointeract">{{ emptyRoomImage }}</div>
                     <div class="map-frame x2 direction west" data-direction="west">{{ emptyRoomImage }}</div>
-                    <div class="map-frame-player"><img src="{{ asset('img/locations/character-male.png') }}"></div>
+                    <div class="map-frame-player nointeract"><img src="{{ asset('img/locations/character-male.png') }}"></div>
                     <div class="map-frame x4 direction east" data-direction="east">{{ emptyRoomImage }}</div>
-                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5 nointeract">{{ emptyRoomImage }}</div>
                 </div>
                 <div class="map-frame-line y2">
-                    <div class="map-frame x1">{{ emptyRoomImage }}</div>
-                    <div class="map-frame x2">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x1 nointeract">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x2 nointeract">{{ emptyRoomImage }}</div>
                     <div class="map-frame x3 direction south" data-direction="south">{{ emptyRoomImage }}</div>
-                    <div class="map-frame x4">{{ emptyRoomImage }}</div>
-                    <div class="map-frame x5">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x4 nointeract">{{ emptyRoomImage }}</div>
+                    <div class="map-frame x5 nointeract">{{ emptyRoomImage }}</div>
                 </div>
-                <div class="map-frame-line y1">
+                <div class="map-frame-line y1 nointeract">
                     <div class="map-frame x1">{{ emptyRoomImage }}</div>
                     <div class="map-frame x2">{{ emptyRoomImage }}</div>
                     <div class="map-frame x3">{{ emptyRoomImage }}</div>
