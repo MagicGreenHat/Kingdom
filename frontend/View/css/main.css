@@ -17,6 +17,35 @@
     pointer-events: none !important;
 }
 
+.button {
+    -moz-box-shadow: inset 0 1px 0 0 #a6827e;
+    -webkit-box-shadow: inset 0 1px 0 0 #a6827e;
+    box-shadow: inset 0 1px 0 0 #a6827e;
+    background-color: #7d5d3b;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #54381e;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 29px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #4d3534;
+}
+
+.button:hover {
+    background-color: #634b30;
+}
+
+.button:active {
+    position: relative;
+    top: 1px;
+}
+
 /* Анимационные эффекты */
 .highlight {
     animation: blink 0.5s infinite alternate;
@@ -146,14 +175,21 @@
 }
 
 #game-room .room-actions {
+    position: absolute;
+    right: 0;
+    padding: 30px;
     display: inline-block;
-    width: 35%;
 }
 
 #game-room .room-description,
 #game-room .room-players {
     padding: 10px;
     font-size: 18px;
+}
+
+#game-room .room-description {
+    display: inline-block;
+    vertical-align: top;
 }
 
 #game-room .room-players .user-info {
