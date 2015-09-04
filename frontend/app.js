@@ -52,6 +52,7 @@ $(function () {
                         Kingdom.User.renderAvatar(data.data.avatar);
                     } else if (data.commandName == 'obtainWood') {
                         updateResources(data.data);
+                        Kingdom.Websocket.command('inventory');
                     }
 
                     // Отрисовка карты
