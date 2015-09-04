@@ -27,6 +27,7 @@ class ComposeMap extends AbstractGameCommand {
         $currentY = $currentRoom->getY();
 
         $roomRepository = $this->container->get('kingdom.room_repository');
+        $resourceRepository = $this->container->get('kingdom.room_resource_repository');
 
         $map = [];
 
@@ -51,13 +52,24 @@ class ComposeMap extends AbstractGameCommand {
             }
         }
 
-        $this->result->setData([
+        $result = [
             'name'        => $currentRoom->getName(),
             'description' => $currentRoom->getDescription(),
             'x'           => $currentX,
             'y'           => $currentY,
-        ]);
+        ];
 
+        $roomResources = $resourceRepository->findByRoom($currentRoom);
+
+        foreach ($roomResources as $roomResource) {
+            $result['resources'][] = [
+                'id'       => $roomResource->getItem()->getId(),
+                'name'     => $roomResource->getItem()->getName(),
+                'quantity' => $roomResource->getQuantity(),
+            ];
+        }
+
+        $this->result->setData($result);
         $this->result->setMapData($map);
 
         return $this->result;

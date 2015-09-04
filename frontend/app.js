@@ -35,7 +35,7 @@ $(function () {
                             });
                         }
                     } else if (data.commandName == 'composeMap') {
-                        redrawRoom(data.data);
+                        renderRoom(data.data);
                         Kingdom.Websocket.command('showPlayersInRoom');
                     } else if (data.commandName == 'showPlayersInRoom') {
                         showPlayersInRoom(data.data);
@@ -54,7 +54,7 @@ $(function () {
 
                     // Отрисовка карты
                     if (data.mapData) {
-                        redrawMap(data.mapData);
+                        renderMap(data.mapData);
                     }
 
                     // Отрисовка чата
@@ -128,13 +128,12 @@ $(function () {
 
     var $gameContentRoom = $('#game-room');
     var $gameMap = $('#game-map');
-    var $gameChat = $('#game-chat');
 
     /**
      * Отрисовка карты
      * @param mapData
      */
-    function redrawMap(mapData) {
+    function renderMap(mapData) {
         $('#game-map .map-frame img').attr('src', '/img/locations/null.png');
 
         mapData.forEach(function (room) {
@@ -152,17 +151,30 @@ $(function () {
     }
 
     /**
-     * Перерисовка комнаты
+     * Отрисовка комнаты
      * @param roomData
      */
-    function redrawRoom(roomData) {
+    function renderRoom(roomData) {
         var $roomName = $gameContentRoom.find('.room-name');
         var $roomDescription = $gameContentRoom.find('.room-description');
         var $roomPlayers = $gameContentRoom.find('.room-players');
+        var $roomControls = $gameContentRoom.find('.room-actions');
+        var $resourcesList = $gameContentRoom.find('.room-resources-list');
 
         $roomPlayers.html('');
+        $roomControls.html('');
+        $resourcesList.html('');
+
         $roomName.html('').html(roomData.name + '<span class="coordinates">[' + roomData.x + '/' + roomData.y + ']</span>');
         $roomDescription.html('').html(roomData.description);
+
+        if (roomData.resources) {
+            $resourcesList.html('Ресурсы в локации:');
+
+            roomData.resources.forEach(function (resource) {
+                $resourcesList.append('<div class="resource">' + resource.name + ' x ' + resource.quantity + '</div>');
+            });
+        }
     }
 
     /**

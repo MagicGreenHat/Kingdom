@@ -132,6 +132,16 @@
     width: 60%;
 }
 
+#game-room .room-resources-list {
+    padding: 10px;
+    color: #004604;
+    font-weight: 900;
+}
+
+#game-room .room-resources-list .resource {
+    margin-left: 50px;
+}
+
 #game-room .room-actions {
     display: inline-block;
     width: 35%;
