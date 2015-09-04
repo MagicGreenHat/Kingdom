@@ -35,6 +35,12 @@ services:
         factory_method: getRepository
         arguments: ["Rottenwood\KingdomBundle\Entity\Money"]
 
+    kingdom.room_resource_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\RoomResourceRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\RoomResource"]
+
     kingdom.user_service:
         class: Rottenwood\KingdomBundle\Service\UserService
         arguments:
