@@ -41,11 +41,6 @@
     background-color: #634b30;
 }
 
-.button:active {
-    position: relative;
-    top: 1px;
-}
-
 /* Анимационные эффекты */
 .highlight {
     animation: blink 0.5s infinite alternate;
