@@ -134,12 +134,15 @@
 
 #game-room .room-resources-list {
     padding: 10px;
-    color: #004604;
-    font-weight: 900;
 }
 
 #game-room .room-resources-list .resource {
+    font-weight: 900;
     margin-left: 50px;
+}
+
+#game-room .room-resources-list .resource.wood {
+    color: #004604;
 }
 
 #game-room .room-actions {

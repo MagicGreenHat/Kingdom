@@ -172,7 +172,7 @@ $(function () {
             $resourcesList.html('Ресурсы в локации:');
 
             roomData.resources.forEach(function (resource) {
-                $resourcesList.append('<div class="resource">' + resource.name + ' x ' + resource.quantity + '</div>');
+                $resourcesList.append('<div class="resource ' + resource.id + '">' + resource.name + ' x ' + resource.quantity + '</div>');
             });
         }
     }
