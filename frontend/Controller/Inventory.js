@@ -8,8 +8,14 @@ $(function () {
     var $openButton = $('.open-inventory-button');
 
     $openButton.click(function () {
-        $inventory.show();
-        $room.hide();
+        if ($inventory.is(':hidden')) {
+            $inventory.show();
+            $room.hide();
+        } else {
+            $inventory.hide();
+            $room.show();
+        }
+
         $userInfo.hide();
     });
 

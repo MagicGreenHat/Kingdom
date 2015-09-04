@@ -36,8 +36,14 @@ $(function () {
             Kingdom.Websocket.command('lookUser', userNameToLook);
         }
 
-        $userInfo.show();
-        $room.hide();
+        if ($userInfo.is(':hidden')) {
+            $userInfo.show();
+            $room.hide();
+        } else {
+            $userInfo.hide();
+            $room.show();
+        }
+
         $inventory.hide();
     }
 
