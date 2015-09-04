@@ -291,7 +291,7 @@ $(function () {
         if ($item.hasClass('item')) {
             $item.remove();
 
-            Kingdom.Chat.addInfo('Ты надел ' + $slot.data('name2'));
+            Kingdom.Chat.addInfo('Ты надел ' + $slot.data('name4'));
         } else if ($item.hasClass('slot')) {
             $item.find('img').attr('src', $item.data('img'));
 
