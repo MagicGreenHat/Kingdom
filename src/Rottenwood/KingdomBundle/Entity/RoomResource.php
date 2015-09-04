@@ -81,4 +81,11 @@ class RoomResource {
     public function getQuantity() {
         return $this->quantity;
     }
+
+    /**
+     * @param int $amount
+     */
+    public function reduceQuantity($amount) {
+        $this->quantity -= $amount;
+    }
 }
