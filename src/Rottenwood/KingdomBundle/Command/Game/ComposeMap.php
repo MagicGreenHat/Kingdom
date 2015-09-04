@@ -65,6 +65,7 @@ class ComposeMap extends AbstractGameCommand {
             $result['resources'][] = [
                 'id'       => $roomResource->getItem()->getId(),
                 'name'     => $roomResource->getItem()->getName(),
+                'name4'    => $roomResource->getItem()->getName4(),
                 'quantity' => $roomResource->getQuantity(),
             ];
         }
