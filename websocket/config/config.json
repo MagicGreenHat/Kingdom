@@ -12,6 +12,7 @@
     "redisSessionIdHash": "kingdom:sessions:users",
     "redisOnlineList": "kingdom:users:online",
     "redisIdSessionHash": "kingdom:users:sessions",
+    "redisIdRoomHash": "kingdom:users:rooms",
 
     "secondsToAdvice": 1800
 }
