@@ -6,6 +6,7 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Exception\InvalidCommandParameter;
+use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 
 /**
  * Перемещение по карте
@@ -57,6 +58,10 @@ class Move extends AbstractGameCommand {
         } else {
             $this->user->setRoom($destinationRoom);
             $em->flush($this->user);
+
+            /** @var RedisClientInterface $redis */
+            $redis = $this->container->get('snc_redis.default');
+            $redis->hset(RedisClientInterface::ID_ROOM_HASH, $userId, $destinationRoom->getId());
 
             $logger = $this->container->get('kingdom.logger');
             $logString = sprintf(
