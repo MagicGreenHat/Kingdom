@@ -15,7 +15,7 @@ services:
         class: Rottenwood\KingdomBundle\Entity\Infrastructure\RoomTypeRepository
         factory_service: "doctrine.orm.entity_manager"
         factory_method: getRepository
-        arguments: ["Rottenwood\KingdomBundle\Entity\RoomType"]
+        arguments: ["Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType"]
 
     kingdom.item_repository:
         class: Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository
