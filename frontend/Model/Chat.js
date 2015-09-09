@@ -47,6 +47,8 @@ Kingdom.Chat = (function () {
                 html = '<div class="broadcast-message"><strong>Внимание:</strong> ' + infoData.message + '</div>';
             } else if (infoData.event == 'warning') {
                 html = '<div class="warning">' + infoData.message + '.</div>';
+            } else if (infoData.event == 'obtainWood') {
+                html = '<div>' + infoData.name + ' рубит дерево.</div>';
             } else {
                 html = '<div>' + infoData + '.</div>';
             }

@@ -88,6 +88,12 @@ connection.onopen = function (session) {
                                     publishToLocalChannel(JSON.stringify(commandResponse));
                                 });
                             } else {
+                                if (command == 'obtainWood') {
+                                    redis.hget(config.redisIdRoomHash, character.id).then(function (roomId) {
+                                        sendToOnlinePlayersInRoom(roomId, {info: {event: 'obtainWood', name: character.name}});
+                                    });
+                                }
+
                                 runConsoleCommand(character, command, publishToLocalChannel);
                             }
                         } else {
