@@ -175,7 +175,7 @@ $(function () {
             $resourcesList.html('Ресурсы в локации:');
 
             roomData.resources.forEach(function (resource) {
-                $resourcesList.append('<div class="resource ' + resource.id + '">' + resource.name + ' x <span class="quantity">' + resource.quantity + '</span></div>');
+                $resourcesList.append('<div class="resource ' + resource.id + '">' + resource.name + ': <span class="quantity">' + resource.quantity + '</span></div>');
                 $roomControls.append('<div class="resource-obtain ' + resource.id + ' button">Добывать ' + resource.name4 + '</div>');
             });
         }
