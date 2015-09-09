@@ -23,7 +23,7 @@ class RoomResource {
     /**
      * Комната в которой находится ресурс
      * @ORM\ManyToOne(targetEntity="Room")
-     * @ORM\JoinColumn(name="room", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="room_id", referencedColumnName="id", nullable=false)
      * @var Room
      */
     private $room;
