@@ -62,12 +62,16 @@ class ComposeMap extends AbstractGameCommand {
         $roomResources = $resourceRepository->findByRoom($currentRoom);
 
         foreach ($roomResources as $roomResource) {
-            $result['resources'][] = [
-                'id'       => $roomResource->getItem()->getId(),
-                'name'     => $roomResource->getItem()->getName(),
-                'name4'    => $roomResource->getItem()->getName4(),
-                'quantity' => $roomResource->getQuantity(),
-            ];
+            $resourceQuantity = $roomResource->getQuantity();
+
+            if ($resourceQuantity > 0) {
+                $result['resources'][] = [
+                    'id'       => $roomResource->getItem()->getId(),
+                    'name'     => $roomResource->getItem()->getName(),
+                    'name4'    => $roomResource->getItem()->getName4(),
+                    'quantity' => $resourceQuantity,
+                ];
+            }
         }
 
         $this->result->setData($result);
