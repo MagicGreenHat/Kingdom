@@ -133,6 +133,32 @@ connection.onopen = function (session) {
                     }
 
                     /**
+                     * Отправка сообщения всем игрокам в комнате
+                     * @param currentRoomId
+                     * @param message
+                     */
+                    function sendToOnlinePlayersInRoom(currentRoomId, message) {
+                        var messageJson = JSON.stringify(message);
+
+                        redis.smembers(config.redisOnlineList).then(function (onlineUsers) {
+                            onlineUsers.forEach(function (userId) {
+                                if (userId != character.id) {
+                                    redis.hget(config.redisIdRoomHash, userId).then(function (roomId) {
+                                        if (roomId == currentRoomId) {
+                                            redis.hget(config.redisIdSessionHash, userId).then(function (sessionId) {
+                                                var channel = 'character.' + sessionId;
+
+                                                session.publish(channel, [messageJson]);
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+
+                        });
+                    }
+
+                    /**
                      * Запрос количества пользователей находящихся онлайн
                      */
                     function getPlayersOnline() {
