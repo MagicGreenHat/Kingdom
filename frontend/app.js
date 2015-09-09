@@ -53,6 +53,10 @@ $(function () {
                     } else if (data.commandName == 'obtainWood') {
                         Kingdom.Room.updateResources(data.data.resources);
                         Kingdom.Chat.addInfo('Ты рубишь дерево. Добыто древесины: ' + data.data.obtained);
+
+                        if (data.data.typeChanged) {
+                            Kingdom.Websocket.command('composeMap');
+                        }
                     }
 
                     // Отрисовка карты

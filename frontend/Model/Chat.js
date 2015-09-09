@@ -50,6 +50,9 @@ Kingdom.Chat = (function () {
             } else if (infoData.event == 'obtainWood') {
                 html = '<div>' + infoData.name + ' рубит дерево.</div>';
                 Kingdom.Room.updateResources(infoData.resources);
+                if (infoData.typeChanged) {
+                    Kingdom.Websocket.command('composeMap');
+                }
             } else {
                 html = '<div>' + infoData + '.</div>';
             }
