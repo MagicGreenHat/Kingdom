@@ -59,6 +59,8 @@ Kingdom.Chat = (function () {
 
             $gameChat.append(html);
             $gameChat.scrollTop($gameChat.prop('scrollHeight'));
+
+            $gameChat.find('.warning').delay(3000).fadeOut(1000);
         }
     }
 })();
