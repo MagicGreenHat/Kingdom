@@ -54,6 +54,7 @@ $(function () {
                         updateResources(data.data.resources);
                         Kingdom.Websocket.command('inventory');
                         Kingdom.Chat.addInfo('Ты рубишь дерево. Добыто древесины: ' + data.data.obtained);
+                        ion.sound.play('obtain-tree');
                     }
 
                     // Отрисовка карты
