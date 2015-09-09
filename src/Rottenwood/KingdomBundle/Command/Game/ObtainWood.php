@@ -5,6 +5,7 @@ namespace Rottenwood\KingdomBundle\Command\Game;
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Entity\Items\ResourceWood;
+use Rottenwood\KingdomBundle\Entity\RoomTypes\Grass;
 
 /**
  * Добыча древесины
@@ -18,8 +19,10 @@ class ObtainWood extends AbstractGameCommand {
      */
     public function execute() {
         $resourceRepository = $this->container->get('kingdom.room_resource_repository');
-        $resources = $resourceRepository->findByRoom($this->user->getRoom());
+        $em = $resourceRepository->getEntityManager();
         $userService = $this->container->get('kingdom.user_service');
+        $room = $this->user->getRoom();
+        $resources = $resourceRepository->findByRoom($room);
 
         $result = [];
         foreach ($resources as $resource) {
@@ -29,11 +32,21 @@ class ObtainWood extends AbstractGameCommand {
                 $resource->reduceQuantity($this->quantityToObtain);
                 $result['obtained'] = $this->quantityToObtain;
                 $userService->takeItem($this->user, $resourceItem, $this->quantityToObtain);
-                $result['resources'][$resourceItem->getId()] = $resource->getQuantity();
+
+                $resourcesLeft = $resource->getQuantity();
+                $result['resources'][$resourceItem->getId()] = $resourcesLeft;
+
+                if ($resourcesLeft <= 0) {
+                    /** @var Grass[] $grassTypes */
+                    $grassTypes = $em->getRepository(Grass::class)->findAll();
+                    $grassType = $grassTypes[array_rand($grassTypes)];
+                	$room->setType($grassType);
+                    $result['typeChanged'] = true;
+                }
             }
         }
 
-        $resourceRepository->flush();
+        $em->flush();
 
         $this->result->setData($result);
 
