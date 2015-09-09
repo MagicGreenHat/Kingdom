@@ -51,8 +51,9 @@ $(function () {
                     } else if (data.commandName == 'lookUser') {
                         Kingdom.User.renderAvatar(data.data.avatar);
                     } else if (data.commandName == 'obtainWood') {
-                        updateResources(data.data);
+                        updateResources(data.data.resources);
                         Kingdom.Websocket.command('inventory');
+                        Kingdom.Chat.addInfo('Ты рубишь дерево. Добыто древесины: ' + data.data.obtained);
                     }
 
                     // Отрисовка карты

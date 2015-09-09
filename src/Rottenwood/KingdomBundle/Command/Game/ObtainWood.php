@@ -27,8 +27,9 @@ class ObtainWood extends AbstractGameCommand {
 
             if ($resourceItem instanceof ResourceWood) {
                 $resource->reduceQuantity($this->quantityToObtain);
+                $result['obtained'] = $this->quantityToObtain;
                 $userService->takeItem($this->user, $resourceItem, $this->quantityToObtain);
-                $result[$resourceItem->getId()] = $resource->getQuantity();
+                $result['resources'][$resourceItem->getId()] = $resource->getQuantity();
             }
         }
 
