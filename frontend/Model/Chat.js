@@ -49,7 +49,7 @@ Kingdom.Chat = (function () {
                 html = '<div class="warning">' + infoData.message + '.</div>';
             } else if (infoData.event == 'obtainWood') {
                 html = '<div>' + infoData.name + ' рубит дерево.</div>';
-                ion.sound.play('obtain-tree');
+                Kingdom.Room.updateResources(infoData.resources);
             } else {
                 html = '<div>' + infoData + '.</div>';
             }

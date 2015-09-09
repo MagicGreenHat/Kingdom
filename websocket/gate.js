@@ -88,13 +88,16 @@ connection.onopen = function (session) {
                                     publishToLocalChannel(JSON.stringify(commandResponse));
                                 });
                             } else {
-                                if (command == 'obtainWood') {
-                                    redis.hget(config.redisIdRoomHash, character.id).then(function (roomId) {
-                                        sendToOnlinePlayersInRoom(roomId, {info: {event: 'obtainWood', name: character.name}});
-                                    });
-                                }
+                                runConsoleCommand(character, command, function (commandResultJson) {
+                                    if (command == 'obtainWood') {
+                                        var commandResult = JSON.parse(commandResultJson);
+                                        redis.hget(config.redisIdRoomHash, character.id).then(function (roomId) {
+                                            sendToOnlinePlayersInRoom(roomId, {info: {event: 'obtainWood', name: character.name, resources: commandResult.data.resources}});
+                                        });
+                                    }
 
-                                runConsoleCommand(character, command, publishToLocalChannel);
+                                    publishToLocalChannel(commandResultJson)
+                                });
                             }
                         } else {
                             console.log('[' + localChannelName + ']: ' + localResponse);
