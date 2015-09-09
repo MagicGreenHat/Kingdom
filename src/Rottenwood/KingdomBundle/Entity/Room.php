@@ -98,6 +98,13 @@ class Room {
     }
 
     /**
+     * @param RoomType $type
+     */
+    public function setType(RoomType $type) {
+        $this->type = $type;
+    }
+
+    /**
      * @return string
      */
     public function getDescription() {
