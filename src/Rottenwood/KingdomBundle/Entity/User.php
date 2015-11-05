@@ -15,6 +15,8 @@ class User extends BaseUser {
 
     const AVATAR_PATH = '/img/avatars/';
     const AVATAR_EXTENSION = 'jpg';
+    const GENDER_MALE = 'male';
+    const GENDER_FEMALE = 'female';
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -45,6 +47,13 @@ class User extends BaseUser {
      * @var \DateTime
      */
     private $registerDate;
+
+    /**
+     * Пол персонажа
+     * @ORM\Column(name="gender", type="string", length=6, nullable=false)
+     * @var string
+     */
+    private $gender;
 
     /**
      * Изображение персонажа (аватар)
@@ -106,6 +115,14 @@ class User extends BaseUser {
      */
     public function setAvatar($avatar) {
         $this->avatar = $avatar;
+    }
+
+    public function isMale() {
+        return $this->gender == self::GENDER_MALE;
+    }
+
+    public function isFemale() {
+        return $this->gender == self::GENDER_FEMALE;
     }
 
     /**
