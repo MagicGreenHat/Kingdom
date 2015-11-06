@@ -31,3 +31,4 @@ node_modules/*
 !node_modules/autobahn
 !node_modules/wamp.rt
 
+tests/_output/*
