@@ -24,6 +24,7 @@ install:
     - ./kingdom.sh start
 
 script:
-  # Symfony
-  - ./vendor/codeception/codeception/codecept build -c frameworks-symfony
-  - ./vendor/codeception/codeception/codecept run
+    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
+    - sudo chmod a+x /usr/local/bin/codecept
+    # Symfony
+    - codecept run
