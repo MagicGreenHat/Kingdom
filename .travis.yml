@@ -25,5 +25,5 @@ install:
 
 script:
   # Symfony
-  - php vendor/codeception/codeception/codecept build -c frameworks-symfony
-  - php vendor/codeception/codeception/codecept run
+  - ./vendor/codeception/codeception/codecept build -c frameworks-symfony
+  - ./vendor/codeception/codeception/codecept run
