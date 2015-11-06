@@ -1,25 +1,27 @@
-language: php
-#php:
-#  - 5.5
-#install:
-#   - composer install
+language: ruby
 
 sudo: required
 
 services:
-  - docker
+    - docker
+
+env:
+    - PHP_VERSION=5.4
+    - PHP_VERSION=5.5
+    - PHP_VERSION=5.6
+    - PHP_VERSION=7.0
 
 cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
+    directories:
+        - vendor
+        - $HOME/.composer/cache
+
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get -qq install php5-cli
 
 install:
     - ./kingdom.sh start
-
-#install:
-#  - composer self-update
-#  - composer install
 
 script:
   # Symfony

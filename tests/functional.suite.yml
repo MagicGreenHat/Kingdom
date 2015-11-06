@@ -7,5 +7,9 @@
 class_name: FunctionalTester
 modules:
     enabled:
-        # add framework module here
+        - Symfony2:
+            app_path: '../../app'
+            var_path: '../../app'
+        - Doctrine2:
+            depends: Symfony2
         - \Helper\Functional
