@@ -5,25 +5,14 @@ sudo: required
 services:
     - docker
 
-env:
-    - PHP_VERSION=5.5
-
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get -qq install php5-cli
 
 install:
-#    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
-#    - sudo chmod a+x /usr/local/bin/codecept
     - ./kingdom.sh start
-    - sleep 60
+    - sleep 120
     - ./kingdom.sh log
-    - docker ps -a
-    - ls
 
 script:
     - ./kingdom.sh test
-#    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
-#    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
-#    - codecept run
-#    - ./kingdom.sh test
