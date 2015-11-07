@@ -22,6 +22,7 @@ before_install:
 
 install:
     - ./kingdom.sh start
+    - sleep 10
 
 script:
 #    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
