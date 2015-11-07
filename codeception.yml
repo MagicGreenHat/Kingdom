@@ -16,6 +16,6 @@ modules:
     config:
         Db:
             dsn: ''
-            user: 'root'
-            password: ''
+            user: 'kingdom'
+            password: 'docker'
             dump: tests/_data/dump.sql

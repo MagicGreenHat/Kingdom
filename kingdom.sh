@@ -141,7 +141,7 @@ case $1 in
 ;;
 
 'test')
-    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run
+    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
 ;;
 
 (gulp|css|js)
