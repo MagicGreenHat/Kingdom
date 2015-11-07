@@ -53,7 +53,7 @@ class User extends BaseUser {
      * @ORM\Column(name="gender", type="string", length=6, nullable=false)
      * @var string
      */
-    private $gender;
+    private $gender = self::GENDER_MALE;
 
     /**
      * Изображение персонажа (аватар)
@@ -115,6 +115,13 @@ class User extends BaseUser {
      */
     public function setAvatar($avatar) {
         $this->avatar = $avatar;
+    }
+
+    /**
+     * @param string $gender
+     */
+    public function setGender($gender) {
+        $this->gender = $gender;
     }
 
     public function isMale() {

@@ -31,12 +31,18 @@ class CreateUserCommand extends ContainerAwareCommand {
             InputArgument::REQUIRED,
             'e-mail'
         );
+
+        $this->addArgument('gender',
+            InputArgument::OPTIONAL,
+            'gender'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
         $email = $input->getArgument('email');
+        $gender = $input->getArgument('gender');
 
         $output->write('Создание тестового персонажа ... ');
 
@@ -64,6 +70,11 @@ class CreateUserCommand extends ContainerAwareCommand {
             $user->setAvatar($userService->pickAvatar());
             $user->setName($cyrillicName);
             $user->setRoom($userService->getStartRoom());
+
+            // мужской пол по умолчанию
+            if ($gender === User::GENDER_FEMALE) {
+            	$user->setGender(User::GENDER_FEMALE);
+            }
 
             $this->createMoney($user, $container);
 
