@@ -6,7 +6,7 @@ $I->amOnPage('/');
 $I->see('Войти');
 $I->see('Регистрация');
 
-$I->fillField('#username', 'test');
-$I->fillField('#password', 'test');
-$I->click('Войти');
-$I->see('Здравствуй, Тест!');
+//$I->fillField('#username', 'test');
+//$I->fillField('#password', 'test');
+//$I->click('Войти');
+//$I->see('Здравствуй, Тест!');
