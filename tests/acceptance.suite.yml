@@ -5,12 +5,3 @@
 # If you need both WebDriver and PHPBrowser tests - create a separate suite.
 
 class_name: AcceptanceTester
-modules:
-    enabled:
-        - Symfony2:
-            app_path: 'app'
-            var_path: 'app'
-            environment: test
-        - Doctrine2:
-            depends: Symfony2
-        - \Helper\Acceptance

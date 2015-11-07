@@ -12,3 +12,13 @@ settings:
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+
+modules:
+    enabled:
+        - Symfony2:
+            app_path: 'app'
+            var_path: 'app'
+            environment: test
+        - Doctrine2:
+            depends: Symfony2
+        - \Helper\Acceptance
