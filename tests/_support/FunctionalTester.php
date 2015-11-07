@@ -20,7 +20,12 @@ class FunctionalTester extends \Codeception\Actor
 {
     use _generated\FunctionalTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    /**
+     * @param $command
+     * @return mixed
+     */
+    public function runCommand($command)
+    {
+        return $this->runShellCommandAndGetOutput(sprintf('/kingdom/app/console kingdom:execute 1 inventory -e test', $command));
+    }
 }
