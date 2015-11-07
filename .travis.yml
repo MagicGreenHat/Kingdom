@@ -14,16 +14,15 @@ before_install:
 
 install:
     - ./kingdom.sh start
-    - sleep 10
-    - ./kingdom.sh log
-    - sleep 10
+    - sleep 30
     - ./kingdom.sh log
     - docker ps -a
     - ls
-    - docker exec -it kingdom bash
-    -
 
 script:
-#    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
-#    - sudo chmod a+x /usr/local/bin/codecept
-    - ./kingdom.sh test
+    - docker exec -it kingdom bash
+#    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
+    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
+    - sudo chmod a+x /usr/local/bin/codecept
+    - codecept run
+#    - ./kingdom.sh test

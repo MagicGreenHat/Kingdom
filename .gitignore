@@ -1,5 +1,6 @@
 # Symfony directories and files
-bin/
+bin/*
+!/bin/.gitkeep
 vendor/
 app/bootstrap.php.cache
 app/cache/*
