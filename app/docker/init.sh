@@ -16,7 +16,7 @@ echo "Обновление библиотек композера ..."
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor
 sudo /composer.phar install -n -d /kingdom/
 #sudo -u www-data /composer.phar install -n -d /kingdom/
-sudo chown -R www-data:www-data /kingdom/vendor /kingdom/bin
+sudo chown -R www-data:www-data /kingdom/vendor /kingdom/bin /kingdom/app/cache
 
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
