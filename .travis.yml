@@ -24,7 +24,6 @@ install:
     - ./kingdom.sh start
 
 script:
-    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
-    - sudo chmod a+x /usr/local/bin/codecept
-    # Symfony
-    - codecept run
+#    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
+#    - sudo chmod a+x /usr/local/bin/codecept
+    - ./kingdom.sh test
