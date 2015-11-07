@@ -1,7 +1,7 @@
 Государство
 ===========
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MagicGreenHat/Kingdom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MagicGreenHat/Kingdom/?branch=master)
+[![Build Status](https://travis-ci.org/MagicGreenHat/Kingdom.svg?branch=master)](https://travis-ci.org/MagicGreenHat/Kingdom) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MagicGreenHat/Kingdom/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MagicGreenHat/Kingdom/?branch=master)
 
 "Государство" это мир браузерной игры открытый для исследований и приключений, сражений и завоеваний, ремесла и производства, свободной экономики и рынков, общения и дипломатии, управления городами и армиями. Захвати власть в Государстве!
 
