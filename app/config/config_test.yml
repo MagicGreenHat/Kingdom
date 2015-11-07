@@ -1,6 +1,15 @@
 imports:
     - { resource: config_dev.yml }
 
+parameters:
+    locale: ru
+    # Параметры для докера
+    database_host:          kingdom-mysql-server
+    database_port:          3306
+    database_name:          kingdom_test
+    database_user:          kingdom
+    database_password:      docker
+
 framework:
     test: ~
     session:

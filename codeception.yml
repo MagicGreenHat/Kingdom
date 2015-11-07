@@ -12,10 +12,3 @@ settings:
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
-modules:
-    config:
-        Db:
-            dsn: ''
-            user: 'kingdom'
-            password: 'docker'
-            dump: tests/_data/dump.sql

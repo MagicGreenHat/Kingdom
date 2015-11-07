@@ -7,6 +7,10 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
-            url: http://localhost:81/
+        - Symfony2:
+            app_path: 'app'
+            var_path: 'app'
+            environment: test
+        - Doctrine2:
+            depends: Symfony2
         - \Helper\Acceptance
