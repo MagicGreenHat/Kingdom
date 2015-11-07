@@ -54,6 +54,7 @@ case $1 in
         --entrypoint="kingdom/app/docker/init.sh" \
         --link kingdom-mysql-server:mysql \
         -e SYMFONY_ENVIRONMENT="$SYMFONY_ENVIRONMENT" \
+        -e TERM=xterm \
         rottenwood/kingdom
 
     SERVER_URL="$(ifconfig docker | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')"
@@ -197,6 +198,7 @@ case $1 in
 	echo "\033[1;33;24m$0 broadcast (phrase)\033[0m - Отправка сообщения всем игрокам онлайн"
 	echo ""
 	echo "\033[1;33;24m$0 deploy\033[0m (dev) - Деплой проекта (git pull, рестарт серверов)"
+	echo "\033[1;33;24m$0 test\033[0m - Запуск автоматических тестов"
 	echo "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
 	echo "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
 	echo "----------------------------------------------------------------------"
