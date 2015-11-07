@@ -15,9 +15,9 @@ before_install:
 install:
     - ./kingdom.sh start
     - sleep 10
-    - ./kingdom log
+    - ./kingdom.sh log
     - sleep 10
-    - ./kingdom log
+    - ./kingdom.sh log
     - docker ps -a
     - ls
     - docker exec -it kingdom bash
