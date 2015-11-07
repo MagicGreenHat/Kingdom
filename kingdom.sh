@@ -140,6 +140,10 @@ case $1 in
     docker exec -it kingdom sudo -u www-data /kingdom/app/console "$@"
 ;;
 
+'test')
+    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run
+;;
+
 (gulp|css|js)
     command -v node >/dev/null 2>&1 || { echo "Node.js не установлен"; exit 1; }
     node node_modules/gulp/bin/gulp.js build
