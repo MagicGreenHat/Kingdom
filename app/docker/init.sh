@@ -15,7 +15,8 @@ echo "Запуск nginx ..."
 echo "Обновление библиотек композера ..."
 [ -d /kingdom/vendor ] || mkdir /kingdom/vendor
 chown -R www-data:www-data /kingdom/vendor
-sudo -u www-data /composer.phar install -n -d /kingdom/
+#sudo -u www-data /composer.phar install -n -d /kingdom/
+sudo /composer.phar install -n -d /kingdom/
 
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log

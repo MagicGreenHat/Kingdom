@@ -13,15 +13,15 @@ before_install:
     - sudo apt-get -qq install php5-cli
 
 install:
+    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
+    - sudo chmod a+x /usr/local/bin/codecept
     - ./kingdom.sh start
-    - sleep 30
+    - sleep 40
     - ./kingdom.sh log
     - docker ps -a
     - ls
 
 script:
 #    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
-    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
-    - sudo chmod a+x /usr/local/bin/codecept
     - codecept run
 #    - ./kingdom.sh test
