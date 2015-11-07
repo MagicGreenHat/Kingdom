@@ -16,7 +16,7 @@ install:
 #    - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
 #    - sudo chmod a+x /usr/local/bin/codecept
     - ./kingdom.sh start
-    - sleep 30
+    - sleep 60
     - ./kingdom.sh log
     - docker ps -a
     - ls
