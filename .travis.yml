@@ -22,6 +22,8 @@ install:
     - ls
 
 script:
-    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
+    - ./kingdom.sh test
+#    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
+#    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
 #    - codecept run
 #    - ./kingdom.sh test
