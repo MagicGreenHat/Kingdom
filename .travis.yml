@@ -10,7 +10,7 @@ before_install:
     - sudo apt-get -qq install php5-cli
 
 install:
-    - ./kingdom.sh start
+    - ./kingdom.sh start test
     - sleep 120
     - ./kingdom.sh log
 

@@ -13,7 +13,6 @@ echo "Запуск nginx ..."
 /etc/init.d/nginx start
 
 echo "Обновление библиотек композера ..."
-#[ -d /kingdom/vendor ] || mkdir /kingdom/vendor
 sudo /composer.phar install -n -d /kingdom/
 sudo chown -R www-data:www-data /kingdom/vendor /kingdom/bin /kingdom/app/cache /kingdom/app/logs
 
@@ -21,13 +20,13 @@ echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
 
 echo "Создание БД, при ее отсутствии ..."
-sudo -u www-data /kingdom/app/console doctrine:database:create > /dev/null 2>&1
+sudo -u www-data /kingdom/app/console doctrine:database:create -e $SYMFONY_ENVIRONMENT > /dev/null 2>&1
 
 echo "Обновление структуры БД ..."
-sudo -u www-data /kingdom/app/console doctrine:schema:update --force
+sudo -u www-data /kingdom/app/console doctrine:schema:update -e $SYMFONY_ENVIRONMENT --force
 
 echo "Загрузка игровых данных в БД ..."
-sudo -u www-data /kingdom/app/console kingdom:create:map
+sudo -u www-data /kingdom/app/console kingdom:create:map -e $SYMFONY_ENVIRONMENT
 
 echo "Инициализация серверов ..."
 /etc/init.d/php5-fpm start
@@ -46,9 +45,9 @@ rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log 
 
 if [ ${SYMFONY_ENVIRONMENT} = "prod" ]; then
     /kingdom/app/console cache:warm -e prod
-elif [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
-    /kingdom/app/console kingdom:create:user test test test@test.ru
-    /kingdom/app/console kingdom:create:items
+else
+    /kingdom/app/console kingdom:create:user test test test@test.ru -e $SYMFONY_ENVIRONMENT
+    /kingdom/app/console kingdom:create:items -e $SYMFONY_ENVIRONMENT
 fi
 
 echo "Настройка прав на логи"

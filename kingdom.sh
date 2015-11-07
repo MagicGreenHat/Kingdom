@@ -43,6 +43,8 @@ case $1 in
     if [ ! -z $2 ]; then
         if [ $2 = "dev" ]; then
             SYMFONY_ENVIRONMENT="dev"
+        elif [ $2 = "test" ]; then
+            SYMFONY_ENVIRONMENT="test"
         fi
     fi
 
