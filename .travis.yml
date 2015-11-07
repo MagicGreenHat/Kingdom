@@ -20,7 +20,6 @@ install:
     - ls
 
 script:
-    - docker exec -it kingdom bash
 #    - /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
     - sudo curl -LsS http://codeception.com/codecept.phar -o /usr/local/bin/codecept
     - sudo chmod a+x /usr/local/bin/codecept
