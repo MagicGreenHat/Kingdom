@@ -12,4 +12,6 @@ RUN apt-get install -y curl \
 
 RUN curl -sS https://getcomposer.org/installer | php
 
+RUN php5dismod xdebug
+
 EXPOSE 7777 81
