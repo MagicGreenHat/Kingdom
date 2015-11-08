@@ -23,6 +23,10 @@ case $1 in
     echo "Сборка Docker-образа ..."
     docker rmi rottenwood/kingdom > /dev/null 2>&1
     docker build --no-cache -t rottenwood/kingdom .
+
+    if [ $2 = "push" ]; then
+        docker push rottenwood/kingdom
+    fi
 ;;
 
 (start|restart)
