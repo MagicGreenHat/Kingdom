@@ -71,17 +71,4 @@ class DefaultController extends Controller {
 
         return $this->render('RottenwoodKingdomBundle:Default:character.html.twig', $result);
     }
-
-    /**
-     * @param string|int $userNameOrId
-     * @return User
-     */
-    public function findUser($userNameOrId)
-    {
-        $userRepository = $this->get('kingdom.user_repository');
-
-        $user = $userRepository->findByName($userNameOrId) ?: $userRepository->findById($userNameOrId);
-
-        return $user;
-    }
 }

@@ -18,6 +18,7 @@ coverage:
         - src/*
     exclude:
         - vendor/*
+        - src/Rottenwood/KingdomBundle/Resources/*
         - src/Rottenwood/UserBundle/*
 
 modules:
