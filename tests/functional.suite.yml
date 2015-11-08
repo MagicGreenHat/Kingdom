@@ -9,3 +9,10 @@ modules:
     enabled:
         - \Helper\Functional
         - Cli
+        - Symfony2:
+            app_path: 'app'
+            var_path: 'app'
+            environment: test
+        - Doctrine2:
+            depends: Symfony2
+            cleanup: false

@@ -144,7 +144,14 @@ case $1 in
 ;;
 
 'test')
-    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml
+    VERBOSE=""
+    case $2 in
+    (-v|v|-d|d|debug)
+        VERBOSE="--debug"
+    ;;
+    esac
+
+    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml $VERBOSE
 ;;
 
 (gulp|css|js)
@@ -184,8 +191,8 @@ case $1 in
 
 'help')
 	echo "--------------------------------------------------------------------"
-	echo "\033[1;33;24m$0 start\033[0m [dev] - Запуск контейнера [в dev-окружении (без кэширования)]"
-	echo "\033[1;33;24m$0 restart\033[0m [dev]- Перезапуск контейнера"
+	echo "\033[1;33;24m$0 start\033[0m [dev|test] - Запуск контейнера [в dev-окружении (без кэширования)]"
+	echo "\033[1;33;24m$0 restart\033[0m [dev|test]- Немедленный перезапуск контейнеров"
 	echo "\033[1;33;24m$0 stop\033[0m - Остановка контейнера"
 	echo "\033[1;33;24m$0 reboot\033[0m [dev] - Отложенная перезагрузка (с оповещением игроков)"
 	echo ""
@@ -200,7 +207,7 @@ case $1 in
 	echo "\033[1;33;24m$0 broadcast (phrase)\033[0m - Отправка сообщения всем игрокам онлайн"
 	echo ""
 	echo "\033[1;33;24m$0 deploy\033[0m (dev) - Деплой проекта (git pull, рестарт серверов)"
-	echo "\033[1;33;24m$0 test\033[0m - Запуск автоматических тестов"
+	echo "\033[1;33;24m$0 test\033[0m (d|v|-d|-v|debug)- Запуск автоматических тестов (с выводом)"
 	echo "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
 	echo "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
 	echo "----------------------------------------------------------------------"
