@@ -56,14 +56,32 @@ class DefaultController extends Controller {
      * @return Response
      */
     public function characterPageAction(Request $request) {
-        $characterNameOrId = $request->attributes->get('name');
+        $userNameOrId = $request->attributes->get('name');
         $userRepository = $this->get('kingdom.user_repository');
-        $character = $userRepository->findByName($characterNameOrId);
 
-        if (!$character) {
-        	$character = $userRepository->findById($characterNameOrId);
+        $user = $userRepository->findByNameOrId($userNameOrId);
+
+        $result = [
+            'character' => $user,
+        ];
+
+        if ($user) {
+            $result['items'] = $this->get('kingdom.inventory_item_repository')->findByUser($user);
         }
 
-        return $this->render('RottenwoodKingdomBundle:Default:character.html.twig', ['character' => $character]);
+        return $this->render('RottenwoodKingdomBundle:Default:character.html.twig', $result);
+    }
+
+    /**
+     * @param string|int $userNameOrId
+     * @return User
+     */
+    public function findUser($userNameOrId)
+    {
+        $userRepository = $this->get('kingdom.user_repository');
+
+        $user = $userRepository->findByName($userNameOrId) ?: $userRepository->findById($userNameOrId);
+
+        return $user;
     }
 }

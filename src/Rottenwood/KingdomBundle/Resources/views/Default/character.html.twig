@@ -5,7 +5,6 @@
         <div>Персонаж не найден!</div>
     {% else %}
         {% set room = character.room %}
-        {% set equipment = character.equipment %}
 
         <h2>{{ character.name }}</h2>
         <img src="{{ asset(character.avatar) }}">
@@ -15,11 +14,11 @@
             <tr>
                 <td style="vertical-align: top;">Одежда:</td>
                 <td>
-                    {% if not equipment %}
+                    {% if not items %}
                         нет
                     {% else %}
-                        {% for item in character.equipment %}
-                            <div>{{ item.name }}</div>
+                        {% for item in items %}
+                            <div>{{ item.item.name }}</div>
                         {% endfor %}
                     {% endif %}
                 </td>
