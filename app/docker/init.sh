@@ -59,20 +59,27 @@ rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log 
 echo "Конфигурация Symfony-окружения: $SYMFONY_ENVIRONMENT ..."
 rm /kingdom/web/app_dev.php
 
-if [ ${SYMFONY_ENVIRONMENT} = "dev" ]; then
+if [ ${SYMFONY_ENVIRONMENT} = "prod" ] ; then
+    ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
+    rm /etc/nginx/nginx-dev.conf
+else
     ln -s /etc/nginx/sites-available/kingdom-dev.conf /etc/nginx/sites-enabled/
     cp /kingdom/app/docker/symfony/app_dev.php /kingdom/web/
     mv /etc/nginx/nginx-dev.conf /etc/nginx/nginx.conf
-else
-    ln -s /etc/nginx/sites-available/kingdom.conf /etc/nginx/sites-enabled/
-    rm /etc/nginx/nginx-dev.conf
+
+    echo "Включение модуля xdebug"
+    sudo php5enmod xdebug
+
+    echo "Рестарт php5-fpm ..."
+    sudo service php5-fpm restart
 fi
 
 echo "Отключение страницы с информацией о загрузке ..."
 rm /etc/nginx/sites-enabled/maintain.conf
 
+
 echo "Рестарт nginx ..."
-/etc/init.d/nginx restart
+sudo service nginx restart
 
 echo "Запуск node.js приложений ..."
 cd /kingdom/websocket
