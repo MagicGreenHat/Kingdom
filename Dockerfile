@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get install -y curl \
     && curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - \
     && apt-get install -y php5 php5-cli php5-mysql php5-curl php5-fpm \
-       php5-redis redis-server nodejs nginx git \
+       php5-redis php5-xdebug redis-server nodejs nginx git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
