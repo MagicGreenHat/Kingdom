@@ -155,7 +155,7 @@ case $1 in
     ;;
     esac
 
-    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml $VERBOSE
+    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml --coverage --coverage-html $VERBOSE
 ;;
 
 (gulp|css|js)

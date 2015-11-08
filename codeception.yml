@@ -12,6 +12,13 @@ settings:
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+coverage:
+    enabled: true
+    include:
+        - src/*
+    exclude:
+        - vendor/*
+        - src/Rottenwood/UserBundle/*
 
 modules:
     enabled:
