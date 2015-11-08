@@ -11,7 +11,7 @@ before_install:
 
 install:
     - ./kingdom.sh start test
-    - sleep 120
+    - sleep 80
     - ./kingdom.sh log
 
 script:
