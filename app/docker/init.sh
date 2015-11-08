@@ -3,8 +3,8 @@
 echo "Настройка для доступа www-data к внешним файлам ..."
 usermod -u 1000 www-data
 
-echo "Копирование конфигов для nginx ..."
-cp -r /kingdom/app/docker/nginx /etc
+echo "Копирование конфигов ..."
+cp -r /kingdom/app/docker/etc /
 
 echo "Подключение страницы с информацией о загрузке ..."
 ln -s /etc/nginx/sites-available/maintain.conf /etc/nginx/sites-enabled/
