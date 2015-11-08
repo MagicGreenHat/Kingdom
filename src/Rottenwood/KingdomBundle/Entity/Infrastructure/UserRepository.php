@@ -59,6 +59,14 @@ class UserRepository extends AbstractRepository {
     }
 
     /**
+     * @param string|int $userNameOrId
+     * @return User
+     */
+    public function findByNameOrId($userNameOrId) {
+        return $this->findByName($userNameOrId) ?: $this->findById($userNameOrId);
+    }
+
+    /**
      * @param string $email
      * @return User
      */
