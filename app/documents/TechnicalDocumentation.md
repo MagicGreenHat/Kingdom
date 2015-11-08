@@ -10,7 +10,7 @@
 * Node.js 0.10.25
 * Symfony 2.7 [документация](https://symfony.com/doc/current/index.html)
 * Redis 2.8.4 [команды](http://redis.io/commands)
-* Docker 1.0 [руководство](http://docs.docker.com/mac/started/)
+* Docker 1.0 [руководство](http://docs.docker.com/linux/started/)
 * Autobahn.js 0.9.6 [документация](http://autobahn.ws/js/)
 
 ## Ход работы приложения
@@ -39,7 +39,6 @@
 ## Структура директорий
 * **kingdom.sh** -- Исполняемый файл для управления проектом
 
-* app/
 * app/config -- Конфигурационные файлы фреймворка
 * app/Documents -- Файлы проектной документации
 * app/docker -- Конфигурационные файлы для настройки Docker контейнера
