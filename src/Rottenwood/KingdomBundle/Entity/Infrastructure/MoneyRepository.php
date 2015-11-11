@@ -9,7 +9,7 @@ class MoneyRepository extends AbstractRepository {
 
     /**
      * @param User|int $userId
-     * @return Money
+     * @return Money|null
      */
     public function findOneByUser($userId) {
         return $this->findOneBy(['user' => $userId]);

@@ -6,7 +6,7 @@ class ItemRepository extends AbstractRepository {
 
     /**
      * @param int $itemId
-     * @return Item
+     * @return Item|null
      */
     public function findById($itemId) {
         return $this->find($itemId);

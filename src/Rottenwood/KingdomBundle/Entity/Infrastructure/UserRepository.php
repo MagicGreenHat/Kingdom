@@ -9,7 +9,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param int $userId
-     * @return User
+     * @return User|null
      */
     public function findById($userId) {
         return $this->find($userId);
@@ -26,7 +26,7 @@ class UserRepository extends AbstractRepository {
         $builder->where('u.room = :room');
         $builder->andWhere($builder->expr()->in('u.id', $onlinePlayerIds));
 
-        if ($excludePlayerIds) {
+        if (!empty($excludePlayerIds)) {
             $builder->andWhere($builder->expr()->notIn('u.id', $excludePlayerIds));
         }
 
@@ -44,7 +44,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string $username
-     * @return User
+     * @return User|null
      */
     public function findByUsername($username) {
         return $this->findOneBy(['username' => $username]);
@@ -52,7 +52,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string $name
-     * @return User
+     * @return User|null
      */
     public function findByName($name) {
         return $this->findOneBy(['name' => $name]);
@@ -60,7 +60,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string|int $userNameOrId
-     * @return User
+     * @return User|null
      */
     public function findByNameOrId($userNameOrId) {
         return $this->findByName($userNameOrId) ?: $this->findById($userNameOrId);
@@ -68,7 +68,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string $email
-     * @return User
+     * @return User|null
      */
     public function findOneByEmail($email) {
         return $this->findOneBy(['email' => $email]);
