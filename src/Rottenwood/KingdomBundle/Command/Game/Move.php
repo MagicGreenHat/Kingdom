@@ -59,7 +59,7 @@ class Move extends AbstractGameCommand {
             $this->user->setRoom($destinationRoom);
             $em->flush($this->user);
 
-            /** @var RedisClientInterface $redis */
+            /** @var \Redis $redis */
             $redis = $this->container->get('snc_redis.default');
             $redis->hset(RedisClientInterface::ID_ROOM_HASH, $userId, $destinationRoom->getId());
 

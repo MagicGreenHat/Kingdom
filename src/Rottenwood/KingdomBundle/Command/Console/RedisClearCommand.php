@@ -15,7 +15,7 @@ class RedisClearCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        /** @var RedisClientInterface $redis */
+        /** @var \Redis $redis */
         $redis = $this->getContainer()->get('snc_redis.default');
         $redis->del(RedisClientInterface::ID_USERNAME_HASH);
         $redis->del(RedisClientInterface::ID_SESSION_HASH);

@@ -22,7 +22,7 @@ class UserService {
 
     /** @var KernelInterface */
     private $kernel;
-    /** @var RedisClientInterface */
+    /** @var \Redis */
     private $redis;
     /** @var UserRepository */
     private $userRepository;

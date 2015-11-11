@@ -4,11 +4,12 @@ namespace Rottenwood\KingdomBundle\Controller;
 
 use Rottenwood\KingdomBundle\Entity\User;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller {
 
@@ -38,7 +39,7 @@ class DefaultController extends Controller {
         $user = $this->getUser();
         $userId = $user->getId();
 
-        /** @var RedisClientInterface $redis */
+        /** @var \Redis $redis */
         $redis = $this->container->get('snc_redis.default');
 
         $redis->hset(RedisClientInterface::ID_USERNAME_HASH, $userId, $user->getName());
