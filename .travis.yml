@@ -6,8 +6,7 @@ services:
     - docker
 
 before_install:
-    - sudo apt-get update -qq
-    - sudo apt-get -qq install php5-cli
+  - pip install --user codecov
 
 install:
     - ./kingdom.sh start test
@@ -16,3 +15,6 @@ install:
 
 script:
     - ./kingdom.sh test
+
+after_success:
+  - codecov
