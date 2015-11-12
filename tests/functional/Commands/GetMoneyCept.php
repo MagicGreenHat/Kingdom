@@ -13,12 +13,12 @@ $I->setMoney(0, 0);
 
 $result = $I->runCommand('getMoney');
 
-PHPUnit_Framework_Assert::assertEquals(0, $result['gold']);
-PHPUnit_Framework_Assert::assertEquals(0, $result['silver']);
+PHPUnit_Framework_Assert::assertEquals(0, $result['data']['gold']);
+PHPUnit_Framework_Assert::assertEquals(0, $result['data']['silver']);
 
 $I->setMoney(5, 5);
 
 $result = $I->runCommand('getMoney');
 
-PHPUnit_Framework_Assert::assertEquals(5, $result['gold']);
-PHPUnit_Framework_Assert::assertEquals(5, $result['silver']);
+PHPUnit_Framework_Assert::assertEquals(5, $result['data']['gold']);
+PHPUnit_Framework_Assert::assertEquals(5, $result['data']['silver']);
