@@ -4,6 +4,9 @@ sudo: required
 
 services:
     - docker
+    
+before_install:
+  - pip install codecov
 
 before_install:
   - pip install --user codecov
