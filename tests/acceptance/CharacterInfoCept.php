@@ -1,6 +1,7 @@
 <?php
 
 $I = new AcceptanceTester($scenario);
+$I->wantTo('Character info page renders correctly');
 
 $I->amLoggedInAs('test');
 
