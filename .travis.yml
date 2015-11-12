@@ -1,12 +1,7 @@
-language: ruby
-
 sudo: required
 
 services:
     - docker
-
-before_install:
-  - pip install --user codecov
 
 install:
     - ./kingdom.sh start test
@@ -15,6 +10,3 @@ install:
 
 script:
     - ./kingdom.sh test
-
-after_success:
-  - codecov
