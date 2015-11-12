@@ -19,15 +19,4 @@
 class FunctionalTester extends \Codeception\Actor
 {
     use _generated\FunctionalTesterActions;
-
-    /**
-     * @param $command
-     * @return mixed
-     */
-    public function runCommand($command)
-    {
-        $symfonyCommand = sprintf('/kingdom/app/console kingdom:execute 1 %s -e test', $command);
-
-        return json_decode($this->runShellCommandAndGetOutput($symfonyCommand),true);
-    }
 }

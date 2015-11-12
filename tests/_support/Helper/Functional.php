@@ -19,8 +19,10 @@ class Functional extends AbstractHelper
      * @param bool   $failNonZero
      * @return string
      */
-    public function runShellCommandAndGetOutput($command, $failNonZero = true)
+    public function runCommand($command, $failNonZero = true)
     {
+        $command = sprintf('/kingdom/app/console kingdom:execute 1 %s -e test', $command);
+
         $data = [];
         exec("$command", $data, $resultCode);
         $output = implode('\n', $data);
@@ -32,7 +34,8 @@ class Functional extends AbstractHelper
         }
         $this->debug(preg_replace('~s/\e\[\d+(?>(;\d+)*)m//g~', '', $output));
 
-        return $output;
+
+        return json_decode($output, true);
     }
 
     /**
@@ -41,7 +44,7 @@ class Functional extends AbstractHelper
      * @param int $silver
      * @throws \Codeception\Exception\ModuleException
      */
-    public function setMoney($gold = 0, $silver = 0)
+    public function haveMoney($gold = 0, $silver = 0)
     {
         $symfonyModule = $this->getSymfonyModule();
 
@@ -80,7 +83,7 @@ class Functional extends AbstractHelper
      * @return Symfony2
      * @throws \Codeception\Exception\ModuleException
      */
-    public function getSymfonyModule()
+    private function getSymfonyModule()
     {
         return $this->getModule('Symfony2');
     }
@@ -89,7 +92,7 @@ class Functional extends AbstractHelper
      * @param $symfonyModule
      * @return User
      */
-    public function getUser($symfonyModule)
+    private function getUser($symfonyModule)
     {
         return $symfonyModule->container->get('security.token_storage')->getToken()->getUser();
     }
