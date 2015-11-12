@@ -2,6 +2,7 @@
 namespace Helper;
 
 use Codeception\Module\Symfony2;
+use PHPUnit_Framework_Assert;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
 
@@ -89,7 +90,7 @@ class Functional extends AbstractHelper
         $roomRepository = $symfonyModule->container->get('kingdom.room_repository');
         $room = $roomRepository->findOneByXandY($x, $y);
 
-        return $user->getRoom()->getId() == $room->getId();
+        PHPUnit_Framework_Assert::assertEquals($user->getRoom()->getId(), $room->getId());
     }
 
     /**
