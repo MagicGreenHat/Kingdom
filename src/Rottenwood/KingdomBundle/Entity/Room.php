@@ -12,6 +12,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType;
  */
 class Room {
 
+    const DEFAULT_Z = 0;
+
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -69,7 +71,7 @@ class Room {
      * @param RoomType $type
      * @param int      $z
      */
-    public function __construct($x, $y, RoomType $type, $z = 0) {
+    public function __construct($x, $y, RoomType $type, $z = self::DEFAULT_Z) {
         $this->x = $x;
         $this->y = $y;
         $this->type = $type;
