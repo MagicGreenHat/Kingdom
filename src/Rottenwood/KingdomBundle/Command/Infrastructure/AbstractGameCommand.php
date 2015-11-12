@@ -28,4 +28,6 @@ abstract class AbstractGameCommand implements GameCommandInterface {
         $this->container = $container;
         $this->result = new CommandResponse($commandName);
     }
+
+    abstract public function execute();
 }
