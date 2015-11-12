@@ -47,7 +47,6 @@ class Functional extends AbstractHelper
     public function haveMoney($gold = 0, $silver = 0)
     {
         $symfonyModule = $this->getSymfonyModule();
-
         $user = $this->getUser($symfonyModule);
 
         $moneyRepository = $symfonyModule->container->get('kingdom.money_repository');
@@ -68,7 +67,6 @@ class Functional extends AbstractHelper
     public function teleportToCoordinates($x, $y, $z = Room::DEFAULT_Z)
     {
         $symfonyModule = $this->getSymfonyModule();
-
         $user = $this->getUser($symfonyModule);
 
         $roomRepository = $symfonyModule->container->get('kingdom.room_repository');
@@ -77,6 +75,21 @@ class Functional extends AbstractHelper
         $user->setRoom($room);
 
         $roomRepository->flush();
+    }
+
+    /**
+     * @param int $x
+     * @param int $y
+     * @return bool
+     */
+    public function amAtCoordinates($x, $y)
+    {
+        $symfonyModule = $this->getSymfonyModule();
+        $user = $this->getUser($symfonyModule);
+        $roomRepository = $symfonyModule->container->get('kingdom.room_repository');
+        $room = $roomRepository->findOneByXandY($x, $y);
+
+        return $user->getRoom()->getId() == $room->getId();
     }
 
     /**
