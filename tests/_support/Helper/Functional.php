@@ -2,6 +2,8 @@
 namespace Helper;
 
 use Codeception\Module\Symfony2;
+use Rottenwood\KingdomBundle\Entity\Room;
+use Rottenwood\KingdomBundle\Entity\User;
 
 /**
  * here you can define custom actions
@@ -12,6 +14,7 @@ class Functional extends AbstractHelper
 {
 
     /**
+     * Запуск консольной команды и получение ее результата
      * @param string $command
      * @param bool   $failNonZero
      * @return string
@@ -32,12 +35,17 @@ class Functional extends AbstractHelper
         return $output;
     }
 
+    /**
+     * Количество денег у персонажа
+     * @param int $gold
+     * @param int $silver
+     * @throws \Codeception\Exception\ModuleException
+     */
     public function setMoney($gold = 0, $silver = 0)
     {
-        /** @var Symfony2 $symfonyModule */
-        $symfonyModule = $this->getModule('Symfony2');
+        $symfonyModule = $this->getSymfonyModule();
 
-        $user = $symfonyModule->container->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser($symfonyModule);
 
         $moneyRepository = $symfonyModule->container->get('kingdom.money_repository');
         $money = $moneyRepository->findOneByUser($user);
@@ -46,5 +54,43 @@ class Functional extends AbstractHelper
         $money->setSilver($silver);
 
         $moneyRepository->flush();
+    }
+
+    /**
+     * Перемещение персонажа в комнату по координатам
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     */
+    public function teleportToCoordinates($x, $y, $z = Room::DEFAULT_Z)
+    {
+        $symfonyModule = $this->getSymfonyModule();
+
+        $user = $this->getUser($symfonyModule);
+
+        $roomRepository = $symfonyModule->container->get('kingdom.room_repository');
+        $room = $roomRepository->findOneByXandY($x, $y);
+
+        $user->setRoom($room);
+
+        $roomRepository->flush();
+    }
+
+    /**
+     * @return Symfony2
+     * @throws \Codeception\Exception\ModuleException
+     */
+    public function getSymfonyModule()
+    {
+        return $this->getModule('Symfony2');
+    }
+
+    /**
+     * @param $symfonyModule
+     * @return User
+     */
+    public function getUser($symfonyModule)
+    {
+        return $symfonyModule->container->get('security.token_storage')->getToken()->getUser();
     }
 }
