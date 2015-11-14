@@ -149,13 +149,28 @@ case $1 in
 
 'test')
     VERBOSE=""
+    TYPE=""
+
     case $2 in
+    (-a|a)
+        TYPE="acceptance"
+    ;;
+    (-f|f)
+        TYPE="functional"
+    ;;
     (-v|v|-d|d|debug)
         VERBOSE="--debug"
     ;;
     esac
 
-    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run -c /kingdom/codeception.yml --coverage --coverage-html $VERBOSE
+    case $3 in
+    (-v|v|-d|d|debug)
+        VERBOSE="--debug"
+    ;;
+    esac
+
+    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run $TYPE \
+        -c /kingdom/codeception.yml --coverage --coverage-html $VERBOSE
 ;;
 
 (gulp|css|js)
