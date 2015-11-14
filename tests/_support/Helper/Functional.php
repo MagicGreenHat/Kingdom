@@ -94,6 +94,18 @@ class Functional extends AbstractHelper
     }
 
     /**
+     * @param int $gold
+     * @param int $silver
+     */
+    public function haveMoney($gold, $silver)
+    {
+        $result = $this->runCommand('getMoney');
+
+        PHPUnit_Framework_Assert::assertEquals($gold, $result['data']['gold']);
+        PHPUnit_Framework_Assert::assertEquals($silver, $result['data']['silver']);
+    }
+
+    /**
      * @return Symfony2
      * @throws \Codeception\Exception\ModuleException
      */
