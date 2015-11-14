@@ -158,6 +158,9 @@ case $1 in
     (-f|f)
         TYPE="functional"
     ;;
+    (-u|u)
+        TYPE="unit"
+    ;;
     (-v|v|-d|d|debug)
         VERBOSE="--debug"
     ;;
