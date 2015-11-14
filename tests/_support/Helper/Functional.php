@@ -45,7 +45,7 @@ class Functional extends AbstractHelper
      * @param int $silver
      * @throws \Codeception\Exception\ModuleException
      */
-    public function haveMoney($gold = 0, $silver = 0)
+    public function setMoney($gold = 0, $silver = 0)
     {
         $symfonyModule = $this->getSymfonyModule();
         $user = $this->getUser($symfonyModule);
