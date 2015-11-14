@@ -27,8 +27,9 @@ class ObtainWood extends AbstractGameCommand {
         $result = [];
         foreach ($resources as $resource) {
             $resourceItem = $resource->getItem();
+            $resourceQuantity = $resource->getQuantity();
 
-            if ($resourceItem instanceof ResourceWood) {
+            if ($resourceItem instanceof ResourceWood && $resourceQuantity > 0) {
                 $resource->reduceQuantity($this->quantityToObtain);
                 $result['obtained'] = $this->quantityToObtain;
                 $userService->takeItem($this->user, $resourceItem, $this->quantityToObtain);
@@ -43,6 +44,9 @@ class ObtainWood extends AbstractGameCommand {
                 	$room->setType($grassType);
                     $result['typeChanged'] = true;
                 }
+            } elseif ($resourceItem instanceof ResourceWood && $resourceQuantity === 0) {
+                //TODO[Rottenwood]: Отвечать за удаление ресурсов из комнат должен листнер на postflush
+                $em->remove($resource);
             }
         }
 
