@@ -29,4 +29,5 @@ foreach (range(1, 10) as $i) {
     $result = $I->runCommand('obtainWood');
 }
 
-PHPUnit_Framework_Assert::assertGreaterThanOrEqual(0, $result['data']['resources']['wood']);
+PHPUnit_Framework_Assert::assertEquals('obtainWood', $result['commandName']);
+PHPUnit_Framework_Assert::assertFalse(isset($result['data']));
