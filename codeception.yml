@@ -17,6 +17,8 @@ coverage:
     include:
         - src/*
     exclude:
+        - app/*
+        - web/*
         - vendor/*
         - src/Rottenwood/KingdomBundle/Resources/*
         - src/Rottenwood/UserBundle/*

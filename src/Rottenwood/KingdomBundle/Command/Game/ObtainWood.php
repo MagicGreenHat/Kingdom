@@ -11,13 +11,16 @@ use Rottenwood\KingdomBundle\Entity\RoomTypes\Grass;
  * Добыча древесины
  * Применение в js: Kingdom.Websocket.command('obtainWood')
  */
-class ObtainWood extends AbstractGameCommand {
+class ObtainWood extends AbstractGameCommand
+{
 
     private $quantityToObtain = 1;
+
     /**
      * @return CommandResponse
      */
-    public function execute() {
+    public function execute()
+    {
         $resourceRepository = $this->container->get('kingdom.room_resource_repository');
         $em = $resourceRepository->getEntityManager();
         $userService = $this->container->get('kingdom.user_service');
@@ -31,6 +34,8 @@ class ObtainWood extends AbstractGameCommand {
 
             if ($resourceItem instanceof ResourceWood && $resourceQuantity > 0) {
                 $resource->reduceQuantity($this->quantityToObtain);
+                $em->flush($resource);
+
                 $result['obtained'] = $this->quantityToObtain;
                 $userService->takeItem($this->user, $resourceItem, $this->quantityToObtain);
 
@@ -41,7 +46,7 @@ class ObtainWood extends AbstractGameCommand {
                     /** @var Grass[] $grassTypes */
                     $grassTypes = $em->getRepository(Grass::class)->findAll();
                     $grassType = $grassTypes[array_rand($grassTypes)];
-                	$room->setType($grassType);
+                    $room->setType($grassType);
                     $result['typeChanged'] = true;
                 }
             } elseif ($resourceItem instanceof ResourceWood && $resourceQuantity === 0) {
