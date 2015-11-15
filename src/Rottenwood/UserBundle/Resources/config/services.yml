@@ -58,7 +58,7 @@ services:
             - "[%%datetime%%] %%message%%\n"
 
     user.logger.registration:
-        class: Monolog\Logger
+        class: Rottenwood\UserBundle\Loggers\RegistrationLogger
         arguments: ['default']
         calls:
           - ['pushHandler', [@user.logger_handler.registration]]
