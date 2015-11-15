@@ -76,18 +76,6 @@ services:
         calls:
           - ['setFormatter', [@kingdom.logger_formatter]]
 
-    kingdom.logger.registration:
-        class: Monolog\Logger
-        arguments: ['default']
-        calls:
-          - ['pushHandler', [@kingdom.logger_handler.registration]]
-
-    kingdom.logger_handler.registration:
-        class: Monolog\Handler\StreamHandler
-        arguments: [ "%kernel.logs_dir%/game_logs/registrations.log"]
-        calls:
-          - ['setFormatter', [@kingdom.logger_formatter]]
-
     kingdom.logger.commands_errors:
         class: Monolog\Logger
         arguments: ['default']

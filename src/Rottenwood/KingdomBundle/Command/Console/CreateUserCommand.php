@@ -44,7 +44,7 @@ class CreateUserCommand extends ContainerAwareCommand {
         $email = $input->getArgument('email');
         $gender = $input->getArgument('gender');
 
-        $output->write('Создание тестового персонажа ... ');
+        $output->write('Создание персонажа ... ');
 
         $container = $this->getContainer();
 
@@ -89,7 +89,7 @@ class CreateUserCommand extends ContainerAwareCommand {
             $output->writeln('E-mail: ' . $email);
             $output->writeln('====================================');
 
-            $logger = $container->get('kingdom.logger.registration');
+            $logger = $container->get('user.logger.registration');
             $logger->info(
                 sprintf(
                     '[#%d] логин: %s, имя: %s, email: %s',

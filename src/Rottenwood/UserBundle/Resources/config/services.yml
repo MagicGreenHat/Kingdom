@@ -1,1 +1,70 @@
+services:
+    kingdom.user_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\User"]
 
+    kingdom.room_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\Room"]
+
+    kingdom.room_type_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\RoomTypeRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType"]
+
+    kingdom.item_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\Infrastructure\Item"]
+
+    kingdom.inventory_item_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\InventoryItem"]
+
+    kingdom.money_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\MoneyRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\Money"]
+
+    kingdom.room_resource_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\RoomResourceRepository
+        factory_service: "doctrine.orm.entity_manager"
+        factory_method: getRepository
+        arguments: ["Rottenwood\KingdomBundle\Entity\RoomResource"]
+
+    kingdom.user_service:
+        class: Rottenwood\KingdomBundle\Service\UserService
+        arguments:
+            - @kernel
+            - @snc_redis.default
+            - @kingdom.logger
+            - @kingdom.user_repository
+            - @kingdom.inventory_item_repository
+            - @kingdom.room_repository
+
+    # Логгеры
+    user.logger_formatter:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] %%message%%\n"
+
+    user.logger.registration:
+        class: Monolog\Logger
+        arguments: ['default']
+        calls:
+          - ['pushHandler', [@user.logger_handler.registration]]
+
+    user.logger_handler.registration:
+        class: Monolog\Handler\StreamHandler
+        arguments: [ "%kernel.logs_dir%/game_logs/registrations.log"]
+        calls:
+          - ['setFormatter', [@user.logger_formatter]]
