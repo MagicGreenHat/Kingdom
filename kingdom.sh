@@ -177,7 +177,7 @@ case $1 in
 ;;
 
 (gulp|css|js)
-    command -v node >/dev/null 2>&1 || { echo "Node.js не установлен"; exit 1; }
+    command -v node >/dev/null 2>&1 || { echo "Node.js не установлен"; echo "Установка: curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -"; exit 1; }
     node node_modules/gulp/bin/gulp.js build
 ;;
 
