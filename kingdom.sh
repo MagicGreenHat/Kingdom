@@ -173,7 +173,7 @@ case $1 in
     esac
 
     docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run $TYPE \
-        -c /kingdom/codeception.yml --coverage --coverage-html $VERBOSE
+        -c /kingdom/codeception.yml $VERBOSE
 ;;
 
 (gulp|css|js)
