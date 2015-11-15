@@ -11,7 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository")
  */
-class User extends BaseUser {
+class User extends BaseUser
+{
 
     const AVATAR_PATH = '/img/avatars/';
     const AVATAR_EXTENSION = 'jpg';
@@ -62,7 +63,14 @@ class User extends BaseUser {
      */
     private $avatar;
 
-    public function __construct() {
+    /**
+     * @ORM\Column(name="last_action_waitstate", type="datetime")
+     * @var \DateTime
+     */
+    private $waitstate;
+
+    public function __construct()
+    {
         parent::__construct();
 
         $this->registerDate = new \DateTime();
@@ -71,65 +79,97 @@ class User extends BaseUser {
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * @param string $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
     /**
      * @return Room
      */
-    public function getRoom() {
+    public function getRoom()
+    {
         return $this->room;
     }
 
     /**
      * @param Room $room
      */
-    public function setRoom($room) {
+    public function setRoom($room)
+    {
         $this->room = $room;
     }
 
     /**
      * @return \DateTime
      */
-    public function getRegisterDate() {
+    public function getRegisterDate()
+    {
         return $this->registerDate;
     }
 
     /**
      * @return string
      */
-    public function getAvatar() {
+    public function getAvatar()
+    {
         return $this->avatar ? sprintf('%s%s.%s', self::AVATAR_PATH, $this->avatar, self::AVATAR_EXTENSION) : '';
     }
 
     /**
      * @param string $avatar
      */
-    public function setAvatar($avatar) {
+    public function setAvatar($avatar)
+    {
         $this->avatar = $avatar;
     }
 
     /**
      * @param string $gender
      */
-    public function setGender($gender) {
+    public function setGender($gender)
+    {
         $this->gender = $gender;
     }
 
-    public function isMale() {
+    /**
+     * @return bool
+     */
+    public function isMale()
+    {
         return $this->gender == self::GENDER_MALE;
     }
 
-    public function isFemale() {
+    /**
+     * @return bool
+     */
+    public function isFemale()
+    {
         return $this->gender == self::GENDER_FEMALE;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getWaitstate()
+    {
+        return $this->waitstate;
+    }
+
+    /**
+     * @param \DateTime $waitstate
+     */
+    public function setWaitstate(\DateTime $waitstate)
+    {
+        $this->waitstate = $waitstate;
     }
 
     /**
@@ -137,7 +177,8 @@ class User extends BaseUser {
      * @Assert\LessThanOrEqual(value = 20, message = "Максимальная длина имени - 20 букв")
      * @return int
      */
-    public function isNameValid() {
+    public function isNameValid()
+    {
         return mb_strlen($this->getLiteralUsername(), 'UTF-8');
     }
 
@@ -145,7 +186,8 @@ class User extends BaseUser {
      * Очистка логина от спецсимволов для генерации имени
      * @return string
      */
-    public function getLiteralUsername() {
+    public function getLiteralUsername()
+    {
         return preg_replace('/[^a-zA-Zа-яА-Я]/us', '', $this->getUsernameCanonical());
     }
 }
