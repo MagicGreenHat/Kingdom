@@ -170,7 +170,7 @@ class User extends BaseUser
     public function addWaitstate($waitSeconds)
     {
         if (!is_int($waitSeconds)) {
-        	throw new \RuntimeException('Waitstate can only accept integer as parameter');
+            throw new \RuntimeException('Waitstate can only accept integer as parameter');
         }
 
         $this->waitstate = time() + $waitSeconds;
