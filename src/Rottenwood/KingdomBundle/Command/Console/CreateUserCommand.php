@@ -74,7 +74,7 @@ class CreateUserCommand extends ContainerAwareCommand {
 
             // мужской пол по умолчанию
             if ($gender === User::GENDER_FEMALE) {
-            	$user->setGender(User::GENDER_FEMALE);
+                $user->setGender(User::GENDER_FEMALE);
             }
 
             $this->createMoney($user, $container);
