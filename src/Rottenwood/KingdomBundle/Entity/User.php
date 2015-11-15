@@ -161,7 +161,7 @@ class User extends BaseUser
      */
     public function getWaitstate()
     {
-        return $this->waitstate;
+        return $this->waitstate - time();
     }
 
     /**
