@@ -28,6 +28,35 @@ Kingdom.Chat = (function () {
         },
 
         /**
+         * Плюрализатор
+         *
+         * @Usage
+         * pluralize(1, 'секунду', 'секунды', 'секунд'); // returns "секунду"
+         * pluralize(10, 'секунду', 'секунды', 'секунд'); // returns "секунд"
+         *
+         * @param number int
+         * @param one string
+         * @param two string
+         * @param five string
+         * @returns string
+         */
+        pluralize: function (number, one, two, five) {
+            number = Math.abs(number);
+            number %= 100;
+            if (number >= 5 && number <= 20) {
+                return five;
+            }
+            number %= 10;
+            if (number == 1) {
+                return one;
+            }
+            if (number >= 2 && number <= 4) {
+                return two;
+            }
+            return five;
+        },
+
+        /**
          * Добавление информационной строки в чат
          * @param infoData
          */
