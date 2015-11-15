@@ -64,7 +64,7 @@ class User extends BaseUser
     private $avatar;
 
     /**
-     * @ORM\Column(name="last_action_waitstate", type="integer")
+     * @ORM\Column(name="last_action_waitstate", type="integer", nullable=true)
      * @var int
      */
     private $waitstate;
@@ -164,9 +164,16 @@ class User extends BaseUser
         return $this->waitstate;
     }
 
-    public function setWaitstate()
+    /**
+     * @param int $waitSeconds
+     */
+    public function addWaitstate($waitSeconds)
     {
-        $this->waitstate = time();
+        if (!is_int($waitSeconds)) {
+        	throw new \RuntimeException('Waitstate can only accept integer as parameter');
+        }
+
+        $this->waitstate = time() + $waitSeconds;
     }
 
     /**
