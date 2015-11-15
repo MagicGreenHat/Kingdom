@@ -33,13 +33,6 @@ $(function () {
         $('#game-inventory').find('.money').html(html);
     });
 
-    ///**
-    // * Обновление инвентаря при добыче ресурсов
-    // */
-    //$room.on('click', '.resource-obtain.button', function () {
-    //    renderInventory();
-    //});
-
     /**
      * Отрисовка инвентаря
      */
