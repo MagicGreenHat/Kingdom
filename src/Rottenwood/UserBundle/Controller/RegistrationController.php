@@ -9,6 +9,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Entity\User;
 use Rottenwood\KingdomBundle\Service\UserService;
+use Rottenwood\UserBundle\Loggers\RegistrationLogger;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,16 +66,9 @@ class RegistrationController extends FOSURegistrationController {
 
             $this->createMoney($user);
 
+            /** @var RegistrationLogger $logger */
             $logger = $this->container->get('user.logger.registration');
-            $logger->info(
-                sprintf(
-                    '[#%d] логин: %s, имя: %s, email: %s',
-                    $user->getId(),
-                    $user->getUsername(),
-                    $user->getName(),
-                    $user->getEmail()
-                )
-            );
+            $logger->logRegistration($user);
 
             return $response;
         }

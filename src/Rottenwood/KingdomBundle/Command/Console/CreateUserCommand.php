@@ -5,6 +5,7 @@ namespace Rottenwood\KingdomBundle\Command\Console;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\UserBundle\Loggers\RegistrationLogger;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -89,16 +90,10 @@ class CreateUserCommand extends ContainerAwareCommand {
             $output->writeln('E-mail: ' . $email);
             $output->writeln('====================================');
 
+            /** @var RegistrationLogger $logger */
             $logger = $container->get('user.logger.registration');
-            $logger->info(
-                sprintf(
-                    '[#%d] логин: %s, имя: %s, email: %s',
-                    $user->getId(),
-                    $user->getUsername(),
-                    $user->getName(),
-                    $user->getEmail()
-                )
-            );
+
+            $logger->logRegistration($user);
 
         }
     }
