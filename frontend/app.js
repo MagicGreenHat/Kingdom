@@ -51,8 +51,20 @@ $(function () {
                     } else if (data.commandName == 'lookUser') {
                         Kingdom.User.renderAvatar(data.data.avatar);
                     } else if (data.commandName == 'obtainWood') {
-                        Kingdom.Room.updateResources(data.data.resources);
-                        Kingdom.Chat.addInfo('Ты рубишь дерево. Добыто древесины: ' + data.data.obtained);
+                        if (data.data.resources) {
+                            Kingdom.Room.updateResources(data.data.resources);
+                        }
+
+                        if (data.data.obtained) {
+                            Kingdom.Chat.addInfo('Ты рубишь дерево. Добыто древесины: ' + data.data.obtained);
+                        }
+
+                        if (data.data.waitstate) {
+                            Kingdom.Chat.addInfo({
+                                event: 'warning',
+                                message: 'Нужно отдохнуть. Ты сможешь добывать древесину через ' + data.data.waitstate + ' ' + Kingdom.Chat.pluralize(data.data.waitstate, 'секунду', 'секунды', 'секунд')
+                            });
+                        }
 
                         if (data.data.typeChanged) {
                             Kingdom.Websocket.command('composeMap');
