@@ -65,7 +65,7 @@ class UserService {
      */
     public function getOnlineUsersIdsInRoom(Room $room, $excludePlayerIds = []) {
         return array_map(
-            function (User $user) {
+            function(User $user) {
                 return $user->getId();
             },
             $this->getOnlineUsersInRoom($room, $excludePlayerIds)

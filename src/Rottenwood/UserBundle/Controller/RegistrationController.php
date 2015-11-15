@@ -92,7 +92,7 @@ class RegistrationController extends FOSURegistrationController {
 
         if ($this->isAllreadyExists($cyrillicName)) {
             $errorMessage = $this->get('translator')->trans('fos_user.username.already_used', [], 'validators');
-        	$form->addError(new FormError($errorMessage));
+            $form->addError(new FormError($errorMessage));
         } else {
             $user->setName($cyrillicName);
         }
