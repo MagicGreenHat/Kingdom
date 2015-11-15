@@ -30,11 +30,11 @@
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "snc/redis-bundle": "1.1.*",
-        "codeception/codeception": "*"
+        "snc/redis-bundle": "1.1.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
+        "codeception/codeception": "*",
         "phake/phake": "@stable"
     },
     "scripts": {
