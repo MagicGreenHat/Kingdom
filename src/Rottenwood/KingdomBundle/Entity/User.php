@@ -64,8 +64,8 @@ class User extends BaseUser
     private $avatar;
 
     /**
-     * @ORM\Column(name="last_action_waitstate", type="datetime")
-     * @var \DateTime
+     * @ORM\Column(name="last_action_waitstate", type="integer")
+     * @var int
      */
     private $waitstate;
 
@@ -157,19 +157,24 @@ class User extends BaseUser
     }
 
     /**
-     * @return \DateTime
+     * @return int
      */
     public function getWaitstate()
     {
         return $this->waitstate;
     }
 
-    /**
-     * @param \DateTime $waitstate
-     */
-    public function setWaitstate(\DateTime $waitstate)
+    public function setWaitstate()
     {
-        $this->waitstate = $waitstate;
+        $this->waitstate = time();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBusy()
+    {
+        return $this->waitstate > time();
     }
 
     /**
