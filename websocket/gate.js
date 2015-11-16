@@ -92,7 +92,7 @@ connection.onopen = function (session) {
                                     if (command == 'obtainWood') {
                                         var commandResult = JSON.parse(commandResultJson);
 
-                                        if (commandResult.data.resources) {
+                                        if (commandResult.data && commandResult.data.hasOwnProperty('resources')) {
                                             redis.hget(config.redisIdRoomHash, character.id).then(function (roomId) {
                                                 sendToOnlinePlayersInRoom(
                                                     roomId,
