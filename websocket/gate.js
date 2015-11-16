@@ -91,9 +91,22 @@ connection.onopen = function (session) {
                                 runConsoleCommand(character, command, function (commandResultJson) {
                                     if (command == 'obtainWood') {
                                         var commandResult = JSON.parse(commandResultJson);
-                                        redis.hget(config.redisIdRoomHash, character.id).then(function (roomId) {
-                                            sendToOnlinePlayersInRoom(roomId, {info: {event: 'obtainWood', name: character.name, resources: commandResult.data.resources}});
-                                        });
+
+                                        if (commandResult.data.resources) {
+                                            redis.hget(config.redisIdRoomHash, character.id).then(function (roomId) {
+                                                sendToOnlinePlayersInRoom(
+                                                    roomId,
+                                                    {
+                                                        info:
+                                                        {
+                                                            event: 'obtainWood',
+                                                            name: character.name,
+                                                            resources: commandResult.data.resources
+                                                        }
+                                                    }
+                                                );
+                                            });
+                                        }
                                     }
 
                                     publishToLocalChannel(commandResultJson)
