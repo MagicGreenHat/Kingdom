@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Command\Game;
 
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
@@ -54,6 +55,8 @@ class ObtainWood extends AbstractGameCommand
     }
 
     /**
+     * Добыча ресурсов
+     * //TODO[Rottenwood]: Рефакторинг. Перенести в ObtainService
      * @param RoomResource  $resource
      * @param EntityManager $em
      * @param array         $result
@@ -77,28 +80,62 @@ class ObtainWood extends AbstractGameCommand
             return $result;
         }
 
-        $this->user->addWaitstate($this->waitState);
-        $em->flush($this->user);
-
-        $resource->reduceQuantity($this->quantityToObtain);
-        $em->flush($resource);
+        $this->setWaitstate($em);
+        $this->reduceQuantity($em, $resource->getId(), $userService);
 
         $result['obtained'] = $this->quantityToObtain;
-        $userService->takeItem($this->user, $resourceItem, $this->quantityToObtain);
 
-        $resourcesLeft = $resource->getQuantity();
-        $result['resources'][$resourceItem->getId()] = $resourcesLeft;
+        $resourceQuantity = $resource->getQuantity();
+        $result['resources'][$resourceItem->getId()] = $resourceQuantity;
 
-        if ($resourcesLeft <= 0) {
+        if ($resourceQuantity <= 0) {
             /** @var Grass[] $grassTypes */
             $grassTypes = $em->getRepository(Grass::class)->findAll();
             $grassType = $grassTypes[array_rand($grassTypes)];
             $room->setType($grassType);
             $result['typeChanged'] = true;
 
-            return $result;
+            $em->remove($resource);
         }
 
         return $result;
+    }
+
+    /**
+     * Назначение вейтстейта игроку
+     * @param EntityManager $em
+     */
+    private function setWaitstate(EntityManager $em)
+    {
+        $this->user->addWaitstate($this->waitState);
+        $em->flush($this->user);
+    }
+
+    /**
+     * Транзакция с локированием добываемого ресурса
+     * @param EntityManager $em
+     * @param int           $resourceId
+     * @param UserService   $userService
+     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Exception
+     */
+    private function reduceQuantity(EntityManager $em, $resourceId, UserService $userService)
+    {
+        $em->getConnection()->beginTransaction();
+
+        try {
+            /** @var RoomResource $resourceToUpdate */
+            $resourceToUpdate = $em->find(RoomResource::class, $resourceId, LockMode::PESSIMISTIC_READ);
+            $resourceToUpdate->reduceQuantity($this->quantityToObtain);
+
+            $userService->takeItem($this->user, $resourceToUpdate->getItem(), $this->quantityToObtain);
+
+            $em->persist($resourceToUpdate);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (\Exception $e) {
+            $em->getConnection()->rollback();
+            throw $e;
+        }
     }
 }
