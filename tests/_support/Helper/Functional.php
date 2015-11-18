@@ -26,10 +26,10 @@ class Functional extends AbstractHelper
         exec("$command", $data, $resultCode);
         $output = implode('\n', $data);
         if ($output === null) {
-            \PHPUnit_Framework_Assert::fail('$command can\'t be executed');
+            \PHPUnit_Framework_Assert::fail("$command can't be executed");
         }
         if ($resultCode !== 0 && $failNonZero) {
-            \PHPUnit_Framework_Assert::fail('Result code was $resultCode.\n\n' . $output);
+            \PHPUnit_Framework_Assert::fail("Result code was $resultCode.\n\n" . $output);
         }
         $this->debug(preg_replace('~s/\e\[\d+(?>(;\d+)*)m//g~', '', $output));
 
