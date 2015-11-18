@@ -7,22 +7,20 @@ use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\User;
 
 /**
- * here you can define custom actions
- * all public methods declared in helper class will be available in $I
- * @package Helper
+ * Методы для функционального тестирования
  */
 class Functional extends AbstractHelper
 {
 
     /**
-     * Запуск консольной команды и получение ее результата
+     * Запуск консольной symfony команды
      * @param string $command
      * @param bool   $failNonZero
      * @return string
      */
-    public function runCommand($command, $failNonZero = true)
+    public function runSymfonyCommand($command, $failNonZero = true)
     {
-        $command = sprintf('/kingdom/app/console kingdom:execute 1 %s -e test', $command);
+        $command = sprintf('/kingdom/app/console %s -e test', $command);
 
         $data = [];
         exec("$command", $data, $resultCode);
@@ -35,8 +33,21 @@ class Functional extends AbstractHelper
         }
         $this->debug(preg_replace('~s/\e\[\d+(?>(;\d+)*)m//g~', '', $output));
 
+        return $output;
+    }
 
-        return json_decode($output, true);
+    /**
+     * Запуск внутриигровой консольной команды и получение ее результата
+     * Тестируемые команды выполняются с помощью вебсокет-запросов
+     * @param string $command
+     * @return string
+     */
+    public function runCommand($command)
+    {
+        $command = sprintf('kingdom:execute 1 %s', $command);
+        $result = $this->runSymfonyCommand($command);
+
+        return json_decode($result, true);
     }
 
     /**
