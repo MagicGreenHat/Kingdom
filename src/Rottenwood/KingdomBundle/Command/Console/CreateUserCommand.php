@@ -12,9 +12,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class CreateUserCommand extends ContainerAwareCommand {
+class CreateUserCommand extends ContainerAwareCommand
+{
 
-    protected function configure() {
+    protected function configure()
+    {
         $this->setName('kingdom:create:user');
         $this->setDescription('Создание персонажа');
 
@@ -39,7 +41,8 @@ class CreateUserCommand extends ContainerAwareCommand {
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
         $email = $input->getArgument('email');
@@ -103,7 +106,8 @@ class CreateUserCommand extends ContainerAwareCommand {
      * @param User               $user
      * @param ContainerInterface $container
      */
-    private function createMoney(User $user, ContainerInterface $container) {
+    private function createMoney(User $user, ContainerInterface $container)
+    {
         $money = new Money($user);
         $moneyRepository = $container->get('kingdom.money_repository');
         $moneyRepository->persist($money);
@@ -116,7 +120,8 @@ class CreateUserCommand extends ContainerAwareCommand {
      * @param string         $email
      * @return bool
      */
-    private function checkUserExist(UserRepository $userRepository, $username, $cyrillicName, $email) {
+    private function checkUserExist(UserRepository $userRepository, $username, $cyrillicName, $email)
+    {
         $user = $userRepository->findByUsername($username);
 
         if (!$user) {
@@ -127,6 +132,6 @@ class CreateUserCommand extends ContainerAwareCommand {
             $user = $userRepository->findOneByEmail($email);
         }
 
-        return (bool) $user;
+        return (bool)$user;
     }
 }
