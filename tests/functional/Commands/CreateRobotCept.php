@@ -6,4 +6,4 @@
 
 $I = new FunctionalTester($scenario);
 
-$result = $I->runSymfonyCommand('kingdom:create:robot');
+$result = $I->runSymfonyCommand('kingdom:create:robot robot 1');
