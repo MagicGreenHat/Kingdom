@@ -5,5 +5,6 @@
  */
 
 $I = new FunctionalTester($scenario);
+$I->wantTo('Create robot');
 
 $result = $I->runSymfonyCommand('kingdom:create:robot robot 1');
