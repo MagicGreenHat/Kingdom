@@ -57,5 +57,21 @@ class CreateRobotCommand extends ContainerAwareCommand
 
         $em->persist($robot);
         $em->flush($robot);
+
+        $output->writeln('робот создан!');
+
+        $output->writeln('====================================');
+        $output->writeln('Id: ' . $robot->getId());
+        $output->writeln('Имя: ' . $robot->getName());
+        $output->writeln(
+            sprintf('Комната: [%d]%s %d/%d (%d)',
+                $room->getId(),
+                $room->getName(),
+                $room->getX(),
+                $room->getY(),
+                $room->getZ()
+            )
+        );
+        $output->writeln('====================================');
     }
 }
