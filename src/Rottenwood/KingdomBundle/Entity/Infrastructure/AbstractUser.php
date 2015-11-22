@@ -65,6 +65,7 @@ abstract class AbstractUser extends BaseUser
     {
         parent::__construct();
 
+        $this->waitstate = time();
         $this->registerDate = new \DateTime();
     }
 
