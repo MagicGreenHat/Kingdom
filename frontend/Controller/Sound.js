@@ -5,8 +5,11 @@ ion.sound({
             volume: 0.9
         },
         {
-            name: 'wear-clothes',
-            volume: 0.9
+            name: 'wear-clothes'
+        },
+        {
+            name: 'remove-clothes',
+            volume: 1
         }
     ],
     volume: 0.5,

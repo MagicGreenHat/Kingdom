@@ -354,5 +354,7 @@ $(function () {
         Kingdom.Chat.addInfo('Ты снял ' + $item.data('name4'));
 
         Kingdom.Websocket.command('remove', slotName);
+
+        ion.sound.play('remove-clothes');
     }
 });
