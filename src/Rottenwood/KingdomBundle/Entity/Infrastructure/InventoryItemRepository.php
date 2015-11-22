@@ -20,7 +20,7 @@ class InventoryItemRepository extends AbstractRepository {
      * Предмет с itemId в инвентаре игрока
      * @param User   $user
      * @param string $itemId
-     * @return InventoryItem
+     * @return InventoryItem|null
      */
     public function findOneByUserAndItemId(User $user, $itemId) {
         $builder = $this->createQueryBuilder('inventory_item');
@@ -34,7 +34,7 @@ class InventoryItemRepository extends AbstractRepository {
             ]
         );
 
-        return $builder->getQuery()->getSingleResult();
+        return $builder->getQuery()->getResult();
     }
 
     /**
