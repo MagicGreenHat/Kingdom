@@ -12,6 +12,7 @@ use Rottenwood\KingdomBundle\Entity\User;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Exception\ItemNotFound;
 use Rottenwood\KingdomBundle\Exception\NotEnoughItems;
+use Rottenwood\KingdomBundle\Exception\RoomNotFound;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Snc\RedisBundle\Client\Phpredis\Client;
 use Symfony\Component\Finder\Finder;
@@ -295,9 +296,16 @@ class UserService
     /**
      * Стартовая комната при создании персонажа
      * @return Room
+     * @throws RoomNotFound
      */
     public function getStartRoom()
     {
-        return $this->roomRepository->findOneByXandY(0, 0);
+        $startRoom = $this->roomRepository->findOneByXandY(0, 0);
+
+        if (!$startRoom) {
+            throw new RoomNotFound();
+        }
+
+        return $startRoom;
     }
 }
