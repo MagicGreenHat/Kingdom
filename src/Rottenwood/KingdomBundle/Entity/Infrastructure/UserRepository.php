@@ -70,7 +70,7 @@ class UserRepository extends AbstractRepository {
      * @param string $email
      * @return User|null
      */
-    public function findOneByEmail($email) {
+    public function findByEmail($email) {
         return $this->findOneBy(['email' => $email]);
     }
 }
