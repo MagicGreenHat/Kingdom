@@ -18,7 +18,8 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class UserService {
+class UserService
+{
 
     /** @var KernelInterface */
     private $kernel;
@@ -48,7 +49,8 @@ class UserService {
         UserRepository $userRepository,
         InventoryItemRepository $inventoryItemRepository,
         RoomRepository $roomRepository
-    ) {
+    )
+    {
         $this->redis = $redis;
         $this->logger = $logger;
         $this->userRepository = $userRepository;
@@ -63,9 +65,10 @@ class UserService {
      * @param array $excludePlayerIds
      * @return int[]
      */
-    public function getOnlineUsersIdsInRoom(Room $room, $excludePlayerIds = []) {
+    public function getOnlineUsersIdsInRoom(Room $room, $excludePlayerIds = [])
+    {
         return array_map(
-            function(User $user) {
+            function (User $user) {
                 return $user->getId();
             },
             $this->getOnlineUsersInRoom($room, $excludePlayerIds)
@@ -78,7 +81,8 @@ class UserService {
      * @param int|array $excludePlayerIds
      * @return User[]
      */
-    public function getOnlineUsersInRoom(Room $room, $excludePlayerIds = []) {
+    public function getOnlineUsersInRoom(Room $room, $excludePlayerIds = [])
+    {
         if (!is_array($excludePlayerIds)) {
             $excludePlayerIds = [$excludePlayerIds];
         }
@@ -90,7 +94,8 @@ class UserService {
      * Запрос id всех игроков онлайн из redis
      * @return int[]
      */
-    public function getOnlineUsersIds() {
+    public function getOnlineUsersIds()
+    {
         return $this->redis->smembers(RedisClientInterface::ONLINE_LIST);
     }
 
@@ -98,7 +103,8 @@ class UserService {
      * @param array $userIds
      * @return array
      */
-    public function getSessionsByUserIds(array $userIds) {
+    public function getSessionsByUserIds(array $userIds)
+    {
         return array_values($this->redis->hmget(RedisClientInterface::ID_SESSION_HASH, $userIds));
     }
 
@@ -111,7 +117,8 @@ class UserService {
      * @return bool
      * @throws \Exception
      */
-    public function giveItem(User $userFrom, User $userTo, Item $item, $quantityToGive = 1) {
+    public function giveItem(User $userFrom, User $userTo, Item $item, $quantityToGive = 1)
+    {
         try {
             $this->dropItem($userFrom, $item, $quantityToGive);
         } catch (\Exception $exception) {
@@ -149,7 +156,8 @@ class UserService {
      * @throws ItemNotFound
      * @throws NotEnoughItems
      */
-    public function dropItem(User $user, Item $item, $quantityToDrop) {
+    public function dropItem(User $user, Item $item, $quantityToDrop)
+    {
         $inventoryItem = $this->inventoryItemRepository->findOneByUserAndItemId($user, $item->getId());
 
         if (!$inventoryItem) {
@@ -190,7 +198,8 @@ class UserService {
      * @param Item $item
      * @param int  $quantityToTake Сколько предметов взять
      */
-    public function takeItem(User $user, Item $item, $quantityToTake = 1) {
+    public function takeItem(User $user, Item $item, $quantityToTake = 1)
+    {
         $inventoryItem = $this->inventoryItemRepository->findOneByUserAndItemId($user, $item->getId());
 
         if ($inventoryItem) {
@@ -220,7 +229,8 @@ class UserService {
      * Установка рэндомного аватара
      * @return string
      */
-    public function pickAvatar() {
+    public function pickAvatar()
+    {
         $finder = new Finder();
 
         $prefix = 'male';
@@ -240,31 +250,45 @@ class UserService {
     }
 
     /**
-     * Транслитерация и конвертация строки
+     * Транслитерация и конвертация строки, удаление цифр
      * @param string $string
      * @return string
      */
-    public function transliterate($string) {
-        return mb_convert_case(strtr($string, $this->getAlphabet()), MB_CASE_TITLE, 'UTF-8');
+    public function transliterate($string)
+    {
+        $englishLetters = implode('', array_keys($this->getAlphabet()));
+        $cyrillicLetters = 'абвгдеёжзиклмнопрстуфхцчшщьыъэюяАБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ';
+        $pattern = '[^' . preg_quote($englishLetters . $cyrillicLetters, '/') . ']';
+
+        $stringWithoutSpecialChars = mb_ereg_replace($pattern, '', $string);
+
+        $cyrillicString = mb_convert_case(
+            strtr($stringWithoutSpecialChars, $this->getAlphabet()),
+            MB_CASE_TITLE,
+            'UTF-8'
+        );
+
+        return $cyrillicString;
     }
 
     /**
      * Массив соответствия русских букв латинским
      * @return string[]
      */
-    private function getAlphabet() {
+    private function getAlphabet()
+    {
         return [
-            'a' => 'а',  'b' => 'б', 'c' => 'ц', 'd' => 'д',  'e' => 'е',
-            'f' => 'ф',  'g' => 'г', 'h' => 'х', 'i' => 'ай', 'j' => 'дж',
-            'k' => 'к',  'l' => 'л', 'm' => 'м', 'n' => 'н',  'o' => 'о',
-            'p' => 'п',  'q' => 'к', 'r' => 'р', 's' => 'с',  't' => 'т',
-            'u' => 'у',  'v' => 'в', 'w' => 'в', 'x' => 'кс', 'y' => 'й',
-            'z' => 'з',  'A' => 'А', 'B' => 'Б', 'C' => 'Ц',  'D' => 'Д',
-            'E' => 'Е',  'F' => 'Ф', 'G' => 'Г', 'H' => 'Х',  'I' => 'Ай',
-            'J' => 'Дж', 'K' => 'К', 'L' => 'Л', 'M' => 'М',  'N' => 'Н',
-            'O' => 'О',  'P' => 'П', 'Q' => 'К', 'R' => 'Р',  'S' => 'С',
-            'T' => 'Т',  'U' => 'Ю', 'V' => 'В', 'W' => 'В',  'X' => 'Кс',
-            'Y' => 'Й',  'Z' => 'З',
+            'a' => 'а', 'b' => 'б', 'c' => 'ц', 'd' => 'д', 'e' => 'е',
+            'f' => 'ф', 'g' => 'г', 'h' => 'х', 'i' => 'ай', 'j' => 'дж',
+            'k' => 'к', 'l' => 'л', 'm' => 'м', 'n' => 'н', 'o' => 'о',
+            'p' => 'п', 'q' => 'к', 'r' => 'р', 's' => 'с', 't' => 'т',
+            'u' => 'у', 'v' => 'в', 'w' => 'в', 'x' => 'кс', 'y' => 'й',
+            'z' => 'з', 'A' => 'А', 'B' => 'Б', 'C' => 'Ц', 'D' => 'Д',
+            'E' => 'Е', 'F' => 'Ф', 'G' => 'Г', 'H' => 'Х', 'I' => 'Ай',
+            'J' => 'Дж', 'K' => 'К', 'L' => 'Л', 'M' => 'М', 'N' => 'Н',
+            'O' => 'О', 'P' => 'П', 'Q' => 'К', 'R' => 'Р', 'S' => 'С',
+            'T' => 'Т', 'U' => 'Ю', 'V' => 'В', 'W' => 'В', 'X' => 'Кс',
+            'Y' => 'Й', 'Z' => 'З',
         ];
     }
 
@@ -272,7 +296,8 @@ class UserService {
      * Стартовая комната при создании персонажа
      * @return Room
      */
-    public function getStartRoom() {
+    public function getStartRoom()
+    {
         return $this->roomRepository->findOneByXandY(0, 0);
     }
 }

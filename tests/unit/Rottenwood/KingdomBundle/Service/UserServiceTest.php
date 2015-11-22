@@ -74,12 +74,15 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     public function getNames()
     {
         return [
-            'Tester'             => 'Тестер',
-            'Paul'               => 'Паул',
-            'Ringo'              => 'Райнго',
-            'John'               => 'Джохн',
-            'George'             => 'Георге',
-            'TestWithNumbers123' => 'Тествайтхнумберс',
+            'Tester'                                 => 'Тестер',
+            'Paul'                                   => 'Паул',
+            'Ringo'                                  => 'Райнго',
+            'John'                                   => 'Джохн',
+            'George'                                 => 'Георге',
+            'NameWithNumbers123'                     => 'Намевайтхнумберс',
+            'NameWithSpecialChars!@#$%^&*()"№;:?*[]' => 'Намевайтхспецайалцхарс',
+            'КириллическоеИмяСРазнымиРегистрами'     => 'Кириллическоеимясразнымирегистрами',
+            'КириллическоеAndИногдаLatinskoeImya'    => 'Кириллическоеандиногдалатайнскоеаймйа',
         ];
     }
 
