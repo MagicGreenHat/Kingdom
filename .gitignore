@@ -20,6 +20,11 @@ composer.phar
 # PhpStorm
 .idea/
 
+# Eclipse
+.buildpath
+.project
+.settings/
+
 # JS and CSS compiled files
 web/css/style.css
 web/js/scripts.js
@@ -27,6 +32,7 @@ web/js/libraries.js
 
 # npm
 node_modules/*
+npm-debug.log*
 
 # node modules under git
 !node_modules/autobahn
