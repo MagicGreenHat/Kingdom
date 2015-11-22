@@ -23,18 +23,12 @@ class InventoryItemRepository extends AbstractRepository {
      * @return InventoryItem|null
      */
     public function findOneByUserAndItemId(User $user, $itemId) {
-        $builder = $this->createQueryBuilder('inventory_item');
-        $builder->select('inventory_item');
-        $builder->where('inventory_item.user = :user');
-        $builder->andWhere('inventory_item.item = :itemId');
-        $builder->setParameters(
+        return $this->findOneBy(
             [
-                'user'   => $user,
-                'itemId' => $itemId,
+                'user' => $user,
+                'item' => $itemId
             ]
         );
-
-        return $builder->getQuery()->getResult();
     }
 
     /**
