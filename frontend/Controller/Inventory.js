@@ -310,6 +310,8 @@ $(function () {
         initializePaperdollSlots();
 
         Kingdom.Websocket.command('wear', [itemId, slotName]);
+
+        ion.sound.play('wear-clothes');
     }
 
     /**

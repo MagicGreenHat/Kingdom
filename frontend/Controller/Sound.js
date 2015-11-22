@@ -3,6 +3,10 @@ ion.sound({
         {
             name: 'obtain-tree',
             volume: 0.9
+        },
+        {
+            name: 'wear-clothes',
+            volume: 0.9
         }
     ],
     volume: 0.5,
