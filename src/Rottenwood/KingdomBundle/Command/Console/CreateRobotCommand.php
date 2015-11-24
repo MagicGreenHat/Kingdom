@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Command\Console;
 
+use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Entity\Robot;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Exception\RoomNotFound;
@@ -9,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CreateRobotCommand extends ContainerAwareCommand
 {
@@ -55,11 +57,12 @@ class CreateRobotCommand extends ContainerAwareCommand
         $robot = new Robot();
         $robot->setName($cyrillicName);
         $robot->setRoom($room);
+        $this->createMoney($robot, $container);
 
         $em->persist($robot);
         $em->flush($robot);
 
-        $output->writeln('робот создан!');
+        $output->writeln('Робот создан!');
 
         $output->writeln('====================================');
         $output->writeln('Id: ' . $robot->getId());
@@ -74,5 +77,17 @@ class CreateRobotCommand extends ContainerAwareCommand
             )
         );
         $output->writeln('====================================');
+    }
+
+    /**
+     * Создание денег игрока
+     * @param Robot              $robot
+     * @param ContainerInterface $container
+     */
+    private function createMoney(Robot $robot, ContainerInterface $container)
+    {
+        $money = new Money($robot);
+        $moneyRepository = $container->get('kingdom.money_repository');
+        $moneyRepository->persist($money);
     }
 }
