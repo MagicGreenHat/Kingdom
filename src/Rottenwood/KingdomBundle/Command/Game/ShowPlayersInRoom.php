@@ -4,7 +4,7 @@ namespace Rottenwood\KingdomBundle\Command\Game;
 
 use Rottenwood\KingdomBundle\Command\Infrastructure\AbstractGameCommand;
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 
 /**
  * Отображение игроков в текущей комнате

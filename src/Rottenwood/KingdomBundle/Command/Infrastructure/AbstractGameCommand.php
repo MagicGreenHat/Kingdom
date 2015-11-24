@@ -2,7 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Command\Infrastructure;
 
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AbstractGameCommand implements GameCommandInterface {

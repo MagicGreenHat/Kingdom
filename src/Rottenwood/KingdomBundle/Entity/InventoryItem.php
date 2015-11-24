@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 use Rottenwood\KingdomBundle\Exception\WrongSlot;
 
 /**
@@ -29,7 +30,7 @@ class InventoryItem {
 
     /**
      * Персонаж
-     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      * @var User
      */

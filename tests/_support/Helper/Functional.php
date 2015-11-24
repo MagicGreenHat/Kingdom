@@ -3,8 +3,8 @@ namespace Helper;
 
 use Codeception\Module\Symfony2;
 use PHPUnit_Framework_Assert;
+use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Room;
-use Rottenwood\KingdomBundle\Entity\User;
 
 /**
  * Методы для функционального тестирования
@@ -127,7 +127,7 @@ class Functional extends AbstractHelper
 
     /**
      * @param $symfonyModule
-     * @return User
+     * @return Human
      */
     private function getUser($symfonyModule)
     {

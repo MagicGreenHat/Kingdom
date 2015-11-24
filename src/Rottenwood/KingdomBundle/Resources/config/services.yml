@@ -3,7 +3,7 @@ services:
         class: Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository
         factory_service: "doctrine.orm.entity_manager"
         factory_method: getRepository
-        arguments: ["Rottenwood\KingdomBundle\Entity\User"]
+        arguments: ["Rottenwood\KingdomBundle\Entity\Human"]
 
     kingdom.room_repository:
         class: Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository

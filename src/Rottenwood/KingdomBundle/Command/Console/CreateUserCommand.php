@@ -4,7 +4,7 @@ namespace Rottenwood\KingdomBundle\Command\Console;
 
 use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Entity\Money;
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Human as User;
 use Rottenwood\UserBundle\Loggers\RegistrationLogger;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;

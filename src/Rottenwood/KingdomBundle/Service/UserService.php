@@ -3,12 +3,13 @@
 namespace Rottenwood\KingdomBundle\Service;
 
 use Monolog\Logger;
+use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Room;
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Exception\ItemNotFound;
 use Rottenwood\KingdomBundle\Exception\NotEnoughItems;
@@ -80,7 +81,7 @@ class UserService
      * Запрос всех онлайн игроков в комнате
      * @param Room      $room
      * @param int|array $excludePlayerIds
-     * @return User[]
+     * @return Human[]
      */
     public function getOnlineUsersInRoom(Room $room, $excludePlayerIds = [])
     {

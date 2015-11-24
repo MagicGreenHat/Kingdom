@@ -11,13 +11,28 @@ use Rottenwood\KingdomBundle\Entity\Room;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Model\User as BaseUser;
 
-abstract class AbstractUser extends BaseUser
+/**
+ * @ORM\Table(name="users")
+ * @ORM\Entity()
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="species", type="string")
+ * @ORM\DiscriminatorMap({"human" = "Rottenwood\KingdomBundle\Entity\Human", "robot" = "Rottenwood\KingdomBundle\Entity\Robot"})
+ */
+abstract class User extends BaseUser
 {
 
     const AVATAR_PATH = '/img/avatars/';
     const AVATAR_EXTENSION = 'jpg';
     const GENDER_MALE = 'male';
     const GENDER_FEMALE = 'female';
+
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
+     */
+    protected $id;
 
     /**
      * Русское имя персонажа
@@ -28,7 +43,7 @@ abstract class AbstractUser extends BaseUser
 
     /**
      * Комната в которой находится персонаж
-     * @ORM\ManyToOne(targetEntity="Room")
+     * @ORM\ManyToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Room")
      * @ORM\JoinColumn(name="room", referencedColumnName="id", nullable=false)
      * @var Room
      */

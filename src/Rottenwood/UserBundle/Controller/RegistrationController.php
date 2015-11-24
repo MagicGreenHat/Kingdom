@@ -7,7 +7,7 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Rottenwood\KingdomBundle\Entity\Money;
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Human as User;
 use Rottenwood\KingdomBundle\Service\UserService;
 use Rottenwood\UserBundle\Loggers\RegistrationLogger;
 use Symfony\Component\Form\FormError;
