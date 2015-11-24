@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Command;
 
 use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 use Rottenwood\KingdomBundle\Command\Infrastructure\GameCommandInterface;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 use Rottenwood\KingdomBundle\Exception\CommandNotFound;
 use Rottenwood\KingdomBundle\Exception\InvalidCommandResponse;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -54,8 +55,8 @@ class ExecuteCommand extends ContainerAwareCommand {
 
         try {
             if (class_exists($commandClass)) {
-                $userRepository = $container->get('kingdom.user_repository');
-                $user = $userRepository->findById($userId);
+                $userRepository = $container->get('doctrine')->getRepository(User::class);
+                $user = $userRepository->find($userId);
 
                 /** @var GameCommandInterface $command */
                 $command = new $commandClass($user, $commandName, $parameters, $container);
