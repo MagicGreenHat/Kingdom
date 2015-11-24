@@ -2,13 +2,13 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
+use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Money;
-use Rottenwood\KingdomBundle\Entity\User;
 
 class MoneyRepository extends AbstractRepository {
 
     /**
-     * @param User|int $userId
+     * @param Human|int $userId
      * @return Money|null
      */
     public function findOneByUser($userId) {

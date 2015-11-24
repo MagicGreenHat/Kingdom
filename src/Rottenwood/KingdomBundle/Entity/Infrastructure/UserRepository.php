@@ -2,14 +2,15 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
+use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Room;
-use Rottenwood\KingdomBundle\Entity\User;
 
+//TODO[Rottenwood]: Rename to HumanRepository
 class UserRepository extends AbstractRepository {
 
     /**
      * @param int $userId
-     * @return User|null
+     * @return Human|null
      */
     public function findById($userId) {
         return $this->find($userId);
@@ -19,7 +20,7 @@ class UserRepository extends AbstractRepository {
      * @param Room  $room
      * @param array $onlinePlayerIds
      * @param array $excludePlayerIds
-     * @return User[]
+     * @return Human[]
      */
     public function findOnlineByRoom($room, array $onlinePlayerIds, array $excludePlayerIds = []) {
         $builder = $this->createQueryBuilder('u');
@@ -36,7 +37,7 @@ class UserRepository extends AbstractRepository {
     }
 
     /**
-     * @return User[]
+     * @return Human[]
      */
     public function findAllUsers() {
         return $this->findAll();
@@ -44,7 +45,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string $username
-     * @return User|null
+     * @return Human|null
      */
     public function findByUsername($username) {
         return $this->findOneBy(['username' => $username]);
@@ -52,7 +53,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string $name
-     * @return User|null
+     * @return Human|null
      */
     public function findByName($name) {
         return $this->findOneBy(['name' => $name]);
@@ -60,7 +61,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string|int $userNameOrId
-     * @return User|null
+     * @return Human|null
      */
     public function findByNameOrId($userNameOrId) {
         return $this->findByName($userNameOrId) ?: $this->findById($userNameOrId);
@@ -68,7 +69,7 @@ class UserRepository extends AbstractRepository {
 
     /**
      * @param string $email
-     * @return User|null
+     * @return Human|null
      */
     public function findByEmail($email) {
         return $this->findOneBy(['email' => $email]);

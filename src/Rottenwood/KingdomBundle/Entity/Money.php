@@ -3,7 +3,7 @@
 namespace Rottenwood\KingdomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 
 /**
  * Деньги
@@ -22,7 +22,7 @@ class Money {
 
     /**
      * Персонаж
-     * @ORM\OneToOne(targetEntity="Rottenwood\KingdomBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="Rottenwood\KingdomBundle\Entity\Infrastructure\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, unique=true)
      * @var User
      */

@@ -7,7 +7,7 @@
 namespace Rottenwood\UserBundle\Loggers;
 
 use Monolog\Logger;
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 
 class RegistrationLogger extends Logger
 {

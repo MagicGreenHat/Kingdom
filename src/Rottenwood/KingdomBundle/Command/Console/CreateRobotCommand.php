@@ -52,7 +52,8 @@ class CreateRobotCommand extends ContainerAwareCommand
 
         $cyrillicName = $userService->transliterate($name);
 
-        $robot = new Robot($cyrillicName);
+        $robot = new Robot();
+        $robot->setName($cyrillicName);
         $robot->setRoom($room);
 
         $em->persist($robot);

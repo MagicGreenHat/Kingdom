@@ -3,7 +3,6 @@
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
-use Rottenwood\KingdomBundle\Entity\User;
 
 class InventoryItemRepository extends AbstractRepository {
 
