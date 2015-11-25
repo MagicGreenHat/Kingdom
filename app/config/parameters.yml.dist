@@ -1,0 +1,8 @@
+parameters:
+    database_user:          kingdom
+    database_password:      docker
+
+    mailer_user: null
+    mailer_password: null
+
+    secret: ThisTokenIsNotSoSecretChangeIt
