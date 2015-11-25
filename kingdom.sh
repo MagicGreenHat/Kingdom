@@ -39,10 +39,14 @@ case $1 in
     DB_PASSWORD=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //")
 
     if [ -z "$DB_USER" ] || [ -z "$DB_USER" ]; then
-        echo "\033[1;31mКонфиг app/config/parameters.yml не найден! Запустите composer install!\033[0m"
-        echo "Используется дефолтный конфиг app/config/parameters.yml.dist ..."
-        DB_USER=$(cat app/config/parameters.yml.dist | grep database_user | sed "s/.*database_user: //")
-        DB_PASSWORD=$(cat app/config/parameters.yml.dist | grep database_password | sed "s/.*database_password: //")
+        echo "\033[1;31mКонфиг app/config/parameters.yml не найден! Запуск composer install ...\033[0m"
+
+        wget https://getcomposer.org/composer.phar
+        chmod +x composer.phar
+        ./composer.phar install --no-interaction
+
+        DB_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //")
+        DB_PASSWORD=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //")
     fi
 
     echo "Имя пользователя БД из конфига: \033[1;33;24m$DB_USER\033[0m"
