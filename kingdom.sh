@@ -35,13 +35,26 @@ case $1 in
     echo "Настройка контейнера данных для MySQL ..."
     docker create --name kingdom-mysql-data rottenwood/mysql-data > /dev/null 2>&1
 
+    DB_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //")
+    DB_PASSWORD=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //")
+
+    if [ -z "$DB_USER" ] || [ -z "$DB_USER" ]; then
+        echo "\033[1;31mКонфиг app/config/parameters.yml не найден! Запустите composer install!\033[0m"
+        exit 1
+    fi
+
+    echo "Имя пользователя БД из конфига: \033[1;33;24m$DB_USER\033[0m"
+    echo "Пароль пользователя БД из конфига: \033[1;33;24m$DB_PASSWORD\033[0m"
+
     echo "Запуск контейнера с сервером MySQL ..."
     docker run -d --name kingdom-mysql-server \
         -p 3307:3306 \
         --volumes-from=kingdom-mysql-data \
-        -e MYSQL_PASS="docker" \
-        -e MYSQL_USER="kingdom" \
+        -e MYSQL_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //") \
+        -e MYSQL_PASS=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //") \
         tutum/mysql
+
+    sleep 5
 
     SYMFONY_ENVIRONMENT="prod"
     if [ ! -z $2 ]; then
