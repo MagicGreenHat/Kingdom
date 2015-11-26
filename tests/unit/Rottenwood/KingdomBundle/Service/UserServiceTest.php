@@ -8,6 +8,7 @@ namespace Rottenwood\KingdomBundle\Service;
 
 use Monolog\Logger;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
 use Rottenwood\KingdomBundle\Entity\Room;
@@ -23,6 +24,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     private $userRepository;
     private $inventoryItemRepository;
     private $roomRepository;
+    public $itemRepository;
 
     protected function setUp()
     {
@@ -32,6 +34,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $this->userRepository = \Phake::mock(UserRepository::class);
         $this->inventoryItemRepository = \Phake::mock(InventoryItemRepository::class);
         $this->roomRepository = \Phake::mock(RoomRepository::class);
+        $this->itemRepository = \Phake::mock(ItemRepository::class);
     }
 
     /** @test */
@@ -64,7 +67,8 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             $this->logger,
             $this->userRepository,
             $this->inventoryItemRepository,
-            $this->roomRepository
+            $this->roomRepository,
+            $this->itemRepository
         );
     }
 

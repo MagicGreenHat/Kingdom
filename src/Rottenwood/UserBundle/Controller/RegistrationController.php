@@ -65,6 +65,7 @@ class RegistrationController extends FOSURegistrationController {
             );
 
             $this->createMoney($user);
+            $userService->giveStarterItems($user);
 
             /** @var RegistrationLogger $logger */
             $logger = $this->container->get('user.logger.registration');

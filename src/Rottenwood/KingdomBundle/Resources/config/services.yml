@@ -50,6 +50,7 @@ services:
             - @kingdom.user_repository
             - @kingdom.inventory_item_repository
             - @kingdom.room_repository
+            - @kingdom.item_repository
 
     # Логгеры
     kingdom.logger_formatter:

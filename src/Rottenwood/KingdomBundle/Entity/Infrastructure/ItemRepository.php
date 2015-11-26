@@ -18,4 +18,13 @@ class ItemRepository extends AbstractRepository {
     public function findAllItems() {
         return $this->findAll();
     }
+
+    /**
+     * @param $starterItemsIds
+     * @return Item[]
+     */
+    public function findSeveralByIds($starterItemsIds)
+    {
+        return $this->findBy(['id' => $starterItemsIds]);
+    }
 }

@@ -6,6 +6,7 @@ use Monolog\Logger;
 use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Room;
@@ -35,6 +36,8 @@ class UserService
     private $logger;
     /** @var RoomRepository */
     private $roomRepository;
+    /** @var ItemRepository */
+    private $itemRepository;
 
     /**
      * @param KernelInterface         $kernel
@@ -43,6 +46,7 @@ class UserService
      * @param UserRepository          $userRepository
      * @param InventoryItemRepository $inventoryItemRepository
      * @param RoomRepository          $roomRepository
+     * @param ItemRepository          $itemRepository
      */
     public function __construct(
         KernelInterface $kernel,
@@ -50,15 +54,16 @@ class UserService
         Logger $logger,
         UserRepository $userRepository,
         InventoryItemRepository $inventoryItemRepository,
-        RoomRepository $roomRepository
-    )
-    {
+        RoomRepository $roomRepository,
+        ItemRepository $itemRepository
+    ) {
         $this->redis = $redis;
         $this->logger = $logger;
         $this->userRepository = $userRepository;
         $this->inventoryItemRepository = $inventoryItemRepository;
         $this->kernel = $kernel;
         $this->roomRepository = $roomRepository;
+        $this->itemRepository = $itemRepository;
     }
 
     /**
@@ -308,5 +313,26 @@ class UserService
         }
 
         return $startRoom;
+    }
+
+    /**
+     * Стартовые предметы при создании персонажа
+     * @param User $user
+     */
+    public function giveStarterItems(User $user)
+    {
+        $starterItemsIds = [
+            'newbie-boots',
+            'newbie-legs',
+            'newbie-shirt',
+            'tester-sword',
+        ];
+
+        $items = $this->itemRepository->findSeveralByIds($starterItemsIds);
+
+        //TODO[Rottenwood]: Заменить на метод принимающий массив предметов
+        foreach ($items as $item) {
+            $this->takeItem($user, $item);
+        }
     }
 }
