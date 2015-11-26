@@ -4,6 +4,7 @@ namespace Helper;
 use Codeception\Module\Symfony2;
 use PHPUnit_Framework_Assert;
 use Rottenwood\KingdomBundle\Entity\Human;
+use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Room;
 
 /**
@@ -48,6 +49,25 @@ class Functional extends AbstractHelper
         $result = $this->runSymfonyCommand($command);
 
         return json_decode($result, true);
+    }
+
+    /**
+     * Проверка наличия предмета в инвентаре
+     * @param string $itemId
+     * @return InventoryItem
+     */
+    public function haveItem($itemId)
+    {
+        $symfonyModule = $this->getSymfonyModule();
+        $user = $this->getUser($symfonyModule);
+
+        $itemRepository = $symfonyModule->container->get('kingdom.inventory_item_repository');
+
+        $item = $itemRepository->findOneByUserAndItemId($user, $itemId);
+
+        PHPUnit_Framework_Assert::assertNotNull($item);
+
+        return $item;
     }
 
     /**

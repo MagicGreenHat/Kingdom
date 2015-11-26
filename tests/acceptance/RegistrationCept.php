@@ -1,7 +1,7 @@
 <?php
 
 $I = new AcceptanceTester($scenario);
-$I->wantTo('Register and see starter items in inventory');
+$I->wantTo('Register in game');
 
 $I->amOnPage('/');
 
