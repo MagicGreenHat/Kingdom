@@ -320,14 +320,13 @@ $(function () {
      */
     function removeItem($slot) {
         var slotName = $slot.data('slot');
-        var slotQtip = $slot.qtip('api');
 
         $slot.addClass('nointeract');
         $slot.removeClass('dressed');
         $slot.draggable('destroy');
-        slotQtip.destroy();
+        $slot.qtip('api').destroy();
 
-        var $item = createItem($slot, slotQtip);
+        var $item = createItemFromSlot($slot);
 
         $inventory.find('.paperdoll .slot').removeClass('highlight');
 
@@ -343,10 +342,10 @@ $(function () {
     /**
      * Создание предмета в DOM
      * @param $slot
-     * @param slotQtip
      * @returns {jQuery|HTMLElement}
      */
-    function createItem($slot, slotQtip) {
+    function createItemFromSlot($slot) {
+        var slotQtip = $slot.qtip('api');
         var $item = $('<div class="item ' + $slot.data('slots').split(',').join(' ') + '"></div>');
 
         $item.data('id', $slot.data('id'));
