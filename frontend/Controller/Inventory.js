@@ -327,6 +327,26 @@ $(function () {
         $slot.draggable('destroy');
         slotQtip.destroy();
 
+        var $item = createItem($slot, slotQtip);
+
+        $inventory.find('.paperdoll .slot').removeClass('highlight');
+
+        makeItemsDraggable();
+
+        Kingdom.Chat.addInfo('Ты снял ' + $item.data('name4'));
+
+        Kingdom.Websocket.command('remove', slotName);
+
+        ion.sound.play('remove-clothes');
+    }
+
+    /**
+     * Создание предмета в DOM
+     * @param $slot
+     * @param slotQtip
+     * @returns {jQuery|HTMLElement}
+     */
+    function createItem($slot, slotQtip) {
         var $item = $('<div class="item ' + $slot.data('slots').split(',').join(' ') + '"></div>');
 
         $item.data('id', $slot.data('id'));
@@ -347,14 +367,7 @@ $(function () {
         });
 
         $inventory.find('.items-list').append($item);
-        $inventory.find('.paperdoll .slot').removeClass('highlight');
 
-        makeItemsDraggable();
-
-        Kingdom.Chat.addInfo('Ты снял ' + $item.data('name4'));
-
-        Kingdom.Websocket.command('remove', slotName);
-
-        ion.sound.play('remove-clothes');
+        return $item;
     }
 });
