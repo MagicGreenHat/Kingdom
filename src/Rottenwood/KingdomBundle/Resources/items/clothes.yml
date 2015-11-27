@@ -10,6 +10,17 @@ clothes:
         desc: "Рубаха из грубой холщовой ткани."
         slots: body
         pic: newbie-shirt
+    coarse-shirt:
+        name:
+            - 'Грубая рубаха'
+            - 'грубой рубахи'
+            - 'грубой рубахе'
+            - 'грубую рубаху'
+            - 'грубой рубахой'
+            - 'грубой рубахе'
+        desc: "Рубаха из грубой плотной ткани."
+        slots: body
+        pic: shirt1
 
     newbie-legs:
         name:
