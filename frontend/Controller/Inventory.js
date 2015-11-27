@@ -273,6 +273,12 @@ $(function () {
         var itemQtip = $item.qtip('api');
         var itemId = $item.data('id');
 
+        if ($slot.hasClass('dressed')) {
+            var $removedItem = createItemFromSlot($slot);
+            $inventory.find('.paperdoll .slot').removeClass('highlight');
+            makeItemsDraggable();
+        }
+
         $slot.addClass('dressed');
         $slot.removeClass('nointeract');
         itemQtip.destroy();
