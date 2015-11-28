@@ -12,10 +12,9 @@ $I->wantTo('Execute command "wear"');
 $I->amLoggedInAs('test');
 
 $result = $I->runCommand('wear newbie-shirt:body');
+PHPUnit_Framework_Assert::assertTrue(isset($result['commandName']));
 PHPUnit_Framework_Assert::assertEquals(COMMAND_NAME_WEAR, $result['commandName']);
 
-$resultCommandName = $result['commandName'];
-
-PHPUnit_Framework_Assert::assertTrue(isset($resultCommandName) && $resultCommandName == COMMAND_NAME_WEAR);
 $result = $I->runCommand('wear coarse-shirt:body');
+PHPUnit_Framework_Assert::assertTrue(isset($result['commandName']));
 PHPUnit_Framework_Assert::assertEquals(COMMAND_NAME_WEAR, $result['commandName']);
