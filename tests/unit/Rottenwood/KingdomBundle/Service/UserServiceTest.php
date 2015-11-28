@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Rottenwood
- * Date Created: 05.11.15 23:11
- */
 
 namespace Rottenwood\KingdomBundle\Service;
 

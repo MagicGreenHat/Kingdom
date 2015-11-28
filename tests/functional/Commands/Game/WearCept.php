@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: Rottenwood
- * @date  : 27.11.15 23:00
- */
 
 const COMMAND_NAME_WEAR = 'wear';
 

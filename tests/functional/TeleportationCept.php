@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: Rottenwood
- * @date  : 12.11.15 23:56
- */
 
 $I = new FunctionalTester($scenario);
 $I->wantTo('Magically appear in several rooms');

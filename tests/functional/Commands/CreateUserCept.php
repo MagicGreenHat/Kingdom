@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: Rottenwood
- * @date  : 23.11.15 22:52
- */
 
 use Rottenwood\KingdomBundle\Entity\Human;
 

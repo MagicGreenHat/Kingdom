@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Rottenwood
- * Date Created: 08.11.15 1:24
- */
 
 $I = new FunctionalTester($scenario);
 $I->wantTo('Execute command "getMoney"');

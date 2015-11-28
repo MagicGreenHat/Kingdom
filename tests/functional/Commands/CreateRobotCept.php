@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: Rottenwood
- * @date  : 18.11.15 23:52
- */
 
 use Rottenwood\KingdomBundle\Entity\Robot;
 
