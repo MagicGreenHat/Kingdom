@@ -5,6 +5,9 @@ php:
 
 sudo: required
 
+services:
+    - docker
+
 install:
     - ./kingdom.sh start test
     - sleep 80
