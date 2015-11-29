@@ -44,13 +44,7 @@ case $1 in
         wget https://getcomposer.org/composer.phar
         chmod +x composer.phar
         ./composer.phar install --no-interaction
-
-        DB_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //")
-        DB_PASSWORD=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //")
     fi
-
-    echo "Имя пользователя БД из конфига: \033[1;33;24m$DB_USER\033[0m"
-    echo "Пароль пользователя БД из конфига: \033[1;33;24m$DB_PASSWORD\033[0m"
 
     echo "Запуск контейнера с сервером MySQL ..."
     docker run -d --name kingdom-mysql-server \
