@@ -225,7 +225,9 @@ case $1 in
     ;;
 
     'players')
-        docker exec kingdom cat /kingdom/app/logs/game_logs/user_actions.log | awk -F" "  '{array[$3]}END{for (player in array) print player}'
+        docker exec kingdom cat /kingdom/app/logs/game_logs/user_actions.log \
+        | awk -F" "  '{array[$3]}END{for (player in array) print player}' \
+        | sort --version-sort
     ;;
     esac
 ;;
