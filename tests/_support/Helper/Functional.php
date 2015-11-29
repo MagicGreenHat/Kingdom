@@ -71,6 +71,55 @@ class Functional extends AbstractHelper
     }
 
     /**
+     * Запрос всех предметов персонажа
+     * @return InventoryItem[]
+     */
+    public function getAllItems()
+    {
+        $symfonyModule = $this->getSymfonyModule();
+        $user = $this->getUser($symfonyModule);
+
+        $inventoryItemRepository = $symfonyModule->container->get('kingdom.inventory_item_repository');
+
+        return $inventoryItemRepository->findByUser($user);
+    }
+
+    /**
+     * Удаление всех предметов персонажа
+     */
+    public function deleteAllItems()
+    {
+        $symfonyModule = $this->getSymfonyModule();
+        $user = $this->getUser($symfonyModule);
+
+        $inventoryItemRepository = $symfonyModule->container->get('kingdom.inventory_item_repository');
+
+        /** @var InventoryItem $inventoryItem */
+        foreach ($inventoryItemRepository->findByUser($user) as $inventoryItem) {
+            $inventoryItemRepository->remove($inventoryItem);
+        }
+
+        $inventoryItemRepository->flush();
+    }
+
+    /**
+     * @param InventoryItem[] $inventoryItems
+     */
+    public function loadAllItems(array $inventoryItems)
+    {
+        $symfonyModule = $this->getSymfonyModule();
+
+        $inventoryItemRepository = $symfonyModule->container->get('kingdom.inventory_item_repository');
+
+        /** @var InventoryItem $inventoryItem */
+        foreach ($inventoryItems as $inventoryItem) {
+            $inventoryItemRepository->persist($inventoryItem);
+        }
+
+        $inventoryItemRepository->flush();
+    }
+
+    /**
      * Количество денег у персонажа
      * @param int $gold
      * @param int $silver
