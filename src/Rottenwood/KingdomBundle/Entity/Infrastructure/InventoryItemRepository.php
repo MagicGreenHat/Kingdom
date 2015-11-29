@@ -34,7 +34,7 @@ class InventoryItemRepository extends AbstractRepository {
      * Поиск предмета по игроку и слоту
      * @param User $user
      * @param string $slotName
-     * @return InventoryItem
+     * @return InventoryItem|null
      */
     public function findOneByUserAndSlot($user, $slotName) {
         $builder = $this->createQueryBuilder('inventory_item');
@@ -48,6 +48,6 @@ class InventoryItemRepository extends AbstractRepository {
             ]
         );
 
-        return $builder->getQuery()->getSingleResult();
+        return $builder->getQuery()->getOneOrNullResult();
     }
 }

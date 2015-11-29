@@ -23,17 +23,22 @@ class Wear extends AbstractGameCommand {
         $slot = $parameters[1];
 
         $inventoryItemRepository = $this->container->get('kingdom.inventory_item_repository');
-        $item = $inventoryItemRepository->findOneByUserAndItemId($this->user, $itemId);
+        $inventoryItem = $inventoryItemRepository->findOneByUserAndItemId($this->user, $itemId);
 
-        // Проверка на то, подходит ли предмет к слоту
-        if (in_array($slot, $item->getItem()->getSlots())) {
-            $item->setSlot($slot);
-
-            $inventoryItemRepository->flush();
-        } else {
+        if (!$inventoryItem->getItem()->fitsTo($slot)) {
             throw new WrongSlot($slot);
         }
 
+        $wornItem = $inventoryItemRepository->findOneByUserAndSlot($this->user, $slot);
+
+        if ($wornItem) {
+            $wornItem->removeSlot();
+            $inventoryItemRepository->flush($wornItem);
+        }
+
+        $inventoryItem->setSlot($slot);
+
+        $inventoryItemRepository->flush($inventoryItem);
 
         return $this->result;
     }

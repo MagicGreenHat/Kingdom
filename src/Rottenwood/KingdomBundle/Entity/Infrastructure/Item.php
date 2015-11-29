@@ -189,7 +189,7 @@ abstract class Item {
     }
 
     /**
-     * @return int[]
+     * @return string[]
      */
     public function getSlots() {
         return $this->slots;
