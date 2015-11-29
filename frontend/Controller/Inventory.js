@@ -264,6 +264,17 @@ $(function () {
     }
 
     /**
+     * Изменение изображения предмета
+     * @param $item
+     * @param $image
+     */
+    function changeItemImage($item, $image) {
+        var $removedItemImage = $item.find('img');
+
+        $removedItemImage.attr('src', $image.attr('src'));
+    }
+
+    /**
      * Надеть предмет
      * @param $item
      * @param $slot
@@ -274,7 +285,7 @@ $(function () {
         var itemId = $item.data('id');
 
         if ($slot.hasClass('dressed')) {
-            var $removedItem = createItemFromSlot($slot);
+            changeItemImage(createItemFromSlot($slot), $slot.find('img'));
             $inventory.find('.paperdoll .slot').removeClass('highlight');
             makeItemsDraggable();
         }
