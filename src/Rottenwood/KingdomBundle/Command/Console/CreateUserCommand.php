@@ -2,7 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Command\Console;
 
-use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\HumanRepository;
 use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Entity\Human as User;
 use Rottenwood\UserBundle\Loggers\RegistrationLogger;
@@ -53,7 +53,7 @@ class CreateUserCommand extends ContainerAwareCommand
         $container = $this->getContainer();
 
         $userManager = $container->get('fos_user.user_manager');
-        $userRepository = $container->get('kingdom.user_repository');
+        $humanRepository = $container->get('kingdom.human_repository');
         $userService = $container->get('kingdom.user_service');
 
         /** @var User $user */
@@ -64,7 +64,7 @@ class CreateUserCommand extends ContainerAwareCommand
 
         $cyrillicName = $userService->transliterate($user->getUsernameCanonical());
 
-        if ($this->checkUserExist($userRepository, $username, $cyrillicName, $email)) {
+        if ($this->checkUserExist($humanRepository, $username, $cyrillicName, $email)) {
             $output->writeln('персонаж уже существует.');
         } else {
             $user->setPlainPassword($password);
@@ -82,8 +82,8 @@ class CreateUserCommand extends ContainerAwareCommand
 
             $this->createMoney($user, $container);
 
-            $userRepository->persist($user);
-            $userRepository->flush($user);
+            $humanRepository->persist($user);
+            $humanRepository->flush($user);
 
             $output->writeln('персонаж создан!');
 
@@ -114,22 +114,22 @@ class CreateUserCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param UserRepository $userRepository
+     * @param HumanRepository $humanRepository
      * @param string         $username
      * @param string         $cyrillicName
      * @param string         $email
      * @return bool
      */
-    private function checkUserExist(UserRepository $userRepository, $username, $cyrillicName, $email)
+    private function checkUserExist(HumanRepository $humanRepository, $username, $cyrillicName, $email)
     {
-        $user = $userRepository->findByUsername($username);
+        $user = $humanRepository->findByUsername($username);
 
         if (!$user) {
-            $user = $userRepository->findByName($cyrillicName);
+            $user = $humanRepository->findByName($cyrillicName);
         }
 
         if (!$user) {
-            $user = $userRepository->findByEmail($email);
+            $user = $humanRepository->findByEmail($email);
         }
 
         return (bool)$user;

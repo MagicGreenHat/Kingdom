@@ -8,7 +8,7 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\PlayableCharacter;
 
 /**
  * Игровой персонаж
- * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository")
+ * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\HumanRepository")
  */
 class Human extends User implements PlayableCharacter
 {

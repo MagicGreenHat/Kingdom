@@ -99,7 +99,7 @@ class RegistrationController extends FOSURegistrationController {
      * @return bool
      */
     private function isAllreadyExists($name) {
-        return (bool) ($this->get('kingdom.user_repository')->findByName($name));
+        return (bool) ($this->get('kingdom.human_repository')->findByName($name));
     }
 
     /**

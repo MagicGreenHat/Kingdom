@@ -58,9 +58,9 @@ class DefaultController extends Controller {
      */
     public function characterPageAction(Request $request) {
         $userNameOrId = $request->attributes->get('name');
-        $userRepository = $this->get('kingdom.user_repository');
+        $humanRepository = $this->get('kingdom.human_repository');
 
-        $user = $userRepository->findByNameOrId($userNameOrId);
+        $user = $humanRepository->findByNameOrId($userNameOrId);
 
         $result = [
             'character' => $user,

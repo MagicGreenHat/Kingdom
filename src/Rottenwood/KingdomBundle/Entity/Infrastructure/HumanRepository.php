@@ -6,7 +6,7 @@ use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Room;
 
 //TODO[Rottenwood]: Rename to HumanRepository
-class UserRepository extends AbstractRepository {
+class HumanRepository extends AbstractRepository {
 
     /**
      * @param int $userId
@@ -39,7 +39,7 @@ class UserRepository extends AbstractRepository {
     /**
      * @return Human[]
      */
-    public function findAllUsers() {
+    public function findAllHumans() {
         return $this->findAll();
     }
 

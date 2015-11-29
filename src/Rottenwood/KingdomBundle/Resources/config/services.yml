@@ -1,6 +1,6 @@
 services:
-    kingdom.user_repository:
-        class: Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository
+    kingdom.human_repository:
+        class: Rottenwood\KingdomBundle\Entity\Infrastructure\HumanRepository
         factory_service: "doctrine.orm.entity_manager"
         factory_method: getRepository
         arguments: ["Rottenwood\KingdomBundle\Entity\Human"]
@@ -47,7 +47,7 @@ services:
             - @kernel
             - @snc_redis.default
             - @kingdom.logger
-            - @kingdom.user_repository
+            - @kingdom.human_repository
             - @kingdom.inventory_item_repository
             - @kingdom.room_repository
             - @kingdom.item_repository

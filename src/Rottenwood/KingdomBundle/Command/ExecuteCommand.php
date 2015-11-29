@@ -55,8 +55,8 @@ class ExecuteCommand extends ContainerAwareCommand {
 
         try {
             if (class_exists($commandClass)) {
-                $userRepository = $container->get('doctrine')->getRepository(User::class);
-                $user = $userRepository->find($userId);
+                $humanRepository = $container->get('doctrine')->getRepository(User::class);
+                $user = $humanRepository->find($userId);
 
                 /** @var GameCommandInterface $command */
                 $command = new $commandClass($user, $commandName, $parameters, $container);

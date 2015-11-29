@@ -14,9 +14,9 @@ abstract class AbstractHelper extends \Codeception\Module
         $symfonyModule = $this->getModule('Symfony2');
         $container = $symfonyModule->container;
 
-        $userRepository = $container->get('kingdom.user_repository');
+        $humanRepository = $container->get('kingdom.human_repository');
 
-        $user = $userRepository->findOneBy(['username' => $username]);
+        $user = $humanRepository->findOneBy(['username' => $username]);
 
         $firewall = 'main';
         $token = new UsernamePasswordToken($user, null, $firewall, $user->getRoles());

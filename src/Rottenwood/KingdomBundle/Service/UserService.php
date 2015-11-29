@@ -11,7 +11,7 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
-use Rottenwood\KingdomBundle\Entity\Infrastructure\UserRepository;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\HumanRepository;
 use Rottenwood\KingdomBundle\Exception\ItemNotFound;
 use Rottenwood\KingdomBundle\Exception\NotEnoughItems;
 use Rottenwood\KingdomBundle\Exception\RoomNotFound;
@@ -28,8 +28,8 @@ class UserService
     private $kernel;
     /** @var \Redis */
     private $redis;
-    /** @var UserRepository */
-    private $userRepository;
+    /** @var HumanRepository */
+    private $humanRepository;
     /** @var InventoryItemRepository */
     private $inventoryItemRepository;
     /** @var Logger */
@@ -43,7 +43,7 @@ class UserService
      * @param KernelInterface         $kernel
      * @param Client                  $redis
      * @param Logger                  $logger
-     * @param UserRepository          $userRepository
+     * @param HumanRepository          $humanRepository
      * @param InventoryItemRepository $inventoryItemRepository
      * @param RoomRepository          $roomRepository
      * @param ItemRepository          $itemRepository
@@ -52,14 +52,14 @@ class UserService
         KernelInterface $kernel,
         Client $redis,
         Logger $logger,
-        UserRepository $userRepository,
+        HumanRepository $humanRepository,
         InventoryItemRepository $inventoryItemRepository,
         RoomRepository $roomRepository,
         ItemRepository $itemRepository
     ) {
         $this->redis = $redis;
         $this->logger = $logger;
-        $this->userRepository = $userRepository;
+        $this->humanRepository = $humanRepository;
         $this->inventoryItemRepository = $inventoryItemRepository;
         $this->kernel = $kernel;
         $this->roomRepository = $roomRepository;
@@ -94,7 +94,7 @@ class UserService
             $excludePlayerIds = [$excludePlayerIds];
         }
 
-        return $this->userRepository->findOnlineByRoom($room, $this->getOnlineUsersIds(), $excludePlayerIds);
+        return $this->humanRepository->findOnlineByRoom($room, $this->getOnlineUsersIds(), $excludePlayerIds);
     }
 
     /**
