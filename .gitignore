@@ -32,7 +32,7 @@ web/js/libraries.js
 
 # npm
 node_modules/*
-npm-debug.log*
+npm-debug.log
 
 # node modules under git
 !node_modules/autobahn
