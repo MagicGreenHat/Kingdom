@@ -45,7 +45,9 @@ $(function () {
                     } else if (data.commandName == 'reloadPage') {
                         location.reload();
                     } else if (data.commandName == 'inventory') {
-                        Kingdom.Inventory.setItems(data.data);
+                        if (data.data) {
+                            Kingdom.Inventory.setItems(items);
+                        }
                     } else if (data.commandName == 'getMoney') {
                         Kingdom.Money.setMoney(data.data);
                     } else if (data.commandName == 'lookUser') {
