@@ -27,10 +27,13 @@ $(function () {
     });
 
     $openButton.on('click', function () {
-        var html = '<div>Золото: ' + Kingdom.Money.getGold() + '</div>'
-            + '<div>Серебро: ' + Kingdom.Money.getSilver() + '</div>';
+        var money = Kingdom.Money.getMoney();
+        money.done(function () {
+            var html = '<div>Золото: ' + money.gold + '</div>'
+                + '<div>Серебро: ' + money.silver + '</div>';
 
-        $('#game-inventory').find('.money').html(html);
+            $('#game-inventory').find('.money').html(html);
+        });
     });
 
     /**

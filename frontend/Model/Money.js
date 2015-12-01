@@ -2,7 +2,7 @@
  * Деньги персонажа
  */
 Kingdom.Money = (function () {
-    var money = {};
+    var money = new $.Deferred();
 
     return {
         setMoney: function (moneyData) {
@@ -13,22 +13,16 @@ Kingdom.Money = (function () {
                 money.gold = moneyData.gold;
                 money.silver = moneyData.silver;
             }
+
+            money.resolve();
         },
 
         /**
-         * Золотые монеты
-         * @returns int
+         * Деньги
+         * @returns object
          */
-        getGold: function () {
-            return money.gold;
-        },
-
-        /**
-         * Серебрянные монеты
-         * @returns int
-         */
-        getSilver: function () {
-            return money.silver;
+        getMoney: function () {
+            return money;
         }
     }
 })();
