@@ -118,18 +118,20 @@ class UserService
     }
 
     /**
-     * Передать предмет другому персонажу
+     * Передать один или несколько предметов другому персонажу
      * @param User $userFrom
      * @param User $userTo
-     * @param Item $item
+     * @param Item|Item[] $items
      * @param int  $quantityToGive Сколько предметов передать
      * @return bool
      * @throws \Exception
      */
-    public function giveItem(User $userFrom, User $userTo, Item $item, $quantityToGive = 1)
+    public function giveItems(User $userFrom, User $userTo, $items, $quantityToGive = 1)
     {
+        $items = $this->prepareItemsArray($items);
+
         try {
-            $this->dropItem($userFrom, $item, $quantityToGive);
+            $this->dropItems($userFrom, $items, $quantityToGive);
         } catch (\Exception $exception) {
             if ($exception instanceof ItemNotFound || $exception instanceof NotEnoughItems) {
                 return false;
@@ -138,85 +140,68 @@ class UserService
             }
         }
 
-        $this->takeItems($userTo, $item, $quantityToGive);
+        $this->takeItems($userTo, $items, $quantityToGive);
 
-        $this->logger->info(
-            sprintf(
-                '[%d]%s передал [%d]%s предмет: [%d]%s x %d шт.',
-                $userFrom->getId(),
-                $userFrom->getName(),
-                $userTo->getId(),
-                $userTo->getName(),
-                $item->getId(),
-                $item->getName(),
-                $quantityToGive
-            )
-        );
+        $this->logGivenItems($userFrom, $userTo, $items, $quantityToGive);
 
         return true;
     }
 
     /**
-     * Выбросить предмет
-     * @param User $user
-     * @param Item $item
-     * @param int  $quantityToDrop Сколько предметов выбросить
+     * Выбросить один или несколько предметов
+     * @param User        $user
+     * @param Item|Item[] $items
+     * @param int         $quantityToDrop Сколько предметов выбросить
      * @return int Количество оставшихся предметов
      * @throws ItemNotFound
      * @throws NotEnoughItems
      */
-    public function dropItem(User $user, Item $item, $quantityToDrop)
+    public function dropItems(User $user, $items, $quantityToDrop)
     {
-        $inventoryItem = $this->inventoryItemRepository->findOneByUserAndItemId($user, $item->getId());
+        $items = $this->prepareItemsArray($items);
 
-        if (!$inventoryItem) {
-            throw new ItemNotFound;
+        $inventoryItems = $this->inventoryItemRepository->findByUser($user);
+        $inventoryItemCollection = new ArrayCollection($inventoryItems);
+
+        foreach ($items as $item) {
+            $criteria = Criteria::create();
+            $criteria->where(Criteria::expr()->eq('item', $item));
+
+            $collectedInventoryItem = $inventoryItemCollection->matching($criteria);
+
+            if ($collectedInventoryItem->isEmpty()) {
+                throw new ItemNotFound;
+            }
+
+            $inventoryItem = $collectedInventoryItem->first();
+            $itemQuantity = $inventoryItem->getQuantity();
+            $itemQuantityAfterDrop = $itemQuantity - $quantityToDrop;
+
+            if ($itemQuantityAfterDrop == 0) {
+                $this->inventoryItemRepository->remove($inventoryItem);
+            } elseif ($itemQuantityAfterDrop > 0) {
+                $inventoryItem->setQuantity($itemQuantityAfterDrop);
+            } else {
+                throw new NotEnoughItems;
+            }
         }
 
-        $itemQuantity = $inventoryItem->getQuantity();
-        $itemQuantityAfterDrop = $itemQuantity - $quantityToDrop;
+        $this->inventoryItemRepository->flush();
 
-        if ($itemQuantityAfterDrop == 0) {
-            $this->inventoryItemRepository->remove($inventoryItem);
-        } elseif ($itemQuantityAfterDrop > 0) {
-            $inventoryItem->setQuantity($itemQuantityAfterDrop);
-        } else {
-            throw new NotEnoughItems;
-        }
+        $this->logDroppedItems($user, $items, $quantityToDrop);
 
-        $this->inventoryItemRepository->flush($inventoryItem);
-
-        $this->logger->info(
-            sprintf(
-                '[%d]%s выбросил предмет: [%d]%s x %d шт. (осталось %d)',
-                $user->getId(),
-                $user->getName(),
-                $item->getId(),
-                $item->getName(),
-                $quantityToDrop,
-                $itemQuantityAfterDrop
-            )
-        );
-
-        return $itemQuantityAfterDrop;
+        return true;
     }
 
     /**
      * Взять один или несколько предметов
      * @param User $user
-     * @param Item|Item[] $item
+     * @param Item|Item[] $items
      * @param int  $quantityToTake Сколько предметов взять
      */
-    public function takeItems(User $user, $item, $quantityToTake = 1)
+    public function takeItems(User $user, $items, $quantityToTake = 1)
     {
-        $itemsToTake = [];
-        if (is_array($item) && current($item) instanceof Item) {
-            $itemsToTake = $item;
-        } elseif ($item instanceof Item) {
-            $itemsToTake[] = $item;
-        } else {
-            throw new \RuntimeException('$item must be Item or array of Items entity');
-        }
+        $itemsToTake = $this->prepareItemsArray($items);
 
         $inventoryItems = $this->inventoryItemRepository->findByUser($user);
         $inventoryItemCollection = new ArrayCollection($inventoryItems);
@@ -244,8 +229,7 @@ class UserService
         $this->logObtainedItems(
             $user,
             $itemsToTake,
-            $quantityToTake,
-            isset($quantity) ? $quantity : $quantityToTake
+            $quantityToTake
         );
     }
 
@@ -351,24 +335,92 @@ class UserService
     }
 
     /**
+     * Подготовка массива предметов
+     * @param $items
+     * @return Item[]
+     * @throws NotEnoughItems
+     */
+    public function prepareItemsArray($items)
+    {
+        $preparedItems = [];
+        if (is_array($items) && current($items) instanceof Item) {
+            $preparedItems = $items;
+        } elseif ($items instanceof Item) {
+            $preparedItems[] = $items;
+        } else {
+            throw new \RuntimeException('$items must be Item or array of Items entity');
+        }
+
+        if (empty($preparedItems)) {
+            throw new NotEnoughItems('Не передано ни одного предмета для действия');
+        }
+
+        return $preparedItems;
+    }
+
+    /**
      * @param User   $user
      * @param Item[] $itemsToTake
      * @param int    $quantityToTake
-     * @param int    $totalQuantity
      */
-    private function logObtainedItems(User $user, $itemsToTake, $quantityToTake, $totalQuantity)
+    private function logObtainedItems(User $user, array $itemsToTake, $quantityToTake)
     {
         /** @var Item $item */
         foreach ($itemsToTake as $item) {
             $this->logger->info(
                 sprintf(
-                    '[%d]%s взял предмет: [%d]%s x %d шт. (всего %d)',
+                    '[%d]%s взял предмет: [%d]%s x %d шт.',
                     $user->getId(),
                     $user->getName(),
                     $item->getId(),
                     $item->getName(),
-                    $quantityToTake,
-                    $totalQuantity
+                    $quantityToTake
+                )
+            );
+        }
+    }
+
+    /**
+     * @param User   $userFrom
+     * @param User   $userTo
+     * @param Item[] $items
+     * @param int    $quantityToGive
+     */
+    private function logGivenItems(User $userFrom, User $userTo, array $items, $quantityToGive)
+    {
+        /** @var Item $item */
+        foreach ($items as $item) {
+            $this->logger->info(
+                sprintf(
+                    '[%d]%s передал [%d]%s предмет: [%d]%s x %d шт.',
+                    $userFrom->getId(),
+                    $userFrom->getName(),
+                    $userTo->getId(),
+                    $userTo->getName(),
+                    $item->getId(),
+                    $item->getName(),
+                    $quantityToGive
+                )
+            );
+        }
+    }
+
+    /**
+     * @param User   $user
+     * @param Item[] $items
+     * @param int    $quantityToDrop
+     */
+    private function logDroppedItems($user, array $items, $quantityToDrop)
+    {
+        foreach ($items as $item) {
+            $this->logger->info(
+                sprintf(
+                    '[%d]%s выбросил предмет: [%d]%s x %d шт.',
+                    $user->getId(),
+                    $user->getName(),
+                    $item->getId(),
+                    $item->getName(),
+                    $quantityToDrop
                 )
             );
         }
