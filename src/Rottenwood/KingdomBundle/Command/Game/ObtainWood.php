@@ -128,7 +128,7 @@ class ObtainWood extends AbstractGameCommand
             $resourceToUpdate = $em->find(RoomResource::class, $resourceId, LockMode::PESSIMISTIC_READ);
             $resourceToUpdate->reduceQuantity($this->quantityToObtain);
 
-            $userService->takeItem($this->user, $resourceToUpdate->getItem(), $this->quantityToObtain);
+            $userService->takeItems($this->user, $resourceToUpdate->getItem(), $this->quantityToObtain);
 
             $em->persist($resourceToUpdate);
             $em->flush();

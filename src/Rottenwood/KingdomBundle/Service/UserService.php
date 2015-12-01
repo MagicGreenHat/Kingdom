@@ -2,6 +2,8 @@
 
 namespace Rottenwood\KingdomBundle\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Monolog\Logger;
 use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository;
@@ -136,7 +138,7 @@ class UserService
             }
         }
 
-        $this->takeItem($userTo, $item, $quantityToGive);
+        $this->takeItems($userTo, $item, $quantityToGive);
 
         $this->logger->info(
             sprintf(
@@ -200,35 +202,50 @@ class UserService
     }
 
     /**
-     * Взять предмет
+     * Взять один или несколько предметов
      * @param User $user
-     * @param Item $item
+     * @param Item|Item[] $item
      * @param int  $quantityToTake Сколько предметов взять
      */
-    public function takeItem(User $user, Item $item, $quantityToTake = 1)
+    public function takeItems(User $user, $item, $quantityToTake = 1)
     {
-        $inventoryItem = $this->inventoryItemRepository->findOneByUserAndItemId($user, $item->getId());
-
-        if ($inventoryItem) {
-            $quantity = $inventoryItem->getQuantity() + $quantityToTake;
-            $inventoryItem->setQuantity($quantity);
+        $itemsToTake = [];
+        if (is_array($item) && current($item) instanceof Item) {
+            $itemsToTake = $item;
+        } elseif ($item instanceof Item) {
+            $itemsToTake[] = $item;
         } else {
-            $inventoryItem = new InventoryItem($user, $item, $quantityToTake);
-            $this->inventoryItemRepository->persist($inventoryItem);
+            throw new \RuntimeException('$item must be Item or array of Items entity');
         }
 
-        $this->inventoryItemRepository->flush($inventoryItem);
+        $inventoryItems = $this->inventoryItemRepository->findByUser($user);
+        $inventoryItemCollection = new ArrayCollection($inventoryItems);
 
-        $this->logger->info(
-            sprintf(
-                '[%d]%s взял предмет: [%d]%s x %d шт. (всего %d)',
-                $user->getId(),
-                $user->getName(),
-                $item->getId(),
-                $item->getName(),
-                $quantityToTake,
-                isset($quantity) ? $quantity : $quantityToTake
-            )
+        foreach ($itemsToTake as $itemToTake) {
+            $criteria = Criteria::create();
+            $criteria->where(Criteria::expr()->eq('item', $itemToTake));
+
+            $collectedInventoryItem = $inventoryItemCollection->matching($criteria);
+
+            if ($collectedInventoryItem->count() === 1) {
+                $inventoryItem = $collectedInventoryItem->first();
+                $quantity = $inventoryItem->getQuantity() + $quantityToTake;
+                $inventoryItem->setQuantity($quantity);
+            } elseif ($collectedInventoryItem->count() === 0) {
+                $inventoryItem = new InventoryItem($user, $itemToTake, $quantityToTake);
+                $this->inventoryItemRepository->persist($inventoryItem);
+            } else {
+                throw new \RuntimeException('Найдено более одного предмета');
+            }
+        }
+
+        $this->inventoryItemRepository->flush();
+
+        $this->logObtainedItems(
+            $user,
+            $itemsToTake,
+            $quantityToTake,
+            isset($quantity) ? $quantity : $quantityToTake
         );
     }
 
@@ -330,9 +347,30 @@ class UserService
 
         $items = $this->itemRepository->findSeveralByIds($starterItemsIds);
 
-        //TODO[Rottenwood]: Заменить на метод принимающий массив предметов
-        foreach ($items as $item) {
-            $this->takeItem($user, $item);
+        $this->takeItems($user, $items);
+    }
+
+    /**
+     * @param User   $user
+     * @param Item[] $itemsToTake
+     * @param int    $quantityToTake
+     * @param int    $totalQuantity
+     */
+    private function logObtainedItems(User $user, $itemsToTake, $quantityToTake, $totalQuantity)
+    {
+        /** @var Item $item */
+        foreach ($itemsToTake as $item) {
+            $this->logger->info(
+                sprintf(
+                    '[%d]%s взял предмет: [%d]%s x %d шт. (всего %d)',
+                    $user->getId(),
+                    $user->getName(),
+                    $item->getId(),
+                    $item->getName(),
+                    $quantityToTake,
+                    $totalQuantity
+                )
+            );
         }
     }
 }
