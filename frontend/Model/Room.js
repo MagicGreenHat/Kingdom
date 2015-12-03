@@ -1,24 +1,29 @@
 /**
- * Игровая комната
+ * Текущая игровая комната
  */
 Kingdom.Room = (function () {
-    var name;
+    var name,
+        x,
+        y;
 
     return {
 
         /**
-         * Установка имени комнаты
-         * @param roomName
+         * Установка параметров комнаты
+         * @param roomData
          */
-        setName: function (roomName) {
-            name = roomName;
+        setData: function (roomData) {
+            name = roomData.name;
+            x = roomData.x;
+            y = roomData.y;
         },
 
         /**
          * Запрос имени комнаты
+         * @returns string
          */
         getName: function () {
-            return name;
+            return name + ' [' + x + '/' + y + ']';
         },
 
         /**

@@ -172,6 +172,7 @@ $(function () {
     }
 
     /**
+     * //TODO[Rottenwood]: Убрать в модель Room
      * Отрисовка комнаты
      * @param roomData
      */
@@ -185,6 +186,8 @@ $(function () {
         $roomPlayers.html('');
         $roomControls.html('');
         $resourcesList.html('');
+
+        Kingdom.Room.setData(roomData);
 
         $roomName.html('').html(roomData.name + '<span class="coordinates">[' + roomData.x + '/' + roomData.y + ']</span>');
         $roomDescription.html('').html(roomData.description);
