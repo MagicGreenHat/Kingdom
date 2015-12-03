@@ -2,7 +2,6 @@
 namespace Helper;
 
 use Codeception\Module\Symfony2;
-use PHPUnit_Framework_Assert;
 use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Room;
@@ -65,7 +64,7 @@ class Functional extends AbstractHelper
 
         $item = $itemRepository->findOneByUserAndItemId($user, $itemId);
 
-        PHPUnit_Framework_Assert::assertNotNull($item);
+        \PHPUnit_Framework_Assert::assertNotNull($item);
 
         return $item;
     }
@@ -170,7 +169,7 @@ class Functional extends AbstractHelper
         $roomRepository = $symfonyModule->container->get('kingdom.room_repository');
         $room = $roomRepository->findOneByXandY($x, $y);
 
-        PHPUnit_Framework_Assert::assertEquals($user->getRoom()->getId(), $room->getId());
+        \PHPUnit_Framework_Assert::assertEquals($user->getRoom()->getId(), $room->getId());
     }
 
     /**
@@ -181,8 +180,8 @@ class Functional extends AbstractHelper
     {
         $result = $this->runCommand('getMoney');
 
-        PHPUnit_Framework_Assert::assertEquals($gold, $result['data']['gold']);
-        PHPUnit_Framework_Assert::assertEquals($silver, $result['data']['silver']);
+        \PHPUnit_Framework_Assert::assertEquals($gold, $result['data']['gold']);
+        \PHPUnit_Framework_Assert::assertEquals($silver, $result['data']['silver']);
     }
 
     /**
