@@ -29,7 +29,7 @@ echo "Загрузка игровых данных в БД ..."
 sudo -u www-data /kingdom/app/console kingdom:create:map -e $SYMFONY_ENVIRONMENT
 
 echo "Инициализация серверов ..."
-/etc/init.d/php5-fpm start
+/etc/init.d/php7.0-fpm start
 /etc/init.d/redis-server start
 /etc/init.d/nginx start
 
