@@ -41,3 +41,7 @@ npm-debug.log
 # tests output
 tests/_output/*
 tests/_support/_generated
+
+# php sessions
+app/sessions
+!app/sessions/.gitkeep

@@ -50,6 +50,7 @@ case $1 in
     docker run -d --name kingdom-mysql-server \
         -p 3307:3306 \
         --volumes-from=kingdom-mysql-data \
+        -v $(pwd)/app/sessions:/var/lib/php/sessions \
         -e MYSQL_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //") \
         -e MYSQL_PASS=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //") \
         tutum/mysql

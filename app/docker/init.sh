@@ -50,8 +50,11 @@ else
     /kingdom/app/console kingdom:create:items -e $SYMFONY_ENVIRONMENT
 fi
 
-echo "Настройка прав на логи"
+echo "Настройка прав ..."
+echo "... на логи"
 chown -R www-data /kingdom/app/logs
+echo "... на сессии"
+chown -R www-data /var/lib/php/sessions
 
 echo "Очистка кэша ..."
 rm -rf /kingdom/app/cache/dev /kingdom/app/cache/prod /kingdom/app/logs/dev.log /kingdom/app/logs/prod.log
@@ -67,11 +70,10 @@ else
     cp /kingdom/app/docker/symfony/app_dev.php /kingdom/web/
     mv /etc/nginx/nginx-dev.conf /etc/nginx/nginx.conf
 
-    echo "Включение модуля xdebug"
-    sudo php5enmod xdebug
+    # TODO: Включение модуля xdebug [sudo php5enmod xdebug]
 
-    echo "Рестарт php5-fpm ..."
-    sudo service php5-fpm restart
+    echo "Рестарт php-fpm ..."
+    /etc/init.d/php7.0-fpm restart
 fi
 
 echo "Отключение страницы с информацией о загрузке ..."
