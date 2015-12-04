@@ -14,18 +14,18 @@ case $1 in
 
     if [ $? -eq 0 ]; then
         echo "Обновление образа из Docker hub ..."
-        docker pull rottenwood/kingdom
+        docker pull rottenwood/kingdom:php7
     fi
 ;;
 
 'build')
     $0 stop
     echo "Сборка Docker-образа ..."
-    docker rmi rottenwood/kingdom > /dev/null 2>&1
-    docker build --no-cache -t rottenwood/kingdom .
+    docker rmi rottenwood/kingdom:php7 > /dev/null 2>&1
+    docker build --no-cache -t rottenwood/kingdom:php7 .
 
     if [ ! -z $2 ] && [ $2 = "push" ]; then
-        docker push rottenwood/kingdom
+        docker push rottenwood/kingdom:php7
     fi
 ;;
 
@@ -74,7 +74,7 @@ case $1 in
         --link kingdom-mysql-server:mysql \
         -e SYMFONY_ENVIRONMENT="$SYMFONY_ENVIRONMENT" \
         -e TERM=xterm \
-        rottenwood/kingdom
+        rottenwood/kingdom:php7
 
     SERVER_URL="$(ifconfig docker | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')"
 

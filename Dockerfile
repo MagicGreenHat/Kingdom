@@ -3,15 +3,24 @@ MAINTAINER Petr Karmashev (Rottenwood) <smonkl@bk.ru>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get install -y curl \
-    && curl -sL https://deb.nodesource.com/setup_4.x | sudo bash - \
-    && apt-get install -y php5 php5-cli php5-mysql php5-curl php5-fpm \
-       php5-redis php5-xdebug redis-server nodejs nginx git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+COPY app/docker/etc/apt /etc/apt
+
+RUN apt-get install -y --force-yes curl \
+    && curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
+
+RUN apt-get install -y --force-yes \
+    redis-server \
+    nodejs \
+    nginx \
+    git \
+    php7.0 \
+    php7.0-cli \
+    php7.0-curl \
+    php7.0-fpm \
+    php7.0-mysql
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php
-
-RUN php5dismod xdebug
 
 EXPOSE 7777 81

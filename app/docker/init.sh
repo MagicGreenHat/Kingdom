@@ -77,7 +77,6 @@ fi
 echo "Отключение страницы с информацией о загрузке ..."
 rm /etc/nginx/sites-enabled/maintain.conf
 
-
 echo "Рестарт nginx ..."
 sudo service nginx restart
 
