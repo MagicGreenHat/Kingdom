@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a973a0fdb4f857d77edf929d54c1af2",
-    "content-hash": "a4bd41561b07d0c4e3e92c497aa3b2a0",
+    "hash": "9cf81e7727e98bb493a60ae0bd88c176",
+    "content-hash": "cdf7db6ae7306c55ae0980241dc89f6c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1224,7 +1224,7 @@
         },
         {
             "name": "snc/redis-bundle",
-            "version": "1.1.9",
+            "version": "1.1.x-dev",
             "target-dir": "Snc/RedisBundle",
             "source": {
                 "type": "git",
@@ -3064,6 +3064,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
+        "snc/redis-bundle": 20,
         "phake/phake": 0
     },
     "prefer-stable": false,
