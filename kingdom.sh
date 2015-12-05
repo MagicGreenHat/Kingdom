@@ -8,6 +8,11 @@ case $1 in
     $0 help
 ;;
 
+'check')
+    echo "Проверка наличия новых версий вендорных библиотек composer ..."
+    vendor/vinkla/climb/bin/climb
+;;
+
 'download')
     # Проверка соединения с сетью
     echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
@@ -248,6 +253,7 @@ case $1 in
 	echo "\033[1;33;24m$0 test\033[0m (d|v|-d|-v|debug)- Запуск автоматических тестов (с выводом)"
 	echo "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
 	echo "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
+	echo "\033[1;33;24m$0 check\033[0m - Проверка новых пакетов composer (vinkla/climb)"
 	echo "----------------------------------------------------------------------"
 ;;
 
