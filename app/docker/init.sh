@@ -13,7 +13,8 @@ echo "Запуск nginx ..."
 /etc/init.d/nginx start
 
 echo "Обновление библиотек композера ..."
-sudo /composer.phar install -n -d /kingdom/
+sudo /composer.phar config -g github-oauth.github.com 0c8682fe7bcabe7618e8342f6dfbc6bb1e0da05d
+sudo /composer.phar install --prefer-dist -o -n -d /kingdom/
 sudo chown -R www-data:www-data /kingdom/vendor /kingdom/bin /kingdom/app/cache /kingdom/app/logs
 
 echo "Очистка кэша ..."

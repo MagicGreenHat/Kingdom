@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 command -v curl >/dev/null 2>&1 || { echo "Curl не установлен. Установка: sudo apt-get install curl"; exit 1; }
 command -v docker >/dev/null 2>&1 || { echo "Докер не установлен. Установка: curl -sSL https://get.docker.com/ | sh"; exit 1; }
@@ -9,8 +9,13 @@ case $1 in
 ;;
 
 'check')
-    echo "Проверка наличия новых версий вендорных библиотек composer ..."
-    vendor/vinkla/climb/bin/climb
+    if [[ $2 = "update" ]]; then
+        echo "Обновление зависимостей composer ..."
+        vendor/vinkla/climb/bin/climb update $3
+    else
+        echo "Проверка наличия новых версий вендорных библиотек composer ..."
+        vendor/vinkla/climb/bin/climb
+    fi
 ;;
 
 'download')
@@ -253,7 +258,7 @@ case $1 in
 	echo "\033[1;33;24m$0 test\033[0m (d|v|-d|-v|debug)- Запуск автоматических тестов (с выводом)"
 	echo "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
 	echo "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
-	echo "\033[1;33;24m$0 check\033[0m - Проверка новых пакетов composer (vinkla/climb)"
+	echo "\033[1;33;24m$0 check\033[0m [update] [package_name|--all] - Проверка новых пакетов composer (vinkla/climb)"
 	echo "----------------------------------------------------------------------"
 ;;
 
