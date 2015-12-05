@@ -8,7 +8,7 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\HumanRepository;
 use Rottenwood\KingdomBundle\Entity\Room;
-use Snc\RedisBundle\Client\Phpredis\Client;
+use Predis\Client as RedisClient;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class UserServiceTest extends \PHPUnit_Framework_TestCase
@@ -25,7 +25,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->kernel = \Phake::mock(KernelInterface::class);
-        $this->redis = \Phake::mock(Client::class);
+        $this->redis = \Phake::mock(RedisClient::class);
         $this->logger = \Phake::mock(Logger::class);
         $this->humanRepository = \Phake::mock(HumanRepository::class);
         $this->inventoryItemRepository = \Phake::mock(InventoryItemRepository::class);

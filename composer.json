@@ -31,12 +31,14 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "snc/redis-bundle": "1.1.x-dev",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "predis/predis": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
         "codeception/codeception": "*",
-        "phake/phake": "@stable"
+        "phake/phake": "@stable",
+        "vinkla/climb": "^0.7.0"
     },
     "scripts": {
         "post-install-cmd": [

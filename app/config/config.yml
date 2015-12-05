@@ -92,7 +92,7 @@ fos_user:
 snc_redis:
     clients:
         default:
-            type: phpredis # заменить на predis
+            type: predis # заменить на phpredis когда он станет доступен для php7
             alias: default
             dsn: redis://localhost
             logging: ~     # Отключение логирования из-за ошибок в prod-environment

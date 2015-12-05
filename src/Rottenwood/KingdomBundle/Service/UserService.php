@@ -18,7 +18,7 @@ use Rottenwood\KingdomBundle\Exception\ItemNotFound;
 use Rottenwood\KingdomBundle\Exception\NotEnoughItems;
 use Rottenwood\KingdomBundle\Exception\RoomNotFound;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
-use Snc\RedisBundle\Client\Phpredis\Client;
+use Predis\Client as RedisClient;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -28,7 +28,7 @@ class UserService
 
     /** @var KernelInterface */
     private $kernel;
-    /** @var \Redis */
+    /** @var RedisClient */
     private $redis;
     /** @var HumanRepository */
     private $humanRepository;
@@ -43,16 +43,16 @@ class UserService
 
     /**
      * @param KernelInterface         $kernel
-     * @param Client                  $redis
+     * @param RedisClient             $redis
      * @param Logger                  $logger
-     * @param HumanRepository          $humanRepository
+     * @param HumanRepository         $humanRepository
      * @param InventoryItemRepository $inventoryItemRepository
      * @param RoomRepository          $roomRepository
      * @param ItemRepository          $itemRepository
      */
     public function __construct(
         KernelInterface $kernel,
-        Client $redis,
+        RedisClient $redis,
         Logger $logger,
         HumanRepository $humanRepository,
         InventoryItemRepository $inventoryItemRepository,
