@@ -81,5 +81,7 @@ class CreateMapCommand extends ContainerAwareCommand {
         }
 
         $output->writeln(sprintf('Создано %d новых комнат.', count($newRooms)));
+        
+        return $newRooms;
     }
 }
