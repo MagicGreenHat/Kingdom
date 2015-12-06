@@ -34,7 +34,7 @@ class ExecuteCommand extends ContainerAwareCommand {
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output):void {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $userId = $input->getArgument('userId');
         $command = $input->getArgument('externalCommand');
         $parameters = $input->getArgument('parameters');
