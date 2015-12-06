@@ -76,7 +76,7 @@ case $1 in
         fi
     fi
 
-    echo "Выбрано symfony окружение: \033[1;31m$SYMFONY_ENVIRONMENT\033[0m"
+    echo -e "Выбрано symfony окружение: \033[1;31m$SYMFONY_ENVIRONMENT\033[0m"
 
     echo "Создание нового контейнера ..."
     docker run -d --name="kingdom" \
@@ -90,14 +90,14 @@ case $1 in
     SERVER_URL="$(ifconfig docker | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')"
 
     if [ -z $(docker inspect --format='{{.NetworkSettings.IPAddress}}' kingdom) ]; then
-        echo "\033[1;31mКонтейнер не был создан!\033[0m"
+        echo -e "\033[1;31mКонтейнер не был создан!\033[0m"
         exit 1
     fi
 
     echo "Контейнер создан!"
-    echo "Игра доступна по адресу: \033[1;33;24mhttp://$SERVER_URL:81\033[0m"
+    echo -e "Игра доступна по адресу: \033[1;33;24mhttp://$SERVER_URL:81\033[0m"
     echo "Если контейнер запускается впервые, системе понадобится время для установки и настройки."
-    echo "Это может занять около минуты. Детальная информация в логах: \033[5;33;24m$0 log\033[0m"
+    echo -e "Это может занять около минуты. Детальная информация в логах: \033[5;33;24m$0 log\033[0m"
 ;;
 
 'stop')
