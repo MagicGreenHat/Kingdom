@@ -61,10 +61,10 @@ $(function () {
                             Kingdom.Chat.addInfo('Ты рубишь дерево. Добыто древесины: ' + data.data.obtained);
                         }
 
-                        if (data.data.waitstate) {
+                        if (data.waitstate) {
                             Kingdom.Chat.addInfo({
                                 event: 'warning',
-                                message: 'Нужно отдохнуть. Ты сможешь добывать древесину через ' + data.data.waitstate + ' ' + Kingdom.Chat.pluralize(data.data.waitstate, 'секунду', 'секунды', 'секунд')
+                                message: 'Нужно отдохнуть. Ты сможешь добывать древесину через ' + data.waitstate + ' ' + Kingdom.Chat.pluralize(data.waitstate, 'секунду', 'секунды', 'секунд')
                             });
                         }
 
