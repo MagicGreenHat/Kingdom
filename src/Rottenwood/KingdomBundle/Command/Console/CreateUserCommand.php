@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CreateUserCommand extends ContainerAwareCommand
 {
 
-    protected function configure(): void
+    protected function configure()
     {
         $this->setName('kingdom:create:user');
         $this->setDescription('Создание персонажа');
@@ -41,7 +41,7 @@ class CreateUserCommand extends ContainerAwareCommand
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
@@ -106,7 +106,7 @@ class CreateUserCommand extends ContainerAwareCommand
      * @param ContainerInterface $container
      * @return void
      */
-    private function createMoney(User $user, ContainerInterface $container): void
+    private function createMoney(User $user, ContainerInterface $container)
     {
         $money = new Money($user);
         $moneyRepository = $container->get('kingdom.money_repository');

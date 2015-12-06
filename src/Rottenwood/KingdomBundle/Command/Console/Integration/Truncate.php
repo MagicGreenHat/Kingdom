@@ -20,7 +20,7 @@ abstract class Truncate extends ContainerAwareCommand {
         OutputInterface $output = null,
         string $startEcho = '',
         string $endEcho = ''
-    ): void {
+    ) {
         if ($output) {
             $output->write($startEcho);
         }

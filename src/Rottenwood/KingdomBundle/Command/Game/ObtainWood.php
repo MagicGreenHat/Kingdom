@@ -105,7 +105,7 @@ class ObtainWood extends AbstractGameCommand
      * @param EntityManager $em
      * @return void
      */
-    private function setWaitstate(EntityManager $em): void
+    private function setWaitstate(EntityManager $em)
     {
         $this->user->addWaitstate($this->waitState);
         $em->flush($this->user);
@@ -120,7 +120,7 @@ class ObtainWood extends AbstractGameCommand
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Exception
      */
-    private function reduceQuantity(EntityManager $em, int $resourceId, UserService $userService): void
+    private function reduceQuantity(EntityManager $em, int $resourceId, UserService $userService)
     {
         $em->getConnection()->beginTransaction();
 

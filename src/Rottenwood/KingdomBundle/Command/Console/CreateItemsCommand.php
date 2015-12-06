@@ -18,11 +18,11 @@ class CreateItemsCommand extends ContainerAwareCommand {
 
     const RESOURCE_QUANTITY = 10;
 
-    protected function configure(): void {
+    protected function configure() {
         $this->setName('kingdom:create:items')->setDescription('Создание тестовых предметов');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $container = $this->getContainer();
 
         $itemRepository = $container->get('kingdom.item_repository');

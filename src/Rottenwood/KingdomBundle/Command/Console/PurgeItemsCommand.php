@@ -11,11 +11,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PurgeItemsCommand extends Truncate {
 
-    protected function configure(): void {
+    protected function configure() {
         $this->setName('kingdom:purge:items')->setDescription('Удаление всех предметов');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $this->truncateEntity(InventoryItem::class, $output, 'Удаление предметов в инвентарях ... ', 'Инвентари удалены.');
         $this->truncateEntity(Item::class, $output, 'Удаление предметов ... ', 'Предметы удалены.');
         $this->truncateEntity(RoomResource::class, $output, 'Удаление ресурсов ... ', 'Ресурсы удалены.');

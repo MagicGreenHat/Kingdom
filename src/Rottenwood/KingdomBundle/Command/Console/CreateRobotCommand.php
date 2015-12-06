@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CreateRobotCommand extends ContainerAwareCommand
 {
 
-    protected function configure(): null
+    protected function configure()
     {
         $this->setName('kingdom:create:robot');
         $this->setDescription('Создание робота');
@@ -31,7 +31,7 @@ class CreateRobotCommand extends ContainerAwareCommand
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): null
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
         $roomId = $input->getArgument('roomId');
@@ -85,7 +85,7 @@ class CreateRobotCommand extends ContainerAwareCommand
      * @param ContainerInterface $container
      * @return void
      */
-    private function createMoney(Robot $robot, ContainerInterface $container): null
+    private function createMoney(Robot $robot, ContainerInterface $container)
     {
         $money = new Money($robot);
         $moneyRepository = $container->get('kingdom.money_repository');

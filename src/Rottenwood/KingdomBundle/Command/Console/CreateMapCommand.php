@@ -15,12 +15,12 @@ use Symfony\Component\Yaml\Yaml;
 class CreateMapCommand extends ContainerAwareCommand {
 
     /** {@inheritdoc} */
-    protected function configure(): void {
+    protected function configure() {
         $this->setName('kingdom:create:map')->setDescription('Создание карты мира');
     }
 
     /** {@inheritdoc} */
-    protected function execute(InputInterface $input, OutputInterface $output): void {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $container = $this->getContainer();
         $repository = $container->get('kingdom.room_repository');
         $rooms = $repository->findAll();
