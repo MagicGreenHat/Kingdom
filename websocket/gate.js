@@ -101,7 +101,8 @@ connection.onopen = function (session) {
                                                         {
                                                             event: 'obtainWood',
                                                             name: character.name,
-                                                            resources: commandResult.data.resources
+                                                            resources: commandResult.data.resources,
+                                                            typeChanged: commandResult.data.typeChanged
                                                         }
                                                     }
                                                 );
