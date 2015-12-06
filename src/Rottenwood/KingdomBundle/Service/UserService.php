@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManager;
 use Monolog\Logger;
 use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository;
@@ -71,16 +72,16 @@ class UserService
     /**
      * Запрос ID всех онлайн игроков в комнате
      * @param Room  $room
-     * @param array $excludePlayerIds
+     * @param int|int[] $excludePlayerIds
      * @return int[]
      */
-    public function getOnlineUsersIdsInRoom(Room $room, $excludePlayerIds = [])
+    public function getOnlineUsersIdsInRoom(Room $room, $excludePlayerIds = []): array
     {
         return array_map(
             function (User $user) {
                 return $user->getId();
             },
-            $this->getOnlineUsersInRoom($room, $excludePlayerIds)
+            $this->getOnlineHumansInRoom($room, $excludePlayerIds)
         );
     }
 
@@ -90,7 +91,7 @@ class UserService
      * @param int|array $excludePlayerIds
      * @return Human[]
      */
-    public function getOnlineUsersInRoom(Room $room, $excludePlayerIds = [])
+    public function getOnlineHumansInRoom(Room $room, $excludePlayerIds = []): array
     {
         if (!is_array($excludePlayerIds)) {
             $excludePlayerIds = [$excludePlayerIds];
@@ -103,7 +104,7 @@ class UserService
      * Запрос id всех игроков онлайн из redis
      * @return int[]
      */
-    public function getOnlineUsersIds()
+    public function getOnlineUsersIds(): array
     {
         return $this->redis->smembers(RedisClientInterface::ONLINE_LIST);
     }
@@ -112,7 +113,7 @@ class UserService
      * @param array $userIds
      * @return array
      */
-    public function getSessionsByUserIds(array $userIds)
+    public function getSessionsByUserIds(array $userIds): array
     {
         return array_values($this->redis->hmget(RedisClientInterface::ID_SESSION_HASH, $userIds));
     }
@@ -126,7 +127,7 @@ class UserService
      * @return bool
      * @throws \Exception
      */
-    public function giveItems(User $userFrom, User $userTo, $items, $quantityToGive = 1)
+    public function giveItems(User $userFrom, User $userTo, $items, int $quantityToGive = 1): bool
     {
         $items = $this->prepareItemsArray($items);
 
@@ -152,11 +153,11 @@ class UserService
      * @param User        $user
      * @param Item|Item[] $items
      * @param int         $quantityToDrop Сколько предметов выбросить
-     * @return int Количество оставшихся предметов
+     * @return bool
      * @throws ItemNotFound
      * @throws NotEnoughItems
      */
-    public function dropItems(User $user, $items, $quantityToDrop)
+    public function dropItems(User $user, $items, int $quantityToDrop): bool
     {
         $items = $this->prepareItemsArray($items);
 
@@ -199,7 +200,7 @@ class UserService
      * @param Item|Item[] $items
      * @param int  $quantityToTake Сколько предметов взять
      */
-    public function takeItems(User $user, $items, $quantityToTake = 1)
+    public function takeItems(User $user, $items, int $quantityToTake = 1)
     {
         $itemsToTake = $this->prepareItemsArray($items);
 
@@ -237,7 +238,7 @@ class UserService
      * Установка рэндомного аватара
      * @return string
      */
-    public function pickAvatar()
+    public function pickAvatar(): string
     {
         $finder = new Finder();
 
@@ -262,7 +263,7 @@ class UserService
      * @param string $string
      * @return string
      */
-    public function transliterate($string)
+    public function transliterate(string $string): string
     {
         $englishLetters = implode('', array_keys($this->getAlphabet()));
         $cyrillicLetters = 'абвгдеёжзиклмнопрстуфхцчшщьыъэюяАБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ';
@@ -283,7 +284,7 @@ class UserService
      * Массив соответствия русских букв латинским
      * @return string[]
      */
-    private function getAlphabet()
+    private function getAlphabet(): array
     {
         return [
             'a' => 'а', 'b' => 'б', 'c' => 'ц', 'd' => 'д', 'e' => 'е',
@@ -305,7 +306,7 @@ class UserService
      * @return Room
      * @throws RoomNotFound
      */
-    public function getStartRoom()
+    public function getStartRoom(): Room
     {
         $startRoom = $this->roomRepository->findOneByXandY(0, 0);
 
@@ -336,11 +337,11 @@ class UserService
 
     /**
      * Подготовка массива предметов
-     * @param $items
+     * @param Item|Item[] $items
      * @return Item[]
      * @throws NotEnoughItems
      */
-    public function prepareItemsArray($items)
+    private function prepareItemsArray($items): array
     {
         $preparedItems = [];
         if (is_array($items) && current($items) instanceof Item) {
@@ -363,7 +364,7 @@ class UserService
      * @param Item[] $itemsToTake
      * @param int    $quantityToTake
      */
-    private function logObtainedItems(User $user, array $itemsToTake, $quantityToTake)
+    private function logObtainedItems(User $user, array $itemsToTake, int $quantityToTake)
     {
         /** @var Item $item */
         foreach ($itemsToTake as $item) {
@@ -386,7 +387,7 @@ class UserService
      * @param Item[] $items
      * @param int    $quantityToGive
      */
-    private function logGivenItems(User $userFrom, User $userTo, array $items, $quantityToGive)
+    private function logGivenItems(User $userFrom, User $userTo, array $items, int $quantityToGive)
     {
         /** @var Item $item */
         foreach ($items as $item) {
@@ -410,7 +411,7 @@ class UserService
      * @param Item[] $items
      * @param int    $quantityToDrop
      */
-    private function logDroppedItems($user, array $items, $quantityToDrop)
+    private function logDroppedItems($user, array $items, int $quantityToDrop)
     {
         foreach ($items as $item) {
             $this->logger->info(
@@ -424,5 +425,24 @@ class UserService
                 )
             );
         }
+    }
+
+    /**
+     * Назначение вейтстейта юзеру
+     * @param int $waitState
+     * @return bool
+     */
+    public function setWaitstate(User $user, int $waitState): bool {
+        $user->addWaitstate($waitState);
+        $this->getEntityManager()->flush($user);
+
+        return true;
+    }
+
+    /**
+     * @return EntityManager
+     */
+    private function getEntityManager(): EntityManager {
+        return $this->humanRepository->getEntityManager();
     }
 }

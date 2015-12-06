@@ -23,7 +23,7 @@ class ShowPlayersInRoom extends AbstractGameCommand {
                     'stance' => 'стоит тут.',
                 ];
             },
-            $this->container->get('kingdom.user_service')->getOnlineUsersInRoom(
+            $this->container->get('kingdom.user_service')->getOnlineHumansInRoom(
                 $this->user->getRoom(),
                 $this->user->getId()
             )

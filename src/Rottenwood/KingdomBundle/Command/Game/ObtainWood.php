@@ -79,7 +79,7 @@ class ObtainWood extends AbstractGameCommand
             return $result;
         }
 
-        $this->setWaitstate($em);
+        $userService->setWaitstate($this->user, $this->waitState);
         $this->reduceQuantity($em, $resource->getId(), $userService);
 
         $result['obtained'] = $this->quantityToObtain;
@@ -98,17 +98,6 @@ class ObtainWood extends AbstractGameCommand
         }
 
         return $result;
-    }
-
-    /**
-     * Назначение вейтстейта игроку
-     * @param EntityManager $em
-     * @return void
-     */
-    private function setWaitstate(EntityManager $em)
-    {
-        $this->user->addWaitstate($this->waitState);
-        $em->flush($this->user);
     }
 
     /**
