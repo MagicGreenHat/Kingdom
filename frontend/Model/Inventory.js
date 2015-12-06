@@ -23,13 +23,13 @@ Kingdom.Inventory = (function () {
         },
 
         /**
-         * Удаление предмета из инвентаря
+         * Снятие предмета
          * @param itemId int
          */
         removeItem: function (itemId) {
-            items.items.forEach(function (item, key) {
+            items.items.forEach(function (item, key, itemsArray) {
                 if (item.itemId == itemId) {
-                    items.items.splice(key, 1);
+                    delete itemsArray[key]['slot'];
                 }
             });
         }

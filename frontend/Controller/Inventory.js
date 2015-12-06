@@ -353,7 +353,7 @@ $(function () {
         makeItemsDraggable();
 
         Kingdom.Chat.addInfo('Ты снял ' + $item.data('name4'));
-
+        Kingdom.Inventory.removeItem($item.data('id'));
         Kingdom.Websocket.command('remove', slotName);
 
         ion.sound.play('remove-clothes');
