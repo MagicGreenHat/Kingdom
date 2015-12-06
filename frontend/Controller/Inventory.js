@@ -329,6 +329,7 @@ $(function () {
 
         initializePaperdollSlots();
 
+        Kingdom.Inventory.wearItem(itemId, slotName);
         Kingdom.Websocket.command('wear', [itemId, slotName]);
 
         ion.sound.play('wear-clothes');

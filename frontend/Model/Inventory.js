@@ -23,6 +23,19 @@ Kingdom.Inventory = (function () {
         },
 
         /**
+         * Надевание предмета
+         * @param itemId int
+         * @param slot string
+         */
+        wearItem: function (itemId, slot) {
+            items.items.forEach(function (item, key, itemsArray) {
+                if (item.itemId == itemId) {
+                    itemsArray[key]['slot'] = slot;
+                }
+            });
+        },
+
+        /**
          * Снятие предмета
          * @param itemId int
          */
