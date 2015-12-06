@@ -46,7 +46,7 @@ $(function () {
                         location.reload();
                     } else if (data.commandName == 'inventory') {
                         if (data.data) {
-                            Kingdom.Inventory.setItems(items);
+                            Kingdom.Inventory.setItems(data.data);
                         }
                     } else if (data.commandName == 'getMoney') {
                         Kingdom.Money.setMoney(data.data);
