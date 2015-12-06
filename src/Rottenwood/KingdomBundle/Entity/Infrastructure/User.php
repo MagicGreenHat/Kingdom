@@ -193,6 +193,13 @@ abstract class User extends BaseUser
     }
 
     /**
+     * Обнуление вейтстейта
+     */
+    public function dropWaitState() {
+        $this->waitstate = 0;
+    }
+
+    /**
      * @Assert\GreaterThanOrEqual(value = 4, message = "Минимальная длина имени - 4 буквы")
      * @Assert\LessThanOrEqual(value = 20, message = "Максимальная длина имени - 20 букв")
      * @return int
