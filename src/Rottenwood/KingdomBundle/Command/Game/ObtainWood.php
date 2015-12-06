@@ -26,7 +26,7 @@ class ObtainWood extends AbstractGameCommand
     /**
      * @return CommandResponse
      */
-    public function execute()
+    public function execute(): CommandResponse
     {
         $resourceRepository = $this->container->get('kingdom.room_resource_repository');
         $em = $resourceRepository->getEntityManager();
@@ -72,8 +72,7 @@ class ObtainWood extends AbstractGameCommand
         UserService $userService,
         Item $resourceItem,
         Room $room
-    )
-    {
+    ): array {
         if ($this->user->isBusy()) {
             $result['waitstate'] = $this->user->getWaitstate();
 
@@ -104,8 +103,9 @@ class ObtainWood extends AbstractGameCommand
     /**
      * Назначение вейтстейта игроку
      * @param EntityManager $em
+     * @return void
      */
-    private function setWaitstate(EntityManager $em)
+    private function setWaitstate(EntityManager $em): void
     {
         $this->user->addWaitstate($this->waitState);
         $em->flush($this->user);
@@ -116,10 +116,11 @@ class ObtainWood extends AbstractGameCommand
      * @param EntityManager $em
      * @param int           $resourceId
      * @param UserService   $userService
+     * @return void
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Exception
      */
-    private function reduceQuantity(EntityManager $em, $resourceId, UserService $userService)
+    private function reduceQuantity(EntityManager $em, int $resourceId, UserService $userService): void
     {
         $em->getConnection()->beginTransaction();
 

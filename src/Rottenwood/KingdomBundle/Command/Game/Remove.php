@@ -15,7 +15,7 @@ class Remove extends AbstractGameCommand {
     /**
      * @return CommandResponse
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         $inventoryItemRepository = $this->container->get('kingdom.inventory_item_repository');
         $item = $inventoryItemRepository->findOneByUserAndSlot($this->user, $this->parameters);
         $item->removeSlot();

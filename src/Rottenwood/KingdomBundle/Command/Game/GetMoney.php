@@ -14,7 +14,7 @@ class GetMoney extends AbstractGameCommand {
     /**
      * @return CommandResponse
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         $moneyRepository = $this->container->get('kingdom.money_repository');
         $money = $moneyRepository->findOneByUser($this->user);
 

@@ -18,7 +18,7 @@ class Move extends AbstractGameCommand {
      * @return CommandResponse
      * @throws InvalidCommandParameter
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         $roomRepository = $this->container->get('kingdom.room_repository');
         $em = $roomRepository->getEntityManager();
 
@@ -109,7 +109,7 @@ class Move extends AbstractGameCommand {
      * @param Room $room
      * @return bool
      */
-    private function userCanWalkToRoom(Room $room) {
+    private function userCanWalkToRoom(Room $room): bool {
         return $room->getType()->userCanWalk();
     }
 }

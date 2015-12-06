@@ -17,7 +17,7 @@ class Wear extends AbstractGameCommand {
      * @return CommandResponse
      * @throws WrongSlot
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         $parameters = explode(':', $this->parameters);
         $itemId = $parameters[0];
         $slot = $parameters[1];

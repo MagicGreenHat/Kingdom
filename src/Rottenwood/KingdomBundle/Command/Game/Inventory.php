@@ -14,7 +14,7 @@ class Inventory extends AbstractGameCommand {
     /**
      * @return CommandResponse
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         $inventoryItems = $this->container->get('kingdom.inventory_item_repository')->findByUser($this->user);
 
         $itemData = [];

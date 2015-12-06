@@ -15,7 +15,7 @@ class ChangeAvatar extends AbstractGameCommand {
     /**
      * @return CommandResponse
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         if ($this->parameters) {
             $this->user->setAvatar($this->parameters);
 

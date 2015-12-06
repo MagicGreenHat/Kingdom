@@ -15,7 +15,7 @@ class ShowPlayersInRoom extends AbstractGameCommand {
     /**
      * @return CommandResponse
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         $playersInRoom = array_map(
             function(User $user) {
                 return [

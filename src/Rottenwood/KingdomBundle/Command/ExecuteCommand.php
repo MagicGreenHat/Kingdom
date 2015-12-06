@@ -34,7 +34,7 @@ class ExecuteCommand extends ContainerAwareCommand {
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output):void {
         $userId = $input->getArgument('userId');
         $command = $input->getArgument('externalCommand');
         $parameters = $input->getArgument('parameters');
@@ -44,12 +44,12 @@ class ExecuteCommand extends ContainerAwareCommand {
 
     /**
      * Запуск внешней команды
-     * @param string $userId      Id игрока запросившего запуск команды
-     * @param string $commandName Название команды
-     * @param string $parameters  Параметры команды
-     * @return string json
+     * @param int         $userId
+     * @param string      $commandName
+     * @param string|null $parameters
+     * @return string
      */
-    private function executeExternal($userId, $commandName, $parameters) {
+    private function executeExternal(int $userId, string $commandName, $parameters): string {
         $commandClass = __NAMESPACE__ . '\\Game\\' . ucfirst($commandName);
         $container = $this->getContainer();
 

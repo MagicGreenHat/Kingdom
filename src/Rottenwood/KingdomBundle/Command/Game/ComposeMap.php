@@ -21,7 +21,7 @@ class ComposeMap extends AbstractGameCommand {
     /**
      * @return CommandResponse
      */
-    public function execute() {
+    public function execute(): CommandResponse {
         $currentRoom = $this->user->getRoom();
         $currentX = $currentRoom->getX();
         $currentY = $currentRoom->getY();
@@ -86,7 +86,7 @@ class ComposeMap extends AbstractGameCommand {
      * @param int  $y
      * @return array
      */
-    private function addRoom(Room $room, $x, $y) {
+    private function addRoom(Room $room, int $x, int $y): array {
         return [
             'x'   => $x,
             'y'   => $y,
