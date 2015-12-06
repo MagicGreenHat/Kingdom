@@ -4,6 +4,7 @@ $I = new FunctionalTester($scenario);
 $I->wantTo('Execute command "obtainWood"');
 
 $I->amLoggedInAs('test');
+$I->haveNoWaitState();
 $I->teleportToCoordinates(3, 3);
 
 $I->amAtCoordinates(3, 3);

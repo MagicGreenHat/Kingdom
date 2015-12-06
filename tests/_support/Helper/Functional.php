@@ -3,6 +3,7 @@ namespace Helper;
 
 use Codeception\Module\Symfony2;
 use Rottenwood\KingdomBundle\Entity\Human;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 use Rottenwood\KingdomBundle\Entity\Room;
 
@@ -185,19 +186,29 @@ class Functional extends AbstractHelper
     }
 
     /**
+     * Обнуление вейтстейта игрока
+     */
+    public function haveNoWaitState()
+    {
+        $symfony = $this->getSymfonyModule();
+        $user = $this->getUser($symfony);
+        $user->dropWaitState();
+    }
+
+    /**
      * @return Symfony2
      * @throws \Codeception\Exception\ModuleException
      */
-    private function getSymfonyModule()
+    private function getSymfonyModule(): Symfony2
     {
         return $this->getModule('Symfony2');
     }
 
     /**
      * @param $symfonyModule
-     * @return Human
+     * @return User
      */
-    private function getUser($symfonyModule)
+    private function getUser($symfonyModule): User
     {
         return $symfonyModule->container->get('security.token_storage')->getToken()->getUser();
     }
