@@ -432,7 +432,7 @@ class UserService
      * @param int $waitState
      * @return bool
      */
-    public function setWaitstate(User $user, int $waitState): bool {
+    public function addWaitstate(User $user, int $waitState): bool {
         $user->addWaitstate($waitState);
         $this->getEntityManager()->flush($user);
 
@@ -444,5 +444,14 @@ class UserService
      */
     private function getEntityManager(): EntityManager {
         return $this->humanRepository->getEntityManager();
+    }
+
+    /**
+     * @param User $user
+     */
+    public function dropWaitState(User $user)
+    {
+        $user->dropWaitState();
+        $this->getEntityManager()->flush($user);
     }
 }

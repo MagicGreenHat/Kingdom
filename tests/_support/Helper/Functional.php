@@ -192,7 +192,8 @@ class Functional extends AbstractHelper
     {
         $symfony = $this->getSymfonyModule();
         $user = $this->getUser($symfony);
-        $user->dropWaitState();
+        $userService = $symfony->container->get('kingdom.user_service');
+        $userService->dropWaitState($user);
     }
 
     /**

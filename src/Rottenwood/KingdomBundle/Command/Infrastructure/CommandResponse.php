@@ -8,6 +8,7 @@ class CommandResponse {
     private $mapData;
     private $errors = [];
     private $commandName;
+    private $waitState;
 
     /**
      * @param string $commandName
@@ -23,18 +24,19 @@ class CommandResponse {
     /**
      * @param string $error
      */
-    public function addError($error) {
+    public function addError(string $error) {
         $this->errors[] = $error;
     }
 
     /**
      * @return array
      */
-    public function getData() {
+    public function getData(): array {
         return array_filter([
             'commandName' => $this->commandName,
             'data'        => $this->data,
             'mapData'     => $this->mapData,
+            'waitstate'   => $this->waitState,
             'errors'      => $this->errors,
         ]);
     }
@@ -42,21 +44,28 @@ class CommandResponse {
     /**
      * @param array $data
      */
-    public function setData($data) {
+    public function setData(array $data) {
         $this->data = $data;
     }
 
     /**
      * @return array
      */
-    public function getMapData() {
+    public function getMapData(): array {
         return $this->mapData;
     }
 
     /**
      * @param array $mapData
      */
-    public function setMapData($mapData) {
+    public function setMapData(array $mapData) {
         $this->mapData = $mapData;
+    }
+
+    /**
+     * @param int $waitState
+     */
+    public function setWaitstate(int $waitState) {
+        $this->waitState = $waitState;
     }
 }

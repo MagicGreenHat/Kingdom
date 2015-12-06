@@ -8,6 +8,9 @@ $I->amLoggedInAs('test');
 $I->haveNoWaitState();
 $I->runCommand('move north');
 
+$result = $I->runCommand('move east');
+PHPUnit_Framework_Assert::assertTrue(isset($result['waitstate']));
+
 $I->haveNoWaitState();
 $I->runCommand('move east');
 

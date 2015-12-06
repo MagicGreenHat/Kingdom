@@ -14,11 +14,23 @@ use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
  */
 class Move extends AbstractGameCommand {
 
+    private $waitState = 10;
+
     /**
      * @return CommandResponse
      * @throws InvalidCommandParameter
      */
     public function execute(): CommandResponse {
+
+        if ($this->user->isBusy()) {
+            $this->result->setWaitstate($this->user->getWaitstate());
+
+            return $this->result;
+        }
+
+        $userService = $this->container->get('kingdom.user_service');
+        $userService->addWaitstate($this->user, $this->waitState);
+
         $roomRepository = $this->container->get('kingdom.room_repository');
         $em = $roomRepository->getEntityManager();
 

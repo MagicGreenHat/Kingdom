@@ -87,7 +87,7 @@ abstract class User extends BaseUser
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -95,7 +95,7 @@ abstract class User extends BaseUser
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -103,7 +103,7 @@ abstract class User extends BaseUser
     /**
      * @return Room
      */
-    public function getRoom()
+    public function getRoom(): Room
     {
         return $this->room;
     }
@@ -111,7 +111,7 @@ abstract class User extends BaseUser
     /**
      * @param Room $room
      */
-    public function setRoom($room)
+    public function setRoom(Room $room)
     {
         $this->room = $room;
     }
@@ -151,7 +151,7 @@ abstract class User extends BaseUser
     /**
      * @return bool
      */
-    public function isMale()
+    public function isMale(): bool
     {
         return $this->gender == self::GENDER_MALE;
     }
@@ -159,7 +159,7 @@ abstract class User extends BaseUser
     /**
      * @return bool
      */
-    public function isFemale()
+    public function isFemale(): bool
     {
         return $this->gender == self::GENDER_FEMALE;
     }
@@ -167,7 +167,7 @@ abstract class User extends BaseUser
     /**
      * @return int
      */
-    public function getWaitstate()
+    public function getWaitstate(): int
     {
         return $this->waitstate - time();
     }
@@ -175,19 +175,15 @@ abstract class User extends BaseUser
     /**
      * @param int $waitSeconds
      */
-    public function addWaitstate($waitSeconds)
+    public function addWaitstate(int $waitSeconds)
     {
-        if (!is_int($waitSeconds)) {
-            throw new \RuntimeException('Waitstate can only accept integer as parameter');
-        }
-
         $this->waitstate = time() + $waitSeconds;
     }
 
     /**
      * @return bool
      */
-    public function isBusy()
+    public function isBusy(): bool
     {
         return $this->waitstate > time();
     }
@@ -204,7 +200,7 @@ abstract class User extends BaseUser
      * @Assert\LessThanOrEqual(value = 20, message = "Максимальная длина имени - 20 букв")
      * @return int
      */
-    public function isNameValid()
+    public function isNameValid(): int
     {
         return mb_strlen($this->getLiteralUsername(), 'UTF-8');
     }
@@ -213,7 +209,7 @@ abstract class User extends BaseUser
      * Очистка логина от спецсимволов для генерации имени
      * @return string
      */
-    public function getLiteralUsername()
+    public function getLiteralUsername(): string
     {
         return preg_replace('/[^a-zA-Zа-яА-Я]/us', '', $this->getUsernameCanonical());
     }

@@ -74,12 +74,12 @@ class ObtainWood extends AbstractGameCommand
         Room $room
     ): array {
         if ($this->user->isBusy()) {
-            $result['waitstate'] = $this->user->getWaitstate();
+            $this->result->setWaitstate($this->user->getWaitstate());
 
-            return $result;
+            return [];
         }
 
-        $userService->setWaitstate($this->user, $this->waitState);
+        $userService->addWaitstate($this->user, $this->waitState);
         $this->reduceQuantity($em, $resource->getId(), $userService);
 
         $result['obtained'] = $this->quantityToObtain;
