@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class NodeLogCommand extends ContainerAwareCommand {
 
-    protected function configure() {
+    protected function configure(): void {
         $this->setName('kingdom:node:log');
         $this->setDescription('Точка входа для логирования событий из node.js');
 
@@ -30,7 +30,7 @@ class NodeLogCommand extends ContainerAwareCommand {
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): void {
         $logger = $this->getContainer()->get('kingdom.logger');
 
         $event = $input->getArgument('event');

@@ -18,11 +18,11 @@ class CreateItemsCommand extends ContainerAwareCommand {
 
     const RESOURCE_QUANTITY = 10;
 
-    protected function configure() {
+    protected function configure(): void {
         $this->setName('kingdom:create:items')->setDescription('Создание тестовых предметов');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): void {
         $container = $this->getContainer();
 
         $itemRepository = $container->get('kingdom.item_repository');
@@ -98,7 +98,7 @@ class CreateItemsCommand extends ContainerAwareCommand {
      * Парсинг yaml-файлов с данными об игровых предметах
      * @return array
      */
-    private function parseItemsFromYaml() {
+    private function parseItemsFromYaml(): array {
         $yamlParser = new Parser();
         $fileFinder = new Finder();
 

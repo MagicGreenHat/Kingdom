@@ -10,11 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PurgeMapCommand extends Truncate {
 
-    protected function configure() {
+    protected function configure(): void {
         $this->setName('kingdom:purge:map')->setDescription('Удаление всех комнат');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): void {
         $this->truncateEntity(Room::class, $output, 'Удаление комнат ... ', 'Комнаты удалены.');
         $this->truncateEntity(RoomType::class, $output, 'Удаление типов комнат ... ', 'Типы комнат удалены.');
     }

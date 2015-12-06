@@ -15,7 +15,12 @@ abstract class Truncate extends ContainerAwareCommand {
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Doctrine\DBAL\DBALException
      */
-    protected function truncateEntity($entityName, OutputInterface $output = null, $startEcho = '', $endEcho = '') {
+    protected function truncateEntity(
+        string $entityName,
+        OutputInterface $output = null,
+        string $startEcho = '',
+        string $endEcho = ''
+    ): void {
         if ($output) {
             $output->write($startEcho);
         }

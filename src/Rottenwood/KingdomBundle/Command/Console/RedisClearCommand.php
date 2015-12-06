@@ -9,12 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RedisClearCommand extends ContainerAwareCommand {
 
-    protected function configure() {
+    protected function configure(): void {
         $this->setName('kingdom:redis:clear');
         $this->setDescription('Очистка данных в redis');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): void {
         /** @var \Redis $redis */
         $redis = $this->getContainer()->get('snc_redis.default');
         $redis->del(RedisClientInterface::ID_USERNAME_HASH);

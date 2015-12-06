@@ -15,12 +15,12 @@ use Symfony\Component\Yaml\Yaml;
 class CreateMapCommand extends ContainerAwareCommand {
 
     /** {@inheritdoc} */
-    protected function configure() {
+    protected function configure(): void {
         $this->setName('kingdom:create:map')->setDescription('Создание карты мира');
     }
 
     /** {@inheritdoc} */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): void {
         $container = $this->getContainer();
         $repository = $container->get('kingdom.room_repository');
         $rooms = $repository->findAll();
@@ -40,7 +40,7 @@ class CreateMapCommand extends ContainerAwareCommand {
      * @param OutputInterface    $output
      * @return RoomType[]
      */
-    private function createRoomTypes(AbstractRepository $repository, OutputInterface $output) {
+    private function createRoomTypes(AbstractRepository $repository, OutputInterface $output): array {
         /** @var SplFileInfo[] $typeClasses */
         $typeClasses = (new Finder())->files()->name('*.php')->in(__DIR__ . '/../../Entity/RoomTypes');
         $typeNamespace = 'Rottenwood\\KingdomBundle\\Entity\\RoomTypes\\';
@@ -67,7 +67,7 @@ class CreateMapCommand extends ContainerAwareCommand {
      * @param OutputInterface    $output
      * @return Room[]
      */
-    private function createRooms(AbstractRepository $repository, array $roomTypes, OutputInterface $output) {
+    private function createRooms(AbstractRepository $repository, array $roomTypes, OutputInterface $output): array {
         $yamlParser = new Yaml();
         $roomsData = $yamlParser->parse(__DIR__ . '/../../Resources/rooms/rooms.yml');
 
