@@ -11,4 +11,4 @@ install:
     - ./kingdom.sh log
 
 script:
-    - ./kingdom.sh test
+    - ./kingdom.sh test -v
