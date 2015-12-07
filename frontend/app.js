@@ -158,6 +158,7 @@ $(function () {
 
     var $gameContentRoom = $('#game-room');
     var $gameMap = $('#game-map');
+    var $gameLeftBox = $('#game-left-box');
 
     /**
      * Отрисовка карты
@@ -170,6 +171,8 @@ $(function () {
             $('.map .y' + room.y + ' .x' + room.x)
                 .html('<img src="/img/locations/' + room.pic + '.png">');
         });
+
+        $gameLeftBox.animate({opacity: 1}, "slow");
     }
 
     /**
