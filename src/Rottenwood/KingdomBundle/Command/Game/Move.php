@@ -14,7 +14,7 @@ use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
  */
 class Move extends AbstractGameCommand {
 
-    private $waitState = 10;
+    private $waitState = 5;
 
     /**
      * @return CommandResponse
