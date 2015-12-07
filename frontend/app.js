@@ -24,6 +24,15 @@ $(function () {
 
                     var data = JSON.parse(args[0]);
 
+                    if (data.waitstate) {
+                        Kingdom.Chat.addInfo({
+                            event: 'warning',
+                            message: 'Нужно отдохнуть еще ' + data.waitstate + ' ' + Kingdom.Chat.pluralize(data.waitstate, 'секунду', 'секунды', 'секунд')
+                        });
+
+                        return false;
+                    }
+
                     //TODO[Rottenwood]: Убрать блок обработки в новый файл (напр. commandHandler.js)
                     // Обработка результатов запрошенных команд
                     if (data.commandName == 'move') {

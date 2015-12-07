@@ -8,7 +8,7 @@ class CommandResponse {
     private $mapData;
     private $errors = [];
     private $commandName;
-    private $waitState;
+    private $waitstate;
 
     /**
      * @param string $commandName
@@ -36,7 +36,7 @@ class CommandResponse {
             'commandName' => $this->commandName,
             'data'        => $this->data,
             'mapData'     => $this->mapData,
-            'waitstate'   => $this->waitState,
+            'waitstate'   => $this->waitstate,
             'errors'      => $this->errors,
         ]);
     }
@@ -63,9 +63,9 @@ class CommandResponse {
     }
 
     /**
-     * @param int $waitState
+     * @param int $waitstate
      */
-    public function setWaitstate(int $waitState) {
-        $this->waitState = $waitState;
+    public function setWaitstate(int $waitstate) {
+        $this->waitstate = $waitstate;
     }
 }

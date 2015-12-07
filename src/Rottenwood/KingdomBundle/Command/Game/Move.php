@@ -28,9 +28,6 @@ class Move extends AbstractGameCommand {
             return $this->result;
         }
 
-        $userService = $this->container->get('kingdom.user_service');
-        $userService->addWaitstate($this->user, $this->waitState);
-
         $roomRepository = $this->container->get('kingdom.room_repository');
         $em = $roomRepository->getEntityManager();
 
@@ -111,6 +108,8 @@ class Move extends AbstractGameCommand {
 
             $logger->info($logString);
             $this->result->setData($resultData);
+
+            $userService->addWaitstate($this->user, $this->waitState);
         }
 
         return $this->result;
