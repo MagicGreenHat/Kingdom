@@ -258,7 +258,7 @@ case $1 in
 	echo -e "\033[1;33;24m$0 test\033[0m (d|v|-d|-v|debug)- Запуск автоматических тестов (с выводом)"
 	echo -e "\033[1;33;24m$0 build\033[0m - Сборка нового Docker-образа"
 	echo -e "\033[1;33;24m$0 drop-database\033[0m - Удаление всех данных из БД"
-	echo -e "\033[1;33;24m$0 check\033[0m [update] [package_name|--all] - Проверка новых пакетов composer (vinkla/climb)"
+	echo -e "\033[1;33;24m$0 check\033[0m [update [package_name|--all]] - Проверка новых пакетов composer (vinkla/climb)"
 	echo "----------------------------------------------------------------------"
 ;;
 
