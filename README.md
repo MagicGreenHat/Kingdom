@@ -46,6 +46,11 @@
 
 Используемые технологии, ход работы приложения и структура директорий описаны в [технической документации](https://github.com/MagicGreenHat/Kingdom/blob/master/app/documents/TechnicalDocumentation.md).
 
+Дизайн документ (наброски)
+--------------------------
+
+[Сырой вариант, требующий переработки](https://github.com/MagicGreenHat/Kingdom/blob/master/app/documents/Project.md)
+
 Именование веток
 ----------------
 * **feature-НОМЕР\_ЗАДАЧИ-короткое\_описание\_новой\_функции** - для нового функционала
