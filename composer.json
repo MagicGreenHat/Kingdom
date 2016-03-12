@@ -38,7 +38,7 @@
         "sensio/generator-bundle": "~2.3",
         "codeception/codeception": "*",
         "phake/phake": "@stable",
-        "vinkla/climb": "^0.7.0"
+        "vinkla/climb": "^0.8.1"
     },
     "scripts": {
         "post-install-cmd": [
