@@ -70,11 +70,13 @@ case $1 in
     echo "Настройка контейнера данных для MySQL ..."
     docker create --name kingdom-mysql-data rottenwood/mysql-data > /dev/null 2>&1
 
-    DB_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //") || "kingdom"
-    DB_PASSWORD=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //") || "docker"
+    DB_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //")
+    DB_PASSWORD=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //")
 
     if [ -z "$DB_USER" ] || [ -z "$DB_USER" ]; then
-        echo -e "\033[1;31mКонфиг app/config/parameters.yml не найден!\033[0m"
+        echo -e "\033[1;31mКонфиг app/config/parameters.yml не найден! Установка дефолтных паролей для БД\033[0m"
+        DB_USER="kingdom"
+        DB_PASSWORD="docker"
     fi
 
     echo "Запуск контейнера с сервером MySQL ..."
