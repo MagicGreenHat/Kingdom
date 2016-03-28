@@ -73,7 +73,7 @@ case $1 in
     DB_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //")
     DB_PASSWORD=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //")
 
-    if [ -z "$DB_USER" ] || [ -z "$DB_USER" ]; then
+    if [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ]; then
         echo -e "\033[1;31mКонфиг app/config/parameters.yml не найден! Установка дефолтных паролей для БД\033[0m"
         DB_USER="kingdom"
         DB_PASSWORD="docker"
@@ -84,8 +84,8 @@ case $1 in
         -p 3307:3306 \
         --volumes-from=kingdom-mysql-data \
         -v $(pwd)/app/sessions:/var/lib/php/sessions \
-        -e MYSQL_USER=$(cat app/config/parameters.yml | grep database_user | sed "s/.*database_user: //") \
-        -e MYSQL_PASS=$(cat app/config/parameters.yml | grep database_password | sed "s/.*database_password: //") \
+        -e MYSQL_USER=${DB_USER} \
+        -e MYSQL_PASS=${DB_PASSWORD} \
         tutum/mysql
 
     sleep 5
