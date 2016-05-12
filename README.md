@@ -8,7 +8,6 @@
 * Работающий прототип: http://gosudarstvo.ml
 * Обсуждение: https://gitter.im/Rottenwood/kingdom
 * Доска задач: https://github.com/MagicGreenHat/Kingdom/issues
-* Исходный код последнего релиза: https://github.com/MagicGreenHat/Kingdom/releases/latest
 
 Особенности
 -----------
