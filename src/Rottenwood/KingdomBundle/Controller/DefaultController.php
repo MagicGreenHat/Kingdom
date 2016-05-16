@@ -2,7 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Controller;
 
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
