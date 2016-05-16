@@ -2,23 +2,25 @@
 
 namespace Rottenwood\UserBundle\Controller;
 
-use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Controller\RegistrationController as FOSURegistrationController;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-use Rottenwood\KingdomBundle\Entity\Money;
+use FOS\UserBundle\FOSUserEvents;
 use Rottenwood\KingdomBundle\Entity\Human as User;
+use Rottenwood\KingdomBundle\Entity\Money;
 use Rottenwood\KingdomBundle\Service\UserService;
 use Rottenwood\UserBundle\Loggers\RegistrationLogger;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use FOS\UserBundle\Controller\RegistrationController as FOSURegistrationController;
+use Symfony\Component\HttpFoundation\Request;
 
-class RegistrationController extends FOSURegistrationController {
+class RegistrationController extends FOSURegistrationController
+{
 
-    public function registerAction(Request $request) {
+    public function registerAction(Request $request)
+    {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
@@ -82,7 +84,8 @@ class RegistrationController extends FOSURegistrationController {
         );
     }
 
-    private function updateUserAndForm(User &$user, FormInterface &$form, UserService $userService) {
+    private function updateUserAndForm(User &$user, FormInterface &$form, UserService $userService)
+    {
         $cyrillicName = $userService->transliterate($user->getLiteralUsername());
 
         if ($this->isAllreadyExists($cyrillicName)) {
@@ -98,15 +101,17 @@ class RegistrationController extends FOSURegistrationController {
      * @param string $name
      * @return bool
      */
-    private function isAllreadyExists($name) {
-        return (bool) ($this->get('kingdom.human_repository')->findByName($name));
+    private function isAllreadyExists($name)
+    {
+        return (bool)($this->get('kingdom.human_repository')->findByName($name));
     }
 
     /**
      * Создание денег игрока
      * @param User $user
      */
-    private function createMoney(User $user) {
+    private function createMoney(User $user)
+    {
         $money = new Money($user);
         $moneyRepository = $this->get('kingdom.money_repository');
         $moneyRepository->persist($money);

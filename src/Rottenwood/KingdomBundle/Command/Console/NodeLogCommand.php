@@ -8,9 +8,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class NodeLogCommand extends ContainerAwareCommand {
+class NodeLogCommand extends ContainerAwareCommand
+{
 
-    protected function configure() {
+    protected function configure()
+    {
         $this->setName('kingdom:node:log');
         $this->setDescription('Точка входа для логирования событий из node.js');
 
@@ -30,7 +32,8 @@ class NodeLogCommand extends ContainerAwareCommand {
         );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $logger = $this->getContainer()->get('kingdom.logger');
 
         $event = $input->getArgument('event');

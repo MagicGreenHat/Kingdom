@@ -12,15 +12,18 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
 
-class CreateMapCommand extends ContainerAwareCommand {
+class CreateMapCommand extends ContainerAwareCommand
+{
 
     /** {@inheritdoc} */
-    protected function configure() {
+    protected function configure()
+    {
         $this->setName('kingdom:create:map')->setDescription('Создание карты мира');
     }
 
     /** {@inheritdoc} */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $container = $this->getContainer();
         $repository = $container->get('kingdom.room_repository');
         $rooms = $repository->findAll();
@@ -37,10 +40,11 @@ class CreateMapCommand extends ContainerAwareCommand {
 
     /**
      * @param AbstractRepository $repository
-     * @param OutputInterface    $output
+     * @param OutputInterface $output
      * @return RoomType[]
      */
-    private function createRoomTypes(AbstractRepository $repository, OutputInterface $output): array {
+    private function createRoomTypes(AbstractRepository $repository, OutputInterface $output): array
+    {
         /** @var SplFileInfo[] $typeClasses */
         $typeClasses = (new Finder())->files()->name('*.php')->in(__DIR__ . '/../../Entity/RoomTypes');
         $typeNamespace = 'Rottenwood\\KingdomBundle\\Entity\\RoomTypes\\';
@@ -63,11 +67,12 @@ class CreateMapCommand extends ContainerAwareCommand {
 
     /**
      * @param AbstractRepository $repository
-     * @param RoomType[]         $roomTypes
-     * @param OutputInterface    $output
+     * @param RoomType[] $roomTypes
+     * @param OutputInterface $output
      * @return Room[]
      */
-    private function createRooms(AbstractRepository $repository, array $roomTypes, OutputInterface $output): array {
+    private function createRooms(AbstractRepository $repository, array $roomTypes, OutputInterface $output): array
+    {
         $yamlParser = new Yaml();
         $roomsData = $yamlParser->parse(__DIR__ . '/../../Resources/rooms/rooms.yml');
 
@@ -81,7 +86,7 @@ class CreateMapCommand extends ContainerAwareCommand {
         }
 
         $output->writeln(sprintf('Создано %d новых комнат.', count($newRooms)));
-        
+
         return $newRooms;
     }
 }

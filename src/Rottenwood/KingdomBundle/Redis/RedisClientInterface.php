@@ -5,7 +5,8 @@
  */
 namespace Rottenwood\KingdomBundle\Redis;
 
-interface RedisClientInterface {
+interface RedisClientInterface
+{
 
     const ID_USERNAME_HASH = 'kingdom:users:usernames';
     const ID_SESSION_HASH = 'kingdom:users:sessions';

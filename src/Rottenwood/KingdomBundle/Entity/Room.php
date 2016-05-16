@@ -10,7 +10,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType;
  * @ORM\Table(name="rooms", uniqueConstraints={@ORM\UniqueConstraint(name="room_coordinates", columns={"x", "y", "z"})})
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomRepository")
  */
-class Room {
+class Room
+{
 
     const DEFAULT_Z = 0;
 
@@ -66,12 +67,13 @@ class Room {
     private $z;
 
     /**
-     * @param int      $x
-     * @param int      $y
+     * @param int $x
+     * @param int $y
      * @param RoomType $type
-     * @param int      $z
+     * @param int $z
      */
-    public function __construct($x, $y, RoomType $type, $z = self::DEFAULT_Z) {
+    public function __construct($x, $y, RoomType $type, $z = self::DEFAULT_Z)
+    {
         $this->x = $x;
         $this->y = $y;
         $this->type = $type;
@@ -81,56 +83,64 @@ class Room {
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name ?: $this->getType()->getName();
     }
 
     /**
      * @return RoomType
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
     /**
      * @param RoomType $type
      */
-    public function setType(RoomType $type) {
+    public function setType(RoomType $type)
+    {
         $this->type = $type;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description ?: $this->getType()->getDescription();
     }
 
     /**
      * @return int
      */
-    public function getX() {
+    public function getX()
+    {
         return $this->x;
     }
 
     /**
      * @return int
      */
-    public function getY() {
+    public function getY()
+    {
         return $this->y;
     }
 
     /**
      * @return int
      */
-    public function getZ() {
+    public function getZ()
+    {
         return $this->z;
     }
 

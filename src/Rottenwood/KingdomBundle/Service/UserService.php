@@ -43,13 +43,13 @@ class UserService
     private $itemRepository;
 
     /**
-     * @param KernelInterface         $kernel
-     * @param RedisClient             $redis
-     * @param Logger                  $logger
-     * @param HumanRepository         $humanRepository
+     * @param KernelInterface $kernel
+     * @param RedisClient $redis
+     * @param Logger $logger
+     * @param HumanRepository $humanRepository
      * @param InventoryItemRepository $inventoryItemRepository
-     * @param RoomRepository          $roomRepository
-     * @param ItemRepository          $itemRepository
+     * @param RoomRepository $roomRepository
+     * @param ItemRepository $itemRepository
      */
     public function __construct(
         KernelInterface $kernel,
@@ -71,7 +71,7 @@ class UserService
 
     /**
      * Запрос ID всех онлайн игроков в комнате
-     * @param Room  $room
+     * @param Room $room
      * @param int|int[] $excludePlayerIds
      * @return int[]
      */
@@ -87,7 +87,7 @@ class UserService
 
     /**
      * Запрос всех онлайн игроков в комнате
-     * @param Room      $room
+     * @param Room $room
      * @param int|array $excludePlayerIds
      * @return Human[]
      */
@@ -123,7 +123,7 @@ class UserService
      * @param User $userFrom
      * @param User $userTo
      * @param Item|Item[] $items
-     * @param int  $quantityToGive Сколько предметов передать
+     * @param int $quantityToGive Сколько предметов передать
      * @return bool
      * @throws \Exception
      */
@@ -150,9 +150,9 @@ class UserService
 
     /**
      * Выбросить один или несколько предметов
-     * @param User        $user
+     * @param User $user
      * @param Item|Item[] $items
-     * @param int         $quantityToDrop Сколько предметов выбросить
+     * @param int $quantityToDrop Сколько предметов выбросить
      * @return bool
      * @throws ItemNotFound
      * @throws NotEnoughItems
@@ -198,7 +198,7 @@ class UserService
      * Взять один или несколько предметов
      * @param User $user
      * @param Item|Item[] $items
-     * @param int  $quantityToTake Сколько предметов взять
+     * @param int $quantityToTake Сколько предметов взять
      */
     public function takeItems(User $user, $items, int $quantityToTake = 1)
     {
@@ -287,17 +287,58 @@ class UserService
     private function getAlphabet(): array
     {
         return [
-            'a' => 'а', 'b' => 'б', 'c' => 'ц', 'd' => 'д', 'e' => 'е',
-            'f' => 'ф', 'g' => 'г', 'h' => 'х', 'i' => 'ай', 'j' => 'дж',
-            'k' => 'к', 'l' => 'л', 'm' => 'м', 'n' => 'н', 'o' => 'о',
-            'p' => 'п', 'q' => 'к', 'r' => 'р', 's' => 'с', 't' => 'т',
-            'u' => 'у', 'v' => 'в', 'w' => 'в', 'x' => 'кс', 'y' => 'й',
-            'z' => 'з', 'A' => 'А', 'B' => 'Б', 'C' => 'Ц', 'D' => 'Д',
-            'E' => 'Е', 'F' => 'Ф', 'G' => 'Г', 'H' => 'Х', 'I' => 'Ай',
-            'J' => 'Дж', 'K' => 'К', 'L' => 'Л', 'M' => 'М', 'N' => 'Н',
-            'O' => 'О', 'P' => 'П', 'Q' => 'К', 'R' => 'Р', 'S' => 'С',
-            'T' => 'Т', 'U' => 'Ю', 'V' => 'В', 'W' => 'В', 'X' => 'Кс',
-            'Y' => 'Й', 'Z' => 'З',
+            'a' => 'а',
+            'b' => 'б',
+            'c' => 'ц',
+            'd' => 'д',
+            'e' => 'е',
+            'f' => 'ф',
+            'g' => 'г',
+            'h' => 'х',
+            'i' => 'ай',
+            'j' => 'дж',
+            'k' => 'к',
+            'l' => 'л',
+            'm' => 'м',
+            'n' => 'н',
+            'o' => 'о',
+            'p' => 'п',
+            'q' => 'к',
+            'r' => 'р',
+            's' => 'с',
+            't' => 'т',
+            'u' => 'у',
+            'v' => 'в',
+            'w' => 'в',
+            'x' => 'кс',
+            'y' => 'й',
+            'z' => 'з',
+            'A' => 'А',
+            'B' => 'Б',
+            'C' => 'Ц',
+            'D' => 'Д',
+            'E' => 'Е',
+            'F' => 'Ф',
+            'G' => 'Г',
+            'H' => 'Х',
+            'I' => 'Ай',
+            'J' => 'Дж',
+            'K' => 'К',
+            'L' => 'Л',
+            'M' => 'М',
+            'N' => 'Н',
+            'O' => 'О',
+            'P' => 'П',
+            'Q' => 'К',
+            'R' => 'Р',
+            'S' => 'С',
+            'T' => 'Т',
+            'U' => 'Ю',
+            'V' => 'В',
+            'W' => 'В',
+            'X' => 'Кс',
+            'Y' => 'Й',
+            'Z' => 'З',
         ];
     }
 
@@ -360,9 +401,9 @@ class UserService
     }
 
     /**
-     * @param User   $user
+     * @param User $user
      * @param Item[] $itemsToTake
-     * @param int    $quantityToTake
+     * @param int $quantityToTake
      */
     private function logObtainedItems(User $user, array $itemsToTake, int $quantityToTake)
     {
@@ -382,10 +423,10 @@ class UserService
     }
 
     /**
-     * @param User   $userFrom
-     * @param User   $userTo
+     * @param User $userFrom
+     * @param User $userTo
      * @param Item[] $items
-     * @param int    $quantityToGive
+     * @param int $quantityToGive
      */
     private function logGivenItems(User $userFrom, User $userTo, array $items, int $quantityToGive)
     {
@@ -407,9 +448,9 @@ class UserService
     }
 
     /**
-     * @param User   $user
+     * @param User $user
      * @param Item[] $items
-     * @param int    $quantityToDrop
+     * @param int $quantityToDrop
      */
     private function logDroppedItems($user, array $items, int $quantityToDrop)
     {
@@ -432,7 +473,8 @@ class UserService
      * @param int $waitState
      * @return bool
      */
-    public function addWaitstate(User $user, int $waitState): bool {
+    public function addWaitstate(User $user, int $waitState): bool
+    {
         $user->addWaitstate($waitState);
         $this->getEntityManager()->flush($user);
 
@@ -442,7 +484,8 @@ class UserService
     /**
      * @return EntityManager
      */
-    private function getEntityManager(): EntityManager {
+    private function getEntityManager(): EntityManager
+    {
         return $this->humanRepository->getEntityManager();
     }
 

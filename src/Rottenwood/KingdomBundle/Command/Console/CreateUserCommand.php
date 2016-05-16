@@ -2,9 +2,9 @@
 
 namespace Rottenwood\KingdomBundle\Command\Console;
 
+use Rottenwood\KingdomBundle\Entity\Human as User;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\HumanRepository;
 use Rottenwood\KingdomBundle\Entity\Money;
-use Rottenwood\KingdomBundle\Entity\Human as User;
 use Rottenwood\UserBundle\Loggers\RegistrationLogger;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -102,7 +102,7 @@ class CreateUserCommand extends ContainerAwareCommand
 
     /**
      * Создание денег игрока
-     * @param User               $user
+     * @param User $user
      * @param ContainerInterface $container
      * @return void
      */
@@ -115,9 +115,9 @@ class CreateUserCommand extends ContainerAwareCommand
 
     /**
      * @param HumanRepository $humanRepository
-     * @param string         $username
-     * @param string         $cyrillicName
-     * @param string         $email
+     * @param string $username
+     * @param string $cyrillicName
+     * @param string $email
      * @return bool
      */
     private function checkUserExist(HumanRepository $humanRepository, $username, $cyrillicName, $email): bool

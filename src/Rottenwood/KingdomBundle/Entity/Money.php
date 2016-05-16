@@ -10,7 +10,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
  * @ORM\Table(name="money")
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\MoneyRepository")
  */
-class Money {
+class Money
+{
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -44,42 +45,48 @@ class Money {
     /**
      * @param User $user
      */
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         $this->user = $user;
     }
 
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @return int
      */
-    public function getSilver() {
+    public function getSilver()
+    {
         return $this->silver;
     }
 
     /**
      * @param int $silver
      */
-    public function setSilver($silver) {
+    public function setSilver($silver)
+    {
         $this->silver = $silver;
     }
 
     /**
      * @return int
      */
-    public function getGold() {
+    public function getGold()
+    {
         return $this->gold;
     }
 
     /**
      * @param int $gold
      */
-    public function setGold($gold) {
+    public function setGold($gold)
+    {
         $this->gold = $gold;
     }
 }

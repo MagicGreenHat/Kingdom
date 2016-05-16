@@ -10,12 +10,14 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
  * Параметры: string - название изображения без пути и раширения
  * Применение в js: Kingdom.Websocket.command('changeAvatar', 'male2')
  */
-class ChangeAvatar extends AbstractGameCommand {
+class ChangeAvatar extends AbstractGameCommand
+{
 
     /**
      * @return CommandResponse
      */
-    public function execute(): CommandResponse {
+    public function execute(): CommandResponse
+    {
         if ($this->parameters) {
             $this->user->setAvatar($this->parameters);
 

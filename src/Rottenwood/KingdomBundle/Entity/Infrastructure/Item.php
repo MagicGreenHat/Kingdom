@@ -22,7 +22,8 @@ use Doctrine\ORM\Mapping as ORM;
  *      "weapon" = "Rottenwood\KingdomBundle\Entity\Items\Weapon",
  * })
  */
-abstract class Item {
+abstract class Item
+{
 
     const USER_SLOT_HEAD = 'head';
     const USER_SLOT_AMULET = 'amulet';
@@ -107,18 +108,29 @@ abstract class Item {
     protected $picture;
 
     /**
-     * @param string   $id
-     * @param string   $name
-     * @param string   $name2
-     * @param string   $name3
-     * @param string   $name4
-     * @param string   $name5
-     * @param string   $name6
-     * @param string   $description
-     * @param string   $picture
+     * @param string $id
+     * @param string $name
+     * @param string $name2
+     * @param string $name3
+     * @param string $name4
+     * @param string $name5
+     * @param string $name6
+     * @param string $description
+     * @param string $picture
      * @param string[] $slots
      */
-    public function __construct($id, $name, $name2, $name3, $name4, $name5, $name6, $description, $picture, array $slots = []) {
+    public function __construct(
+        $id,
+        $name,
+        $name2,
+        $name3,
+        $name4,
+        $name5,
+        $name6,
+        $description,
+        $picture,
+        array $slots = []
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->name2 = $name2;
@@ -134,7 +146,8 @@ abstract class Item {
     /**
      * @return string
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -142,63 +155,72 @@ abstract class Item {
      * Get name
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * @return string
      */
-    public function getName2() {
+    public function getName2()
+    {
         return $this->name2;
     }
 
     /**
      * @return string
      */
-    public function getName3() {
+    public function getName3()
+    {
         return $this->name3;
     }
 
     /**
      * @return string
      */
-    public function getName4() {
+    public function getName4()
+    {
         return $this->name4;
     }
 
     /**
      * @return string
      */
-    public function getName5() {
+    public function getName5()
+    {
         return $this->name5;
     }
 
     /**
      * @return string
      */
-    public function getName6() {
+    public function getName6()
+    {
         return $this->name6;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * @return string[]
      */
-    public function getSlots() {
+    public function getSlots()
+    {
         return $this->slots;
     }
 
     /**
      * @return string
      */
-    public function getPicture() {
+    public function getPicture()
+    {
         return $this->picture;
     }
 
@@ -206,7 +228,8 @@ abstract class Item {
      * Является ли предмет оружием
      * @return bool
      */
-    public function isWeapon() {
+    public function isWeapon()
+    {
         return $this->fitsTo(self::USER_SLOT_WEAPON);
     }
 
@@ -215,7 +238,8 @@ abstract class Item {
      * @param int $slotName
      * @return bool
      */
-    public function fitsTo($slotName) {
+    public function fitsTo($slotName)
+    {
         return in_array($slotName, $this->slots);
     }
 
@@ -223,7 +247,8 @@ abstract class Item {
      * Названия всех слотов
      * @return string[]
      */
-    public static function getAllSlotNames() {
+    public static function getAllSlotNames()
+    {
         return [
             self::USER_SLOT_HEAD,
             self::USER_SLOT_AMULET,

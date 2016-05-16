@@ -2,12 +2,13 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Items;
 
-use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 use Doctrine\ORM\Mapping as ORM;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 
 /**
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository")
  */
-class Food extends Item {
+class Food extends Item
+{
 
 }

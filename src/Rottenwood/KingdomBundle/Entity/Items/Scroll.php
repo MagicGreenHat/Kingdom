@@ -2,12 +2,13 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Items;
 
-use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 use Doctrine\ORM\Mapping as ORM;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 
 /**
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository")
  */
-class Scroll extends Item {
+class Scroll extends Item
+{
 
 }
