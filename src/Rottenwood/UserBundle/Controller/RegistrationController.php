@@ -2,19 +2,19 @@
 
 namespace Rottenwood\UserBundle\Controller;
 
-use FOS\UserBundle\Controller\RegistrationController as FOSURegistrationController;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\FOSUserEvents;
-use Rottenwood\KingdomBundle\Entity\Human as User;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Rottenwood\KingdomBundle\Entity\Money;
+use Rottenwood\KingdomBundle\Entity\Human as User;
 use Rottenwood\KingdomBundle\Service\UserService;
 use Rottenwood\UserBundle\Loggers\RegistrationLogger;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use FOS\UserBundle\Controller\RegistrationController as FOSURegistrationController;
 
 class RegistrationController extends FOSURegistrationController
 {

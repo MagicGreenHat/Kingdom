@@ -7,9 +7,9 @@
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Table(name="users")
