@@ -2,7 +2,5 @@
 
 namespace Rottenwood\KingdomBundle\Exception;
 
-class InvalidCommandParameter extends \Exception
-{
-
-}
+/** {@inheritDoc} */
+class InvalidCommandParameter extends \Exception {}

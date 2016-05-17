@@ -47,7 +47,7 @@ class RoomResource
     /**
      * @param Room $room
      * @param Item $item
-     * @param int $quantity
+     * @param int  $quantity
      */
     public function __construct(Room $room, Item $item, $quantity)
     {

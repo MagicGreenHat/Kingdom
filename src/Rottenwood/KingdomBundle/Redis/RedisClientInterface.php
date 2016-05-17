@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Rottenwood
- * Date Created: 31.07.15 19:40
- */
 namespace Rottenwood\KingdomBundle\Redis;
 
 interface RedisClientInterface

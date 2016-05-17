@@ -7,15 +7,18 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/** {@inheritDoc} */
 class RedisClearCommand extends ContainerAwareCommand
 {
 
+    /** {@inheritDoc} */
     protected function configure()
     {
         $this->setName('kingdom:redis:clear');
         $this->setDescription('Очистка данных в redis');
     }
 
+    /** {@inheritDoc} */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var \Redis $redis */

@@ -67,10 +67,10 @@ class Room
     private $z;
 
     /**
-     * @param int $x
-     * @param int $y
+     * @param int      $x
+     * @param int      $y
      * @param RoomType $type
-     * @param int $z
+     * @param int      $z
      */
     public function __construct($x, $y, RoomType $type, $z = self::DEFAULT_Z)
     {

@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/** {@inheritDoc} */
 class CreateUserCommand extends ContainerAwareCommand
 {
 
@@ -20,22 +21,26 @@ class CreateUserCommand extends ContainerAwareCommand
         $this->setName('kingdom:create:user');
         $this->setDescription('Создание персонажа');
 
-        $this->addArgument('username',
+        $this->addArgument(
+            'username',
             InputArgument::REQUIRED,
             'имя игрока'
         );
 
-        $this->addArgument('password',
+        $this->addArgument(
+            'password',
             InputArgument::REQUIRED,
             'пароль'
         );
 
-        $this->addArgument('email',
+        $this->addArgument(
+            'email',
             InputArgument::REQUIRED,
             'e-mail'
         );
 
-        $this->addArgument('gender',
+        $this->addArgument(
+            'gender',
             InputArgument::OPTIONAL,
             'gender'
         );
@@ -101,23 +106,10 @@ class CreateUserCommand extends ContainerAwareCommand
     }
 
     /**
-     * Создание денег игрока
-     * @param User $user
-     * @param ContainerInterface $container
-     * @return void
-     */
-    private function createMoney(User $user, ContainerInterface $container)
-    {
-        $money = new Money($user);
-        $moneyRepository = $container->get('kingdom.money_repository');
-        $moneyRepository->persist($money);
-    }
-
-    /**
      * @param HumanRepository $humanRepository
-     * @param string $username
-     * @param string $cyrillicName
-     * @param string $email
+     * @param string          $username
+     * @param string          $cyrillicName
+     * @param string          $email
      * @return bool
      */
     private function checkUserExist(HumanRepository $humanRepository, $username, $cyrillicName, $email): bool
@@ -132,6 +124,19 @@ class CreateUserCommand extends ContainerAwareCommand
             $user = $humanRepository->findByEmail($email);
         }
 
-        return (bool)$user;
+        return (bool) $user;
+    }
+
+    /**
+     * Создание денег игрока
+     * @param User               $user
+     * @param ContainerInterface $container
+     * @return void
+     */
+    private function createMoney(User $user, ContainerInterface $container)
+    {
+        $money = new Money($user);
+        $moneyRepository = $container->get('kingdom.money_repository');
+        $moneyRepository->persist($money);
     }
 }

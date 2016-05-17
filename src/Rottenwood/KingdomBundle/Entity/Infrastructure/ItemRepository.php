@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
+/** {@inheritDoc} */
 class ItemRepository extends AbstractRepository
 {
 

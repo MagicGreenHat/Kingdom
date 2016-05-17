@@ -12,30 +12,38 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Game entry point. Executes another game commands
+ */
 class ExecuteCommand extends ContainerAwareCommand
 {
 
+    /** {@inheritDoc} */
     protected function configure()
     {
         $this->setName('kingdom:execute');
         $this->setDescription('Входная точка игры');
 
-        $this->addArgument('userId',
+        $this->addArgument(
+            'userId',
             InputArgument::REQUIRED,
             'id игрока'
         );
 
-        $this->addArgument('externalCommand',
+        $this->addArgument(
+            'externalCommand',
             InputArgument::REQUIRED,
             'команда для выполнения'
         );
 
-        $this->addArgument('parameters',
+        $this->addArgument(
+            'parameters',
             InputArgument::OPTIONAL,
             'аргументы команды'
         );
     }
 
+    /** {@inheritDoc} */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userId = $input->getArgument('userId');
@@ -47,8 +55,8 @@ class ExecuteCommand extends ContainerAwareCommand
 
     /**
      * Запуск внешней команды
-     * @param int $userId
-     * @param string $commandName
+     * @param int         $userId
+     * @param string      $commandName
      * @param string|null $parameters
      * @return string
      */

@@ -12,9 +12,7 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 class GetMoney extends AbstractGameCommand
 {
 
-    /**
-     * @return CommandResponse
-     */
+    /** {@inheritDoc} */
     public function execute(): CommandResponse
     {
         $moneyRepository = $this->container->get('kingdom.money_repository');
@@ -23,7 +21,7 @@ class GetMoney extends AbstractGameCommand
         if ($money) {
             $this->result->setData(
                 [
-                    'gold' => $money->getGold(),
+                    'gold'   => $money->getGold(),
                     'silver' => $money->getSilver(),
                 ]
             );

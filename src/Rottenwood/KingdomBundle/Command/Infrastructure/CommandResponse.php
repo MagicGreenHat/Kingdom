@@ -13,8 +13,8 @@ class CommandResponse
 
     /**
      * @param string $commandName
-     * @param array $data
-     * @param array $mapData
+     * @param array  $data
+     * @param array  $mapData
      */
     public function __construct($commandName, array $data = [], array $mapData = [])
     {
@@ -36,13 +36,15 @@ class CommandResponse
      */
     public function getData(): array
     {
-        return array_filter([
-            'commandName' => $this->commandName,
-            'data' => $this->data,
-            'mapData' => $this->mapData,
-            'waitstate' => $this->waitstate,
-            'errors' => $this->errors,
-        ]);
+        return array_filter(
+            [
+                'commandName' => $this->commandName,
+                'data'        => $this->data,
+                'mapData'     => $this->mapData,
+                'waitstate'   => $this->waitstate,
+                'errors'      => $this->errors,
+            ]
+        );
     }
 
     /**

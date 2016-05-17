@@ -5,21 +5,12 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 use Rottenwood\KingdomBundle\Entity\Human;
 use Rottenwood\KingdomBundle\Entity\Room;
 
-//TODO[Rottenwood]: Rename to HumanRepository
+/** {@inheritDoc} */
 class HumanRepository extends AbstractRepository
 {
 
     /**
-     * @param int $userId
-     * @return Human|null
-     */
-    public function findById($userId)
-    {
-        return $this->find($userId);
-    }
-
-    /**
-     * @param Room $room
+     * @param Room  $room
      * @param array $onlinePlayerIds
      * @param array $excludePlayerIds
      * @return Human[]
@@ -60,6 +51,15 @@ class HumanRepository extends AbstractRepository
     }
 
     /**
+     * @param string|int $userNameOrId
+     * @return Human|null
+     */
+    public function findByNameOrId($userNameOrId)
+    {
+        return $this->findByName($userNameOrId) ?: $this->findById($userNameOrId);
+    }
+
+    /**
      * @param string $name
      * @return Human|null
      */
@@ -69,12 +69,12 @@ class HumanRepository extends AbstractRepository
     }
 
     /**
-     * @param string|int $userNameOrId
+     * @param int $userId
      * @return Human|null
      */
-    public function findByNameOrId($userNameOrId)
+    public function findById($userId)
     {
-        return $this->findByName($userNameOrId) ?: $this->findById($userNameOrId);
+        return $this->find($userId);
     }
 
     /**

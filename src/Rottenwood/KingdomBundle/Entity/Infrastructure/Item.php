@@ -108,15 +108,15 @@ abstract class Item
     protected $picture;
 
     /**
-     * @param string $id
-     * @param string $name
-     * @param string $name2
-     * @param string $name3
-     * @param string $name4
-     * @param string $name5
-     * @param string $name6
-     * @param string $description
-     * @param string $picture
+     * @param string   $id
+     * @param string   $name
+     * @param string   $name2
+     * @param string   $name3
+     * @param string   $name4
+     * @param string   $name5
+     * @param string   $name6
+     * @param string   $description
+     * @param string   $picture
      * @param string[] $slots
      */
     public function __construct(
@@ -141,6 +141,27 @@ abstract class Item
         $this->description = $description;
         $this->picture = $picture;
         $this->slots = $slots;
+    }
+
+    /**
+     * Названия всех слотов
+     * @return string[]
+     */
+    public static function getAllSlotNames()
+    {
+        return [
+            self::USER_SLOT_HEAD,
+            self::USER_SLOT_AMULET,
+            self::USER_SLOT_BODY,
+            self::USER_SLOT_CLOAK,
+            self::USER_SLOT_WEAPON,
+            self::USER_SLOT_LEFT_HAND,
+            self::USER_SLOT_GLOVES,
+            self::USER_SLOT_RING_FIRST,
+            self::USER_SLOT_RING_SECOND,
+            self::USER_SLOT_LEGS,
+            self::USER_SLOT_BOOTS,
+        ];
     }
 
     /**
@@ -241,26 +262,5 @@ abstract class Item
     public function fitsTo($slotName)
     {
         return in_array($slotName, $this->slots);
-    }
-
-    /**
-     * Названия всех слотов
-     * @return string[]
-     */
-    public static function getAllSlotNames()
-    {
-        return [
-            self::USER_SLOT_HEAD,
-            self::USER_SLOT_AMULET,
-            self::USER_SLOT_BODY,
-            self::USER_SLOT_CLOAK,
-            self::USER_SLOT_WEAPON,
-            self::USER_SLOT_LEFT_HAND,
-            self::USER_SLOT_GLOVES,
-            self::USER_SLOT_RING_FIRST,
-            self::USER_SLOT_RING_SECOND,
-            self::USER_SLOT_LEGS,
-            self::USER_SLOT_BOOTS,
-        ];
     }
 }

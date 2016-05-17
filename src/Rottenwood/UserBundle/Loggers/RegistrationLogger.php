@@ -1,14 +1,11 @@
 <?php
-/**
- * @author: Rottenwood
- * @date  : 15.11.15 22:54
- */
 
 namespace Rottenwood\UserBundle\Loggers;
 
 use Monolog\Logger;
 use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 
+/** {@inheritdoc} */
 class RegistrationLogger extends Logger
 {
 

@@ -4,6 +4,5 @@ namespace Rottenwood\KingdomBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class RottenwoodKingdomBundle extends Bundle
-{
-}
+/** {@inheritDoc} */
+class RottenwoodKingdomBundle extends Bundle {}

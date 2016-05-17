@@ -2,7 +2,5 @@
 
 namespace Rottenwood\KingdomBundle\Exception;
 
-class RoomNotFound extends \Exception
-{
-
-}
+/** {@inheritDoc} */
+class RoomNotFound extends \Exception {}

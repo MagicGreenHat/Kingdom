@@ -26,22 +26,24 @@ class LookUser extends AbstractGameCommand
         }
 
         $itemData = [];
-        foreach ($this->container->get('kingdom.inventory_item_repository')->findByUser($userToLookAt) as $inventoryItem) {
+        foreach ($this->container->get('kingdom.inventory_item_repository')->findByUser(
+            $userToLookAt
+        ) as $inventoryItem) {
             $item = $inventoryItem->getItem();
 
             $itemData[] = [
-                'name' => $item->getName(),
+                'name'        => $item->getName(),
                 'description' => $item->getDescription(),
-                'slots' => $item->getSlots(),
-                'pic' => $item->getPicture(),
-                'slot' => $inventoryItem->getSlot(),
+                'slots'       => $item->getSlots(),
+                'pic'         => $item->getPicture(),
+                'slot'        => $inventoryItem->getSlot(),
             ];
         }
 
         $this->result->setData(
             [
-                'name' => $userToLookAt->getName(),
-                'items' => $itemData,
+                'name'   => $userToLookAt->getName(),
+                'items'  => $itemData,
                 'avatar' => $userToLookAt->getAvatar(),
             ]
         );

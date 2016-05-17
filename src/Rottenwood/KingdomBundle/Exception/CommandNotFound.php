@@ -2,7 +2,5 @@
 
 namespace Rottenwood\KingdomBundle\Exception;
 
-class CommandNotFound extends \Exception
-{
-
-}
+/** {@inheritDoc} */
+class CommandNotFound extends \Exception {}

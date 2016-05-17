@@ -2,7 +2,5 @@
 
 namespace Rottenwood\KingdomBundle\Exception;
 
-class NotEnoughItems extends \Exception
-{
-
-}
+/** {@inheritDoc} */
+class NotEnoughItems extends \Exception {}

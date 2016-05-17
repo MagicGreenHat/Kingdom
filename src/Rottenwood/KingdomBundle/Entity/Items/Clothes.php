@@ -8,7 +8,4 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository")
  */
-class Clothes extends Item
-{
-
-}
+class Clothes extends Item {}

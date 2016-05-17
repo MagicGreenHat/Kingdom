@@ -13,15 +13,13 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 class ShowPlayersInRoom extends AbstractGameCommand
 {
 
-    /**
-     * @return CommandResponse
-     */
+    /** {@inheritDoc} */
     public function execute(): CommandResponse
     {
         $playersInRoom = array_map(
             function (User $user) {
                 return [
-                    'name' => $user->getName(),
+                    'name'   => $user->getName(),
                     'stance' => 'стоит тут.',
                 ];
             },

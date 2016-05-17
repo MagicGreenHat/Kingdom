@@ -5,6 +5,7 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 use Rottenwood\KingdomBundle\Entity\Room;
 use Rottenwood\KingdomBundle\Entity\RoomResource;
 
+/** {@inheritDoc} */
 class RoomResourceRepository extends AbstractRepository
 {
 
@@ -12,7 +13,7 @@ class RoomResourceRepository extends AbstractRepository
      * Поиск всех ресурсов
      * @return RoomResource[]
      */
-    public function findAllResurces()
+    public function findAllResurces(): array
     {
         return $this->findAll();
     }
@@ -22,7 +23,7 @@ class RoomResourceRepository extends AbstractRepository
      * @param Room $room
      * @return RoomResource[]
      */
-    public function findByRoom(Room $room)
+    public function findByRoom(Room $room): array
     {
         return $this->findBy(['room' => $room]);
     }

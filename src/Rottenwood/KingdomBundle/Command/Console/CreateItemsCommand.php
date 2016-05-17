@@ -14,16 +14,19 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Parser;
 
+/** {@inheritDoc} */
 class CreateItemsCommand extends ContainerAwareCommand
 {
 
     const RESOURCE_QUANTITY = 10;
 
+    /** {@inheritDoc} */
     protected function configure()
     {
         $this->setName('kingdom:create:items')->setDescription('Создание тестовых предметов');
     }
 
+    /** {@inheritDoc} */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $container = $this->getContainer();
@@ -83,9 +86,14 @@ class CreateItemsCommand extends ContainerAwareCommand
                                 $em->persist($roomResource);
 
                                 $output->writeln(
-                                    sprintf('Ресурс "%s" добавлен в комнату %s[%d/%d] в количестве %d единиц.',
-                                        $newItem->getName(), $room->getName(), $room->getX(), $room->getY(),
-                                        $roomResource->getQuantity())
+                                    sprintf(
+                                        'Ресурс "%s" добавлен в комнату %s[%d/%d] в количестве %d единиц.',
+                                        $newItem->getName(),
+                                        $room->getName(),
+                                        $room->getX(),
+                                        $room->getY(),
+                                        $roomResource->getQuantity()
+                                    )
                                 );
                             }
                         }

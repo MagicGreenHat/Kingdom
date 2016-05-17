@@ -5,6 +5,7 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
+/** {@inheritDoc} */
 class AbstractRepository extends EntityRepository
 {
 

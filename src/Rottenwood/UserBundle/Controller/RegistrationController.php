@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as FOSURegistrationController;
 
+/** {@inheritDoc} */
 class RegistrationController extends FOSURegistrationController
 {
 
@@ -103,7 +104,7 @@ class RegistrationController extends FOSURegistrationController
      */
     private function isAllreadyExists($name)
     {
-        return (bool)($this->get('kingdom.human_repository')->findByName($name));
+        return (bool) ($this->get('kingdom.human_repository')->findByName($name));
     }
 
     /**

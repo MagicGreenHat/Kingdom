@@ -7,15 +7,14 @@ use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/** {@inheritDoc} */
 class DefaultController extends Controller
 {
 
     /**
-     * //TODO[Rottenwood]: Сделать главную страницу
      * @Route("/", name="index")
      * @return Response
      */

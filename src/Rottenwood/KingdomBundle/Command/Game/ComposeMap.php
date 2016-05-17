@@ -55,10 +55,10 @@ class ComposeMap extends AbstractGameCommand
         }
 
         $result = [
-            'name' => $currentRoom->getName(),
+            'name'        => $currentRoom->getName(),
             'description' => $currentRoom->getDescription(),
-            'x' => $currentX,
-            'y' => $currentY,
+            'x'           => $currentX,
+            'y'           => $currentY,
         ];
 
         $roomResources = $resourceRepository->findByRoom($currentRoom);
@@ -68,9 +68,9 @@ class ComposeMap extends AbstractGameCommand
 
             if ($resourceQuantity > 0) {
                 $result['resources'][] = [
-                    'id' => $roomResource->getItem()->getId(),
-                    'name' => $roomResource->getItem()->getName(),
-                    'name4' => $roomResource->getItem()->getName4(),
+                    'id'       => $roomResource->getItem()->getId(),
+                    'name'     => $roomResource->getItem()->getName(),
+                    'name4'    => $roomResource->getItem()->getName4(),
                     'quantity' => $resourceQuantity,
                 ];
             }
@@ -84,15 +84,15 @@ class ComposeMap extends AbstractGameCommand
 
     /**
      * @param Room $room
-     * @param int $x
-     * @param int $y
+     * @param int  $x
+     * @param int  $y
      * @return array
      */
     private function addRoom(Room $room, int $x, int $y): array
     {
         return [
-            'x' => $x,
-            'y' => $y,
+            'x'   => $x,
+            'y'   => $y,
             'pic' => $room->getType()->getPicture(),
         ];
     }

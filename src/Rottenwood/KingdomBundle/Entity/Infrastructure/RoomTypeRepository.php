@@ -2,6 +2,6 @@
 
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
-class RoomTypeRepository extends AbstractRepository
-{
-}
+/** {@inheritDoc} */
+class RoomTypeRepository extends AbstractRepository {}
+

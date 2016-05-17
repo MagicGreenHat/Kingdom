@@ -12,25 +12,30 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/** {@inheritDoc} */
 class CreateRobotCommand extends ContainerAwareCommand
 {
 
+    /** {@inheritDoc} */
     protected function configure()
     {
         $this->setName('kingdom:create:robot');
         $this->setDescription('Создание робота');
 
-        $this->addArgument('name',
+        $this->addArgument(
+            'name',
             InputArgument::REQUIRED,
             'имя робота'
         );
 
-        $this->addArgument('roomId',
+        $this->addArgument(
+            'roomId',
             InputArgument::REQUIRED,
             'id комнаты рождения'
         );
     }
 
+    /** {@inheritDoc} */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
@@ -68,7 +73,8 @@ class CreateRobotCommand extends ContainerAwareCommand
         $output->writeln('Id: ' . $robot->getId());
         $output->writeln('Имя: ' . $robot->getName());
         $output->writeln(
-            sprintf('Комната: [%d]%s %d/%d (%d)',
+            sprintf(
+                'Комната: [%d]%s %d/%d (%d)',
                 $room->getId(),
                 $room->getName(),
                 $room->getX(),
@@ -81,7 +87,7 @@ class CreateRobotCommand extends ContainerAwareCommand
 
     /**
      * Создание денег игрока
-     * @param Robot $robot
+     * @param Robot              $robot
      * @param ContainerInterface $container
      * @return void
      */

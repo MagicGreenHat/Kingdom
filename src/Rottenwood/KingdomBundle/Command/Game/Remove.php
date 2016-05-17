@@ -13,9 +13,7 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
 class Remove extends AbstractGameCommand
 {
 
-    /**
-     * @return CommandResponse
-     */
+    /** {@inheritDoc} */
     public function execute(): CommandResponse
     {
         $inventoryItemRepository = $this->container->get('kingdom.inventory_item_repository');

@@ -90,8 +90,8 @@ class Move extends AbstractGameCommand
             $userService = $this->container->get('kingdom.user_service');
 
             $resultData = [
-                'name' => $userName,
-                'directionTo' => $directionTo,
+                'name'          => $userName,
+                'directionTo'   => $directionTo,
                 'directionFrom' => $directionFrom,
             ];
 

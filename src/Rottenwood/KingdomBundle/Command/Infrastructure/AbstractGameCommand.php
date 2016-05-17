@@ -18,9 +18,9 @@ abstract class AbstractGameCommand implements GameCommandInterface
     protected $result;
 
     /**
-     * @param User $user
-     * @param string $commandName
-     * @param string $parameters
+     * @param User               $user
+     * @param string             $commandName
+     * @param string             $parameters
      * @param ContainerInterface $container
      */
     public function __construct(User $user, $commandName, $parameters, ContainerInterface $container)

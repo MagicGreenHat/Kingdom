@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Rottenwood\KingdomBundle\Entity\Room;
 
+/** {@inheritDoc} */
 class RoomRepository extends AbstractRepository
 {
 

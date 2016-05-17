@@ -12,6 +12,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
 
+/** {@inheritDoc} */
 class CreateMapCommand extends ContainerAwareCommand
 {
 
@@ -40,7 +41,7 @@ class CreateMapCommand extends ContainerAwareCommand
 
     /**
      * @param AbstractRepository $repository
-     * @param OutputInterface $output
+     * @param OutputInterface    $output
      * @return RoomType[]
      */
     private function createRoomTypes(AbstractRepository $repository, OutputInterface $output): array
@@ -67,8 +68,8 @@ class CreateMapCommand extends ContainerAwareCommand
 
     /**
      * @param AbstractRepository $repository
-     * @param RoomType[] $roomTypes
-     * @param OutputInterface $output
+     * @param RoomType[]         $roomTypes
+     * @param OutputInterface    $output
      * @return Room[]
      */
     private function createRooms(AbstractRepository $repository, array $roomTypes, OutputInterface $output): array

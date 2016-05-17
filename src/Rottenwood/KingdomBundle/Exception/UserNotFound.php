@@ -2,7 +2,5 @@
 
 namespace Rottenwood\KingdomBundle\Exception;
 
-class UserNotFound extends \Exception
-{
-
-}
+/** {@inheritDoc} */
+class UserNotFound extends \Exception {}

@@ -1,8 +1,4 @@
 <?php
-/**
- * @author: Rottenwood
- * @date  : 15.11.15 22:23
- */
 
 namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
@@ -16,7 +12,8 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="species", type="string")
- * @ORM\DiscriminatorMap({"human" = "Rottenwood\KingdomBundle\Entity\Human", "robot" = "Rottenwood\KingdomBundle\Entity\Robot"})
+ * @ORM\DiscriminatorMap({"human" = "Rottenwood\KingdomBundle\Entity\Human", "robot" =
+ *                                "Rottenwood\KingdomBundle\Entity\Robot"})
  */
 abstract class User extends BaseUser
 {

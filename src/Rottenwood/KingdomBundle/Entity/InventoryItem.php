@@ -62,7 +62,7 @@ class InventoryItem
     /**
      * @param User $user
      * @param Item $item
-     * @param int $quantity
+     * @param int  $quantity
      */
     public function __construct(User $user, Item $item, $quantity = 1)
     {

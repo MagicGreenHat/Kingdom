@@ -2,6 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Exception;
 
+/** {@inheritDoc} */
 class WrongSlot extends \Exception
 {
 

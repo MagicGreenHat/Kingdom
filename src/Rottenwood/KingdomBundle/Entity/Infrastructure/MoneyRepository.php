@@ -4,6 +4,7 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Rottenwood\KingdomBundle\Entity\Money;
 
+/** {@inheritDoc} */
 class MoneyRepository extends AbstractRepository
 {
 
