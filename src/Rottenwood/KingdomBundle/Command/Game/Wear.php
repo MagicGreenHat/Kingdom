@@ -11,13 +11,15 @@ use Rottenwood\KingdomBundle\Exception\WrongSlot;
  * Список слотов доступен в статическом методе Item::getAllSlotNames()
  * Применение в js: Kingdom.Websocket.command('wear', ['idПредмета', 'названиеСлота'])
  */
-class Wear extends AbstractGameCommand {
+class Wear extends AbstractGameCommand
+{
 
     /**
      * @return CommandResponse
      * @throws WrongSlot
      */
-    public function execute(): CommandResponse {
+    public function execute(): CommandResponse
+    {
         $parameters = explode(':', $this->parameters);
         $itemId = $parameters[0];
         $slot = $parameters[1];

@@ -18,7 +18,8 @@ use Rottenwood\KingdomBundle\Exception\WrongSlot;
  * )
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\InventoryItemRepository")
  */
-class InventoryItem {
+class InventoryItem
+{
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -61,9 +62,10 @@ class InventoryItem {
     /**
      * @param User $user
      * @param Item $item
-     * @param int  $quantity
+     * @param int $quantity
      */
-    public function __construct(User $user, Item $item, $quantity = 1) {
+    public function __construct(User $user, Item $item, $quantity = 1)
+    {
         $this->user = $user;
         $this->item = $item;
         $this->quantity = $quantity;
@@ -72,42 +74,48 @@ class InventoryItem {
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @return User
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
     /**
      * @return Item
      */
-    public function getItem() {
+    public function getItem()
+    {
         return $this->item;
     }
 
     /**
      * @return int
      */
-    public function getQuantity() {
+    public function getQuantity()
+    {
         return $this->quantity;
     }
 
     /**
      * @param int $quantity
      */
-    public function setQuantity($quantity) {
+    public function setQuantity($quantity)
+    {
         $this->quantity = $quantity;
     }
 
     /**
      * @return string
      */
-    public function getSlot() {
+    public function getSlot()
+    {
         return $this->slot;
     }
 
@@ -115,7 +123,8 @@ class InventoryItem {
      * @param string $slot
      * @throws WrongSlot
      */
-    public function setSlot($slot) {
+    public function setSlot($slot)
+    {
         if (in_array($slot, Item::getAllSlotNames())) {
             $this->slot = $slot;
         } else {
@@ -126,7 +135,8 @@ class InventoryItem {
     /**
      * Удаление предмета из слота
      */
-    public function removeSlot() {
+    public function removeSlot()
+    {
         $this->slot = null;
     }
 }

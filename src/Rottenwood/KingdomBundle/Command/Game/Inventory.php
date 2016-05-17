@@ -9,12 +9,14 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
  * Просмотр инвентаря и одетых вещей игрока
  * Применение в js: Kingdom.Websocket.command('inventory')
  */
-class Inventory extends AbstractGameCommand {
+class Inventory extends AbstractGameCommand
+{
 
     /**
      * @return CommandResponse
      */
-    public function execute(): CommandResponse {
+    public function execute(): CommandResponse
+    {
         $inventoryItems = $this->container->get('kingdom.inventory_item_repository')->findByUser($this->user);
 
         $itemData = [];
@@ -24,13 +26,13 @@ class Inventory extends AbstractGameCommand {
             $itemSlot = $inventoryItem->getSlot();
 
             $itemResult = [
-                'itemId'       => $itemId,
-                'name'         => $item->getName(),
-                'name4'        => $item->getName4(),
-                'description'  => $item->getDescription(),
-                'quantity'     => $inventoryItem->getQuantity(),
+                'itemId' => $itemId,
+                'name' => $item->getName(),
+                'name4' => $item->getName4(),
+                'description' => $item->getDescription(),
+                'quantity' => $inventoryItem->getQuantity(),
                 'allowedSlots' => $item->getSlots(),
-                'pic'          => $item->getPicture(),
+                'pic' => $item->getPicture(),
             ];
 
             if ($itemSlot) {

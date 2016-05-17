@@ -8,6 +8,7 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
 /**
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\ItemRepository")
  */
-class ResourceWood extends Item {
+class ResourceWood extends Item
+{
 
 }

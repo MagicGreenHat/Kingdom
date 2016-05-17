@@ -191,7 +191,8 @@ abstract class User extends BaseUser
     /**
      * Обнуление вейтстейта
      */
-    public function dropWaitState() {
+    public function dropWaitState()
+    {
         $this->waitstate = 0;
     }
 

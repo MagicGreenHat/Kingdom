@@ -5,13 +5,14 @@ namespace Rottenwood\KingdomBundle\Command\Console\Integration;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
-abstract class Truncate extends ContainerAwareCommand {
+abstract class Truncate extends ContainerAwareCommand
+{
 
     /**
-     * @param string          $entityName
+     * @param string $entityName
      * @param OutputInterface $output
-     * @param string          $startEcho
-     * @param string          $endEcho
+     * @param string $startEcho
+     * @param string $endEcho
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Doctrine\DBAL\DBALException
      */

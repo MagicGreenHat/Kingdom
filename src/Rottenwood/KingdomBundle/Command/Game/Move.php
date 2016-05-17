@@ -12,7 +12,8 @@ use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
  * Перемещение по карте
  * Применение в js: Kingdom.Websocket.command('move', 'north|south|west|east')
  */
-class Move extends AbstractGameCommand {
+class Move extends AbstractGameCommand
+{
 
     private $waitState = 5;
 
@@ -20,7 +21,8 @@ class Move extends AbstractGameCommand {
      * @return CommandResponse
      * @throws InvalidCommandParameter
      */
-    public function execute(): CommandResponse {
+    public function execute(): CommandResponse
+    {
 
         if ($this->user->isBusy()) {
             $this->result->setWaitstate($this->user->getWaitstate());
@@ -88,8 +90,8 @@ class Move extends AbstractGameCommand {
             $userService = $this->container->get('kingdom.user_service');
 
             $resultData = [
-                'name'          => $userName,
-                'directionTo'   => $directionTo,
+                'name' => $userName,
+                'directionTo' => $directionTo,
                 'directionFrom' => $directionFrom,
             ];
 
@@ -120,7 +122,8 @@ class Move extends AbstractGameCommand {
      * @param Room $room
      * @return bool
      */
-    private function userCanWalkToRoom(Room $room): bool {
+    private function userCanWalkToRoom(Room $room): bool
+    {
         return $room->getType()->userCanWalk();
     }
 }

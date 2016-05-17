@@ -4,7 +4,8 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Rottenwood\KingdomBundle\Entity\Room;
 
-class RoomRepository extends AbstractRepository {
+class RoomRepository extends AbstractRepository
+{
 
     /**
      * Поиск по координатам
@@ -12,7 +13,8 @@ class RoomRepository extends AbstractRepository {
      * @param int $y
      * @return Room|null
      */
-    public function findOneByXandY($x, $y) {
+    public function findOneByXandY($x, $y)
+    {
         return $this->findOneBy(['x' => $x, 'y' => $y]);
     }
 
@@ -20,7 +22,8 @@ class RoomRepository extends AbstractRepository {
      * Поиск всех комнат
      * @return Room[]
      */
-    public function findAllRooms() {
+    public function findAllRooms()
+    {
         return $this->findAll();
     }
 }

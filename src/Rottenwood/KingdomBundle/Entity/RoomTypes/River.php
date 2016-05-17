@@ -9,7 +9,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\RoomType;
  * Тип комнаты: Река
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomTypeRepository")
  */
-class River extends RoomType {
+class River extends RoomType
+{
 
     /** {@inheritdoc} */
     protected $name = 'Река';

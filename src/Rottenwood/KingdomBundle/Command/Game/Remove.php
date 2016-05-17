@@ -10,12 +10,14 @@ use Rottenwood\KingdomBundle\Command\Infrastructure\CommandResponse;
  * Список слотов доступен в статическом методе Item::getAllSlotNames()
  * Применение в js: Kingdom.Websocket.command('remove', 'названиеСлота')
  */
-class Remove extends AbstractGameCommand {
+class Remove extends AbstractGameCommand
+{
 
     /**
      * @return CommandResponse
      */
-    public function execute(): CommandResponse {
+    public function execute(): CommandResponse
+    {
         $inventoryItemRepository = $this->container->get('kingdom.inventory_item_repository');
         $item = $inventoryItemRepository->findOneByUserAndSlot($this->user, $this->parameters);
         $item->removeSlot();

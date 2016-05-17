@@ -14,15 +14,18 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Parser;
 
-class CreateItemsCommand extends ContainerAwareCommand {
+class CreateItemsCommand extends ContainerAwareCommand
+{
 
     const RESOURCE_QUANTITY = 10;
 
-    protected function configure() {
+    protected function configure()
+    {
         $this->setName('kingdom:create:items')->setDescription('Создание тестовых предметов');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $container = $this->getContainer();
 
         $itemRepository = $container->get('kingdom.item_repository');
@@ -80,7 +83,9 @@ class CreateItemsCommand extends ContainerAwareCommand {
                                 $em->persist($roomResource);
 
                                 $output->writeln(
-                                    sprintf('Ресурс "%s" добавлен в комнату %s[%d/%d] в количестве %d единиц.', $newItem->getName(), $room->getName(), $room->getX(), $room->getY(), $roomResource->getQuantity())
+                                    sprintf('Ресурс "%s" добавлен в комнату %s[%d/%d] в количестве %d единиц.',
+                                        $newItem->getName(), $room->getName(), $room->getX(), $room->getY(),
+                                        $roomResource->getQuantity())
                                 );
                             }
                         }
@@ -98,7 +103,8 @@ class CreateItemsCommand extends ContainerAwareCommand {
      * Парсинг yaml-файлов с данными об игровых предметах
      * @return array
      */
-    private function parseItemsFromYaml(): array {
+    private function parseItemsFromYaml(): array
+    {
         $yamlParser = new Parser();
         $fileFinder = new Finder();
 

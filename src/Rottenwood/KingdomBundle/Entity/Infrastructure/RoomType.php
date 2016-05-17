@@ -21,7 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  *      "stone_wall" = "Rottenwood\KingdomBundle\Entity\RoomTypes\StoneWall",
  * })
  */
-abstract class RoomType {
+abstract class RoomType
+{
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -69,7 +70,8 @@ abstract class RoomType {
      * @param string $description
      * @param string $picture
      */
-    public function __construct($name = '', $description = '', $picture = '') {
+    public function __construct($name = '', $description = '', $picture = '')
+    {
         if ($name) {
             $this->name = $name;
         }
@@ -86,42 +88,48 @@ abstract class RoomType {
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * @return string
      */
-    public function getPicture() {
+    public function getPicture()
+    {
         return $this->picture;
     }
 
     /**
      * @return boolean
      */
-    public function userCanWalk() {
+    public function userCanWalk()
+    {
         return $this->canWalk;
     }
 
     /**
      * @return boolean
      */
-    public function userCanFly() {
+    public function userCanFly()
+    {
         return $this->canFly;
     }
 }

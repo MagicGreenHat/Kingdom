@@ -57,12 +57,12 @@ class ObtainWood extends AbstractGameCommand
     /**
      * Добыча ресурсов
      * //TODO[Rottenwood]: Рефакторинг. Перенести в ObtainService
-     * @param RoomResource  $resource
+     * @param RoomResource $resource
      * @param EntityManager $em
-     * @param array         $result
-     * @param UserService   $userService
-     * @param Item          $resourceItem
-     * @param Room          $room
+     * @param array $result
+     * @param UserService $userService
+     * @param Item $resourceItem
+     * @param Room $room
      * @return array
      */
     public function obtain(
@@ -72,7 +72,8 @@ class ObtainWood extends AbstractGameCommand
         UserService $userService,
         Item $resourceItem,
         Room $room
-    ): array {
+    ): array
+    {
         if ($this->user->isBusy()) {
             $this->result->setWaitstate($this->user->getWaitstate());
 
@@ -103,8 +104,8 @@ class ObtainWood extends AbstractGameCommand
     /**
      * Транзакция с локированием добываемого ресурса
      * @param EntityManager $em
-     * @param int           $resourceId
-     * @param UserService   $userService
+     * @param int $resourceId
+     * @param UserService $userService
      * @return void
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Exception

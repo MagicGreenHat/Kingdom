@@ -10,16 +10,18 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
  * Отображение игроков в текущей комнате
  * Применение в js: Kingdom.Websocket.command('showPlayersInRoom')
  */
-class ShowPlayersInRoom extends AbstractGameCommand {
+class ShowPlayersInRoom extends AbstractGameCommand
+{
 
     /**
      * @return CommandResponse
      */
-    public function execute(): CommandResponse {
+    public function execute(): CommandResponse
+    {
         $playersInRoom = array_map(
-            function(User $user) {
+            function (User $user) {
                 return [
-                    'name'   => $user->getName(),
+                    'name' => $user->getName(),
                     'stance' => 'стоит тут.',
                 ];
             },

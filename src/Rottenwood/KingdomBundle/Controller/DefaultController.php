@@ -2,7 +2,7 @@
 
 namespace Rottenwood\KingdomBundle\Controller;
 
-use Rottenwood\KingdomBundle\Entity\User;
+use Rottenwood\KingdomBundle\Entity\Infrastructure\User;
 use Rottenwood\KingdomBundle\Redis\RedisClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,14 +11,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DefaultController extends Controller {
+class DefaultController extends Controller
+{
 
     /**
      * //TODO[Rottenwood]: Сделать главную страницу
      * @Route("/", name="index")
      * @return Response
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         if ($this->getUser()) {
             return $this->redirectToRoute('game_page');
         } else {
@@ -33,7 +35,8 @@ class DefaultController extends Controller {
      * @param Request $request
      * @return Response
      */
-    public function gamePageAction(Request $request) {
+    public function gamePageAction(Request $request)
+    {
         $sessionId = $request->getSession()->getId();
         /** @var User $user */
         $user = $this->getUser();
@@ -56,7 +59,8 @@ class DefaultController extends Controller {
      * @param Request $request
      * @return Response
      */
-    public function characterPageAction(Request $request) {
+    public function characterPageAction(Request $request)
+    {
         $userNameOrId = $request->attributes->get('name');
         $humanRepository = $this->get('kingdom.human_repository');
 

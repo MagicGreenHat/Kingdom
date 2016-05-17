@@ -4,14 +4,16 @@ namespace FOS\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-class RegistrationType extends RegistrationFormType {
+class RegistrationType extends RegistrationFormType
+{
 
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder->add(
             'email',
             'email',
             [
-                'label'              => 'form.email',
+                'label' => 'form.email',
                 'translation_domain' => 'FOSUserBundle',
             ]
         );
@@ -20,7 +22,7 @@ class RegistrationType extends RegistrationFormType {
             'username',
             null,
             [
-                'label'              => 'form.username',
+                'label' => 'form.username',
                 'translation_domain' => 'FOSUserBundle',
             ]
         );
@@ -29,10 +31,10 @@ class RegistrationType extends RegistrationFormType {
             'plainPassword',
             'repeated',
             [
-                'type'            => 'password',
-                'options'         => ['translation_domain' => 'FOSUserBundle'],
-                'first_options'   => ['label' => 'form.password'],
-                'second_options'  => ['label' => 'form.password_confirmation'],
+                'type' => 'password',
+                'options' => ['translation_domain' => 'FOSUserBundle'],
+                'first_options' => ['label' => 'form.password'],
+                'second_options' => ['label' => 'form.password_confirmation'],
                 'invalid_message' => 'fos_user.password.mismatch',
             ]
         );

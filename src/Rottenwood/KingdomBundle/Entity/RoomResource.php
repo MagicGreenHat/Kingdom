@@ -10,7 +10,8 @@ use Rottenwood\KingdomBundle\Entity\Infrastructure\Item;
  * @ORM\Table(name="rooms_items")
  * @ORM\Entity(repositoryClass="Rottenwood\KingdomBundle\Entity\Infrastructure\RoomResourceRepository")
  */
-class RoomResource {
+class RoomResource
+{
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -46,9 +47,10 @@ class RoomResource {
     /**
      * @param Room $room
      * @param Item $item
-     * @param int  $quantity
+     * @param int $quantity
      */
-    public function __construct(Room $room, Item $item, $quantity) {
+    public function __construct(Room $room, Item $item, $quantity)
+    {
         $this->room = $room;
         $this->item = $item;
         $this->quantity = $quantity;
@@ -57,35 +59,40 @@ class RoomResource {
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * @return Room
      */
-    public function getRoom() {
+    public function getRoom()
+    {
         return $this->room;
     }
 
     /**
      * @return Item
      */
-    public function getItem() {
+    public function getItem()
+    {
         return $this->item;
     }
 
     /**
      * @return int
      */
-    public function getQuantity() {
+    public function getQuantity()
+    {
         return $this->quantity;
     }
 
     /**
      * @param int $amount
      */
-    public function reduceQuantity($amount) {
+    public function reduceQuantity($amount)
+    {
         $this->quantity -= $amount;
     }
 }

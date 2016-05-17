@@ -4,24 +4,27 @@ namespace Rottenwood\KingdomBundle\Entity\Infrastructure;
 
 use Rottenwood\KingdomBundle\Entity\InventoryItem;
 
-class InventoryItemRepository extends AbstractRepository {
+class InventoryItemRepository extends AbstractRepository
+{
 
     /**
      * Все предметы в инвентаре игрока
      * @param User $user
      * @return InventoryItem[]
      */
-    public function findByUser(User $user) {
+    public function findByUser(User $user)
+    {
         return $this->findBy(['user' => $user]);
     }
 
     /**
      * Предмет с itemId в инвентаре игрока
-     * @param User   $user
+     * @param User $user
      * @param string $itemId
      * @return InventoryItem|null
      */
-    public function findOneByUserAndItemId(User $user, $itemId) {
+    public function findOneByUserAndItemId(User $user, $itemId)
+    {
         return $this->findOneBy(
             [
                 'user' => $user,
@@ -36,14 +39,15 @@ class InventoryItemRepository extends AbstractRepository {
      * @param string $slotName
      * @return InventoryItem|null
      */
-    public function findOneByUserAndSlot($user, $slotName) {
+    public function findOneByUserAndSlot($user, $slotName)
+    {
         $builder = $this->createQueryBuilder('inventory_item');
         $builder->select('inventory_item');
         $builder->where('inventory_item.user = :user');
         $builder->andWhere('inventory_item.slot = :slotName');
         $builder->setParameters(
             [
-                'user'     => $user,
+                'user' => $user,
                 'slotName' => $slotName,
             ]
         );
