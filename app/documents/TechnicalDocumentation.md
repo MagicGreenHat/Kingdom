@@ -1,1 +1,1 @@
-see https://github.com/MagicGreenHat/Kingdom/wiki/TechnicalDocumentation.md
+see https://github.com/MagicGreenHat/Kingdom/wiki/TechnicalDocumentation
