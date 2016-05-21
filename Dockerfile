@@ -17,7 +17,9 @@ RUN apt-get install -y --force-yes \
     php7.0-cli \
     php7.0-curl \
     php7.0-fpm \
-    php7.0-mysql
+    php7.0-mysql \
+    php7.0-mbstring \
+    php7.0-xml
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 RUN curl -sS https://getcomposer.org/installer | php
