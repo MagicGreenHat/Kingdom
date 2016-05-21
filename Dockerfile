@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER Petr Karmashev (Rottenwood) <smonkl@bk.ru>
+MAINTAINER Petr Karmashev <smonkl@bk.ru>
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -20,7 +20,6 @@ RUN apt-get install -y --force-yes \
     php7.0-mysql
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
-
 RUN curl -sS https://getcomposer.org/installer | php
 
 EXPOSE 7777 81

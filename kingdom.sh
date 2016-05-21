@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#### VARIABLES ####
+DOCKER_IMAGE_NAME="rottenwood/kingdom:2.0.0"
+###################
+
 command -v curl >/dev/null 2>&1 || { echo "Curl не установлен. Установка: sudo apt-get install curl"; exit 1; }
 command -v docker >/dev/null 2>&1 || { echo "Докер не установлен. Установка: curl -sSL https://get.docker.com/ | sh"; exit 1; }
 
@@ -49,18 +53,18 @@ case $1 in
 
     if [ $? -eq 0 ]; then
         echo "Обновление образа из Docker hub ..."
-        docker pull rottenwood/kingdom:php7
+        docker pull ${DOCKER_IMAGE_NAME}
     fi
 ;;
 
 'build')
     $0 stop
     echo "Сборка Docker-образа ..."
-    docker rmi rottenwood/kingdom:php7 > /dev/null 2>&1
-    docker build --no-cache -t rottenwood/kingdom:php7 .
+    docker rmi ${DOCKER_IMAGE_NAME} > /dev/null 2>&1
+    docker build --no-cache -t ${DOCKER_IMAGE_NAME} .
 
     if [ ! -z $2 ] && [ $2 = "push" ]; then
-        docker push rottenwood/kingdom:php7
+        docker push ${DOCKER_IMAGE_NAME}
     fi
 ;;
 
@@ -108,7 +112,7 @@ case $1 in
         --link kingdom-mysql-server:mysql \
         -e SYMFONY_ENVIRONMENT="$SYMFONY_ENVIRONMENT" \
         -e TERM=xterm \
-        rottenwood/kingdom:php7
+        ${DOCKER_IMAGE_NAME}
 
     SERVER_URL="$(ifconfig docker | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')"
 

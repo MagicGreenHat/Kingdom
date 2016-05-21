@@ -1,2 +1,2 @@
-deb http://ppa.launchpad.net/ondrej/php-7.0/ubuntu trusty main
-deb-src http://ppa.launchpad.net/ondrej/php-7.0/ubuntu trusty main
+deb http://ppa.launchpad.net/ondrej/php/ubuntu trusty main
+deb-src http://ppa.launchpad.net/ondrej/php/ubuntu trusty main
