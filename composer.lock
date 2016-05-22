@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b4363fb91f0d0839ce73a16a3eb86edc",
-    "content-hash": "41b2e6501115ed32c611765b8fc52bfa",
+    "hash": "bcc449e6a9ad65481f494330452c61d2",
+    "content-hash": "423e5398d651d6fd28d85f94bcacf0f5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2533,68 +2533,6 @@
             "time": "2016-04-15 02:56:43"
         },
         {
-            "name": "composer/semver",
-            "version": "1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "84c47f3d8901440403217afc120683c7385aecb8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/84c47f3d8901440403217afc120683c7385aecb8",
-                "reference": "84c47f3d8901440403217afc120683c7385aecb8",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.2 || ^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.5 || ^5.0.5",
-                "phpunit/phpunit-mock-objects": "2.3.0 || ^3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                },
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com",
-                    "homepage": "http://robbast.nl"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "time": "2016-03-30 13:16:03"
-        },
-        {
             "name": "facebook/webdriver",
             "version": "1.1.1",
             "source": {
@@ -2636,101 +2574,6 @@
                 "webdriver"
             ],
             "time": "2015-12-31 15:58:49"
-        },
-        {
-            "name": "guzzle/guzzle",
-            "version": "v3.9.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/guzzle3.git",
-                "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/0645b70d953bc1c067bbc8d5bc53194706b628d9",
-                "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.3",
-                "symfony/event-dispatcher": "~2.1"
-            },
-            "replace": {
-                "guzzle/batch": "self.version",
-                "guzzle/cache": "self.version",
-                "guzzle/common": "self.version",
-                "guzzle/http": "self.version",
-                "guzzle/inflection": "self.version",
-                "guzzle/iterator": "self.version",
-                "guzzle/log": "self.version",
-                "guzzle/parser": "self.version",
-                "guzzle/plugin": "self.version",
-                "guzzle/plugin-async": "self.version",
-                "guzzle/plugin-backoff": "self.version",
-                "guzzle/plugin-cache": "self.version",
-                "guzzle/plugin-cookie": "self.version",
-                "guzzle/plugin-curlauth": "self.version",
-                "guzzle/plugin-error-response": "self.version",
-                "guzzle/plugin-history": "self.version",
-                "guzzle/plugin-log": "self.version",
-                "guzzle/plugin-md5": "self.version",
-                "guzzle/plugin-mock": "self.version",
-                "guzzle/plugin-oauth": "self.version",
-                "guzzle/service": "self.version",
-                "guzzle/stream": "self.version"
-            },
-            "require-dev": {
-                "doctrine/cache": "~1.3",
-                "monolog/monolog": "~1.0",
-                "phpunit/phpunit": "3.7.*",
-                "psr/log": "~1.0",
-                "symfony/class-loader": "~2.1",
-                "zendframework/zend-cache": "2.*,<2.3",
-                "zendframework/zend-log": "2.*,<2.3"
-            },
-            "suggest": {
-                "guzzlehttp/guzzle": "Guzzle 5 has moved to a new package name. The package you have installed, Guzzle 3, is deprecated."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.9-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Guzzle": "src/",
-                    "Guzzle\\Tests": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                },
-                {
-                    "name": "Guzzle Community",
-                    "homepage": "https://github.com/guzzle/guzzle/contributors"
-                }
-            ],
-            "description": "PHP HTTP client. This library is deprecated in favor of https://packagist.org/packages/guzzlehttp/guzzle",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http client",
-                "rest",
-                "web service"
-            ],
-            "time": "2015-03-18 18:23:50"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2902,110 +2745,6 @@
                 "uri"
             ],
             "time": "2016-04-13 19:56:01"
-        },
-        {
-            "name": "knplabs/packagist-api",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/packagist-api.git",
-                "reference": "9aebf8238943289d3bc3ab51e0014ed94a7a266a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/packagist-api/zipball/9aebf8238943289d3bc3ab51e0014ed94a7a266a",
-                "reference": "9aebf8238943289d3bc3ab51e0014ed94a7a266a",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/inflector": "~1.0",
-                "guzzle/guzzle": "~3.0",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpspec/php-diff": "*@dev",
-                "phpspec/phpspec": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Packagist\\Api\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                }
-            ],
-            "description": "Packagist API client.",
-            "homepage": "http://knplabs.com",
-            "keywords": [
-                "api",
-                "composer",
-                "packagist"
-            ],
-            "time": "2015-09-07 14:25:16"
-        },
-        {
-            "name": "league/climate",
-            "version": "3.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/climate.git",
-                "reference": "b103fc8faa3780c802cc507d5f0ff534ecc94fb5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/climate/zipball/b103fc8faa3780c802cc507d5f0ff534ecc94fb5",
-                "reference": "b103fc8faa3780c802cc507d5f0ff534ecc94fb5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "seld/cli-prompt": "~1.0"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "~1.4",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "League\\CLImate\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joe Tannenbaum",
-                    "email": "hey@joe.codes",
-                    "homepage": "http://joe.codes/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP's best friend for the terminal. CLImate allows you to easily output colored text, special formats, and more.",
-            "keywords": [
-                "cli",
-                "colors",
-                "command",
-                "php",
-                "terminal"
-            ],
-            "time": "2016-04-04 20:24:59"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4155,54 +3894,6 @@
             "time": "2016-02-04 12:56:52"
         },
         {
-            "name": "seld/cli-prompt",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Seldaek/cli-prompt.git",
-                "reference": "8cbe10923cae5bcd7c5a713f6703fc4727c8c1b4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/cli-prompt/zipball/8cbe10923cae5bcd7c5a713f6703fc4727c8c1b4",
-                "reference": "8cbe10923cae5bcd7c5a713f6703fc4727c8c1b4",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Seld\\CliPrompt\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be"
-                }
-            ],
-            "description": "Allows you to prompt for user input on the command line, and optionally hide the characters they type",
-            "keywords": [
-                "cli",
-                "console",
-                "hidden",
-                "input",
-                "prompt"
-            ],
-            "time": "2016-04-18 09:31:41"
-        },
-        {
             "name": "sensio/generator-bundle",
             "version": "v2.5.3",
             "target-dir": "Sensio/Bundle/GeneratorBundle",
@@ -4249,66 +3940,6 @@
             ],
             "description": "This bundle generates code for you",
             "time": "2015-03-17 06:36:52"
-        },
-        {
-            "name": "vinkla/climb",
-            "version": "0.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/deprecat/climb.git",
-                "reference": "2038fc1decc2fe78aef05dcf3ddf20721354ca66"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/deprecat/climb/zipball/2038fc1decc2fe78aef05dcf3ddf20721354ca66",
-                "reference": "2038fc1decc2fe78aef05dcf3ddf20721354ca66",
-                "shasum": ""
-            },
-            "require": {
-                "composer/semver": "^1.1",
-                "knplabs/packagist-api": "^1.3",
-                "league/climate": "^3.2",
-                "php": ">=5.5.9",
-                "symfony/console": "^2.6 || ^3.0",
-                "symfony/process": "^2.6 || ^3.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.8 || ^5.0"
-            },
-            "bin": [
-                "bin/climb"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Vinkla\\Climb\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vincent Klaiber",
-                    "email": "hello@vinkla.com"
-                }
-            ],
-            "description": "A Composer version manager tool",
-            "keywords": [
-                "cli",
-                "command",
-                "composer",
-                "version"
-            ],
-            "abandoned": "composer/composer",
-            "time": "2016-01-07 14:32:24"
         }
     ],
     "aliases": [],

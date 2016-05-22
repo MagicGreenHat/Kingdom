@@ -37,8 +37,7 @@
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
         "codeception/codeception": "*",
-        "phake/phake": "@stable",
-        "vinkla/climb": "^0.8.1"
+        "phake/phake": "@stable"
     },
     "scripts": {
         "post-install-cmd": [

@@ -7,7 +7,7 @@ services:
 
 install:
     - ./kingdom.sh start test
-    - sleep 160
+    - sleep 200
     - ./kingdom.sh log
 
 script:
