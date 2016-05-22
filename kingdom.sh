@@ -129,9 +129,9 @@ case $1 in
 
 'stop')
     echo "Удаление старого контейнера ..."
-    docker kill kingdom > /dev/null 2>&1
+    docker stop kingdom > /dev/null 2>&1
     docker rm kingdom > /dev/null 2>&1
-    docker kill kingdom-mysql-server > /dev/null 2>&1
+    docker stop kingdom-mysql-server > /dev/null 2>&1
     docker rm kingdom-mysql-server > /dev/null 2>&1
     echo "Контейнер остановлен и удален!"
 ;;
@@ -158,22 +158,22 @@ case $1 in
 
     MINUTES_TO_REBOOT=10
     BROADCAST_MESSAGE="Перезагрузка через $MINUTES_TO_REBOOT минут!";
-    $0 broadcast $BROADCAST_MESSAGE
-    echo $BROADCAST_MESSAGE
+    $0 broadcast ${BROADCAST_MESSAGE}
+    echo ${BROADCAST_MESSAGE}
     sleep $(echo "5 * 60" | bc)
 
     # Второе предупреждение
     MINUTES_TO_REBOOT=5
     BROADCAST_MESSAGE="Перезагрузка через $MINUTES_TO_REBOOT минут!";
-    $0 broadcast $BROADCAST_MESSAGE
-    echo $BROADCAST_MESSAGE
+    $0 broadcast ${BROADCAST_MESSAGE}
+    echo ${BROADCAST_MESSAGE}
     sleep $(echo "4 * 60" | bc)
 
     # Последнее предупреждение
     MINUTES_TO_REBOOT=1
     BROADCAST_MESSAGE="Перезагрузка через $MINUTES_TO_REBOOT минуту!";
-    $0 broadcast $BROADCAST_MESSAGE
-    echo $BROADCAST_MESSAGE
+    $0 broadcast ${BROADCAST_MESSAGE}
+    echo ${BROADCAST_MESSAGE}
     sleep $(echo "1 * 60" | bc)
 
     $0 restart $2
@@ -223,8 +223,8 @@ case $1 in
     ;;
     esac
 
-    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run $TYPE \
-        -c /kingdom/codeception.yml $VERBOSE
+    docker exec -it kingdom /kingdom/vendor/codeception/codeception/codecept run ${TYPE} \
+        -c /kingdom/codeception.yml ${VERBOSE}
 ;;
 
 (gulp|css|js)
