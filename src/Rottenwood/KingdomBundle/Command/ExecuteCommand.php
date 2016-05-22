@@ -82,7 +82,7 @@ class ExecuteCommand extends ContainerAwareCommand
                 throw new InvalidCommandResponse;
             }
 
-            $resultData = $result->getData();
+            $resultData = $result->getContents();
         } catch (\Exception $exception) {
             $logger = $container->get('kingdom.logger.commands_errors');
             $logger->info($exception->getMessage(), ['exception' => $exception]);

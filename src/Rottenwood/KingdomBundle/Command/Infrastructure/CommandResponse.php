@@ -34,7 +34,7 @@ class CommandResponse
     /**
      * @return array
      */
-    public function getData(): array
+    public function getContents(): array
     {
         return array_filter(
             [
