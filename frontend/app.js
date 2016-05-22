@@ -1,6 +1,6 @@
 $(function () {
     var connection = new autobahn.Connection({
-        url: 'ws://' + window.location.hostname + ':7777', // параметр передается из twig-шаблона
+        url: 'ws://' + window.location.hostname + ':7777',
         realm: 'kingdom'
     });
 
@@ -9,7 +9,9 @@ $(function () {
             sessionId: sessionId // параметр передаeтся из twig-шаблона
         };
 
-        // Запись вебсокет-сессии
+        /**
+         * Запись вебсокет-сессии
+         */
         Kingdom.Websocket.register(session, sessionId);
 
         /**
@@ -212,18 +214,6 @@ $(function () {
                 $roomControls.append('<div class="resource-obtain ' + resource.id + ' button">Добывать ' + resource.name4 + '</div>');
             });
         }
-    }
-
-    /**
-     * @Deprecated Удалить в v0.3.0
-     * Обновление информации о доступных ресурсах в комнате
-     * @param resourcesData
-     */
-    function updateResources(resourcesData) {
-        $.each(resourcesData, function(resourceId, resourceQuantity) {
-            var $resourceQuantity = $gameContentRoom.find('.room-resources-list .resource.' + resourceId + ' .quantity');
-            $resourceQuantity.html(resourceQuantity);
-        });
     }
 
     /**
